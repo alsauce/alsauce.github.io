@@ -1,0 +1,2038 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <title>Timeline</title>
+
+
+    <script type="text/javascript">
+
+        //Starts Noon Aug 20
+        //Ends around 2:00AM Monday Aug 23
+        //2 days, 14 hours, 0 minutes and 0 seconds can be converted to one of these units:
+
+        //223,200 seconds
+        //3720 minutes
+        //62 hours
+        let durationHours = 80;
+        let startHour = 11;
+        let locations = ["EC", "RB", "DH", "AD", "FF", "R"];
+        var xSizeForTimeWrittenOnLeft = 160;
+        var timeyHeight = 400.0;
+        var yHeightOffset = 150;
+        var pmOffset = 60.0;
+        var width = 1;
+        var startTime = new Date(2022, 7, 19, 11, 0, 0, 0);
+        var secondsInAnHour = 60 * 60;
+        var test = 0;
+        //size.x =  window.innerWidth
+        var xBlockWidth = (window.innerWidth - xSizeForTimeWrittenOnLeft) / locations.length;
+        var storedTime = new Date(2022, 7, 19, 11, 1, 0, 0);
+        var init = true;
+        var storedEventsKey = "storedEventsV14";
+        var storedWidthKey = "storedWidthV14";
+
+        window.onresize = function () {drawAll();}
+
+        function drawAll() {
+            xBlockWidth = (window.innerWidth - xSizeForTimeWrittenOnLeft) / locations.length;
+
+            drawTop();
+            drawTimeCurrentTimeSchedule();
+        }
+
+        let eventsPrimer = [
+
+            //Main day 1 Aug 19
+            {
+                eventName: "Last Podcast",
+                eventInfo: "",
+                eventLocation: "EC",
+                eventDay: "1",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "0:00|AM",
+                eventEndTime: "1:00|AM"
+            },
+            {
+                eventName: "Emperor",
+                eventInfo: "Y black",
+                eventLocation: "EC",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "9:00|PM",
+                eventEndTime: "10:30|PM"
+            },
+            {
+                eventName: "Mayhem",
+                eventInfo: "Y black",
+                eventLocation: "EC",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "7:00|PM",
+                eventEndTime: "8:00|PM"
+            },
+            {
+                eventName: "Carcass",
+                eventInfo: "y death",
+                eventLocation: "EC",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "5:30|PM",
+                eventEndTime: "6:30|PM"
+            },
+            {
+                eventName: "Wolves ITTR",
+                eventInfo: "Y black",
+                eventLocation: "EC",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "4:00|PM",
+                eventEndTime: "5:00|PM"
+            },
+            {
+                eventName: "MGLA",
+                eventInfo: "Y black",
+                eventLocation: "EC",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "2:30|PM",
+                eventEndTime: "3:30|PM"
+            },
+            
+            //Rose Ballroom
+            {
+                eventName: "Carpenter Brut",
+                eventInfo: "Y darksynth",
+                eventLocation: "RB",
+                eventDay: "1",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "00:40|AM",
+                eventEndTime: "2:00|AM"
+            },
+            {
+                eventName: "Nothing",
+                eventInfo: "m indie",
+                eventLocation: "RB",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "20",
+                eventStartTime: "11:10|PM",
+                eventEndTime: "00:10|AM"
+            },
+            {
+                eventName: "Soft Kill",
+                eventInfo: "m sadcore",
+                eventLocation: "RB",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "9:45|PM",
+                eventEndTime: "10:45|PM"
+            },
+            {
+                eventName: "...Trail Dead",
+                eventInfo: "m rock",
+                eventLocation: "RB",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "8:20|PM",
+                eventEndTime: "9:20|PM"
+            },
+            {
+                eventName: "Juliana Theory",
+                eventInfo: "n emo",
+                eventLocation: "RB",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "6:55|PM",
+                eventEndTime: "7:55|PM"
+            },
+            {
+                eventName: "King Woman",
+                eventInfo: "Y F doom",
+                eventLocation: "RB",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "5:30|PM",
+                eventEndTime: "6:30|PM"
+            },
+            {
+                eventName: "Wand",
+                eventInfo: "N psych rock",
+                eventLocation: "RB",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "4:05|PM",
+                eventEndTime: "5:05|PM"
+            },
+            {
+                eventName: "Marissa Nadler",
+                eventInfo: "N F G like?",
+                eventLocation: "RB",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "2:40|PM",
+                eventEndTime: "3:40|PM"
+            },
+            {
+                eventName: "N8noface",
+                eventInfo: "m punk edm",
+                eventLocation: "RB",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "1:20|PM",
+                eventEndTime: "2:20|PM"
+            },
+            {
+                eventName: "Devil Master",
+                eventInfo: "Y black",
+                eventLocation: "RB",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "12:10|PM",
+                eventEndTime: "1:00|PM"
+            },
+            {
+                eventName: "Sanguisugabogg",
+                eventInfo: "y death",
+                eventLocation: "RB",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "11:00|AM",
+                eventEndTime: "11:50|AM"
+            },
+            
+            // Dawg House day 1
+            {
+                eventName: "Goddamn Gallows",
+                eventInfo: "N folk punk",
+                eventLocation: "DH",
+                eventDay: "1",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "1:25|AM",
+                eventEndTime: "2:25|AM"
+            },
+            {
+                eventName: "Sugar Candy Mtn",
+                eventInfo: "n f psychrock",
+                eventLocation: "DH",
+                eventDay: "1",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "0:00|AM",
+                eventEndTime: "1:00|AM"
+            },
+            {
+                eventName: "Holy Wave",
+                eventInfo: "N emorock",
+                eventLocation: "DH",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "10:35|PM",
+                eventEndTime: "11:35|PM"
+            },
+            {
+                eventName: "Golden Dawn Arkestra",
+                eventInfo: "M funkspych",
+                eventLocation: "DH",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "9:10|PM",
+                eventEndTime: "10:10|PM"
+            },
+            {
+                eventName: "Mothership",
+                eventInfo: "N stoner",
+                eventLocation: "DH",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "7:45|PM",
+                eventEndTime: "8:45|PM"
+            },
+            {
+                eventName: "Sasquatch",
+                eventInfo: "M stoner",
+                eventLocation: "DH",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "6:15|PM",
+                eventEndTime: "7:15|PM"
+            },
+            {
+                eventName: "Great Electric Quest",
+                eventInfo: "M stnrRock",
+                eventLocation: "DH",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "5:00|PM",
+                eventEndTime: "5:50|PM"
+            },
+            {
+                eventName: "Moonily",
+                eventInfo: "Y AF psychRock",
+                eventLocation: "DH",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "3:45|PM",
+                eventEndTime: "4:35|PM"
+            },
+            {
+                eventName: "Hippie Death Cult",
+                eventInfo: "M stoner",
+                eventLocation: "DH",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "2:30|PM",
+                eventEndTime: "3:20|PM"
+            },
+            {
+                eventName: "Early Moods",
+                eventInfo: "M doom",
+                eventLocation: "DH",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "1:15|PM",
+                eventEndTime: "2:05|PM"
+            },
+            {
+                eventName: "Old Fashion Assasin",
+                eventInfo: "M stoner",
+                eventLocation: "DH",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "12:00|PM",
+                eventEndTime: "12:50|PM"
+            },
+            //Ayu Dayclub day 1
+            {
+                eventName: "Nuclear Assault",
+                eventInfo: "M thrash",
+                eventLocation: "AD",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "20",
+                eventStartTime: "11:45|PM",
+                eventEndTime: "1:00|AM"
+            },
+            {
+                eventName: "Cephallic Carnage",
+                eventInfo: "M Death",
+                eventLocation: "AD",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "10:20|PM",
+                eventEndTime: "11:20|PM"
+            },
+            {
+                eventName: "GZA & Inspectah Deck",
+                eventInfo: "hip hop",
+                eventLocation: "AD",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "8:55|PM",
+                eventEndTime: "9:55|PM"
+            },
+            {
+                eventName: "Escuela Grind",
+                eventInfo: "YY F metal?",
+                eventLocation: "AD",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "7:30|PM",
+                eventEndTime: "8:30|PM"
+            },
+            
+            //Day 1 famous foods
+            {
+                eventName: "Gost",
+                eventInfo: "M synth",
+                eventLocation: "FF",
+                eventDay: "1",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "2:20|AM",
+                eventEndTime: "4:00|AM"
+            },
+            {
+                eventName: "Cloak",
+                eventInfo: "Y black",
+                eventLocation: "FF",
+                eventDay: "1",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "1:00|AM",
+                eventEndTime: "2:00|AM"
+            },
+            {
+                eventName: "????",
+                eventInfo: "?",
+                eventLocation: "FF",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "20",
+                eventStartTime: "11:35|PM",
+                eventEndTime: "00:35|AM"
+            },
+            {
+                eventName: "Wizards of Wax",
+                eventInfo: "?",
+                eventLocation: "FF",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "8:35|PM",
+                eventEndTime: "11:15|PM"
+            },
+            {
+                eventName: "Kids N Love DJ",
+                eventInfo: "?",
+                eventLocation: "FF",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "7:25|PM",
+                eventEndTime: "8:25|PM"
+            },
+            {
+                eventName: "Mondo Drag",
+                eventInfo: "N rock",
+                eventLocation: "FF",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "6:00|PM",
+                eventEndTime: "7:00|PM"
+            },
+            {
+                eventName: "Motorbabe",
+                eventInfo: "M F motorhead",
+                eventLocation: "FF",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "4:35|PM",
+                eventEndTime: "5:35|PM"
+            },
+            {
+                eventName: "LSDJS",
+                eventInfo: "dj",
+                eventLocation: "FF",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "3:15|PM",
+                eventEndTime: "4:15|PM"
+            },
+            {
+                eventName: "Stinking Lizaveta",
+                eventInfo: "M doom",
+                eventLocation: "FF",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "1:50|PM",
+                eventEndTime: "2:50|PM"
+            },
+            {
+                eventName: "Yakuza",
+                eventInfo: "M avant",
+                eventLocation: "FF",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "12:25|PM",
+                eventEndTime: "1:25|PM"
+            },
+            {
+                eventName: "DJ Fred (Creem Mag)",
+                eventInfo: "dj",
+                eventLocation: "FF",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "11:00|AM",
+                eventEndTime: "12:20|PM"
+            },
+            
+            //Redtail day 1
+            {
+                eventName: "Whores",
+                eventInfo: "M noiseRock",
+                eventLocation: "R",
+                eventDay: "1",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "1:45|AM",
+                eventEndTime: "2:45|AM"
+            },
+            {
+                eventName: "Akhlys",
+                eventInfo: "M black",
+                eventLocation: "R",
+                eventDay: "1",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "00:15|AM",
+                eventEndTime: "1:15|AM"
+            },
+            {
+                eventName: "Antichrist Seige Mchn",
+                eventInfo: "Y death",
+                eventLocation: "R",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "10:45|PM",
+                eventEndTime: "11:45|PM"
+            },
+            {
+                eventName: "Big Black Delta",
+                eventInfo: "M synth",
+                eventLocation: "R",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "8:45|PM",
+                eventEndTime: "9:45|PM"
+            },
+            {
+                eventName: "Elizabeth Colour Wheel",
+                eventInfo: "M F rock",
+                eventLocation: "R",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "6:45|PM",
+                eventEndTime: "7:45|PM"
+            },
+            {
+                eventName: "LOTION",
+                eventInfo: "?",
+                eventLocation: "R",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "4:45|PM",
+                eventEndTime: "5:45|PM"
+            },
+            {
+                eventName: "Leather Lung",
+                eventInfo: "M doom",
+                eventLocation: "R",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "2:45|PM",
+                eventEndTime: "3:45|PM"
+            },
+            {
+                eventName: "Dreadnought",
+                eventInfo: "M thrash",
+                eventLocation: "R",
+                eventDay: "1",
+                eventStartDate: "19",
+                eventEndDate: "19",
+                eventStartTime: "12:45|PM",
+                eventEndTime: "1:45|PM"
+            },
+            
+            //Day 2 event center
+            
+            {
+                eventName: "Suicidal Tendencies",
+                eventInfo: "K",
+                eventLocation: "EC",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "10:00|PM",
+                eventEndTime: "11:30|PM"
+            },
+            {
+                eventName: "Warpaint",
+                eventInfo: "Y AF indie",
+                eventLocation: "EC",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "8:30|PM",
+                eventEndTime: "9:30|PM"
+            },
+            {
+                eventName: "Black Angels",
+                eventInfo: "M psychRock",
+                eventLocation: "EC",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "7:00|PM",
+                eventEndTime: "8:00|PM"
+            },
+            {
+                eventName: "Ulver",
+                eventInfo: "Y exprmntlElect",
+                eventLocation: "EC",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "5:30|PM",
+                eventEndTime: "6:30|PM"
+            },
+            {
+                eventName: "Bone Thugs",
+                eventInfo: "K",
+                eventLocation: "EC",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "4:00|PM",
+                eventEndTime: "5:00|PM"
+            },
+            {
+                eventName: "Blckwtr Holylight",
+                eventInfo: "Y AF stoner",
+                eventLocation: "EC",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "2:30|PM",
+                eventEndTime: "3:30|PM"
+            },
+            
+            //Day 2 Rose Ballroom
+            {
+                eventName: "Dance w Dead",
+                eventInfo: "Y synthFUN",
+                eventLocation: "RB",
+                eventDay: "2",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "00:40|AM",
+                eventEndTime: "1:40|AM"
+            },         
+            {
+                eventName: "Boris",
+                eventInfo: "Y noise",
+                eventLocation: "RB",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "21",
+                eventStartTime: "11:10|PM",
+                eventEndTime: "00:10|AM"
+            },         
+            {
+                eventName: "Show me Body",
+                eventInfo: "M punk",
+                eventLocation: "RB",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "9:45|PM",
+                eventEndTime: "10:45|PM"
+            },         
+            {
+                eventName: "Tribulation",
+                eventInfo: "Y death",
+                eventLocation: "RB",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "8:20|PM",
+                eventEndTime: "9:20|PM"
+            },         
+            {
+                eventName: "Liturgy",
+                eventInfo: "M blackish",
+                eventLocation: "RB",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "6:55|PM",
+                eventEndTime: "7:55|PM"
+            },         
+            {
+                eventName: "Primitive Man",
+                eventInfo: "K",
+                eventLocation: "RB",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "5:30|PM",
+                eventEndTime: "6:30|PM"
+            },         
+            {
+                eventName: "Blood Incantation",
+                eventInfo: "M death",
+                eventLocation: "RB",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "4:05|PM",
+                eventEndTime: "5:05|PM"
+            },         
+            {
+                eventName: "200 Stab Wounds",
+                eventInfo: "YY death",
+                eventLocation: "RB",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "2:40|PM",
+                eventEndTime: "3:40|PM"
+            },         
+            {
+                eventName: "Frozen Soul",
+                eventInfo: "M death",
+                eventLocation: "RB",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "1:20|PM",
+                eventEndTime: "2:20|PM"
+            },         
+            {
+                eventName: "Indian",
+                eventInfo: "M doom",
+                eventLocation: "RB",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "12:10|PM",
+                eventEndTime: "1:00|PM"
+            },         
+            {
+                eventName: "Mizmor",
+                eventInfo: "Y doom",
+                eventLocation: "RB",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "11:00|AM",
+                eventEndTime: "11:50|AM"
+            },
+            
+            //Day 2 Dawg House
+            {
+                eventName: "Elder",
+                eventInfo: "M doom",
+                eventLocation: "DH",
+                eventDay: "2",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "1:25|AM",
+                eventEndTime: "2:25|AM"
+            },
+            {
+                eventName: "Crobot",
+                eventInfo: "N stoner rock",
+                eventLocation: "DH",
+                eventDay: "2",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "00:00|AM",
+                eventEndTime: "1:00|AM"
+            },
+            {
+                eventName: "Mondo Drag",
+                eventInfo: "M psych",
+                eventLocation: "DH",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "10:35|PM",
+                eventEndTime: "11:35|PM"
+            },
+            {
+                eventName: "New Candys",
+                eventInfo: "M altern",
+                eventLocation: "DH",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "9:10|PM",
+                eventEndTime: "10:10|PM"
+            },
+            {
+                eventName: "Ruby the Hatchet",
+                eventInfo: "M stoneRock",
+                eventLocation: "DH",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "7:45|PM",
+                eventEndTime: "8:45|PM"
+            },
+            {
+                eventName: "Stinking Lizaveta",
+                eventInfo: "M doomJazz",
+                eventLocation: "DH",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "6:15|PM",
+                eventEndTime: "7:15|PM"
+            },
+            {
+                eventName: "Duel",
+                eventInfo: "M stoner",
+                eventLocation: "DH",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "5:00|PM",
+                eventEndTime: "5:50|PM"
+            },
+            {
+                eventName: "Rifflord",
+                eventInfo: "M stoner",
+                eventLocation: "DH",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "3:45|PM",
+                eventEndTime: "4:35|PM"
+            },
+            {
+                eventName: "Belzebong",
+                eventInfo: "M stoner",
+                eventLocation: "DH",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "2:30|PM",
+                eventEndTime: "3:20|PM"
+            },
+            {
+                eventName: "Greenbeard",
+                eventInfo: "M stoner",
+                eventLocation: "DH",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "1:15|PM",
+                eventEndTime: "2:05|PM"
+            },
+            {
+                eventName: "Kings Destroy",
+                eventInfo: "M doom",
+                eventLocation: "DH",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "12:00|PM",
+                eventEndTime: "12:50|PM"
+            },
+            
+            //Day 2 ayu dayclub
+            
+            {
+                eventName: "At the Gates",
+                eventInfo: "Y",
+                eventLocation: "AD",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "21",
+                eventStartTime: "11:45|PM",
+                eventEndTime: "1:00|AM"
+            },
+            {
+                eventName: "Tobacco",
+                eventInfo: "black mosth super rainbow?",
+                eventLocation: "AD",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "10:20|PM",
+                eventEndTime: "11:20|PM"
+            },
+            {
+                eventName: "Gatecreeper",
+                eventInfo: "Y death",
+                eventLocation: "AD",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "8:55|PM",
+                eventEndTime: "9:55|PM"
+            },
+            {
+                eventName: "Bombers",
+                eventInfo: "M motorhead",
+                eventLocation: "AD",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "7:30|PM",
+                eventEndTime: "8:30|PM"
+            },
+            
+            //day 2 famous foods
+            {
+                eventName: "Twin Tribes",
+                eventInfo: "M darkSynth",
+                eventLocation: "FF",
+                eventDay: "2",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "2:20|AM",
+                eventEndTime: "3:30|AM"
+            },
+            {
+                eventName: "Forever Grey",
+                eventInfo: "M darkWave",
+                eventLocation: "FF",
+                eventDay: "2",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "1:00|AM",
+                eventEndTime: "2:00|AM"
+            },
+            {
+                eventName: "Mareux",
+                eventInfo: "M darkwave",
+                eventLocation: "FF",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "21",
+                eventStartTime: "11:35|PM",
+                eventEndTime: "12:35|AM"
+            },
+            {
+                eventName: "Church Cosmic Skull",
+                eventInfo: "M rock",
+                eventLocation: "FF",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "10:15|PM",
+                eventEndTime: "11:15|PM"
+            },
+            {
+                eventName: "Spaceface",
+                eventInfo: "M psychRock",
+                eventLocation: "FF",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "8:50|PM",
+                eventEndTime: "9:50|PM"
+            },
+            {
+                eventName: "Psychlona",
+                eventInfo: "M stoner",
+                eventLocation: "FF",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "7:25|PM",
+                eventEndTime: "8:25|PM"
+            },
+            {
+                eventName: "LSDJS",
+                eventInfo: "dj",
+                eventLocation: "FF",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "6:00|PM",
+                eventEndTime: "7:00|PM"
+            },
+            {
+                eventName: "The Happys",
+                eventInfo: "rock",
+                eventLocation: "FF",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "4:35|PM",
+                eventEndTime: "5:35|PM"
+            },
+            {
+                eventName: "Black Sabbitch",
+                eventInfo: "bs",
+                eventLocation: "FF",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "3:15|PM",
+                eventEndTime: "4:15|PM"
+            },
+            {
+                eventName: "DJ Creem Mag",
+                eventInfo: "dj",
+                eventLocation: "FF",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "1:15|PM",
+                eventEndTime: "3:00|PM"
+            },
+            {
+                eventName: "High Way Kyle Shutt",
+                eventInfo: "podcast",
+                eventLocation: "FF",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "11:00|AM",
+                eventEndTime: "1:00|PM"
+            },
+            //Day 2 Redtail
+            {
+                eventName: "Intronaut",
+                eventInfo: "K",
+                eventLocation: "R",
+                eventDay: "2",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "1:45|AM",
+                eventEndTime: "2:45|AM"
+            },
+            {
+                eventName: "Yakuza",
+                eventInfo: "M avant",
+                eventLocation: "R",
+                eventDay: "2",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "00:15|AM",
+                eventEndTime: "1:15|AM"
+            },
+            {
+                eventName: "Warthog",
+                eventInfo: "M rock",
+                eventLocation: "R",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "10:15|PM",
+                eventEndTime: "11:45|PM"
+            },
+            {
+                eventName: "Behold Monolith",
+                eventInfo: "M stoner",
+                eventLocation: "R",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "8:45|PM",
+                eventEndTime: "9:45|PM"
+            },
+            {
+                eventName: "No Mas",
+                eventInfo: "M deathGrind",
+                eventLocation: "R",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "6:45|PM",
+                eventEndTime: "7:45|PM"
+            },
+            {
+                eventName: "The Munsens",
+                eventInfo: "M stoner",
+                eventLocation: "R",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "4:45|PM",
+                eventEndTime: "5:45|PM"
+            },
+            {
+                eventName: "Great Electric Quest",
+                eventInfo: "M stoner",
+                eventLocation: "R",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "2:45|PM",
+                eventEndTime: "3:45|PM"
+            },
+            {
+                eventName: "Mother Iron Horse",
+                eventInfo: "M stoner",
+                eventLocation: "R",
+                eventDay: "2",
+                eventStartDate: "20",
+                eventEndDate: "20",
+                eventStartTime: "12:45|PM",
+                eventEndTime: "1:45|PM"
+            },
+            //Day 3 event center
+            {
+                eventName: "Mercyful Fate",
+                eventInfo: "Y? heavy",
+                eventLocation: "EC",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "10:00|PM",
+                eventEndTime: "11:30|PM"
+            },
+            {
+                eventName: "High on Fire",
+                eventInfo: "N stoner",
+                eventLocation: "EC",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "8:00|PM",
+                eventEndTime: "9:00|PM"
+            },
+            {
+                eventName: "Paradise Lost",
+                eventInfo: "M doom",
+                eventLocation: "EC",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "6:30|PM",
+                eventEndTime: "7:30|PM"
+            },
+            {
+                eventName: "Katatonia",
+                eventInfo: "M doom",
+                eventLocation: "EC",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "5:00|PM",
+                eventEndTime: "6:00|PM"
+            },
+            {
+                eventName: "Samael",
+                eventInfo: "Y industrial",
+                eventLocation: "EC",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "3:30|PM",
+                eventEndTime: "4:30|PM"
+            },
+            {
+                eventName: "Amenra",
+                eventInfo: "M sludge",
+                eventLocation: "EC",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "2:00|PM",
+                eventEndTime: "3:00|PM"
+            },
+            //Day 3 rose ballroom
+            {
+                eventName: "She Past Away",
+                eventInfo: "Y darkSynth",
+                eventLocation: "RB",
+                eventDay: "3",
+                eventStartDate: "22",
+                eventEndDate: "22",
+                eventStartTime: "00:40|AM",
+                eventEndTime: "2:00|AM"
+            },
+            {
+                eventName: "Monolord",
+                eventInfo: "N doom",
+                eventLocation: "RB",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "22",
+                eventStartTime: "11:10|PM",
+                eventEndTime: "00:10|AM"
+            },
+            {
+                eventName: "Night Beats",
+                eventInfo: "M psychRock",
+                eventLocation: "RB",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "9:45|PM",
+                eventEndTime: "10:45|PM"
+            },
+            {
+                eventName: "William Basinski",
+                eventInfo: "M experimental",
+                eventLocation: "RB",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "9:45|PM",
+                eventEndTime: "10:45|PM"
+            },
+            {
+                eventName: "Drain",
+                eventInfo: "Y punkyEnergy",
+                eventLocation: "RB",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "6:55|PM",
+                eventEndTime: "7:55|PM"
+            },
+            {
+                eventName: "Geneva Jacuzzi",
+                eventInfo: "M synthPop",
+                eventLocation: "RB",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "5:30|PM",
+                eventEndTime: "6:30|PM"
+            },
+            {
+                eventName: "The Body",
+                eventInfo: "M experMetal",
+                eventLocation: "RB",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "4:05|PM",
+                eventEndTime: "5:05|PM"
+            },
+            {
+                eventName: "Undeath",
+                eventInfo: "M death",
+                eventLocation: "RB",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "2:40|PM",
+                eventEndTime: "3:40|PM"
+            },
+            {
+                eventName: "Portrayal of Guilt",
+                eventInfo: "M punk",
+                eventLocation: "RB",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "1:20|PM",
+                eventEndTime: "2:20|PM"
+            },
+            {
+                eventName: "Year of No Light",
+                eventInfo: "Y sludge",
+                eventLocation: "RB",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "12:10|PM",
+                eventEndTime: "1:00|PM"
+            },
+            {
+                eventName: "Violencia",
+                eventInfo: "M death",
+                eventLocation: "RB",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "10:00|AM",
+                eventEndTime: "11:50|AM"
+            },
+            
+            //Day 3 dawg house
+
+            {
+                eventName: "Danava",
+                eventInfo: "M rock",
+                eventLocation: "DH",
+                eventDay: "3",
+                eventStartDate: "22",
+                eventEndDate: "22",
+                eventStartTime: "1:25|AM",
+                eventEndTime: "2:25|AM"
+            },
+            {
+                eventName: "The KVB",
+                eventInfo: "M punk",
+                eventLocation: "DH",
+                eventDay: "3",
+                eventStartDate: "22",
+                eventEndDate: "22",
+                eventStartTime: "00:00|AM",
+                eventEndTime: "1:00|AM"
+            },
+            {
+                eventName: "Black Box Revelation",
+                eventInfo: "M garage",
+                eventLocation: "DH",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "10:35|PM",
+                eventEndTime: "11:35|PM"
+            },
+            {
+                eventName: "Death Vally Girls",
+                eventInfo: "Y garage",
+                eventLocation: "DH",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "9:10|PM",
+                eventEndTime: "10:10|PM"
+            },
+            {
+                eventName: "Cirith Ungol",
+                eventInfo: "y oldPower",
+                eventLocation: "DH",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "7:45|PM",
+                eventEndTime: "8:45|PM"
+            },
+            {
+                eventName: "ASG",
+                eventInfo: "M stoner",
+                eventLocation: "DH",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "6:15|PM",
+                eventEndTime: "7:15|PM"
+            },
+            {
+                eventName: "Witch Mountain",
+                eventInfo: "M doom",
+                eventLocation: "DH",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "5:00|PM",
+                eventEndTime: "5:50|PM"
+            },
+            {
+                eventName: "Fugitive",
+                eventInfo: "M rock",
+                eventLocation: "DH",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "3:45|PM",
+                eventEndTime: "4:35|PM"
+            },
+            {
+                eventName: "Lord Buffalo",
+                eventInfo: "M darkFolk",
+                eventLocation: "DH",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "2:30|PM",
+                eventEndTime: "3:20|PM"
+            },
+            {
+                eventName: "Mint Field",
+                eventInfo: "M showgaze",
+                eventLocation: "DH",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "1:15|PM",
+                eventEndTime: "2:05|PM"
+            },
+            {
+                eventName: "Psychlona",
+                eventInfo: "M stoner",
+                eventLocation: "DH",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "12:00|PM",
+                eventEndTime: "12:50|PM"
+            },
+
+            //Day 3 ayu dayclub
+            {
+                eventName: "Rotting Christ",
+                eventInfo: "Y",
+                eventLocation: "AD",
+                eventDay: "3",
+                eventStartDate: "22",
+                eventEndDate: "22",
+                eventStartTime: "1:15|AM",
+                eventEndTime: "2:30|AM"
+            },
+            {
+                eventName: "Method Man Raekwon",
+                eventInfo: "hip hop",
+                eventLocation: "AD",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "22",
+                eventStartTime: "11:45|PM",
+                eventEndTime: "12:50|AM"
+            },
+            {
+                eventName: "Beats Antique",
+                eventInfo: "M experimental",
+                eventLocation: "AD",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "10:20|PM",
+                eventEndTime: "11:20|PM"
+            },
+            {
+                eventName: "Allah-Las",
+                eventInfo: "M electronic",
+                eventLocation: "AD",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "8:55|PM",
+                eventEndTime: "9:55|PM"
+            },
+            {
+                eventName: "Liars",
+                eventInfo: "M experimental",
+                eventLocation: "AD",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "7:30|PM",
+                eventEndTime: "8:30|PM"
+            },
+            
+            //Day 3 Famous Foods
+            {
+                eventName: "Health DJ set",
+                eventInfo: "Y health DJ",
+                eventLocation: "FF",
+                eventDay: "3",
+                eventStartDate: "22",
+                eventEndDate: "22",
+                eventStartTime: "2:20|AM",
+                eventEndTime: "4:00|AM"
+            },
+            {
+                eventName: "Gaslamp Killer",
+                eventInfo: "M altHipHop",
+                eventLocation: "FF",
+                eventDay: "3",
+                eventStartDate: "22",
+                eventEndDate: "22",
+                eventStartTime: "1:00|AM",
+                eventEndTime: "2:00|AM"
+            },
+            {
+                eventName: "Pixel Grip",
+                eventInfo: "M club pop",
+                eventLocation: "FF",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "22",
+                eventStartTime: "11:35|PM",
+                eventEndTime: "00:35|AM"
+            },
+            {
+                eventName: "Wizards of Wax",
+                eventInfo: "?",
+                eventLocation: "FF",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "10:15|PM",
+                eventEndTime: "11:15|PM"
+            },
+            {
+                eventName: "Wizards of Wax",
+                eventInfo: "?",
+                eventLocation: "FF",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "8:50|PM",
+                eventEndTime: "9:50|PM"
+            },
+            {
+                eventName: "Great Electric Quest",
+                eventInfo: "M stnrRock",
+                eventLocation: "FF",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "7:25|PM",
+                eventEndTime: "8:25|PM"
+            },
+            {
+                eventName: "Mothership",
+                eventInfo: "N stoner",
+                eventLocation: "FF",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "6:00|PM",
+                eventEndTime: "7:00|PM"
+            },
+            {
+                eventName: "LSDJS",
+                eventInfo: "dj",
+                eventLocation: "FF",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "4:35|PM",
+                eventEndTime: "5:35|PM"
+            },
+            {
+                eventName: "High Way Kyle Shutt",
+                eventInfo: "podcast",
+                eventLocation: "FF",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "2:45|PM",
+                eventEndTime: "4:00|PM"
+            },
+            {
+                eventName: "Chessboxing GZA",
+                eventInfo: "boxing",
+                eventLocation: "FF",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "12:00|PM",
+                eventEndTime: "2:30|PM"
+            },
+            //Day 3 Redtail
+            {
+                eventName: "Creeping Death",
+                eventInfo: "Y death",
+                eventLocation: "R",
+                eventDay: "3",
+                eventStartDate: "22",
+                eventEndDate: "22",
+                eventStartTime: "1:45|AM",
+                eventEndTime: "2:45|AM"
+            },
+            {
+                eventName: "The Dwarves",
+                eventInfo: "M punk",
+                eventLocation: "R",
+                eventDay: "3",
+                eventStartDate: "22",
+                eventEndDate: "22",
+                eventStartTime: "00:15|AM",
+                eventEndTime: "1:15|AM"
+            },
+            {
+                eventName: "Accused AD",
+                eventInfo: "M thrash",
+                eventLocation: "R",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "10:45|PM",
+                eventEndTime: "11:45|PM"
+            },
+            {
+                eventName: "Succumb",
+                eventInfo: "M death",
+                eventLocation: "R",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "8:45|PM",
+                eventEndTime: "9:45|PM"
+            },
+            {
+                eventName: "Spiritworld",
+                eventInfo: "M thrash",
+                eventLocation: "R",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "6:45|PM",
+                eventEndTime: "7:45|PM"
+            },
+            {
+                eventName: "Weight of Sun",
+                eventInfo: "M postMetal",
+                eventLocation: "R",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "4:45|PM",
+                eventEndTime: "5:45|PM"
+            },
+            {
+                eventName: "Human",
+                eventInfo: "Y tech death",
+                eventLocation: "R",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "2:45|PM",
+                eventEndTime: "3:45|PM"
+            },
+            {
+                eventName: "Crematory Stench",
+                eventInfo: "M death",
+                eventLocation: "R",
+                eventDay: "3",
+                eventStartDate: "21",
+                eventEndDate: "21",
+                eventStartTime: "12:45|PM",
+                eventEndTime: "1:45|PM"
+            }
+        ];
+
+        let events = getEvents();
+
+        function getEvents() {
+        	//TODO comment out to save color changes, uncomment for testing
+//             localStorage.clear("storedEvents");
+            let storedEvents = localStorage.getItem(storedEventsKey);
+            if (storedEvents != null) {
+                //console.log("has stored events " + storedEvents);
+                return JSON.parse(storedEvents);
+            }
+            for (let i = 0; i < eventsPrimer.length; i++) {
+                var event = eventsPrimer[i];
+                //console.log(event);
+                //console.log(event.eventStartTime);
+                var eventStartDate = getDate(event.eventStartTime, event.eventStartDate);
+                var hoursPastStartEventStartTime = getHoursPastStartTime(eventStartDate);
+
+
+                var eventEndDate = getDate(event.eventEndTime, event.eventEndDate);
+                var hoursPastStartEventEndTime = getHoursPastStartTime(eventEndDate);
+                //
+                //
+                var locationIndex = getLocationIndex(event.eventLocation);
+                //console.log("locationIndex: " + locationIndex);
+                var left = (locationIndex * xBlockWidth) + xSizeForTimeWrittenOnLeft;
+                var top = getPixelForHour(hoursPastStartEventStartTime);
+                var bottom = getPixelForHour(hoursPastStartEventEndTime);
+
+                event.left = left;
+                event.top = top;
+                event.bottom = bottom;
+                event.tap = 1;
+
+            }
+            //console.log("storing events");
+            localStorage.setItem(storedEventsKey, JSON.stringify(eventsPrimer));
+            localStorage.setItem(storedWidthKey, xBlockWidth);
+            return eventsPrimer;
+
+        }
+
+        function drawTop() {
+            var top = document.getElementById('top');
+
+            var ctx = top.getContext('2d');
+            ctx.fillStyle = "grey";
+            ctx.fillRect(0, 0, top.width, top.height);
+            ctx.font = '100px serif';
+
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, window.innerWidth, 60);
+
+            //filltest x y coord, maxwidth optional
+            ctx.fillStyle = 'black';
+            ctx.font = '50px serif';
+            ctx.fillText("********Unofficial psycho vegas schedule********", 0, 50);
+
+            ctx.font = '100px serif';
+
+            for (var i = 0; i < locations.length; i++) {
+
+                var left = (i * xBlockWidth) + xSizeForTimeWrittenOnLeft;
+
+                ctx.fillStyle = 'black';
+                ctx.fillRect(left, 60, xBlockWidth, 100);
+
+                ctx.fillStyle = 'red';
+                ctx.fillText(locations[i], left, 140);
+
+            }
+        }
+
+
+        function drawTimeCurrentTimeSchedule() {
+            //TODO not live
+            //new (year: number, month: number, date?: number, hours?: number, minutes?: number, seconds?: number, ms?: number) => Date (+4 overloads)
+            //test += 1;
+            var currentTime = new Date();    
+            
+            if (currentTime > storedTime)
+            {
+                //console.log("curr > stored");
+                storedTime = currentTime;
+            }
+            else
+            {
+                //console.log("curr not greater");
+            }
+            
+            var canvas = document.getElementById('canvas');
+            if (canvas.getContext) {
+                canvas.width = window.innerWidth;
+                var ctx = canvas.getContext('2d');
+                ctx.fillStyle = "grey";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                width = window.innerWidth;
+                if (width > 3200) {
+                    width = 3200;
+                }
+                ctx.width = width;
+
+                xBlockWidth = (width - xSizeForTimeWrittenOnLeft) / locations.length;
+
+                var storedXBlockWidth = localStorage.getItem(storedWidthKey);
+                if (storedXBlockWidth != xBlockWidth) {
+
+
+                    for (let i = 0; i < events.length; i++) {
+                        var event = events[i];
+
+
+                        var locationIndex = getLocationIndex(event.eventLocation);
+
+                        var left = (locationIndex * xBlockWidth) + xSizeForTimeWrittenOnLeft;
+
+                        event.left = left;
+
+                    }
+
+
+                    localStorage.setItem(storedWidthKey, xBlockWidth);
+                    localStorage.setItem(storedEventsKey, JSON.stringify(events));
+                }
+
+                drawTime();
+                drawCurrentTime();
+                drawSchedule();
+
+
+            }
+        }
+
+        function getHoursPastStartTime(time) {
+            var secondsPastStart = (time.getTime() - startTime.getTime()) / 1000.0;
+            var hoursPastStart = secondsPastStart / secondsInAnHour;
+            //console.log("time getyHeightPixelOffset: " + time);
+            //console.log("hoursPastStart getyHeightPixelOffset: " + hoursPastStart);
+
+            return hoursPastStart;
+        }
+
+        function getPixelForHour(hoursPastStartTime) {
+            //console.log("hoursPastStartTime: " + hoursPastStartTime);
+            var pixel = (timeyHeight * hoursPastStartTime) + yHeightOffset;
+            //console.log("pixel getPixelForHour: " + pixel);
+            return pixel;
+        }
+
+        function drawCurrentTime() {
+            var ctx = canvas.getContext('2d');
+
+            var hoursPastCurrentTimeStartTime = getHoursPastStartTime(storedTime);
+
+            var yHeightPixelForCurrentTime = getPixelForHour(hoursPastCurrentTimeStartTime);
+
+            ctx.fillStyle = 'fuchsia';
+            ctx.fillRect(0, yHeightPixelForCurrentTime, width, 10);
+        }
+
+        function getLocationIndex(location) {
+            for (let i = 0; i < locations.length; i++) {
+                if (location === locations[i]) {
+                    return i;
+                }
+            }
+        }
+
+        function getDate(time, date) {
+            var timeAndAMPM = time.split('|');
+            var hourAndMinute = timeAndAMPM[0].split(":");
+            var hour = Number(hourAndMinute[0]);
+            if (timeAndAMPM[1] == "PM") {
+                //12:00PM needs to be 12:00
+                if (hour != 12) {
+                    hour = hour + 12;
+                }
+            }
+            else {
+                //12:00AM needs to be 0:00
+                if (hour == 12) {
+                    hour = 0;
+                }
+            }
+
+            var eventDateString = date + " Aug 2022 " + hour + ":" + hourAndMinute[1] + ":00";
+            //console.log(" date string " + eventDateString);
+            var eventDate = new Date(Date.parse(eventDateString));
+            //console.log(" date parsed " + eventDate);
+            return eventDate;
+        }
+
+        function intersects(xpos, ypos, event) {
+            if (xpos > event.left && xpos < event.left + xBlockWidth) {
+
+                if (ypos > event.top && ypos < event.bottom) {
+                    return true;
+                }
+
+            }
+        }
+
+
+        function relMouseCoords(mouseEvent) {
+            //thank you https://stackoverflow.com/questions/55677/how-do-i-get-the-coordinates-of-a-mouse-click-on-a-canvas-element
+            var totalOffsetX = 0;
+            var totalOffsetY = 0;
+            var canvasX = 0;
+            var canvasY = 0;
+            var currentElement = this;
+
+            do {
+                totalOffsetX += currentElement.offsetLeft - currentElement.scrollLeft;
+                totalOffsetY += currentElement.offsetTop - currentElement.scrollTop;
+            }
+            while (currentElement = currentElement.offsetParent)
+
+            canvasX = mouseEvent.pageX - totalOffsetX;
+            canvasY = mouseEvent.pageY - totalOffsetY;
+
+            for (let i = 0; i < events.length; i++) {
+                if (intersects(canvasX, canvasY, events[i])) {
+                    events[i].tap = events[i].tap + Number(1);
+                    if (events[i].tap > Number(3)) {
+                        events[i].tap = Number(1);
+                    }
+                    localStorage.setItem(storedEventsKey, JSON.stringify(events));
+                    drawSchedule();
+                    return;
+                }
+            }
+        }
+
+        function drawSchedule() {
+            var canvas = document.getElementById('canvas');
+            if (init) {
+                canvas.addEventListener("click", relMouseCoords);
+            }
+
+            var ctx = canvas.getContext('2d');
+            ctx.font = '50px serif';
+            for (let i = 0; i < events.length; i++) {
+                var event = events[i];
+
+                ctx.fillStyle = 'black';
+                ctx.fillRect(event.left, event.top, xBlockWidth, event.bottom - event.top);
+
+                var going = "";
+
+                if (event.tap == 1) {
+                    ctx.fillStyle = 'lightgrey';
+                    going = "Maybe going";
+                }
+                else if (event.tap == 2) {
+                    ctx.fillStyle = 'lime';
+                    going = "Going";
+                }
+                else if (event.tap == 3) {
+                    ctx.fillStyle = 'darkred';
+                    going = "Not going";
+                }
+                else {
+                    ctx.fillStyle = 'blue';
+                    going = "Error";
+                }
+                //filltest x y coord, maxwidth optional
+                ctx.fillText(event.eventName, event.left, event.top + 50, xBlockWidth);
+                if (event.eventInfo != null)
+                {
+                    ctx.fillText(event.eventInfo, event.left, event.top + 100, xBlockWidth);
+                }
+                ctx.fillText(event.eventStartTime.split("|")[0], event.left, event.top + 150, xBlockWidth);
+                if (event.eventName == "Last Podcast"
+                    || event.eventName == "Carpenter Brut"
+                    || event.eventName == "Nuclear Assault"
+                    || event.eventName == "Gost"
+                    || event.eventName == "Suicidal Tendencies"
+                    || event.eventName == "Dance w Dead"
+                    || event.eventName == "At the Gates"
+                    || event.eventName == "Twin Tribes"
+                    || event.eventName == "Mercyful Fate"
+                    || event.eventName == "Rotting Christ"
+                    || event.eventName == "Health DJ set"
+                    || event.eventName == ""
+                    || event.eventName == ""
+                    || event.eventName == ""
+                    || event.eventName == ""
+                    || event.eventName == ""
+                    || event.eventName == ""
+                    || event.eventName == ""
+                ) {
+                    ctx.fillText("Close", event.left, event.top + 200, xBlockWidth);
+
+                }
+                else {
+                    ctx.fillText(event.eventEndTime.split("|")[0], event.left, event.top + 200, xBlockWidth);
+                }
+
+                ctx.fillText(going, event.left, event.top + 250, xBlockWidth);
+
+            }
+
+            init = false;
+        }
+
+        function drawTime() {
+        	
+        	//TODO hard coding this but should grab off startTime variable maybe
+            var startDateNumber = 19;
+        	
+        	var currentHour = 11;
+            var dayNumber = 1;
+            var canvas = document.getElementById('canvas');
+
+            var ctx = canvas.getContext('2d');
+            ctx.font = '50px serif';
+            for (var x = 0; x <= durationHours; x++) {
+                if (currentHour > 24) {
+                    currentHour = 1;
+                    startDateNumber += 1;
+                }
+
+                if (currentHour == 6) {
+                    dayNumber += 1;
+                }
+
+                ctx.fillStyle = 'rgb(200, 200, 200)';
+                ctx.fillRect(0, (x * timeyHeight) + yHeightOffset, width, 10);
+
+                ctx.fillStyle = 'rgb(0, 0, 0)';
+
+                if (currentHour == 24) {
+                    ctx.fillText((currentHour - 12) + "am", 0, (x * timeyHeight) + yHeightOffset);
+                }
+                else {
+                    if (currentHour < 12) {
+                        ctx.fillText((currentHour) + "am", 0, (x * timeyHeight) + yHeightOffset);
+                    }
+                    if (currentHour > 12) {
+                        ctx.fillText((currentHour - 12) + "pm", 0, (x * timeyHeight) + yHeightOffset);
+                    }
+                }
+
+                ctx.fillText(currentHour + ":00", 0, (x * timeyHeight) + yHeightOffset + pmOffset);
+                ctx.fillText("Day " + dayNumber, 0, (x * timeyHeight) + yHeightOffset + pmOffset + pmOffset);
+                ctx.fillText("Aug " + startDateNumber, 0, (x * timeyHeight) + yHeightOffset + pmOffset + pmOffset + pmOffset);
+
+                currentHour++;
+            }
+        }
+
+        function drawBottom() {
+            
+            drawTimeCurrentTimeSchedule();
+            
+            var hoursPastCurrentTimeStartTime = getHoursPastStartTime(storedTime) - 1;
+
+            var yHeightPixelForCurrentTime = getPixelForHour(hoursPastCurrentTimeStartTime);
+
+            window.scrollTo({
+                top: yHeightPixelForCurrentTime,
+                left: 0,
+                behavior: 'smooth'
+            });
+        }
+
+    </script>
+
+</head>
+
+<body onload="drawTimeCurrentTimeSchedule(); setInterval('drawTimeCurrentTimeSchedule()', 60000 ); drawTop(); setInterval('drawTop()', 60000 );">
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .top {
+            overflow: hidden;
+            background-color: white;
+            position: fixed;
+            top: 0;
+            width: 3200px;
+            margin: 0;
+            padding: 0;
+            font-size: 50px;
+        }
+
+        .bottom {
+            overflow: hidden;
+            background-color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 50px;
+        }
+
+
+        .button {
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            color: black;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 100px;
+            margin: 4px 2px;
+            cursor: pointer;
+            background-color: blue;
+        }
+    </style>
+
+
+    <div class="top">
+        <canvas id="top" width="3200" height="150"></canvas>
+    </div>
+
+
+    <div style="background:white;">
+        <canvas id="canvas" width="3200" height="26500"></canvas>
+    </div>
+
+    <div class="bottom">
+        <button type="button" onclick="drawBottom()" class="button">Current</button>
+    </div>
+
+</body>
+
+</html>
