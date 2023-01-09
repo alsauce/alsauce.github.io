@@ -75,8 +75,8 @@
 
         var bandInfo = "Nightwish,symphonic power,,male+female clean vocals not my thing,https://open.spotify.com/playlist/37i9dQZF1DZ06evO1C7dIs?si=c5664441334d4471,,,,,,,,,|" +
         "Insomnium,melodic death,,seen favorite,https://open.spotify.com/playlist/37i9dQZF1DZ06evO21Vjqz?si=d39d39304ec443a9,,,,,,,,,|" +
-        "Test day 1,melodic death,,seen favorite,https://open.spotify.com/playlist/37i9dQZF1DZ06evO21Vjqz?si=d39d39304ec443a9,,,,,,,,,|" +
-"Test day 4_v2,melodic black,,seen really fun,https://open.spotify.com/playlist/37i9dQZF1DZ06evO4xvbnh?si=345952d04a0847a8,,,,,,,,,";
+        "Test day 1,melodic death,M,seen favorite,https://open.spotify.com/playlist/37i9dQZF1DZ06evO21Vjqz?si=d39d39304ec443a9,,,,,,,,,|" +
+"Test day 4_v2,melodic black,Y,seen really fun,https://open.spotify.com/playlist/37i9dQZF1DZ06evO4xvbnh?si=345952d04a0847a8,,,,,,,,,";
 
         
 
@@ -134,11 +134,17 @@
                 var singleBandInfo = bandInfoSplit[i].split(",");
                 var bandName = singleBandInfo[0];
                 var genre = singleBandInfo[1];
+                var going = singleBandInfo[2];
                 var notes = singleBandInfo[3];
+                var spotifyLink = singleBandInfo[4];
 
-                var info = bandName + "\n" + genre + "\n" + notes;
-                localStorage.setItem("genre" + bandName, genre);
-                localStorage.setItem("info" + bandName, info);
+                var info = bandName + "\n" + genre + "\n" + notes + "\n" + spotifyLink;
+                localStorage.setItem("genre" + bandName, going + " " + genre);
+
+                //if (localStorage.getItem("info" + bandName) != null)
+                //{
+                    localStorage.setItem("info" + bandName, info);
+                //}
             }
 
             //console.log("storing events");
@@ -378,6 +384,11 @@
         function showBandInfo(mouseEvent, currentElement) {
             var event = getTappedEvent(mouseEvent, currentElement);
             alert(localStorage.getItem("info" + event.eventName));
+
+            //let text = prompt("Modifications will be stored", localStorage.getItem("info" + event.eventName));
+            //localStorage.setItem("info" + event.eventName, text);
+
+
         }
 
         function getTappedEvent(mouseEvent, currentElement) {
@@ -449,22 +460,20 @@
                 }
                 //filltest x y coord, maxwidth optional
                 ctx.fillText(event.eventName, event.left, event.top + 50, xBlockWidth);
-                if (event.eventInfo != null)
-                {
-                    ctx.fillText(event.eventInfo, event.left, event.top + 100, xBlockWidth);
-                }
+                ctx.fillText(localStorage.getItem("genre" + event.eventName), event.left, event.top + 100, xBlockWidth);
                 ctx.fillText(event.eventStartTime.split("|")[0], event.left, event.top + 150, xBlockWidth);
                 if (event.eventName == "") {
                     ctx.fillText("Close", event.left, event.top + 200, xBlockWidth);
-
                 }
                 else {
                     ctx.fillText(event.eventEndTime.split("|")[0], event.left, event.top + 200, xBlockWidth);
                 }
 
                 ctx.fillText(going, event.left, event.top + 250, xBlockWidth);
-                ctx.fillText(localStorage.getItem("genre" + event.eventName), event.left, event.top + 300, xBlockWidth);
-
+                if (event.eventInfo != null)
+                {
+                    ctx.fillText(event.eventInfo, event.left, event.top + 300, xBlockWidth);
+                }
             }
 
             init = false;
@@ -502,7 +511,7 @@
                 ctx.fillStyle = 'rgb(0, 0, 0)';
 
                 if (currentHour == 24) {
-                    ctx.fillText((currentHour - 12) + "am", 0, (x * timeyHeight) + yHeightOffset);
+                    ctx.fillText("midnt", 0, (x * timeyHeight) + yHeightOffset);
                 }
                 else {
                     if (currentHour < 12) {
@@ -510,6 +519,10 @@
                     }
                     if (currentHour > 12) {
                         ctx.fillText((currentHour - 12) + "pm", 0, (x * timeyHeight) + yHeightOffset);
+                    }
+                    if (currentHour == 12)
+                    {
+                        ctx.fillText("noon", 0, (x * timeyHeight) + yHeightOffset);
                     }
                 }
 
@@ -612,7 +625,7 @@
             font-size: 100px;
             margin: 4px 2px;
             cursor: pointer;
-            background-color: blue;
+            background-color: gold;
         }
     </style>
 
