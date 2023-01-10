@@ -253,7 +253,8 @@
             }
             
             var canvas = document.getElementById('canvas');
-            if (canvas.getContext) {
+            //alert(canvas.getContext);
+            //if (canvas.getContext) {
                 canvas.width = window.innerWidth;
                 var ctx = canvas.getContext('2d');
                 ctx.fillStyle = "grey";
@@ -293,7 +294,7 @@
                 drawSchedule();
 
 
-            }
+            //}
             }
                 catch(ex)
             {
@@ -318,7 +319,7 @@
         }
 
         function drawCurrentTime() {
-        	alert("drawCurrentTime");
+        	//alert("drawCurrentTime");
 
             var ctx = canvas.getContext('2d');
 
@@ -441,7 +442,7 @@
         }
 
         function drawSchedule() {
-            alert("drawSchedule");
+            //alert("drawSchedule");
             var canvas = document.getElementById('canvas');
             if (init) {
                 canvas.addEventListener("click", relMouseCoords);
@@ -495,7 +496,7 @@
         }
 
         function drawTime() {
-        	alert("drawTime");
+        	//alert("drawTime");
             
             var dateNumber = startDay;
         	
@@ -559,6 +560,7 @@
 
                 currentHour++;
             }
+            alert("drawTimeDone");
         }
 
         function drawBottom() {
