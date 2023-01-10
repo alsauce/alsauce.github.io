@@ -318,6 +318,8 @@
         }
 
         function drawCurrentTime() {
+        	alert("drawCurrentTime");
+
             var ctx = canvas.getContext('2d');
 
             var hoursPastCurrentTimeStartTime = getHoursPastStartTime(storedTime);
@@ -439,6 +441,7 @@
         }
 
         function drawSchedule() {
+            alert("drawSchedule");
             var canvas = document.getElementById('canvas');
             if (init) {
                 canvas.addEventListener("click", relMouseCoords);
@@ -492,7 +495,8 @@
         }
 
         function drawTime() {
-        	
+        	alert("drawTime");
+            
             var dateNumber = startDay;
         	
         	var currentHour = startHour;
