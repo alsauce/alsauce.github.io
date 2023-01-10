@@ -48,8 +48,7 @@
             drawTimeCurrentTimeSchedule();
         }
 
-        let eventsPrimer = [];
-        [
+        let eventsPrimer = [
 
             //Main day 1 Aug 19
             {
@@ -81,10 +80,12 @@
 
         
 
-        let events = [];
+        let events = getEvents();
 
 
         function getEvents() {
+
+            try{
 
         	//TODO comment out to save color changes, uncomment for testing
             // localStorage.clear(storedEventsKey);
@@ -152,7 +153,11 @@
             localStorage.setItem(storedEventsKey, JSON.stringify(eventsPrimer));
             localStorage.setItem(storedWidthKey, xBlockWidth);
             return eventsPrimer;
-
+        }
+        catch(ex)
+        {
+            alert(ex);
+        }
         }
 
 
@@ -230,6 +235,7 @@
 
 
         function drawTimeCurrentTimeSchedule() {
+            try{
             //TODO not live
             //new (year: number, month: number, date?: number, hours?: number, minutes?: number, seconds?: number, ms?: number) => Date (+4 overloads)
             //test += 1;
@@ -287,6 +293,11 @@
                 drawSchedule();
 
 
+            }
+            }
+                catch(ex)
+            {
+                alert(ex);
             }
         }
 
