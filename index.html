@@ -259,7 +259,7 @@
                 ctx.fillStyle = "blue";
 
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.stroke();
+                ctx.fill();
 
                 width = window.innerWidth;
                 if (width > 3200) {
@@ -546,6 +546,8 @@
 
                 ctx.fillText(currentHour + ":00", 0, (x * timeyHeight) + yHeightOffset + pmOffset);
                 ctx.fillText("Day " + dayNumber, 0, (x * timeyHeight) + yHeightOffset + pmOffset + pmOffset);
+                ctx.fill();
+                ctx.stroke();
                 
                 var month = "";
                 if (dateNumber == 30 || dateNumber == 31)
