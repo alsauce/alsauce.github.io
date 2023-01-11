@@ -234,16 +234,6 @@
         }
 
         function drawTimeCurrentTimeSchedule() {
-            var canvas = document.getElementById('canvas');
-                canvas.width = window.innerWidth;
-                var ctx = canvas.getContext('2d');
-                ctx.fillStyle = "blue";
-
-                ctx.fillRect(0, 0, 600, 600);
-                ctx.fill();
-        }
-
-        function drawTimeCurrentTimeScheduleORIG() {
             try{
             //TODO not live
             //new (year: number, month: number, date?: number, hours?: number, minutes?: number, seconds?: number, ms?: number) => Date (+4 overloads)
@@ -666,7 +656,7 @@
 
 
     <div>
-        <canvas id="canvas" width="300" height="300"></canvas>
+        <canvas id="canvas" width="100" height="40000"></canvas>
     </div>
 
     <div class="bottom">
