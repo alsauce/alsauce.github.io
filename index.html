@@ -24,8 +24,8 @@
         //can use this for testing the line I think
         var storedTime = new Date(year, 0, 30, 17, 0, 0, 0);
         var init = true;
-        var storedEventsKey = "storedEvents70k" + year + "_v2";
-        var storedWidthKey = "storedWidth70k" + year + "_v2";
+        var storedEventsKey = "storedEvents70k" + year + "_v3";
+        var storedWidthKey = "storedWidth70k" + year + "_v3";
        
     primeEventInfo();
 
@@ -38,11 +38,38 @@
         
     function primeEventInfo()
     {
-        if (day = 1)
+        if (day == 1)
         {
             events = eventsDay1;
             startTime = startTimeDay1;
             startHour = startHourDay1;
+        }
+        if (day == 2)
+        {
+            events = eventsDay2;
+            startTime = startTimeDay2;
+            startHour = startHourDay2;           
+        }
+
+        if (day == 3)
+        {
+            events = eventsDay3;
+            startTime = startTimeDay3;
+            startHour = startHourDay3;           
+        }
+
+        if (day == 4)
+        {
+            events = eventsDay4;
+            startTime = startTimeDay4;
+            startHour = startHourDay4;           
+        }
+
+        if (day == 5)
+        {
+            events = eventsDay5;
+            startTime = startTimeDay5;
+            startHour = startHourDay5;           
         }
 
             for (let i = 0; i < events.length; i++) {
@@ -432,7 +459,7 @@
                 }
 
                 ctx.fillText(currentHour + ":00", 0, (x * timeyHeight) + yHeightOffset + pmOffset);
-                ctx.fillText("Day " + day, 0, (x * timeyHeight) + yHeightOffset + pmOffset + pmOffset);
+                //ctx.fillText("Day " + day, 0, (x * timeyHeight) + yHeightOffset + pmOffset + pmOffset);
                 
                 var month = "";
                 //if (dateNumber == 30 || dateNumber == 31)
@@ -450,19 +477,18 @@
             }
         }
 
-        function drawBottom() {
+        function changeDay() {
             
-            drawTimeCurrentTimeSchedule();
+            day++;
+            if (day > 5)
+            {
+                day = 1;
+            }
+
+            primeEventInfo();
+            drawTimeline();
             
-            var hoursPastCurrentTimeStartTime = getHoursPastStartTime(storedTime) - 1;
-
-            var yHeightPixelForCurrentTime = getPixelForHour(hoursPastCurrentTimeStartTime);
-
-            window.scrollTo({
-                top: yHeightPixelForCurrentTime,
-                left: 0,
-                behavior: 'smooth'
-            });
+            document.getElementById("changeDay").innerText="Day " + day;
         }
 
         function modTapFunction()
@@ -546,8 +572,8 @@
         <canvas id="canvas" width="1600" height="10000"></canvas>
     </div>
 
-    <div class="bottom">
-        <button type="button" onclick="drawBottom()" class="button">Current</button>
+    <div class="bottom">""
+        <button type="button" onclick="changeDay()" id="changeDay" class="button">Day 1</button>
         <button type="button" onclick="modTapFunction()" id="changeTap" class="button">Going</button>
     </div>
 
