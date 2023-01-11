@@ -24,7 +24,7 @@
         let startDay = 30;
         let locations = ["PD", "RT", "SB", "SL"];
         var xSizeForTimeWrittenOnLeft = 160;
-        var timeyHeight = 200.0;
+        var timeyHeight = 400.0;
         var yHeightOffset = 150;
         var pmOffset = 60.0;
         var width = 1;
@@ -196,12 +196,7 @@
 
         }
 
-        function drapTop()
-        {
-
-        }
-
-        function drawTopORIG() {
+        function drawTop() {
             var top = document.getElementById('top');
 
             var ctx = top.getContext('2d');
@@ -477,7 +472,7 @@
                 ctx.fillText(going, event.left, event.top + 250, xBlockWidth);
                 if (event.eventInfo != null)
                 {
-                    //ctx.fillText(event.eventInfo, event.left, event.top + 300, xBlockWidth);
+                    ctx.fillText(event.eventInfo, event.left, event.top + 300, xBlockWidth);
                 }
             }
 
@@ -604,6 +599,7 @@
             background-color: white;
             position: fixed;
             top: 0;
+            width: 3200px;
             margin: 0;
             padding: 0;
             font-size: 50px;
@@ -634,9 +630,13 @@
     </style>
 
 
+    <div class="top">
+        <canvas id="top" width="3200" height="150"></canvas>
+    </div>
+
 
     <div style="background:white;">
-        <canvas id="canvas" width="980" height="25000"></canvas>
+        <canvas id="canvas" width="3200" height="40000"></canvas>
     </div>
 
     <div class="bottom">
