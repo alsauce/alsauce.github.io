@@ -22,12 +22,35 @@
         //size.x =  window.innerWidth
         var xBlockWidth = (window.innerWidth - xSizeForTimeWrittenOnLeft) / locations.length;
         //can use this for testing the line I think
-        var storedTime = new Date(year, 0, 30, 17, 0, 0, 0);
+        var storedTime = new Date(year, 0, 31, 17, 0, 0, 0);
         var init = true;
         var storedEventsKey = "storedEvents70k" + year + "_v3";
         var storedWidthKey = "storedWidth70k" + year + "_v3";
+        var storedDayKey = "storedDay70k" + year + "_v3";
+        var storedTapKey = "storedTap70k" + year + "_v3";
        
     primeEventInfo();
+    primeBandInfo();
+
+    function primeBandInfo()
+    {
+        var bandInfoSplit = bandInfo.split("|");
+            
+            for (let i = 0; i < bandInfoSplit.length; i++)
+            {
+                var singleBandInfo = bandInfoSplit[i].split(",");
+                var bandName = singleBandInfo[0];
+                var genre = singleBandInfo[1];
+                var going = singleBandInfo[2];
+                var notes = singleBandInfo[3];
+                var spotifyLink = singleBandInfo[4];
+
+                var info = bandName + "\n" + genre + "\n" + notes + "\n" + spotifyLink;
+                localStorage.setItem("genre" + bandName, going + " " + genre);
+
+                localStorage.setItem("info" + bandName, info);
+            }
+    }
 
     let durationHours = 24;
     var startHour;
@@ -38,6 +61,16 @@
         
     function primeEventInfo()
     {
+        var storedDay = localStorage.getItem(storedDayKey);
+        if (storedDay != null)
+        {
+            day = storedDay;
+        }
+        var storedTap = localStorage.getItem(storedTapKey);
+        if (storedTap != null)
+        {
+            tapFunction = storedTap;
+        }
         if (day == 1)
         {
             events = eventsDay1;
@@ -103,25 +136,7 @@
                 }
             }
 
-            var bandInfoSplit = bandInfo.split("|");
             
-            for (let i = 0; i < bandInfoSplit.length; i++)
-            {
-                var singleBandInfo = bandInfoSplit[i].split(",");
-                var bandName = singleBandInfo[0];
-                var genre = singleBandInfo[1];
-                var going = singleBandInfo[2];
-                var notes = singleBandInfo[3];
-                var spotifyLink = singleBandInfo[4];
-
-                var info = bandName + "\n" + genre + "\n" + notes + "\n" + spotifyLink;
-                localStorage.setItem("genre" + bandName, going + " " + genre);
-
-                //if (localStorage.getItem("info" + bandName) != null)
-                //{
-                    localStorage.setItem("info" + bandName, info);
-                //}
-            }
 
             //console.log("storing events");
             localStorage.setItem(storedEventsKey + day, JSON.stringify(events));
@@ -130,6 +145,9 @@
 
     function drawTimeline()
     {
+        document.getElementById("changeDay").innerText="Day " + day;
+        drawTapFunction();
+        
         //TODO not live
             //new (year: number, month: number, date?: number, hours?: number, minutes?: number, seconds?: number, ms?: number) => Date (+4 overloads)
             //test += 1;
@@ -484,6 +502,7 @@
             {
                 day = 1;
             }
+            localStorage.setItem(storedDayKey, day);
 
             primeEventInfo();
             drawTimeline();
@@ -499,6 +518,13 @@
                 tapFunction = 1;
             }
 
+            localStorage.setItem(storedTapKey, tapFunction);
+            drawTapFunction();
+
+
+        }
+        function drawTapFunction()
+        {
             if (tapFunction == 1)
             {
                 document.getElementById("changeTap").innerText="Going";
@@ -511,8 +537,6 @@
             {
                 document.getElementById("changeTap").innerText="Lock";
             }
-
-
         }
 
     </script>
@@ -572,9 +596,9 @@
         <canvas id="canvas" width="1600" height="10000"></canvas>
     </div>
 
-    <div class="bottom">""
-        <button type="button" onclick="changeDay()" id="changeDay" class="button">Day 1</button>
-        <button type="button" onclick="modTapFunction()" id="changeTap" class="button">Going</button>
+    <div class="bottom" id="bottom">
+        <button type="button" onclick="changeDay()" id="changeDay" class="button"></button>
+        <button type="button" onclick="modTapFunction()" id="changeTap" class="button"></button>
     </div>
 
 </body>
