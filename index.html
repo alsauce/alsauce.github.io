@@ -4,100 +4,49 @@
 <head>
     <title>Timeline</title>
 
-
+    <script type="text/javascript" src="schedule.js"></script>
+    <script type="text/javascript" src="bandinfo.js"></script>
     <script type="text/javascript">
-
-        //Starts Noon Aug 20
-        //Ends around 2:00AM Monday Aug 23
-        //2 days, 14 hours, 0 minutes and 0 seconds can be converted to one of these units:
-
-        //223,200 seconds
-        //3720 minutes
-        //62 hours
-        let durationHours = 96;
-        let startHour = 16;
-        let year = 2023;
-        var tapFunction = 1;
-        
-        //Jan is 0
-        let startMonth = 0;
-        let startDay = 30;
-        let locations = ["PD", "RT", "SB", "SL"];
-        var xSizeForTimeWrittenOnLeft = 160;
-        var timeyHeight = 400.0;
+    let locations = ["PD", "RT", "SB", "SL"];
+    var xSizeForTimeWrittenOnLeft = 160;
+    var timeyHeight = 400.0;
         var yHeightOffset = 150;
         var pmOffset = 60.0;
-        var width = 1;
-        var startTime = new Date(year, startMonth, startDay, startHour, 0, 0, 0);
-        var secondsInAnHour = 60 * 60;
-        var test = 0;
+        
+    var xBlockWidth = (window.innerWidth - xSizeForTimeWrittenOnLeft) / locations.length;
+    let day = 1;
+    let year = 2023;
+    var tapFunction = 1;
+
+    var secondsInAnHour = 60 * 60;
         //size.x =  window.innerWidth
         var xBlockWidth = (window.innerWidth - xSizeForTimeWrittenOnLeft) / locations.length;
-        var storedTime = new Date(year, startMonth, startDay, startHour, 1, 0, 0);
+        //can use this for testing the line I think
+        var storedTime = new Date(year, 0, 30, 17, 0, 0, 0);
         var init = true;
         var storedEventsKey = "storedEvents70k" + year + "_v2";
         var storedWidthKey = "storedWidth70k" + year + "_v2";
-        var storedGoingKey = "storedGoing70k" + year + "_v2";
+       
+    primeEventInfo();
 
-        window.onresize = function () {drawAll();}
-
-        function drawAll() {
-            xBlockWidth = (window.innerWidth - xSizeForTimeWrittenOnLeft) / locations.length;
-
-            drawTop();
-            drawTimeCurrentTimeSchedule();
+    let durationHours = 24;
+    var startHour;
+        
+        
+    var events;
+    var startTime;
+        
+    function primeEventInfo()
+    {
+        if (day = 1)
+        {
+            events = eventsDay1;
+            startTime = startTimeDay1;
+            startHour = startHourDay1;
         }
 
-        let eventsPrimer = [
-
-            //Main day 1 Aug 19
-            {
-                eventName: "Test day 1",
-                eventInfo: "1st band usually",
-                eventLocation: "PD",
-                eventDay: "1",
-                eventStartDate: "30",
-                eventEndDate: "30",
-                eventStartTime: "5:15|PM",
-                eventEndTime: "6:00|PM"
-            },
-            {
-                eventName: "Test day 4_v2",
-                eventInfo: "Day 4 Info",
-                eventLocation: "RT",
-                eventDay: "4",
-                eventStartDate: "2",
-                eventEndDate: "2",
-                eventStartTime: "12:45|PM",
-                eventEndTime: "1:45|PM"
-            }
-        ];
-
-        var bandInfo = "Nightwish,symphonic power,,male+female clean vocals not my thing,https://open.spotify.com/playlist/37i9dQZF1DZ06evO1C7dIs?si=c5664441334d4471,,,,,,,,,|" +
-        "Insomnium,melodic death,,seen favorite,https://open.spotify.com/playlist/37i9dQZF1DZ06evO21Vjqz?si=d39d39304ec443a9,,,,,,,,,|" +
-        "Test day 1,melodic death,M,seen favorite,https://open.spotify.com/playlist/37i9dQZF1DZ06evO21Vjqz?si=d39d39304ec443a9,,,,,,,,,|" +
-"Test day 4_v2,melodic black,Y,seen really fun,https://open.spotify.com/playlist/37i9dQZF1DZ06evO4xvbnh?si=345952d04a0847a8,,,,,,,,,";
-
-        
-
-        let events = getEvents();
-
-
-        function getEvents() {
-
-        	//TODO comment out to save color changes, uncomment for testing
-            // localStorage.clear(storedEventsKey);
-            // localStorage.clear(storedWidthKey);
-            let storedGoingIndicator = localStorage.getItem(storedGoingKey);
-            if (storedGoingIndicator != null) {
-                //console.log("has stored events " + storedEvents);
-                storedGoingIndicator = JSON.parse(storedEvents);
-            }
-            else{
-                storedGoingIndicator = new Map();
-            }
-            for (let i = 0; i < eventsPrimer.length; i++) {
-                var event = eventsPrimer[i];
+            for (let i = 0; i < events.length; i++) {
+                var event = events[i];
                 //console.log(event);
                 //console.log(event.eventStartTime);
                 var eventStartDate = getDate(event.eventStartTime, event.eventStartDate);
@@ -148,88 +97,13 @@
             }
 
             //console.log("storing events");
-            localStorage.setItem(storedEventsKey, JSON.stringify(eventsPrimer));
+            localStorage.setItem(storedEventsKey + day, JSON.stringify(events));
             localStorage.setItem(storedWidthKey, xBlockWidth);
-            return eventsPrimer;
+    }
 
-        }
-
-
-        function getEventsORIGINAL() {
-        	//TODO comment out to save color changes, uncomment for testing
-            // localStorage.clear(storedEventsKey);
-            // localStorage.clear(storedWidthKey);
-            let storedEvents = localStorage.getItem(storedEventsKey);
-            if (storedEvents != null) {
-                //console.log("has stored events " + storedEvents);
-                return JSON.parse(storedEvents);
-            }
-            for (let i = 0; i < eventsPrimer.length; i++) {
-                var event = eventsPrimer[i];
-                //console.log(event);
-                //console.log(event.eventStartTime);
-                var eventStartDate = getDate(event.eventStartTime, event.eventStartDate);
-                var hoursPastStartEventStartTime = getHoursPastStartTime(eventStartDate);
-
-
-                var eventEndDate = getDate(event.eventEndTime, event.eventEndDate);
-                var hoursPastStartEventEndTime = getHoursPastStartTime(eventEndDate);
-                //
-                //
-                var locationIndex = getLocationIndex(event.eventLocation);
-                //console.log("locationIndex: " + locationIndex);
-                var left = (locationIndex * xBlockWidth) + xSizeForTimeWrittenOnLeft;
-                var top = getPixelForHour(hoursPastStartEventStartTime);
-                var bottom = getPixelForHour(hoursPastStartEventEndTime);
-
-                event.left = left;
-                event.top = top;
-                event.bottom = bottom;
-                event.tap = 1;
-
-            }
-
-            //console.log("storing events");
-            localStorage.setItem(storedEventsKey, JSON.stringify(eventsPrimer));
-            localStorage.setItem(storedWidthKey, xBlockWidth);
-            return eventsPrimer;
-
-        }
-
-        function drawTop() {
-            var top = document.getElementById('top');
-
-            var ctx = top.getContext('2d');
-            ctx.fillStyle = "grey";
-            ctx.fillRect(0, 0, top.width, top.height);
-            ctx.font = '100px serif';
-
-            ctx.fillStyle = 'white';
-            ctx.fillRect(0, 0, window.innerWidth, 60);
-
-            //filltest x y coord, maxwidth optional
-//             ctx.fillStyle = 'black';
-//             ctx.font = '50px serif';
-//             ctx.fillText("********Unofficial psycho vegas schedule********", 0, 50);
-
-            ctx.font = '100px serif';
-
-            for (var i = 0; i < locations.length; i++) {
-
-                var left = (i * xBlockWidth) + xSizeForTimeWrittenOnLeft;
-
-                ctx.fillStyle = 'black';
-                ctx.fillRect(left, 60, xBlockWidth, 100);
-
-                ctx.fillStyle = 'red';
-                ctx.fillText(locations[i], left, 140);
-
-            }
-        }
-
-
-        function drawTimeCurrentTimeSchedule() {
-            //TODO not live
+    function drawTimeline()
+    {
+        //TODO not live
             //new (year: number, month: number, date?: number, hours?: number, minutes?: number, seconds?: number, ms?: number) => Date (+4 overloads)
             //test += 1;
             //var currentTime = new Date(startTime.getTime() + (1000*60*60*5));
@@ -278,13 +152,44 @@
 
 
                     localStorage.setItem(storedWidthKey, xBlockWidth);
-                    localStorage.setItem(storedEventsKey, JSON.stringify(events));
+                    localStorage.setItem(storedEventsKey + day, JSON.stringify(events));
                 }
 
                 drawTime();
                 drawCurrentTime();
                 drawSchedule();
 
+
+            }
+    }
+
+    function drawTop() {
+            var top = document.getElementById('top');
+
+            var ctx = top.getContext('2d');
+            ctx.fillStyle = "grey";
+            ctx.fillRect(0, 0, top.width, top.height);
+            ctx.font = '100px serif';
+
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, window.innerWidth, 60);
+
+            //filltest x y coord, maxwidth optional
+//             ctx.fillStyle = 'black';
+//             ctx.font = '50px serif';
+//             ctx.fillText("********Unofficial psycho vegas schedule********", 0, 50);
+
+            ctx.font = '100px serif';
+
+            for (var i = 0; i < locations.length; i++) {
+
+                var left = (i * xBlockWidth) + xSizeForTimeWrittenOnLeft;
+
+                ctx.fillStyle = 'black';
+                ctx.fillRect(left, 60, xBlockWidth, 100);
+
+                ctx.fillStyle = 'red';
+                ctx.fillText(locations[i], left, 140);
 
             }
         }
@@ -420,7 +325,7 @@
             if (event.tap > Number(3)) {
                 event.tap = Number(1);
             }
-            localStorage.setItem(storedEventsKey, JSON.stringify(events));
+            localStorage.setItem(storedEventsKey + day, JSON.stringify(events));
             localStorage.setItem(event.eventName + event.eventDay, event.tap);
             drawSchedule();
             
@@ -481,10 +386,10 @@
 
         function drawTime() {
         	
-            var dateNumber = startDay;
+            //var dateNumber = startDay;
         	
         	var currentHour = startHour;
-            var dayNumber = 1;
+            var dayNumber = day;
             var canvas = document.getElementById('canvas');
 
             var ctx = canvas.getContext('2d');
@@ -492,17 +397,17 @@
             for (var x = 0; x <= durationHours; x++) {
                 if (currentHour > 24) {
                     currentHour = 1;
-                    dateNumber += 1;
+                    //dateNumber += 1;
                 }
 
                 if (currentHour == 6) {
-                    dayNumber += 1;
+                    //dayNumber += 1;
                 }
                 
-                if (dateNumber > 31)
-                {
-                	dateNumber = 1;
-                }
+                //if (dateNumber > 31)
+                //{
+                	//dateNumber = 1;
+                //}
                     
 
                 ctx.fillStyle = 'rgb(200, 200, 200)';
@@ -527,19 +432,19 @@
                 }
 
                 ctx.fillText(currentHour + ":00", 0, (x * timeyHeight) + yHeightOffset + pmOffset);
-                ctx.fillText("Day " + dayNumber, 0, (x * timeyHeight) + yHeightOffset + pmOffset + pmOffset);
+                ctx.fillText("Day " + day, 0, (x * timeyHeight) + yHeightOffset + pmOffset + pmOffset);
                 
                 var month = "";
-                if (dateNumber == 30 || dateNumber == 31)
-                {
-                    month = "Jan ";
-                }
-                else
-                {   
-                    month = "Feb ";
-                }
+                //if (dateNumber == 30 || dateNumber == 31)
+               // {
+                 //   month = "Jan ";
+               // }
+                //else
+                //{   
+                //    month = "Feb ";
+               // }
                 
-                ctx.fillText(month + dateNumber, 0, (x * timeyHeight) + yHeightOffset + pmOffset + pmOffset + pmOffset);
+                //ctx.fillText(month + dateNumber, 0, (x * timeyHeight) + yHeightOffset + pmOffset + pmOffset + pmOffset);
 
                 currentHour++;
             }
@@ -588,7 +493,7 @@
 
 </head>
 
-<body onload="drawTimeCurrentTimeSchedule(); setInterval('drawTimeCurrentTimeSchedule()', 60000 ); drawTop(); setInterval('drawTop()', 60000 );">
+<body onload="drawTimeline(); setInterval('drawTimeline()', 60000 ); drawTop(); setInterval('drawTop()', 60000 );">
     <style>
         body {
             margin: 0;
@@ -626,6 +531,8 @@
             margin: 4px 2px;
             cursor: pointer;
             background-color: gold;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
         }
     </style>
 
@@ -636,7 +543,7 @@
 
 
     <div style="background:white;">
-        <canvas id="canvas" width="3200" height="40000"></canvas>
+        <canvas id="canvas" width="1600" height="10000"></canvas>
     </div>
 
     <div class="bottom">
