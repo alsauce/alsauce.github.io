@@ -256,7 +256,9 @@
             if (canvas.getContext) {
                 canvas.width = window.innerWidth;
                 var ctx = canvas.getContext('2d');
-                ctx.fillStyle = "blue";
+                ctx.fillStyle = "grey";
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
                 width = window.innerWidth;
@@ -521,10 +523,10 @@
                 }
                     
 
-                ctx.fillStyle = 'rgb(200, 200, 200)';
+                ctx.fillStyle = 'black';
                 ctx.fillRect(0, (x * timeyHeight) + yHeightOffset, width, 10);
 
-                ctx.fillStyle = 'rgb(0, 0, 0)';
+                ctx.fillStyle = 'white';
 
                 if (currentHour == 24) {
                     ctx.fillText("midnt", 0, (x * timeyHeight) + yHeightOffset);
