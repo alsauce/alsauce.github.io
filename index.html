@@ -85,8 +85,6 @@
 
         function getEvents() {
 
-            try{
-
         	//TODO comment out to save color changes, uncomment for testing
             // localStorage.clear(storedEventsKey);
             // localStorage.clear(storedWidthKey);
@@ -153,11 +151,7 @@
             localStorage.setItem(storedEventsKey, JSON.stringify(eventsPrimer));
             localStorage.setItem(storedWidthKey, xBlockWidth);
             return eventsPrimer;
-        }
-        catch(ex)
-        {
-            alert(ex);
-        }
+
         }
 
 
@@ -233,8 +227,8 @@
             }
         }
 
+
         function drawTimeCurrentTimeSchedule() {
-            try{
             //TODO not live
             //new (year: number, month: number, date?: number, hours?: number, minutes?: number, seconds?: number, ms?: number) => Date (+4 overloads)
             //test += 1;
@@ -255,10 +249,8 @@
             if (canvas.getContext) {
                 canvas.width = window.innerWidth;
                 var ctx = canvas.getContext('2d');
-                ctx.fillStyle = "blue";
-
+                ctx.fillStyle = "grey";
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fill();
 
                 width = window.innerWidth;
                 if (width > 3200) {
@@ -295,11 +287,6 @@
 
 
             }
-            }
-                catch(ex)
-            {
-                alert(ex);
-            }
         }
 
         function getHoursPastStartTime(time) {
@@ -319,8 +306,6 @@
         }
 
         function drawCurrentTime() {
-        	//alert("drawCurrentTime");
-
             var ctx = canvas.getContext('2d');
 
             var hoursPastCurrentTimeStartTime = getHoursPastStartTime(storedTime);
@@ -442,7 +427,6 @@
         }
 
         function drawSchedule() {
-            //alert("drawSchedule");
             var canvas = document.getElementById('canvas');
             if (init) {
                 canvas.addEventListener("click", relMouseCoords);
@@ -496,8 +480,7 @@
         }
 
         function drawTime() {
-        	//alert("drawTime");
-            
+        	
             var dateNumber = startDay;
         	
         	var currentHour = startHour;
@@ -522,10 +505,10 @@
                 }
                     
 
-                ctx.fillStyle = 'black';
+                ctx.fillStyle = 'rgb(200, 200, 200)';
                 ctx.fillRect(0, (x * timeyHeight) + yHeightOffset, width, 10);
 
-                ctx.fillStyle = 'white';
+                ctx.fillStyle = 'rgb(0, 0, 0)';
 
                 if (currentHour == 24) {
                     ctx.fillText("midnt", 0, (x * timeyHeight) + yHeightOffset);
@@ -545,8 +528,6 @@
 
                 ctx.fillText(currentHour + ":00", 0, (x * timeyHeight) + yHeightOffset + pmOffset);
                 ctx.fillText("Day " + dayNumber, 0, (x * timeyHeight) + yHeightOffset + pmOffset + pmOffset);
-                ctx.fill();
-                ctx.stroke();
                 
                 var month = "";
                 if (dateNumber == 30 || dateNumber == 31)
@@ -562,7 +543,6 @@
 
                 currentHour++;
             }
-            //alert("drawTimeDone hours: " + durationHours);
         }
 
         function drawBottom() {
@@ -619,7 +599,6 @@
             background-color: white;
             position: fixed;
             top: 0;
-            width: 3200px;
             margin: 0;
             padding: 0;
             font-size: 50px;
@@ -651,12 +630,11 @@
 
 
     <div class="top">
-        <canvas id="top" width="3200" height="150"></canvas>
+        <canvas id="top" width="1600" height="150"></canvas>
     </div>
 
-
-    <div>
-        <canvas id="canvas" width="100" height="4000"></canvas>
+    <div style="background:white;">
+        <canvas id="canvas" width="1000" height="40000"></canvas>
     </div>
 
     <div class="bottom">
