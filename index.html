@@ -253,14 +253,15 @@
             }
             
             var canvas = document.getElementById('canvas');
-            //alert(canvas.getContext);
-            //if (canvas.getContext) {
+            alert(canvas.getContext);
+            if (canvas.getContext) {
                 canvas.width = window.innerWidth;
                 var ctx = canvas.getContext('2d');
                 ctx.fillStyle = "grey";
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
                 width = window.innerWidth;
+                alert("width: " + width)
                 if (width > 3200) {
                     width = 3200;
                 }
@@ -290,11 +291,11 @@
                 }
 
                 drawTime();
-                //drawCurrentTime();
-                //drawSchedule();
+                drawCurrentTime();
+                drawSchedule();
 
 
-            //}
+            }
             }
                 catch(ex)
             {
