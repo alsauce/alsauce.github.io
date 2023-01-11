@@ -24,7 +24,7 @@
         let startDay = 30;
         let locations = ["PD", "RT", "SB", "SL"];
         var xSizeForTimeWrittenOnLeft = 160;
-        var timeyHeight = 400.0;
+        var timeyHeight = 300.0;
         var yHeightOffset = 150;
         var pmOffset = 60.0;
         var width = 1;
@@ -253,7 +253,6 @@
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
                 width = window.innerWidth;
-                alert(width);
                 if (width > 3200) {
                     width = 3200;
                 }
@@ -473,7 +472,7 @@
                 ctx.fillText(going, event.left, event.top + 250, xBlockWidth);
                 if (event.eventInfo != null)
                 {
-                    ctx.fillText(event.eventInfo, event.left, event.top + 300, xBlockWidth);
+                    //ctx.fillText(event.eventInfo, event.left, event.top + 300, xBlockWidth);
                 }
             }
 
@@ -631,11 +630,11 @@
 
 
     <div class="top">
-        <canvas id="top" width="1600" height="150"></canvas>
+        <canvas id="top" width="980" height="150"></canvas>
     </div>
 
     <div style="background:white;">
-        <canvas id="canvas" width="1000" height="40000"></canvas>
+        <canvas id="canvas" width="980" height="30000"></canvas>
     </div>
 
     <div class="bottom">
