@@ -13,55 +13,54 @@
     {
         var topDiv = document.getElementById('topDiv');
         topDiv.style.height = (window.innerHeight - 200) + "px";
-        labelWidth = Math.floor(window.innerWidth / 4.3) + "px";
+        labelWidth = Math.floor(window.innerWidth / 4.4) + "px";
         let allEvents = [];
+        for (x = 0; x < 10; x++)
+        {
         for (let i = 0; i < eventsDay1.length; i++) {
             event = eventsDay1[i];
-            theText = event.eventName + "\nDay1\n" +event.eventStartTime + "-" + event.eventEndTime; 
+            theText = event.eventName + "\nDay1\n" +event.eventStartTime + "\n" + event.eventEndTime; 
             allEvents.push(theText);
         }
 
         for (let i = 0; i < eventsDay2.length; i++) {
             event = eventsDay2[i];
-            theText = event.eventName + "\nDay2\n" +event.eventStartTime + "-" + event.eventEndTime; 
+            theText = event.eventName + "\nDay2\n" +event.eventStartTime + "\n" + event.eventEndTime; 
             allEvents.push(theText);
         }
 
         for (let i = 0; i < eventsDay3.length; i++) {
             event = eventsDay3[i];
-            theText = event.eventName + "\nDay3\n" +event.eventStartTime + "-" + event.eventEndTime; 
+            theText = event.eventName + "\nDay3\n" +event.eventStartTime + "\n" + event.eventEndTime; 
             allEvents.push(theText);
         }
 
         for (let i = 0; i < eventsDay4.length; i++) {
             event = eventsDay4[i];
-            theText = event.eventName + "\nDay4\n" +event.eventStartTime + "-" + event.eventEndTime; 
+            theText = event.eventName + "\nDay4\n" +event.eventStartTime + "\n" + event.eventEndTime; 
             allEvents.push(theText);
         }
 
         for (let i = 0; i < eventsDay5.length; i++) {
             event = eventsDay5[i];
-            theText = event.eventName + "\nDay5\n" +event.eventStartTime + "-" + event.eventEndTime; 
+            theText = event.eventName + "\nDay5\n" +event.eventStartTime + "\n" + event.eventEndTime; 
             allEvents.push(theText);
         }
+        }
 
-        allEvents.sort();
-
-        for (x = 0; x < 10; x++)
-        {
+        allEvents = allEvents.sort();
+        
         for (let i = 0; i < allEvents.length; i++) {
             event = allEvents[i];
             var label = document.createElement("textarea");
             label.style.backgroundColor='lightgrey';
             label.style.width=labelWidth;
-            label.style.height="200px";
-            label.style.fontSize="25px";
+            label.style.height="250px";
+            label.style.fontSize="30px";
             label.innerHTML = event;
             topDiv.appendChild(label);
         }
-    }
-    var button = document.createElement("button");
-topDiv.appendChild(label);
+
     }
 
     function bottomButton()
