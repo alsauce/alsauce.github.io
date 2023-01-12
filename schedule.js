@@ -3,7 +3,7 @@ startHourDay1 = 16;
 
 eventsDay1 = [
     {
-       "eventName": "Test day 1",
+       "eventName": "BTest day 1",
        "eventLocation": "PD",
        "eventStartDate": "30",
        "eventEndDate": "30",
@@ -11,14 +11,12 @@ eventsDay1 = [
        "eventEndTime": "6:00|PM"
    },
    {
-      "eventName": "Test day 4_v2",
-      "eventInfo": "Day 4 Info",
+      "eventName": "Test day 1 midnight",
       "eventLocation": "RT",
-      "eventDay": "4",
-      "eventStartDate": "2",
-      "eventEndDate": "2",
-      "eventStartTime": "12:45|PM",
-      "eventEndTime": "1:45|PM"
+      "eventStartDate": "30",
+      "eventEndDate": "31",
+      "eventStartTime": "11:45|PM",
+      "eventEndTime": "12:45|AM"
    }
 ];
 startTimeDay2 = new Date(2023, 0, 31, 10, 0, 0, 0);
@@ -27,13 +25,43 @@ startHourDay2 = 10;
 eventsDay2 = [
     {
        "eventName": "Test day 2",
-       "eventInfo": "1st band usually",
        "eventLocation": "PD",
-       "eventDay": "2",
        "eventStartDate": "31",
        "eventEndDate": "31",
        "eventStartTime": "10:15|AM",
        "eventEndTime": "11:00|AM"
+   },
+   {
+      "eventName": "Test day 2 midnight",
+      "eventLocation": "RT",
+      "eventStartDate": "31",
+      "eventEndDate": "1",
+      "eventStartTime": "11:05|PM",
+      "eventEndTime": "12:00|AM"
+   },
+   {
+      "eventName": "Test day 2 #3",
+      "eventLocation": "RT",
+      "eventStartDate": "1",
+      "eventEndDate": "1",
+      "eventStartTime": "12:05|AM",
+      "eventEndTime": "1:00|AM"
+   },
+   {
+      "eventName": "DTest day 2 4",
+      "eventLocation": "RT",
+      "eventStartDate": "1",
+      "eventEndDate": "1",
+      "eventStartTime": "12:05|AM",
+      "eventEndTime": "1:00|AM"
+   },
+   {
+      "eventName": "Test day 2 5",
+      "eventLocation": "RT",
+      "eventStartDate": "1",
+      "eventEndDate": "1",
+      "eventStartTime": "12:05|AM",
+      "eventEndTime": "1:00|AM"
    }
 ];
 
@@ -42,10 +70,8 @@ startHourDay3 = 10;
 
 eventsDay3 = [
     {
-       "eventName": "Test day 3",
-       "eventInfo": "1st band usually",
+       "eventName": "CTest day 3",
        "eventLocation": "PD",
-       "eventDay": "1",
        "eventStartDate": "1",
        "eventEndDate": "1",
        "eventStartTime": "5:15|PM",
@@ -59,9 +85,7 @@ startHourDay4 = 10;
 eventsDay4 = [
     {
        "eventName": "Test day 4",
-       "eventInfo": "1st band usually",
        "eventLocation": "PD",
-       "eventDay": "1",
        "eventStartDate": "2",
        "eventEndDate": "2",
        "eventStartTime": "5:15|PM",
@@ -74,10 +98,8 @@ startHourDay5 = 10;
 
 eventsDay5 = [
     {
-       "eventName": "Test day 5",
-       "eventInfo": "1st band usually",
+       "eventName": "ATest day 5",
        "eventLocation": "PD",
-       "eventDay": "1",
        "eventStartDate": "3",
        "eventEndDate": "3",
        "eventStartTime": "5:15|PM",
