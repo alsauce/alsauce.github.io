@@ -4,8 +4,8 @@
 <head>
     <title>Alpha</title>
 
-    <script type="text/javascript" src="schedule.js?version=4"></script>
-    <script type="text/javascript" src="bandinfo.js?version=4"></script>
+    <script type="text/javascript" src="schedule.js?version=3"></script>
+    <script type="text/javascript" src="bandinfo.js?version=3"></script>
     <script type="text/javascript">
 
 
@@ -59,6 +59,11 @@
 
     }
 
+    function bottomButton()
+    {
+        window.location.assign("https://alsauce.github.io/");
+    }
+
     </script>
 
 </head>
@@ -68,7 +73,7 @@
             margin: 0;
         }
 
-        .buttonsss {
+        .button {
             border: none;
             padding: 15px 32px;
             text-align: center;
@@ -86,6 +91,10 @@
     </style>
 
 <div id="topDiv">
+</div>
+
+<div id="bottomDiv">
+    <button type="button" onclick="bottomButton()" id="bottomButton" class="button">Time</button>
 </div>
 
 </body>
