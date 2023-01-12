@@ -40,6 +40,9 @@
     primeEventInfo();
     primeBandInfo();
 
+    window.onresize = function () {primeEventInfo();drawTop();drawTimeline();}
+
+
     function primeBandInfo()
     {
         var bandInfoSplit = bandInfo.split("|");
@@ -464,6 +467,15 @@
         document.getElementById("day4").style.backgroundColor="grey";
         document.getElementById("day5").style.backgroundColor="grey";
         document.getElementById("day" + day).style.backgroundColor="gold";
+
+        buttonWidth = Math.floor(window.innerWidth / 7) + "px";
+        document.getElementById("day1").style.width=buttonWidth;
+        document.getElementById("day2").style.width=buttonWidth;
+        document.getElementById("day3").style.width=buttonWidth;
+        document.getElementById("day4").style.width=buttonWidth;
+        document.getElementById("day5").style.width=buttonWidth;
+        document.getElementById("changeTap").style.width=buttonWidth;
+
     }
     function handleDayButton(newDay)
     {
@@ -518,15 +530,15 @@
     {
         if (tapFunction == 1)
         {
-            document.getElementById("changeTap").innerText="Going";
+            document.getElementById("changeTap").innerText="Gng";
         }
         if (tapFunction == 2)
         {
-            document.getElementById("changeTap").innerText="Details";     
+            document.getElementById("changeTap").innerText="Dts";     
         }
         if (tapFunction == 3)
         {
-            document.getElementById("changeTap").innerText="No Op";
+            document.getElementById("changeTap").innerText="Nop";
         }
     }
 
@@ -568,7 +580,7 @@
             color: black;
             text-decoration: none;
             display: inline-block;
-            font-size: 100px;
+            font-size: 60px;
             margin: 4px 2px;
             cursor: pointer;
             background-color: gold;
