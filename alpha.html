@@ -12,7 +12,8 @@
     function drawAlpha()
     {
         var topDiv = document.getElementById('topDiv');
-        labelWidth = Math.floor(window.innerWidth / 4.2) + "px";
+        topDiv.style.height = (window.innerHeight - 200) + "px";
+        labelWidth = Math.floor(window.innerWidth / 4.3) + "px";
         let allEvents = [];
         for (let i = 0; i < eventsDay1.length; i++) {
             event = eventsDay1[i];
@@ -46,6 +47,8 @@
 
         allEvents.sort();
 
+        for (x = 0; x < 10; x++)
+        {
         for (let i = 0; i < allEvents.length; i++) {
             event = allEvents[i];
             var label = document.createElement("textarea");
@@ -56,12 +59,14 @@
             label.innerHTML = event;
             topDiv.appendChild(label);
         }
-
+    }
+    var button = document.createElement("button");
+topDiv.appendChild(label);
     }
 
     function bottomButton()
     {
-        window.location.assign("https://alsauce.github.io/");
+        window.location.assign("./index.html");
     }
 
     </script>
@@ -72,6 +77,7 @@
         body {
             margin: 0;
         }
+
 
         .button {
             border: none;
@@ -90,11 +96,11 @@
         }
     </style>
 
-<div id="topDiv">
+<div id="topDiv" style="overflow:scroll; height:500px;">
 </div>
 
 <div id="bottomDiv">
-    <button type="button" onclick="bottomButton()" id="bottomButton" class="button">Time</button>
+    <button type="button" onclick="bottomButton()" id="bottomButton" class="button" style="background-color:greenyellow;">Time</button>
 </div>
 
 </body>
