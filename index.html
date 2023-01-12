@@ -4,14 +4,14 @@
 <head>
     <title>Timeline</title>
 
-    <script type="text/javascript" src="schedule.js"></script>
-    <script type="text/javascript" src="bandinfo.js"></script>
+    <script type="text/javascript" src="schedule.js?version=1"></script>
+    <script type="text/javascript" src="bandinfo.js?version=1"></script>
     <script type="text/javascript">
     let locations = ["PD", "RT", "SB", "SL"];
     var xSizeForTimeWrittenOnLeft = 160;
     var timeyHeight = 400.0;
-        var yHeightOffset = 150;
-        var pmOffset = 60.0;
+    var yHeightOffset = 150;
+    var pmOffset = 60.0;
         
     var xBlockWidth = (window.innerWidth - xSizeForTimeWrittenOnLeft) / locations.length;
     let day = 1;
@@ -19,16 +19,24 @@
     var tapFunction = 1;
 
     var secondsInAnHour = 60 * 60;
-        //size.x =  window.innerWidth
-        var xBlockWidth = (window.innerWidth - xSizeForTimeWrittenOnLeft) / locations.length;
-        //can use this for testing the line I think
-        var storedTime = new Date(year, 0, 31, 17, 0, 0, 0);
-        var init = true;
-        var storedEventsKey = "storedEvents70k" + year + "_v3";
-        var storedWidthKey = "storedWidth70k" + year + "_v3";
-        var storedDayKey = "storedDay70k" + year + "_v3";
-        var storedTapKey = "storedTap70k" + year + "_v3";
-       
+    var xBlockWidth = (window.innerWidth - xSizeForTimeWrittenOnLeft) / locations.length;
+    
+    //can use this for testing the line
+    var storedTime = new Date(year, 1, 1, 17, 45, 0, 0);
+    var init = true;
+    var storedVersion = "_v4";
+    var storedWidthKey = "storedWidth70k" + year + storedVersion;
+    var storedDayKey = "storedDay70k" + year + storedVersion;
+    var storedTapFunctionalityKey = "storedTap70k" + year + storedVersion;
+    var storedGoingKey = "storedGoing70k" + year + storedVersion;
+    
+    let durationHours = 21;
+    var startHour;
+        
+        
+    var events;
+    var startTime;
+    
     primeEventInfo();
     primeBandInfo();
 
@@ -36,28 +44,21 @@
     {
         var bandInfoSplit = bandInfo.split("|");
             
-            for (let i = 0; i < bandInfoSplit.length; i++)
-            {
-                var singleBandInfo = bandInfoSplit[i].split(",");
-                var bandName = singleBandInfo[0];
-                var genre = singleBandInfo[1];
-                var going = singleBandInfo[2];
-                var notes = singleBandInfo[3];
-                var spotifyLink = singleBandInfo[4];
+        for (let i = 0; i < bandInfoSplit.length; i++)
+        {
+            var singleBandInfo = bandInfoSplit[i].split(",");
+            var bandName = singleBandInfo[0];
+            var genre = singleBandInfo[1];
+            var going = singleBandInfo[2];
+            var notes = singleBandInfo[3];
+            var spotifyLink = singleBandInfo[4];
 
-                var info = bandName + "\n" + genre + "\n" + notes + "\n" + spotifyLink;
-                localStorage.setItem("genre" + bandName, going + " " + genre);
+            var info = bandName + "\n" + genre + "\n" + notes + "\n" + spotifyLink;
+            localStorage.setItem("genre" + bandName, going + " " + genre);
 
-                localStorage.setItem("info" + bandName, info);
-            }
+            localStorage.setItem("info" + bandName, info);
+        }
     }
-
-    let durationHours = 24;
-    var startHour;
-        
-        
-    var events;
-    var startTime;
         
     function primeEventInfo()
     {
@@ -66,7 +67,7 @@
         {
             day = storedDay;
         }
-        var storedTap = localStorage.getItem(storedTapKey);
+        var storedTap = localStorage.getItem(storedTapFunctionalityKey);
         if (storedTap != null)
         {
             tapFunction = storedTap;
@@ -115,8 +116,7 @@
 
                 var eventEndDate = getDate(event.eventEndTime, event.eventEndDate);
                 var hoursPastStartEventEndTime = getHoursPastStartTime(eventEndDate);
-                //
-                //
+
                 var locationIndex = getLocationIndex(event.eventLocation);
                 //console.log("locationIndex: " + locationIndex);
                 var left = (locationIndex * xBlockWidth) + xSizeForTimeWrittenOnLeft;
@@ -126,21 +126,20 @@
                 event.left = left;
                 event.top = top;
                 event.bottom = bottom;
-                var going = localStorage.getItem(event.eventName+event.eventDay);
-                if (going != null)
+                var going = localStorage.getItem(getGoingKey(event.eventName,event.eventDay));
+                if (going == null)
                 {
-                    event.tap = going;
-                }
-                else {
-                    event.tap = 1;
+                    localStorage.setItem(getGoingKey(event.eventName,event.eventDay), 1);
                 }
             }
 
-            
-
             //console.log("storing events");
-            localStorage.setItem(storedEventsKey + day, JSON.stringify(events));
             localStorage.setItem(storedWidthKey, xBlockWidth);
+    }
+
+    function getGoingKey(eventName, eventDay)
+    {
+        return storedGoingKey + eventName + eventDay;
     }
 
     function drawTimeline()
@@ -148,396 +147,359 @@
         document.getElementById("changeDay").innerText="Day " + day;
         drawTapFunction();
         
-        //TODO not live
-            //new (year: number, month: number, date?: number, hours?: number, minutes?: number, seconds?: number, ms?: number) => Date (+4 overloads)
-            //test += 1;
-            //var currentTime = new Date(startTime.getTime() + (1000*60*60*5));
-            var currentTime = new Date();    
-            
-            if (currentTime > storedTime)
-            {
-                //console.log("curr > stored");
-                storedTime = currentTime;
+        
+        var currentTime = new Date();    
+        
+        if (currentTime > storedTime)
+        {
+            storedTime = currentTime;
+        }
+        
+        var canvas = document.getElementById('canvas');
+        if (canvas.getContext) {
+            canvas.width = window.innerWidth;
+            var ctx = canvas.getContext('2d');
+            ctx.fillStyle = "grey";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            width = window.innerWidth;
+            if (width > 3200) {
+                width = 3200;
             }
-            else
-            {
-                //console.log("curr not greater");
-            }
-            
-            var canvas = document.getElementById('canvas');
-            if (canvas.getContext) {
-                canvas.width = window.innerWidth;
-                var ctx = canvas.getContext('2d');
-                ctx.fillStyle = "grey";
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.width = width;
 
-                width = window.innerWidth;
-                if (width > 3200) {
-                    width = 3200;
-                }
-                ctx.width = width;
+            xBlockWidth = (width - xSizeForTimeWrittenOnLeft) / locations.length;
 
-                xBlockWidth = (width - xSizeForTimeWrittenOnLeft) / locations.length;
-
-                var storedXBlockWidth = localStorage.getItem(storedWidthKey);
-                if (storedXBlockWidth != xBlockWidth) {
+            var storedXBlockWidth = localStorage.getItem(storedWidthKey);
+            if (storedXBlockWidth != xBlockWidth) {
 
 
-                    for (let i = 0; i < events.length; i++) {
-                        var event = events[i];
+                for (let i = 0; i < events.length; i++) {
+                    var event = events[i];
 
 
-                        var locationIndex = getLocationIndex(event.eventLocation);
+                    var locationIndex = getLocationIndex(event.eventLocation);
 
-                        var left = (locationIndex * xBlockWidth) + xSizeForTimeWrittenOnLeft;
+                    var left = (locationIndex * xBlockWidth) + xSizeForTimeWrittenOnLeft;
 
-                        event.left = left;
+                    event.left = left;
 
-                    }
-
-
-                    localStorage.setItem(storedWidthKey, xBlockWidth);
-                    localStorage.setItem(storedEventsKey + day, JSON.stringify(events));
                 }
 
-                drawTime();
-                drawCurrentTime();
-                drawSchedule();
 
-
+                localStorage.setItem(storedWidthKey, xBlockWidth);
             }
+
+            drawTime();
+            drawCurrentTime();
+            drawSchedule();
+
+
+        }
     }
 
     function drawTop() {
-            var top = document.getElementById('top');
+        var top = document.getElementById('top');
 
-            var ctx = top.getContext('2d');
-            ctx.fillStyle = "grey";
-            ctx.fillRect(0, 0, top.width, top.height);
-            ctx.font = '100px serif';
+        var ctx = top.getContext('2d');
+        ctx.fillStyle = "grey";
+        ctx.fillRect(0, 0, top.width, top.height);
+        ctx.font = '100px serif';
 
-            ctx.fillStyle = 'white';
-            ctx.fillRect(0, 0, window.innerWidth, 60);
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, window.innerWidth, 60);
 
-            //filltest x y coord, maxwidth optional
-//             ctx.fillStyle = 'black';
-//             ctx.font = '50px serif';
-//             ctx.fillText("********Unofficial psycho vegas schedule********", 0, 50);
+        ctx.fillStyle = 'black';
+        ctx.font = '50px serif';
+        ctx.fillText("********Unofficial schedule********", 0, 50);
 
-            ctx.font = '100px serif';
+        ctx.font = '100px serif';
 
-            for (var i = 0; i < locations.length; i++) {
+        for (var i = 0; i < locations.length; i++) {
 
-                var left = (i * xBlockWidth) + xSizeForTimeWrittenOnLeft;
+            var left = (i * xBlockWidth) + xSizeForTimeWrittenOnLeft;
 
-                ctx.fillStyle = 'black';
-                ctx.fillRect(left, 60, xBlockWidth, 100);
+            ctx.fillStyle = 'black';
+            ctx.fillRect(left, 60, xBlockWidth, 100);
 
-                ctx.fillStyle = 'red';
-                ctx.fillText(locations[i], left, 140);
+            ctx.fillStyle = 'red';
+            ctx.fillText(locations[i], left, 140);
 
+        }
+    }
+
+    function getHoursPastStartTime(time) {
+        var secondsPastStart = (time.getTime() - startTime.getTime()) / 1000.0;
+        var hoursPastStart = secondsPastStart / secondsInAnHour;
+        //console.log("time getyHeightPixelOffset: " + time);
+        //console.log("hoursPastStart getyHeightPixelOffset: " + hoursPastStart);
+
+        return hoursPastStart;
+    }
+
+    function getPixelForHour(hoursPastStartTime) {
+        //console.log("hoursPastStartTime: " + hoursPastStartTime);
+        var pixel = (timeyHeight * hoursPastStartTime) + yHeightOffset;
+        //console.log("pixel getPixelForHour: " + pixel);
+        return pixel;
+    }
+
+    function drawCurrentTime() {
+        var ctx = canvas.getContext('2d');
+
+        var hoursPastCurrentTimeStartTime = getHoursPastStartTime(storedTime);
+
+        var yHeightPixelForCurrentTime = getPixelForHour(hoursPastCurrentTimeStartTime);
+
+        ctx.fillStyle = 'fuchsia';
+        ctx.fillRect(0, yHeightPixelForCurrentTime, width, 10);
+    }
+
+    function getLocationIndex(location) {
+        for (let i = 0; i < locations.length; i++) {
+            if (location === locations[i]) {
+                return i;
+            }
+        }
+    }
+
+    function getDate(time, date) {
+        var timeAndAMPM = time.split('|');
+        var hourAndMinute = timeAndAMPM[0].split(":");
+        var hour = Number(hourAndMinute[0]);
+        if (timeAndAMPM[1] == "PM") {
+            //12:00PM needs to be 12:00
+            if (hour != 12) {
+                hour = hour + 12;
+            }
+        }
+        else {
+            //12:00AM needs to be 0:00
+            if (hour == 12) {
+                hour = 0;
             }
         }
 
-        function getHoursPastStartTime(time) {
-            var secondsPastStart = (time.getTime() - startTime.getTime()) / 1000.0;
-            var hoursPastStart = secondsPastStart / secondsInAnHour;
-            //console.log("time getyHeightPixelOffset: " + time);
-            //console.log("hoursPastStart getyHeightPixelOffset: " + hoursPastStart);
+        var month = "";
+        if (date == "30" || date == "31")
+        {
+            month = " Jan ";
+        }
+        else
+        {   
+            month = " Feb ";
+        }
+            
+        var eventDateString = date + month + year + " " + hour + ":" + hourAndMinute[1] + ":00";
+        //console.log(" date string " + eventDateString);
+        var eventDate = new Date(Date.parse(eventDateString));
+        //console.log(" date parsed " + eventDate);
+        return eventDate;
+    }
 
-            return hoursPastStart;
+    function intersects(xpos, ypos, event) {
+        if (xpos > event.left && xpos < event.left + xBlockWidth) {
+
+            if (ypos > event.top && ypos < event.bottom) {
+                return true;
+            }
+
+        }
+    }
+
+
+    function relMouseCoords(mouseEvent) {
+        if (tapFunction == 1)
+        {
+            modifyGoing(mouseEvent, this);
+        }
+        if (tapFunction == 2)
+        {
+            showBandInfo(mouseEvent, this);
+        }
+            
+    }
+
+    function showBandInfo(mouseEvent, currentElement) {
+        var event = getTappedEvent(mouseEvent, currentElement);
+        if (event != null)
+        {
+            alert(localStorage.getItem("info" + event.eventName));
         }
 
-        function getPixelForHour(hoursPastStartTime) {
-            //console.log("hoursPastStartTime: " + hoursPastStartTime);
-            var pixel = (timeyHeight * hoursPastStartTime) + yHeightOffset;
-            //console.log("pixel getPixelForHour: " + pixel);
-            return pixel;
+    }
+
+    function getTappedEvent(mouseEvent, currentElement) {
+        var totalOffsetX = 0;
+        var totalOffsetY = 0;
+        var canvasX = 0;
+        var canvasY = 0;
+
+        do {
+            totalOffsetX += currentElement.offsetLeft - currentElement.scrollLeft;
+            totalOffsetY += currentElement.offsetTop - currentElement.scrollTop;
         }
+        while (currentElement = currentElement.offsetParent)
 
-        function drawCurrentTime() {
-            var ctx = canvas.getContext('2d');
+        canvasX = mouseEvent.pageX - totalOffsetX;
+        canvasY = mouseEvent.pageY - totalOffsetY;
 
-            var hoursPastCurrentTimeStartTime = getHoursPastStartTime(storedTime);
-
-            var yHeightPixelForCurrentTime = getPixelForHour(hoursPastCurrentTimeStartTime);
-
-            ctx.fillStyle = 'fuchsia';
-            ctx.fillRect(0, yHeightPixelForCurrentTime, width, 10);
-        }
-
-        function getLocationIndex(location) {
-            for (let i = 0; i < locations.length; i++) {
-                if (location === locations[i]) {
-                    return i;
-                }
+        for (let i = 0; i < events.length; i++) {
+            if (intersects(canvasX, canvasY, events[i])) {
+                return events[i];
             }
         }
+    }
 
-        function getDate(time, date) {
-            var timeAndAMPM = time.split('|');
-            var hourAndMinute = timeAndAMPM[0].split(":");
-            var hour = Number(hourAndMinute[0]);
-            if (timeAndAMPM[1] == "PM") {
-                //12:00PM needs to be 12:00
-                if (hour != 12) {
-                    hour = hour + 12;
-                }
+    function modifyGoing(mouseEvent, currentElement) {
+        var event = getTappedEvent(mouseEvent, currentElement);
+        goingValue = localStorage.getItem(getGoingKey(event.eventName,event.eventDay));
+        goingValue++;
+        if (goingValue > Number(3)) {
+            goingValue = Number(1);
+        }
+        localStorage.setItem(getGoingKey(event.eventName,event.eventDay), goingValue);
+        drawSchedule();
+        
+    }
+
+    function drawSchedule() {
+        var canvas = document.getElementById('canvas');
+        if (init) {
+            canvas.addEventListener("click", relMouseCoords);
+        }
+
+        var ctx = canvas.getContext('2d');
+        ctx.font = '50px serif';
+        for (let i = 0; i < events.length; i++) {
+            var event = events[i];
+
+            ctx.fillStyle = 'black';
+            ctx.fillRect(event.left, event.top, xBlockWidth, event.bottom - event.top);
+
+            var going = "";
+
+            var goingInd = localStorage.getItem(getGoingKey(event.eventName,event.eventDay));
+            if (goingInd == 1) {
+                ctx.fillStyle = 'lightgrey';
+                going = "Maybe going";
+            }
+            else if (goingInd == 2) {
+                ctx.fillStyle = 'lime';
+                going = "Going";
+            }
+            else if (goingInd == 3) {
+                ctx.fillStyle = 'darkred';
+                going = "Not going";
             }
             else {
-                //12:00AM needs to be 0:00
-                if (hour == 12) {
-                    hour = 0;
-                }
+                ctx.fillStyle = 'blue';
+                going = "Error";
+            }
+            ctx.fillText(event.eventName, event.left, event.top + 50, xBlockWidth);
+            ctx.fillText(localStorage.getItem("genre" + event.eventName), event.left, event.top + 100, xBlockWidth);
+            ctx.fillText(event.eventStartTime.split("|")[0], event.left, event.top + 150, xBlockWidth);
+            if (event.eventName == "") {
+                ctx.fillText("Close", event.left, event.top + 200, xBlockWidth);
+            }
+            else {
+                ctx.fillText(event.eventEndTime.split("|")[0], event.left, event.top + 200, xBlockWidth);
             }
 
-            var month = "";
-            if (date == "30" || date == "31")
+            ctx.fillText(going, event.left, event.top + 250, xBlockWidth);
+            if (event.eventInfo != null)
             {
-                month = " Jan ";
-            }
-            else
-            {   
-                month = " Feb ";
-            }
-            
-            var eventDateString = date + month + year + " " + hour + ":" + hourAndMinute[1] + ":00";
-            //console.log(" date string " + eventDateString);
-            var eventDate = new Date(Date.parse(eventDateString));
-            //console.log(" date parsed " + eventDate);
-            return eventDate;
-        }
-
-        function intersects(xpos, ypos, event) {
-            if (xpos > event.left && xpos < event.left + xBlockWidth) {
-
-                if (ypos > event.top && ypos < event.bottom) {
-                    return true;
-                }
-
+                ctx.fillText(event.eventInfo, event.left, event.top + 300, xBlockWidth);
             }
         }
 
+        init = false;
+    }
 
-        function relMouseCoords(mouseEvent) {
-            if (tapFunction == 1)
-            {
-                modifyGoing(mouseEvent, this);
+    function drawTime() {
+        
+        
+        var currentHour = startHour;
+        var dayNumber = day;
+        var canvas = document.getElementById('canvas');
+
+        var ctx = canvas.getContext('2d');
+        ctx.font = '50px serif';
+        for (var x = 0; x <= durationHours; x++) {
+            if (currentHour > 24) {
+                currentHour = 1;
+            }    
+
+            ctx.fillStyle = 'rgb(200, 200, 200)';
+            ctx.fillRect(0, (x * timeyHeight) + yHeightOffset, width, 10);
+
+            ctx.fillStyle = 'rgb(0, 0, 0)';
+
+            if (currentHour == 24) {
+                ctx.fillText("midnt", 0, (x * timeyHeight) + yHeightOffset);
             }
-            if (tapFunction == 2)
-            {
-                showBandInfo(mouseEvent, this);
-            }
-            
-        }
-
-        function showBandInfo(mouseEvent, currentElement) {
-            var event = getTappedEvent(mouseEvent, currentElement);
-            alert(localStorage.getItem("info" + event.eventName));
-
-            //let text = prompt("Modifications will be stored", localStorage.getItem("info" + event.eventName));
-            //localStorage.setItem("info" + event.eventName, text);
-
-
-        }
-
-        function getTappedEvent(mouseEvent, currentElement) {
-                //thank you https://stackoverflow.com/questions/55677/how-do-i-get-the-coordinates-of-a-mouse-click-on-a-canvas-element
-            var totalOffsetX = 0;
-            var totalOffsetY = 0;
-            var canvasX = 0;
-            var canvasY = 0;
-
-            do {
-                totalOffsetX += currentElement.offsetLeft - currentElement.scrollLeft;
-                totalOffsetY += currentElement.offsetTop - currentElement.scrollTop;
-            }
-            while (currentElement = currentElement.offsetParent)
-
-            canvasX = mouseEvent.pageX - totalOffsetX;
-            canvasY = mouseEvent.pageY - totalOffsetY;
-
-            for (let i = 0; i < events.length; i++) {
-                if (intersects(canvasX, canvasY, events[i])) {
-                    return events[i];
+            else {
+                if (currentHour < 12) {
+                    ctx.fillText((currentHour) + "am", 0, (x * timeyHeight) + yHeightOffset);
                 }
-            }
-        }
-
-        function modifyGoing(mouseEvent, currentElement) {
-            var event = getTappedEvent(mouseEvent, currentElement);
-            event.tap = event.tap + Number(1);
-            if (event.tap > Number(3)) {
-                event.tap = Number(1);
-            }
-            localStorage.setItem(storedEventsKey + day, JSON.stringify(events));
-            localStorage.setItem(event.eventName + event.eventDay, event.tap);
-            drawSchedule();
-            
-        }
-
-        function drawSchedule() {
-            var canvas = document.getElementById('canvas');
-            if (init) {
-                canvas.addEventListener("click", relMouseCoords);
-            }
-
-            var ctx = canvas.getContext('2d');
-            ctx.font = '50px serif';
-            for (let i = 0; i < events.length; i++) {
-                var event = events[i];
-
-                ctx.fillStyle = 'black';
-                ctx.fillRect(event.left, event.top, xBlockWidth, event.bottom - event.top);
-
-                var going = "";
-
-                if (event.tap == 1) {
-                    ctx.fillStyle = 'lightgrey';
-                    going = "Maybe going";
+                if (currentHour > 12) {
+                    ctx.fillText((currentHour - 12) + "pm", 0, (x * timeyHeight) + yHeightOffset);
                 }
-                else if (event.tap == 2) {
-                    ctx.fillStyle = 'lime';
-                    going = "Going";
-                }
-                else if (event.tap == 3) {
-                    ctx.fillStyle = 'darkred';
-                    going = "Not going";
-                }
-                else {
-                    ctx.fillStyle = 'blue';
-                    going = "Error";
-                }
-                //filltest x y coord, maxwidth optional
-                ctx.fillText(event.eventName, event.left, event.top + 50, xBlockWidth);
-                ctx.fillText(localStorage.getItem("genre" + event.eventName), event.left, event.top + 100, xBlockWidth);
-                ctx.fillText(event.eventStartTime.split("|")[0], event.left, event.top + 150, xBlockWidth);
-                if (event.eventName == "") {
-                    ctx.fillText("Close", event.left, event.top + 200, xBlockWidth);
-                }
-                else {
-                    ctx.fillText(event.eventEndTime.split("|")[0], event.left, event.top + 200, xBlockWidth);
-                }
-
-                ctx.fillText(going, event.left, event.top + 250, xBlockWidth);
-                if (event.eventInfo != null)
+                if (currentHour == 12)
                 {
-                    ctx.fillText(event.eventInfo, event.left, event.top + 300, xBlockWidth);
+                    ctx.fillText("noon", 0, (x * timeyHeight) + yHeightOffset);
                 }
             }
 
-            init = false;
-        }
-
-        function drawTime() {
-        	
-            //var dateNumber = startDay;
-        	
-        	var currentHour = startHour;
-            var dayNumber = day;
-            var canvas = document.getElementById('canvas');
-
-            var ctx = canvas.getContext('2d');
-            ctx.font = '50px serif';
-            for (var x = 0; x <= durationHours; x++) {
-                if (currentHour > 24) {
-                    currentHour = 1;
-                    //dateNumber += 1;
-                }
-
-                if (currentHour == 6) {
-                    //dayNumber += 1;
-                }
-                
-                //if (dateNumber > 31)
-                //{
-                	//dateNumber = 1;
-                //}
-                    
-
-                ctx.fillStyle = 'rgb(200, 200, 200)';
-                ctx.fillRect(0, (x * timeyHeight) + yHeightOffset, width, 10);
-
-                ctx.fillStyle = 'rgb(0, 0, 0)';
-
-                if (currentHour == 24) {
-                    ctx.fillText("midnt", 0, (x * timeyHeight) + yHeightOffset);
-                }
-                else {
-                    if (currentHour < 12) {
-                        ctx.fillText((currentHour) + "am", 0, (x * timeyHeight) + yHeightOffset);
-                    }
-                    if (currentHour > 12) {
-                        ctx.fillText((currentHour - 12) + "pm", 0, (x * timeyHeight) + yHeightOffset);
-                    }
-                    if (currentHour == 12)
-                    {
-                        ctx.fillText("noon", 0, (x * timeyHeight) + yHeightOffset);
-                    }
-                }
-
-                ctx.fillText(currentHour + ":00", 0, (x * timeyHeight) + yHeightOffset + pmOffset);
-                //ctx.fillText("Day " + day, 0, (x * timeyHeight) + yHeightOffset + pmOffset + pmOffset);
-                
-                var month = "";
-                //if (dateNumber == 30 || dateNumber == 31)
-               // {
-                 //   month = "Jan ";
-               // }
-                //else
-                //{   
-                //    month = "Feb ";
-               // }
-                
-                //ctx.fillText(month + dateNumber, 0, (x * timeyHeight) + yHeightOffset + pmOffset + pmOffset + pmOffset);
-
-                currentHour++;
-            }
-        }
-
-        function changeDay() {
+            ctx.fillText(currentHour + ":00", 0, (x * timeyHeight) + yHeightOffset + pmOffset);
             
-            day++;
-            if (day > 5)
-            {
-                day = 1;
-            }
-            localStorage.setItem(storedDayKey, day);
-
-            primeEventInfo();
-            drawTimeline();
-            
-            document.getElementById("changeDay").innerText="Day " + day;
+            currentHour++;
         }
+    }
 
-        function modTapFunction()
+    function changeDay() {
+        
+        day++;
+        if (day > 5)
         {
-            tapFunction++;
-            if (tapFunction > 3)
-            {
-                tapFunction = 1;
-            }
-
-            localStorage.setItem(storedTapKey, tapFunction);
-            drawTapFunction();
-
-
+            day = 1;
         }
-        function drawTapFunction()
+        localStorage.setItem(storedDayKey, day);
+
+        primeEventInfo();
+        drawTimeline();
+        
+        document.getElementById("changeDay").innerText="Day " + day;
+    }
+
+    function modTapFunction()
+    {
+        tapFunction++;
+        if (tapFunction > 3)
         {
-            if (tapFunction == 1)
-            {
-                document.getElementById("changeTap").innerText="Going";
-            }
-            if (tapFunction == 2)
-            {
-                document.getElementById("changeTap").innerText="Details";     
-            }
-            if (tapFunction == 3)
-            {
-                document.getElementById("changeTap").innerText="Lock";
-            }
+            tapFunction = 1;
         }
+
+        localStorage.setItem(storedTapFunctionalityKey, tapFunction);
+        drawTapFunction();
+
+
+    }
+    function drawTapFunction()
+    {
+        if (tapFunction == 1)
+        {
+            document.getElementById("changeTap").innerText="Going";
+        }
+        if (tapFunction == 2)
+        {
+            document.getElementById("changeTap").innerText="Details";     
+        }
+        if (tapFunction == 3)
+        {
+            document.getElementById("changeTap").innerText="No Op";
+        }
+    }
 
     </script>
 
@@ -593,7 +555,7 @@
 
 
     <div style="background:white;">
-        <canvas id="canvas" width="1600" height="10000"></canvas>
+        <canvas id="canvas" width="1600" height="9000"></canvas>
     </div>
 
     <div class="bottom" id="bottom">
