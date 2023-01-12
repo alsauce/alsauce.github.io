@@ -144,7 +144,6 @@
 
     function drawTimeline()
     {
-        document.getElementById("changeDay").innerText="Day " + day;
         drawTapFunction();
         
         
@@ -193,7 +192,7 @@
             drawTime();
             drawCurrentTime();
             drawSchedule();
-
+            buttons();
 
         }
     }
@@ -211,7 +210,7 @@
 
         ctx.fillStyle = 'black';
         ctx.font = '50px serif';
-        ctx.fillText("********Unofficial schedule********", 0, 50);
+        ctx.fillText("********Unofficial 70k 2023 schedule********", 0, 50);
 
         ctx.font = '100px serif';
 
@@ -457,19 +456,49 @@
         }
     }
 
-    function changeDay() {
-        
-        day++;
-        if (day > 5)
+    function buttons()
+    {
+        document.getElementById("day1").style.backgroundColor="grey";
+        document.getElementById("day2").style.backgroundColor="grey";
+        document.getElementById("day3").style.backgroundColor="grey";
+        document.getElementById("day4").style.backgroundColor="grey";
+        document.getElementById("day5").style.backgroundColor="grey";
+        document.getElementById("day" + day).style.backgroundColor="gold";
+    }
+    function handleDayButton(newDay)
+    {
+        if (newDay != day)
         {
-            day = 1;
-        }
-        localStorage.setItem(storedDayKey, day);
+            day = newDay;
 
-        primeEventInfo();
-        drawTimeline();
-        
-        document.getElementById("changeDay").innerText="Day " + day;
+            localStorage.setItem(storedDayKey, day);
+            primeEventInfo();
+            drawTimeline();
+        }
+    }
+
+    function day1()
+    {
+        handleDayButton(1);
+    }
+    function day2()
+    {
+        handleDayButton(2);
+    }
+
+    function day3()
+    {
+        handleDayButton(3);
+    }
+
+    function day4()
+    {
+        handleDayButton(4);
+    }
+
+    function day5()
+    {
+        handleDayButton(5);
     }
 
     function modTapFunction()
@@ -559,7 +588,11 @@
     </div>
 
     <div class="bottom" id="bottom">
-        <button type="button" onclick="changeDay()" id="changeDay" class="button"></button>
+        <button type="button" onclick="day1()" id="day1" class="button">D 1</button>
+        <button type="button" onclick="day2()" id="day2" class="button">D 2</button>
+        <button type="button" onclick="day3()" id="day3" class="button">D 3</button>
+        <button type="button" onclick="day4()" id="day4" class="button">D 4</button>
+        <button type="button" onclick="day5()" id="day5" class="button">D 5</button>
         <button type="button" onclick="modTapFunction()" id="changeTap" class="button"></button>
     </div>
 
