@@ -2,6 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PM7ZMMTJG2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-PM7ZMMTJG2');
+    </script>
     <title>Timeline</title>
 
     <script type="text/javascript" src="schedule.js?version=1"></script>
@@ -542,10 +551,16 @@
         }
     }
 
-    function bottomButton()
+    function alphaToggle()
     {
         window.location.assign("./alpha.html");
     }
+    
+    function help()
+    {
+        alert("The green button modifies what happens when you tap an event on the timeline.  G=going I=Info X=do nothing");
+    }
+
     </script>
 
 </head>
@@ -611,7 +626,8 @@
         <button type="button" onclick="day4()" id="day4" class="button">D4</button>
         <button type="button" onclick="day5()" id="day5" class="button">D5</button>
         <button type="button" onclick="modTapFunction()" id="changeTap" class="button" style="background-color:greenyellow;"></button>
-        <button type="button" onclick="bottomButton()" id="bottomButton" class="button" style="background-color:greenyellow;">Alpha</button>
+        <button type="button" onclick="alphaToggle()" id="alphaToggle" class="button" style="background-color:hotpink;">Alpha</button>
+        <button type="button" onclick="help()" id="help" class="button" style="background-color:mediumturquoise;">Help</button>
     </div>
 
 </body>
