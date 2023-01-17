@@ -13,10 +13,11 @@
     </script>
     <title>Timeline</title>
 
-    <script type="text/javascript" src="schedule.js?version=1"></script>
-    <script type="text/javascript" src="bandinfo.js?version=1"></script>
+    <script type="text/javascript" src="schedule.js?version=3"></script>
+    <script type="text/javascript" src="bandinfo.js?version=7"></script>
     <script type="text/javascript">
     let locations = ["PD", "RT", "SB", "SL"];
+    var topBlocks;
     var xSizeForTimeWrittenOnLeft = 160;
     var timeyHeight = 400.0;
     var yHeightOffset = 150;
@@ -33,11 +34,13 @@
     //can use this for testing the line
     var storedTime = new Date(year, 1, 1, 17, 45, 0, 0);
     var init = true;
+    var initTop = true;
     var storedVersion = "_v4";
     var storedWidthKey = "storedWidth70k" + year + storedVersion;
     var storedDayKey = "storedDay70k" + year + storedVersion;
     var storedTapFunctionalityKey = "storedTap70k" + year + storedVersion;
     var storedGoingKey = "storedGoing70k" + year + storedVersion;
+    var storedDelayKey = "storedDelay70k" + year + storedVersion;
     
     let durationHours = 21;
     var startHour;
@@ -54,7 +57,7 @@
 
     function primeBandInfo()
     {
-        var bandInfoSplit = bandInfo.split("|");
+        var bandInfoSplit = bandInformation.split("|");
             
         for (let i = 0; i < bandInfoSplit.length; i++)
         {
@@ -118,35 +121,40 @@
             startHour = startHourDay5;           
         }
 
-            for (let i = 0; i < events.length; i++) {
-                var event = events[i];
-                //console.log(event);
-                //console.log(event.eventStartTime);
-                var eventStartDate = getDate(event.eventStartTime, event.eventStartDate);
-                var hoursPastStartEventStartTime = getHoursPastStartTime(eventStartDate);
+        for (let i = 0; i < events.length; i++) {
+            var event = events[i];
+            //console.log(event);
+            //console.log(event.eventStartTime);
+            var eventStartDate = getDateWithDelay(event.eventStartTime, event.eventStartDate, event.eventLocation);
+            var hoursPastStartEventStartTime = getHoursPastStartTime(eventStartDate);
 
 
-                var eventEndDate = getDate(event.eventEndTime, event.eventEndDate);
-                var hoursPastStartEventEndTime = getHoursPastStartTime(eventEndDate);
+            var eventEndDate = getDateWithDelay(event.eventEndTime, event.eventEndDate, event.eventLocation);
+            var hoursPastStartEventEndTime = getHoursPastStartTime(eventEndDate);
 
-                var locationIndex = getLocationIndex(event.eventLocation);
-                //console.log("locationIndex: " + locationIndex);
-                var left = (locationIndex * xBlockWidth) + xSizeForTimeWrittenOnLeft;
-                var top = getPixelForHour(hoursPastStartEventStartTime);
-                var bottom = getPixelForHour(hoursPastStartEventEndTime);
+            var locationIndex = getLocationIndex(event.eventLocation);
+            //console.log("locationIndex: " + locationIndex);
+            var left = (locationIndex * xBlockWidth) + xSizeForTimeWrittenOnLeft;
+            var top = getPixelForHour(hoursPastStartEventStartTime);
+            var bottom = getPixelForHour(hoursPastStartEventEndTime);
 
-                event.left = left;
-                event.top = top;
-                event.bottom = bottom;
-                var going = localStorage.getItem(getGoingKey(event.eventName,event.eventDay));
-                if (going == null)
-                {
-                    localStorage.setItem(getGoingKey(event.eventName,event.eventDay), 1);
-                }
+            event.left = left;
+            event.top = top;
+            event.bottom = bottom;
+            var going = localStorage.getItem(getGoingKey(event.eventName,event.eventDay));
+            if (going == null)
+            {
+                localStorage.setItem(getGoingKey(event.eventName,event.eventDay), 1);
             }
+            bandInfo = localStorage.getItem("info" + event.eventName);
+            if (bandInfo == null)
+            {
+                console.log("Missing band info for " + event.eventName);
+            }
+        }
 
-            //console.log("storing events");
-            localStorage.setItem(storedWidthKey, xBlockWidth);
+        //console.log("storing events");
+        localStorage.setItem(storedWidthKey, xBlockWidth);
     }
 
     function getGoingKey(eventName, eventDay)
@@ -211,7 +219,11 @@
 
     function drawTop() {
         var top = document.getElementById('top');
-
+        if (initTop) {
+            top.addEventListener("click", relMouseCoordsTop);
+            initTop = false;
+        }
+        
         var ctx = top.getContext('2d');
         ctx.fillStyle = "grey";
         ctx.fillRect(0, 0, top.width, top.height);
@@ -225,7 +237,8 @@
         ctx.fillText("********Unofficial 70k 2023 schedule********", 0, 50);
 
         ctx.font = '100px serif';
-
+        //clear out topBlocks to reset all the values (not keep adding)
+        topBlocks = [];
         for (var i = 0; i < locations.length; i++) {
 
             var left = (i * xBlockWidth) + xSizeForTimeWrittenOnLeft;
@@ -235,6 +248,13 @@
 
             ctx.fillStyle = 'red';
             ctx.fillText(locations[i], left, 140);
+
+            var block = {};
+            block.left = left;
+            block.top = 60;
+            block.bottom = 160;
+            block.location = locations[i];
+            topBlocks.push(block);
 
         }
     }
@@ -274,7 +294,7 @@
         }
     }
 
-    function getDate(time, date) {
+    function getDateWithDelay(time, date, location) {
         var timeAndAMPM = time.split('|');
         var hourAndMinute = timeAndAMPM[0].split(":");
         var hour = Number(hourAndMinute[0]);
@@ -305,6 +325,8 @@
         //console.log(" date string " + eventDateString);
         var eventDate = new Date(Date.parse(eventDateString));
         //console.log(" date parsed " + eventDate);
+        
+        eventDate = new Date(eventDate.getTime() + (1000 * 60 * getDelayMinutes(location)));
         return eventDate;
     }
 
@@ -316,6 +338,48 @@
             }
 
         }
+    }
+
+    function relMouseCoordsTop(mouseEvent) {
+        
+        var totalOffsetX = 0;
+        var totalOffsetY = 0;
+        var canvasX = 0;
+        var canvasY = 0;
+        
+        canvasX = mouseEvent.clientX;
+        canvasY = mouseEvent.clientY;
+
+        var topBlock;
+        for (let i = 0; i < topBlocks.length; i++) {
+            if (intersects(canvasX, canvasY, topBlocks[i])) {
+                topBlock = topBlocks[i];
+            }
+        }
+
+        if (topBlock != null)
+        {
+            let delay = prompt(getDelayMinutes(topBlock.location));
+            setDelayMinutes(topBlock.location, delay);
+        }
+        primeEventInfo();
+        drawTimeline();
+
+    }
+
+    function setDelayMinutes(location, delay)
+    {
+        localStorage.setItem(storedDelayKey + day + location, delay);
+    }
+
+    function getDelayMinutes(location)
+    {
+        var delayMinutes = localStorage.getItem(storedDelayKey + day + location);
+        if (delayMinutes == null)
+        {
+            return 0;
+        }
+        return delayMinutes;
     }
 
 
@@ -332,7 +396,7 @@
     }
 
     function showBandInfo(mouseEvent, currentElement) {
-        var event = getTappedEvent(mouseEvent, currentElement);
+        var event = getTappedEvent(mouseEvent, currentElement, events);
         if (event != null)
         {
             alert(localStorage.getItem("info" + event.eventName));
@@ -340,13 +404,14 @@
 
     }
 
-    function getTappedEvent(mouseEvent, currentElement) {
+    function getTappedEvent(mouseEvent, currentElement, thingsToCheck) {
         var totalOffsetX = 0;
         var totalOffsetY = 0;
         var canvasX = 0;
         var canvasY = 0;
 
         do {
+            //I don't think this stuff does anything...
             totalOffsetX += currentElement.offsetLeft - currentElement.scrollLeft;
             totalOffsetY += currentElement.offsetTop - currentElement.scrollTop;
         }
@@ -355,15 +420,19 @@
         canvasX = mouseEvent.pageX - totalOffsetX;
         canvasY = mouseEvent.pageY - totalOffsetY;
 
-        for (let i = 0; i < events.length; i++) {
-            if (intersects(canvasX, canvasY, events[i])) {
-                return events[i];
+        for (let i = 0; i < thingsToCheck.length; i++) {
+            if (intersects(canvasX, canvasY, thingsToCheck[i])) {
+                return thingsToCheck[i];
             }
         }
     }
 
     function modifyGoing(mouseEvent, currentElement) {
-        var event = getTappedEvent(mouseEvent, currentElement);
+        var event = getTappedEvent(mouseEvent, currentElement, events);
+        if (event == null)
+        {
+            return;
+        }
         goingValue = localStorage.getItem(getGoingKey(event.eventName,event.eventDay));
         goingValue++;
         if (goingValue > Number(3)) {
@@ -409,12 +478,17 @@
             }
             ctx.fillText(event.eventName, event.left, event.top + 50, xBlockWidth);
             ctx.fillText(localStorage.getItem("genre" + event.eventName), event.left, event.top + 100, xBlockWidth);
-            ctx.fillText(event.eventStartTime.split("|")[0], event.left, event.top + 150, xBlockWidth);
+            var startDate = getDateWithDelay(event.eventStartTime, event.eventStartDate, event.eventLocation);
+            
+            ctx.fillText(getFormattedTime(startDate), event.left, event.top + 150, xBlockWidth);
             if (event.eventName == "") {
                 ctx.fillText("Close", event.left, event.top + 200, xBlockWidth);
             }
             else {
-                ctx.fillText(event.eventEndTime.split("|")[0], event.left, event.top + 200, xBlockWidth);
+                
+                var endDate = getDateWithDelay(event.eventEndTime, event.eventStartDate, event.eventLocation);
+            
+                ctx.fillText(getFormattedTime(endDate), event.left, event.top + 200, xBlockWidth);
             }
 
             ctx.fillText(going, event.left, event.top + 250, xBlockWidth);
@@ -425,6 +499,27 @@
         }
 
         init = false;
+    }
+
+    function getFormattedTime(theDate)
+    {
+        var hour = theDate.getHours();
+        if (hour > 12)
+        {
+            hour = hour - 12;
+        }
+        if (hour == 0)
+        {
+            hour = 12;
+        }
+
+        var minute = theDate.getMinutes();
+        if (minute < 10)
+        {
+            return hour + ":0" + minute
+        }
+        return hour + ":" + minute;
+
     }
 
     function drawTime() {
@@ -558,7 +653,7 @@
     
     function help()
     {
-        alert("The green button modifies what happens when you tap an event on the timeline.  G=going I=Info X=do nothing");
+        alert("The green button modifies what happens when you tap an event on the timeline.  G=going I=Info X=do nothing.  Alpha takes you to alphabetical list.  When shows start there will be a pink line that shows current time, which is basically the entire reason I've spent so many hours on this...");
     }
 
     </script>
