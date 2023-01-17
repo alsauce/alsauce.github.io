@@ -35,7 +35,7 @@
     var storedTime = new Date(year, 1, 1, 17, 45, 0, 0);
     var init = true;
     var initTop = true;
-    var storedVersion = "_v4";
+    var storedVersion = "_v5";
     var storedWidthKey = "storedWidth70k" + year + storedVersion;
     var storedDayKey = "storedDay70k" + year + storedVersion;
     var storedTapFunctionalityKey = "storedTap70k" + year + storedVersion;
@@ -359,11 +359,22 @@
 
         if (topBlock != null)
         {
-            let delay = prompt(getDelayMinutes(topBlock.location));
+            let delayStr = prompt("Current delay: " + getDelayMinutes(topBlock.location));
+            if (delayStr == null)
+            {
+                return;
+            }
+            let delay = parseInt(delayStr);
+            if (Number.isNaN(delay))
+            {
+                alert(delayStr + " is not a number");
+            }
+            
             setDelayMinutes(topBlock.location, delay);
+            primeEventInfo();
+            drawTimeline();
+           
         }
-        primeEventInfo();
-        drawTimeline();
 
     }
 
@@ -653,7 +664,7 @@
     
     function help()
     {
-        alert("The green button modifies what happens when you tap an event on the timeline.  G=going I=Info X=do nothing.  Alpha takes you to alphabetical list.  When shows start there will be a pink line that shows current time, which is basically the entire reason I've spent so many hours on this...");
+        alert("The green button modifies what happens when you tap an event on the timeline.  G=going I=Info X=do nothing.  Alpha takes you to alphabetical list.  When shows start there will be a pink line that shows current time, which is basically the entire reason I've spent so many hours on this...  Tap the venue up top to add time in case of delays.");
     }
 
     </script>
