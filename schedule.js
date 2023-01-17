@@ -41,7 +41,7 @@ eventsDay2 = [
    },
    {
       "eventName": "Test day 2 #3",
-      "eventLocation": "RT",
+      "eventLocation": "SB",
       "eventStartDate": "1",
       "eventEndDate": "1",
       "eventStartTime": "12:05|AM",
@@ -49,7 +49,7 @@ eventsDay2 = [
    },
    {
       "eventName": "DTest day 2 4",
-      "eventLocation": "RT",
+      "eventLocation": "SL",
       "eventStartDate": "1",
       "eventEndDate": "1",
       "eventStartTime": "12:05|AM",
@@ -57,7 +57,7 @@ eventsDay2 = [
    },
    {
       "eventName": "Test day 2 5",
-      "eventLocation": "RT",
+      "eventLocation": "PD",
       "eventStartDate": "1",
       "eventEndDate": "1",
       "eventStartTime": "12:05|AM",
