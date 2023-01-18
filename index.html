@@ -13,8 +13,8 @@
     </script>
     <title>Timeline</title>
 
-    <script type="text/javascript" src="schedule.js?version=3"></script>
-    <script type="text/javascript" src="bandinfo.js?version=7"></script>
+    <script type="text/javascript" src="schedule.js?version=8"></script>
+    <script type="text/javascript" src="bandinfo.js?version=8"></script>
     <script type="text/javascript">
     let locations = ["PD", "RT", "SB", "SL"];
     var topBlocks;
@@ -360,7 +360,7 @@
         if (topBlock != null)
         {
             let delayStr = prompt("Current delay: " + getDelayMinutes(topBlock.location));
-            if (delayStr == null)
+            if (delayStr == null || "" == delayStr)
             {
                 return;
             }
@@ -368,6 +368,7 @@
             if (Number.isNaN(delay))
             {
                 alert(delayStr + " is not a number");
+                return;
             }
             
             setDelayMinutes(topBlock.location, delay);
@@ -410,7 +411,7 @@
         var event = getTappedEvent(mouseEvent, currentElement, events);
         if (event != null)
         {
-            alert(localStorage.getItem("info" + event.eventName));
+            window.location.assign("./details.html?eventName=" + event.eventName);
         }
 
     }
