@@ -28,8 +28,7 @@
 
         var bandName = searchParams.get("eventName");
         console.log(bandName);
-        document.getElementById("href").innerHTML.appe =bandName + "<br>";
-
+       
         var fullText = bandName + "<br>";
 
         for (let i = 0; i < eventsDay1.length; i++) {
@@ -93,8 +92,9 @@
             
         }
 
-
-        document.getElementById("href").innerHTML = fullText;
+        var theInfoElement = document.getElementById("theInfo");
+        theInfoElement.style.fontSize="100px";
+        theInfoElement.innerHTML = fullText;
         
     }
 
@@ -130,7 +130,7 @@
         }
     </style>
 
-<p id="href"></p>
+<p id="theInfo"></p>
 
 <div id="bottomDiv">
     <button type="button" onclick="bottomButton()" id="bottomButton" class="button" style="background-color:hotpink;">Time</button>
