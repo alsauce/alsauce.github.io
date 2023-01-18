@@ -14,16 +14,17 @@
     
     <title>Alpha</title>
 
-    <script type="text/javascript" src="schedule.js?version=3"></script>
-    <script type="text/javascript" src="bandinfo.js?version=3"></script>
+    <script type="text/javascript" src="schedule.js?version=8"></script>
+    <script type="text/javascript" src="bandinfo.js?version=8"></script>
     <script type="text/javascript">
 
 
     function drawAlpha()
     {
         var topDiv = document.getElementById('topDiv');
+        
         topDiv.style.height = (window.innerHeight - 200) + "px";
-        labelWidth = Math.floor(window.innerWidth / 4.4) + "px";
+        labelWidth = Math.floor((window.innerWidth - 55) / 4) + "px";
         let allEvents = [];
         for (x = 0; x < 10; x++)
         {
