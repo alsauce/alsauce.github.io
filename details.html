@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PM7ZMMTJG2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-PM7ZMMTJG2');
+    </script>
+    
+    <title>Alpha</title>
+
+    <script type="text/javascript" src="schedule.js?version=8"></script>
+    <script type="text/javascript" src="bandinfo.js?version=8"></script>
+    <script type="text/javascript">
+
+
+    function drawDetails()
+    {
+        
+        const url = new URL(window.location.href);
+        const searchParams = new URLSearchParams(url.search);
+        console.log(searchParams.has('eventName')); // true
+
+        var bandName = searchParams.get("eventName");
+        console.log(bandName);
+        document.getElementById("href").innerHTML.appe =bandName + "<br>";
+
+        var fullText = bandName + "<br>";
+
+        for (let i = 0; i < eventsDay1.length; i++) {
+            event = eventsDay1[i];
+            if (event.eventName == bandName)
+            {
+                fullText = fullText + " Day1 " + event.eventStartTime + " - " + event.eventEndTime + "<br>";
+            }
+        }
+
+        for (let i = 0; i < eventsDay2.length; i++) {
+            event = eventsDay2[i];
+            if (event.eventName == bandName)
+            {
+                theText = event.eventName + "\nDay2\n" +event.eventStartTime + "\n" + event.eventEndTime;
+            }
+        }
+
+        for (let i = 0; i < eventsDay3.length; i++) {
+            event = eventsDay3[i];
+            if (event.eventName == bandName)
+            {
+                theText = event.eventName + "\nDay3\n" +event.eventStartTime + "\n" + event.eventEndTime;
+            }
+        }
+
+        for (let i = 0; i < eventsDay4.length; i++) {
+            event = eventsDay4[i];
+            if (event.eventName == bandName)
+            {
+                theText = event.eventName + "\nDay4\n" +event.eventStartTime + "\n" + event.eventEndTime;
+            }
+        }
+
+        for (let i = 0; i < eventsDay5.length; i++) {
+            event = eventsDay5[i];
+            if (event.eventName == bandName)
+            {
+                theText = event.eventName + "\nDay5\n" +event.eventStartTime + "\n" + event.eventEndTime;
+            }
+        }
+
+        var bandInfoSplit = bandInformation.split("|");
+            
+        for (let i = 0; i < bandInfoSplit.length; i++)
+        {
+            var singleBandInfo = bandInfoSplit[i].split(",");
+            var bandNameInfo = singleBandInfo[0];
+            var genre = singleBandInfo[1];
+            var going = singleBandInfo[2];
+            var notes = singleBandInfo[3];
+            var spotifyLink = singleBandInfo[4];
+
+            if (bandNameInfo == bandName)
+            {
+                fullText = fullText + genre + "<br>";
+                fullText = fullText + notes + "<br>";
+                fullText = fullText + "<a href=\"" + spotifyLink + "\">" + spotifyLink + "</a><br>";
+            }
+            var info = bandName + "\n" + genre + "\n" + notes + "\n" + spotifyLink;
+            
+        }
+
+
+        document.getElementById("href").innerHTML = fullText;
+        
+    }
+
+    function bottomButton()
+    {
+        window.location.assign("./index.html");
+    }
+
+    </script>
+
+</head>
+<body onload="drawDetails();">
+    <style>
+        body {
+            margin: 0;
+        }
+
+
+        .button {
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            color: black;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 60px;
+            margin: 4px 2px;
+            cursor: pointer;
+            background-color: gold;
+            border-radius: 12px;
+            height: 200px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+    </style>
+
+<p id="href"></p>
+
+<div id="bottomDiv">
+    <button type="button" onclick="bottomButton()" id="bottomButton" class="button" style="background-color:hotpink;">Time</button>
+</div>
+
+</body>
+
+</html>
