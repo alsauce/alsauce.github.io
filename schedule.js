@@ -3,7 +3,7 @@ startHourDay1 = 16;
 
 eventsDay1 = [
     {
-       "eventName": "BTest day 1",
+       "eventName": "Test day 1",
        "eventLocation": "PD",
        "eventStartDate": "30",
        "eventEndDate": "30",
