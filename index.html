@@ -13,8 +13,8 @@
     </script>
     <title>Timeline</title>
 
-    <script type="text/javascript" src="schedule.js?version=8"></script>
-    <script type="text/javascript" src="bandinfo.js?version=8"></script>
+    <script type="text/javascript" src="schedule.js?version=10"></script>
+    <script type="text/javascript" src="bandinfo.js?version=9"></script>
     <script type="text/javascript">
     let locations = ["PD", "RT", "SB", "SL"];
     var topBlocks;
@@ -32,10 +32,10 @@
     var xBlockWidth = (window.innerWidth - xSizeForTimeWrittenOnLeft) / locations.length;
     
     //can use this for testing the line
-    var storedTime = new Date(year, 1, 1, 17, 45, 0, 0);
+    var storedTime = new Date(2023, 0, 30, 9, 15, 0, 0);
     var init = true;
     var initTop = true;
-    var storedVersion = "_v5";
+    var storedVersion = "_v7";
     var storedWidthKey = "storedWidth70k" + year + storedVersion;
     var storedDayKey = "storedDay70k" + year + storedVersion;
     var storedTapFunctionalityKey = "storedTap70k" + year + storedVersion;
@@ -78,8 +78,17 @@
     function primeEventInfo()
     {
         var storedDay = localStorage.getItem(storedDayKey);
+        
         if (storedDay != null)
         {
+            if (storedDay < 1 || storedDay > 4)
+            {
+                //somehow it was 0 once
+                storedDay = 1;
+                localStorage.setItem(storedDayKey, 1);
+                day = 1;
+                buttons();
+            }
             day = storedDay;
         }
         var storedTap = localStorage.getItem(storedTapFunctionalityKey);
@@ -112,13 +121,6 @@
             events = eventsDay4;
             startTime = startTimeDay4;
             startHour = startHourDay4;           
-        }
-
-        if (day == 5)
-        {
-            events = eventsDay5;
-            startTime = startTimeDay5;
-            startHour = startHourDay5;           
         }
 
         for (let i = 0; i < events.length; i++) {
@@ -359,7 +361,7 @@
 
         if (topBlock != null)
         {
-            let delayStr = prompt("Current delay: " + getDelayMinutes(topBlock.location));
+            let delayStr = prompt("Minutes delayed for " + topBlock.location + " day " + day, getDelayMinutes(topBlock.location));
             if (delayStr == null || "" == delayStr)
             {
                 return;
@@ -554,7 +556,7 @@
             ctx.fillStyle = 'rgb(0, 0, 0)';
 
             if (currentHour == 24) {
-                ctx.fillText("midnt", 0, (x * timeyHeight) + yHeightOffset);
+                ctx.fillText("midn't", 0, (x * timeyHeight) + yHeightOffset);
             }
             else {
                 if (currentHour < 12) {
@@ -581,7 +583,6 @@
         document.getElementById("day2").style.backgroundColor="grey";
         document.getElementById("day3").style.backgroundColor="grey";
         document.getElementById("day4").style.backgroundColor="grey";
-        document.getElementById("day5").style.backgroundColor="grey";
         document.getElementById("day" + day).style.backgroundColor="gold";
 
         buttonWidth = Math.floor(window.innerWidth / 7) + "px";
@@ -589,7 +590,6 @@
         document.getElementById("day2").style.width=buttonWidth;
         document.getElementById("day3").style.width=buttonWidth;
         document.getElementById("day4").style.width=buttonWidth;
-        document.getElementById("day5").style.width=buttonWidth;
         document.getElementById("changeTap").style.width=buttonWidth;
 
     }
@@ -622,11 +622,6 @@
     function day4()
     {
         handleDayButton(4);
-    }
-
-    function day5()
-    {
-        handleDayButton(5);
     }
 
     function modTapFunction()
@@ -731,7 +726,6 @@
         <button type="button" onclick="day2()" id="day2" class="button">D2</button>
         <button type="button" onclick="day3()" id="day3" class="button">D3</button>
         <button type="button" onclick="day4()" id="day4" class="button">D4</button>
-        <button type="button" onclick="day5()" id="day5" class="button">D5</button>
         <button type="button" onclick="modTapFunction()" id="changeTap" class="button" style="background-color:greenyellow;"></button>
         <button type="button" onclick="alphaToggle()" id="alphaToggle" class="button" style="background-color:hotpink;">Alpha</button>
         <button type="button" onclick="help()" id="help" class="button" style="background-color:mediumturquoise;">Help</button>
