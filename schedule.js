@@ -4,7 +4,7 @@ startHourDay1 = 9;
 eventsDay1 = [
     {
        "eventName": "Amberian Dawn",
-       "eventLocation": "PD",
+       "eventLocation": "RT",
        "eventStartDate": "30",
        "eventEndDate": "30",
        "eventStartTime": "6:00|PM",
@@ -12,7 +12,7 @@ eventsDay1 = [
    },
    {
       "eventName": "Evergrey",
-      "eventLocation": "PD",
+      "eventLocation": "RT",
       "eventStartDate": "30",
       "eventEndDate": "30",
       "eventStartTime": "7:30|PM",
@@ -20,7 +20,7 @@ eventsDay1 = [
    },
    {
       "eventName": "Kamelot",
-      "eventLocation": "PD",
+      "eventLocation": "RT",
       "eventStartDate": "30",
       "eventEndDate": "30",
       "eventStartTime": "9:15|PM",
@@ -28,7 +28,7 @@ eventsDay1 = [
    },
    {
       "eventName": "Kreator",
-      "eventLocation": "PD",
+      "eventLocation": "RT",
       "eventStartDate": "30",
       "eventEndDate": "31",
       "eventStartTime": "11:15|PM",
@@ -36,7 +36,7 @@ eventsDay1 = [
    },
    {
       "eventName": "Insomnium",
-      "eventLocation": "PD",
+      "eventLocation": "RT",
       "eventStartDate": "31",
       "eventEndDate": "31",
       "eventStartTime": "1:15|AM",
@@ -44,7 +44,7 @@ eventsDay1 = [
    },
    {
       "eventName": "Nightmare",
-      "eventLocation": "PD",
+      "eventLocation": "RT",
       "eventStartDate": "31",
       "eventEndDate": "31",
       "eventStartTime": "3:00|AM",
@@ -52,7 +52,7 @@ eventsDay1 = [
    },
    {
       "eventName": "Cryptosis",
-      "eventLocation": "PD",
+      "eventLocation": "RT",
       "eventStartDate": "31",
       "eventEndDate": "31",
       "eventStartTime": "4:30|AM",
