@@ -14,8 +14,8 @@
     
     <title>Alpha</title>
 
-    <script type="text/javascript" src="schedule.js?version=8"></script>
-    <script type="text/javascript" src="bandinfo.js?version=8"></script>
+    <script type="text/javascript" src="schedule.js?version=9"></script>
+    <script type="text/javascript" src="bandinfo.js?version=9"></script>
     <script type="text/javascript">
 
 
@@ -26,8 +26,7 @@
         topDiv.style.height = (window.innerHeight - 200) + "px";
         labelWidth = Math.floor((window.innerWidth - 55) / 4) + "px";
         let allEvents = [];
-        for (x = 0; x < 10; x++)
-        {
+        
         for (let i = 0; i < eventsDay1.length; i++) {
             event = eventsDay1[i];
             theText = event.eventName + "\nDay1\n" +event.eventStartTime + "\n" + event.eventEndTime; 
@@ -50,13 +49,6 @@
             event = eventsDay4[i];
             theText = event.eventName + "\nDay4\n" +event.eventStartTime + "\n" + event.eventEndTime; 
             allEvents.push(theText);
-        }
-
-        for (let i = 0; i < eventsDay5.length; i++) {
-            event = eventsDay5[i];
-            theText = event.eventName + "\nDay5\n" +event.eventStartTime + "\n" + event.eventEndTime; 
-            allEvents.push(theText);
-        }
         }
 
         allEvents = allEvents.sort();
