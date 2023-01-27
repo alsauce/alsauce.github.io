@@ -449,7 +449,7 @@
         }
         goingValue = localStorage.getItem(getGoingKey(event.eventName,event.eventDay));
         goingValue++;
-        if (goingValue > Number(3)) {
+        if (goingValue > Number(4)) {
             goingValue = Number(1);
         }
         localStorage.setItem(getGoingKey(event.eventName,event.eventDay), goingValue);
@@ -476,13 +476,18 @@
             var goingInd = localStorage.getItem(getGoingKey(event.eventName,event.eventDay));
             if (goingInd == 1) {
                 ctx.fillStyle = 'lightgrey';
-                going = "Maybe going";
+                going = "Undecided";
             }
-            else if (goingInd == 2) {
+            else if (goingInd == 2)
+            {
+                ctx.fillStyle = 'yellow';
+                going = "Maybe";
+            }
+            else if (goingInd == 3) {
                 ctx.fillStyle = 'lime';
                 going = "Going";
             }
-            else if (goingInd == 3) {
+            else if (goingInd == 4) {
                 ctx.fillStyle = 'darkred';
                 going = "Not going";
             }
