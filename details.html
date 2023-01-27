@@ -14,8 +14,8 @@
     
     <title>Alpha</title>
 
-    <script type="text/javascript" src="schedule.js?version=8"></script>
-    <script type="text/javascript" src="bandinfo.js?version=8"></script>
+    <script type="text/javascript" src="schedule.js?version=9"></script>
+    <script type="text/javascript" src="bandinfo.js?version=9"></script>
     <script type="text/javascript">
 
 
@@ -63,14 +63,6 @@
             }
         }
 
-        for (let i = 0; i < eventsDay5.length; i++) {
-            event = eventsDay5[i];
-            if (event.eventName == bandName)
-            {
-                theText = event.eventName + "\nDay5\n" +event.eventStartTime + "\n" + event.eventEndTime;
-            }
-        }
-
         var bandInfoSplit = bandInformation.split("|");
             
         for (let i = 0; i < bandInfoSplit.length; i++)
@@ -86,7 +78,13 @@
             {
                 fullText = fullText + genre + "<br>";
                 fullText = fullText + notes + "<br>";
-                fullText = fullText + "<a href=\"" + spotifyLink + "\">" + spotifyLink + "</a><br>";
+                if (spotifyLink.length)
+                {
+                    fullText = fullText + "<a href=\"" + spotifyLink + "\">" + "Spotify" + "</a><br>";
+                }
+                else{
+                    fullText = fullText + "No spotify link.<br>";
+                }
             }
             var info = bandName + "\n" + genre + "\n" + notes + "\n" + spotifyLink;
             
