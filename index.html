@@ -143,10 +143,10 @@
             event.left = left;
             event.top = top;
             event.bottom = bottom;
-            var going = localStorage.getItem(getGoingKey(event.eventName,event.eventDay));
+            var going = localStorage.getItem(getGoingKey(event.eventName,day));
             if (going == null)
             {
-                localStorage.setItem(getGoingKey(event.eventName,event.eventDay), 1);
+                localStorage.setItem(getGoingKey(event.eventName,day), 1);
             }
             bandInfo = localStorage.getItem("info" + event.eventName);
             if (bandInfo == null)
@@ -447,12 +447,12 @@
         {
             return;
         }
-        goingValue = localStorage.getItem(getGoingKey(event.eventName,event.eventDay));
+        goingValue = localStorage.getItem(getGoingKey(event.eventName,day));
         goingValue++;
         if (goingValue > Number(4)) {
             goingValue = Number(1);
         }
-        localStorage.setItem(getGoingKey(event.eventName,event.eventDay), goingValue);
+        localStorage.setItem(getGoingKey(event.eventName,day), goingValue);
         drawSchedule();
         
     }
@@ -473,7 +473,7 @@
 
             var going = "";
 
-            var goingInd = localStorage.getItem(getGoingKey(event.eventName,event.eventDay));
+            var goingInd = localStorage.getItem(getGoingKey(event.eventName,day));
             if (goingInd == 1) {
                 ctx.fillStyle = 'lightgrey';
                 going = "Undecided";
