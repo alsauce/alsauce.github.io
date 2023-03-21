@@ -1,0 +1,392 @@
+<head>
+    <title>Headbangers boat 2023</title>
+    <!--TODO <script type="text/javascript" src="data.js?version=1"></script> -->
+    <!--TODO externalize <script type="text/javascript" src="day1.js?version=1"></script>-->
+    <script id='day1' type='text'>
+    test band name1, PD, Sept, 30, 12:30, PM, Sept, 30, 12:59, PM
+    test band name2, PD, Sept, 30,  1:00, PM, Sept, 30,  3:00, PM
+    test band name3, RT, Sept, 30, 1:30, PM,  Sept, 30,  2:00, PM
+    test band name3, RT, Sept, 30, 11:59, PM,  Oct,  1,  2:00, AM
+</script>
+    <script>
+
+        //TODO externalize?
+        let locations = ["PD", "RT", "SB", "SL"];
+        let year = 2023;
+
+
+        //TODO externalize above?
+
+
+        var currentDay = 1;
+
+
+        var yBannerHeight = 50;
+        var yBannerBottom = yBannerHeight;
+        var yVenueTop = yBannerBottom;
+        var yVenueHeight = 50;
+        var yTopHeight = yBannerHeight + yVenueHeight
+        var yVenueBottom = yVenueTop + yVenueHeight;
+        var yEarliestBufferHours = 1;
+        var yLatestBufferHours = 2;
+        var venueFont = (yVenueHeight - 10) + 'px serif';
+
+        var xTimeOnLeftWidth = 160;
+
+        var yTimeHourHeight = 400;
+        var yTimePushLeftDown = 100;
+        var secondsInAnHour = 60 * 60;
+        var milliSecondsInAnHour = secondsInAnHour * 1000;
+        var xBlockWidth = (window.innerWidth - xTimeOnLeftWidth) / locations.length;
+
+        var storedVersion = "_v1";
+
+        var storedDelayKey = "storedDelayHB" + year + storedVersion;
+
+        function drawTop() {
+            var top = document.getElementById('top');
+            top.style.width = window.innerWidth;
+            top.style.height = yTopHeight;
+
+            var topDoc = top.contentDocument || top.contentWindow.document;
+            for (var i = 0; i < locations.length; i++) {
+
+                var button = document.createElement('button');
+                button.style.position = 'absolute';
+                button.style.left = xTimeOnLeftWidth + (xBlockWidth * i) + 'px';
+
+                button.style.top = yVenueTop + 'px';
+                button.style.width = xBlockWidth;
+                button.style.height = yVenueHeight;
+                button.textContent = locations[i];
+                button.style.font = venueFont;
+                button.addEventListener("click", venueClick);
+
+                topDoc.body.appendChild(button);
+
+            }
+        }
+
+        function venueClick(venue) {
+
+            var venue = venue.target.textContent;
+            let delayStr = prompt("Minutes delayed for " + venue + " day " + currentDay, getDelayMinutesForVenue(venue));
+            if (delayStr == null || "" == delayStr) {
+                return;
+            }
+            let delay = parseInt(delayStr);
+            if (Number.isNaN(delay)) {
+                alert(delayStr + " is not a number");
+                return;
+            }
+            localStorage.setItem(storedDelayKey + currentDay + venue, delay);
+            //TODO redraw stuff
+
+        }
+        function getDelayMinutesForVenue(location) {
+            var delayMinutes = localStorage.getItem(storedDelayKey + currentDay + location);
+            if (delayMinutes == null) {
+                return 0;
+            }
+            return delayMinutes;
+        }
+
+        function drawTimeline() {
+            var schedule = document.getElementById("schedule");
+            var scheduleDoc = schedule.contentDocument || schedule.contentWindow.document;
+            var currentEvents = document.getElementById('day' + currentDay).innerHTML;
+            var eventsSplit = currentEvents.split("\n");
+            var events = [];
+            var earliestStart = getDateTime("2100", "Jan", "1", "1:00", "AM");
+            var latestEnd = getDateTime("2000", "Jan", "1", "1:00", "AM");
+            var earliestEvent;
+            var latestEvent;
+            for (let i = 0; i < eventsSplit.length; i++) {
+
+                if (!eventsSplit[i] || eventsSplit[i].trim() == "") {
+                    continue;
+                }
+                var eventSplit = eventsSplit[i].split(",");
+                Object.keys(eventSplit).forEach(k => eventSplit[k] = eventSplit[k].trim());
+
+                var event = {
+                    name: eventSplit[0],
+                    location: eventSplit[1],
+                    startMonth: eventSplit[2],
+                    startDay: eventSplit[3],
+                    startTime: eventSplit[4],
+                    startAMPM: eventSplit[5],
+                    endMonth: eventSplit[6],
+                    endDay: eventSplit[7],
+                    endTime: eventSplit[8],
+                    endAMPM: eventSplit[9]
+                };
+
+                events.push(event);
+
+                var startTime = getStartDateTime(event);
+                if (startTime < earliestStart) {
+                    earliestStart = startTime;
+                    earliestEvent = event;
+                }
+
+                var endTime = getEndDateTime(event);
+                if (endTime > latestEnd) {
+                    latestEnd = endTime;
+                    latestEvent = event;
+                }
+
+            }
+
+            //remove minutes and add some buffer time
+            var hourAndMinuteEarliest = earliestEvent.startTime.split(":");
+            earliestStart = getDateTime(year, earliestEvent.startMonth, earliestEvent.startDay, (hourAndMinuteEarliest[0]) + ":00", earliestEvent.startAMPM)
+            earliestStart = new Date(earliestStart.getTime() - (milliSecondsInAnHour * yEarliestBufferHours));
+            var hourAndMinuteLatest = latestEvent.endTime.split(":");
+            latestEnd = getDateTime(year, latestEvent.endMonth, latestEvent.endDay, (hourAndMinuteLatest[0]) + ":00", latestEvent.endAMPM)
+            latestEnd = new Date(latestEnd.getTime() + (milliSecondsInAnHour * yLatestBufferHours));
+            
+
+            //TODO schedule heights based on y pixel of latest end
+            var height = getYPixelLocation(earliestStart, latestEnd);
+            schedule.style.height = getYPixelLocation(earliestStart, latestEnd) + "px";
+            
+            drawTimeOnLeft(earliestStart, latestEnd);
+
+            drawEventsSchedule(events, earliestStart);
+
+
+        }
+
+        function getStartDateTime(event) {
+            return getDateTime(year, event.startMonth, event.startDay, event.startTime, event.startAMPM);
+        }
+        function getEndDateTime(event) {
+            return getDateTime(year, event.endMonth, event.endDay, event.endTime, event.endAMPM);
+        }
+
+        function getDateTime24HOUR(year, month, day, time, AMPM) {
+            var hourAndMinute = time.split(":");
+            var hour = Number(hourAndMinute[0]);
+            if (AMPM == "PM") {
+                //12:00PM needs to be 12:00
+                if (hour != 12) {
+                    hour = hour + 12;
+                }
+            }
+            else {
+                //12:00AM needs to be 0:00
+                if (hour == 12) {
+                    hour = 0;
+                }
+            }
+
+            var dateString = day + " " + month + " " + year + " " + hour + ":" + hourAndMinute[1] + ":00";
+
+            console.log("DATE STRING: " + dateString);
+            var date = new Date(Date.parse(dateString));
+            console.log("DATE: " + date);
+            return date;
+        }
+
+        //TODO remove the 24 hour if this works
+        function getDateTime(year, month, day, time, AMPM) {
+
+            var dateString = day + " " + month + " " + year + " " + time + ":00" + " " + AMPM;
+
+            console.log("DATE STRING: " + dateString);
+            var date = new Date(Date.parse(dateString));
+            console.log("DATE: " + date);
+            return date;
+        }
+
+        function drawTimeOnLeft(earliestStart, latestEnd) {
+            var schedule = document.getElementById("schedule");
+            var scheduleDoc = schedule.contentDocument || schedule.contentWindow.document;
+
+            //var hour = earliestStart.getHours();
+            var startMinutes = earliestStart.getMinutes();
+
+            var drawingTime = earliestStart;
+            while (drawingTime < latestEnd) {
+                var yPixelLocation = getYPixelLocation(earliestStart, drawingTime);
+
+                var label = scheduleDoc.createElement('label');
+                label.style.position = 'absolute';
+                label.style.left = 0 + 'px';
+
+                label.style.top = (yPixelLocation + yTimePushLeftDown) + 'px';
+                label.style.width = xBlockWidth;
+                label.style.height = yTimeHourHeight;
+                var startMinutesString;
+                if (startMinutes < 10) {
+                    startMinutesString = "0" + startMinutes;
+                }
+                else {
+                    startMinutesString = startMinutes;
+                }
+
+                var hourString;
+                var ampm = "AM";
+                var drawingHour = drawingTime.getHours();
+                //TODO clean this up
+                if (drawingHour > 12) {
+                    hourString = drawingHour - 12;
+                    if (drawingHour == 24) {
+                        ampm = "AM";
+                        hourString = 12;
+                    }
+                    else {
+                        ampm = "PM";
+                    }
+                }
+                else {
+                    if (drawingHour == 12) {
+                        ampm = "PM";
+                        hourString = drawingHour;
+                    }
+                    else {
+                        ampm = "AM";
+                        hourString = drawingHour;
+                    }
+                    if (drawingHour == 0) {
+                        hourString = 12;
+                    }
+                }
+
+                label.textContent = hourString + ":" + startMinutesString + ampm;
+                label.style.font = venueFont;
+
+                scheduleDoc.body.appendChild(label);
+                //drawingHour++;
+                drawingTime = new Date(drawingTime.getTime() + milliSecondsInAnHour);
+            }
+
+        }
+
+        function getYPixelLocation(earliestStart, time) {
+            var hoursPast = (time.getTime() - earliestStart.getTime()) / milliSecondsInAnHour;
+            //var pixel = (yTimeHourHeight * hoursPast) + yHeightOffset;
+            var pixel = (yTimeHourHeight * hoursPast);
+            console.log("pixel getPixelForHour: " + pixel);
+            return Number(pixel);
+        }
+
+        function drawEventsSchedule(events, earliestStart) {
+            var schedule = document.getElementById("schedule");
+            var scheduleDoc = schedule.contentDocument || schedule.contentWindow.document;
+            var hour
+            for (let i = 0; i < events.length; i++) {
+                var event = events[i];
+
+                var button = scheduleDoc.createElement('button');
+                button.style.position = 'absolute';
+                button.style.left = xTimeOnLeftWidth + 'px';
+
+                var yPixelTop = getYPixelLocation(earliestStart, getStartDateTime(event));
+                button.style.top = (yPixelTop + yTopHeight) + 'px';
+                button.style.left = getXPixelForLocation(event);
+                button.style.width = xBlockWidth;
+                //button.style.bottom = getYPixelLocation(earliestStart, getEndDateTime(event)) + 'px';
+                var height = getYPixelLocation(earliestStart, getEndDateTime(event)) - yPixelTop;
+                button.style.height =  height + 'px';
+                button.textContent = event.name;
+                button.style.font = venueFont;
+                //button.addEventListener("click", venueClick);
+
+                scheduleDoc.body.appendChild(button);
+
+            }
+        }
+
+        function getXPixelForLocation(event) {
+            var locationIndex = getLocationIndex(event.location);
+
+            var left = (locationIndex * xBlockWidth) + xTimeOnLeftWidth;
+            return left;
+        }
+
+        function getLocationIndex(location) {
+            for (let i = 0; i < locations.length; i++) {
+                if (location === locations[i]) {
+                    return i;
+                }
+            }
+        }
+
+
+
+    </script>
+
+</head>
+
+<body onload="drawTimeline(); setInterval('drawTimeline()', 60000 ); drawTop(); setInterval('drawTop()', 60000 );">
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .top {
+            overflow: hidden;
+            background-color: white;
+            position: fixed;
+            top: 0;
+            width: 3200px;
+            margin: 0;
+            padding: 0;
+            font-size: 50px;
+        }
+
+        .bottom {
+            overflow: hidden;
+            background-color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 50px;
+        }
+
+
+        .button {
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            color: black;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 60px;
+            margin: 4px 2px;
+            cursor: pointer;
+            background-color: gold;
+            border-radius: 12px;
+            height: 200px;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+    </style>
+
+    <div class="top">
+        <iFrame id="top" position="fixed" width="100%" height="150" scrolling="no">
+            <!-- <canvas id="top" width="3200" height="150"></canvas>-->
+        </iFrame>
+    </div>
+    <div class="schedule">
+        <iFrame id="schedule" position="fixed" width="100%" height="9000" style="background:white;" scrolling="no">
+            <!--<canvas id="schedule" width="1600" height="9000"></canvas>-->
+        </iFrame>
+    </div>
+    <div class="bottom" id="bottom">
+        <button type="button" onclick="day1()" id="day1" class="button">D1</button>
+        <button type="button" onclick="day2()" id="day2" class="button">D2</button>
+        <button type="button" onclick="day3()" id="day3" class="button">D3</button>
+        <button type="button" onclick="day4()" id="day4" class="button">D4</button>
+        <button type="button" onclick="modTapFunction()" id="changeTap" class="button"
+            style="background-color:greenyellow;"></button>
+        <button type="button" onclick="alphaToggle()" id="alphaToggle" class="button"
+            style="background-color:hotpink;">Alpha</button>
+        <button type="button" onclick="help()" id="help" class="button"
+            style="background-color:mediumturquoise;">Help</button>
+    </div>
+
+</body>
+
+</html>
