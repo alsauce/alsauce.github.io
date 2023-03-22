@@ -6,7 +6,7 @@
     test band name1, PD, Sept, 30, 12:30, PM, Sept, 30, 12:59, PM
     test band name2, PD, Sept, 30,  1:00, PM, Sept, 30,  3:00, PM
     test band name3, RT, Sept, 30, 1:30, PM,  Sept, 30,  2:00, PM
-    test band name3, RT, Sept, 30, 11:59, PM,  Oct,  1,  2:00, AM
+    test band name4, RT, Sept, 30, 11:59, PM,  Oct,  1,  2:00, AM
 </script>
     <script>
 
@@ -32,7 +32,7 @@
         var fontVenue = 40 + 'px serif';
         var fontLeftTime = 40 + 'px serif';
         var fontCurrentTime = 40 + 'px serif';
-        var fontSchedule = 40 + 'px serif';
+        var fontSchedule = 35 + 'px serif';
 
         var xTimeOnLeftWidth = 160;
 
@@ -41,6 +41,8 @@
         var secondsInAnHour = 60 * 60;
         var milliSecondsInAnHour = secondsInAnHour * 1000;
         var xBlockWidth = (window.innerWidth - xTimeOnLeftWidth) / locations.length;
+
+        var yHiddenButtonHeight = 1000;
 
         var storedVersion = "_v1";
 
@@ -345,27 +347,79 @@
             for (let i = 0; i < events.length; i++) {
                 var event = events[i];
 
-                var button = scheduleDoc.createElement('button');
-                button.style.position = 'absolute';
-                button.style.left = xTimeOnLeftWidth + 'px';
+                var buttonViewable = scheduleDoc.createElement('button');
+                buttonViewable.style.position = 'absolute';
+                buttonViewable.style.left = xTimeOnLeftWidth + 'px';
 
                 var yPixelTop = getYPixelLocation(earliestStart, getStartDateTime(event));
-                button.style.top = (yPixelTop + yTopHeight) + 'px';
-                button.style.left = getXPixelForLocation(event);
-                button.style.width = xBlockWidth;
-                //button.style.bottom = getYPixelLocation(earliestStart, getEndDateTime(event)) + 'px';
+                //TODO where is the 105 from?
+                buttonViewable.style.top = (yPixelTop + 105) + 'px';
+                buttonViewable.style.left = getXPixelForLocation(event);
+                buttonViewable.style.width = xBlockWidth;
+                //buttonViewable.style.bottom = getYPixelLocation(earliestStart, getEndDateTime(event)) + 'px';
                 var height = getYPixelLocation(earliestStart, getEndDateTime(event)) - yPixelTop;
-                button.style.height = height + 'px';
-                button.textContent = event.name;
-                button.style.font = fontSchedule;
-                button.style.backgroundColor = colorEventBack;colorEventFont
-                button.style.color = colorEventFont;
+                buttonViewable.style.height = height + 'px';
+                buttonViewable.style.font = fontSchedule;
+                buttonViewable.style.backgroundColor = colorEventBack;colorEventFont
+                buttonViewable.style.color = colorEventFont;
+                buttonViewable.addEventListener("click", eventClick);
+                //buttonViewable.addEventListener("click", venueClick);
+                buttonViewable.innerText = event.name + "\n" + event.startTime + "-" + event.endTime;
+                buttonViewable.id = event.name + currentDay;
+                scheduleDoc.body.appendChild(buttonViewable);
 
-                //button.addEventListener("click", venueClick);
+                var labelHidden = scheduleDoc.createElement('label');
+                labelHidden.style.position = 'absolute';
+                labelHidden.style.left = xTimeOnLeftWidth + 'px';
 
-                scheduleDoc.body.appendChild(button);
+                //var yPixelTop = getYPixelLocation(earliestStart, getStartDateTime(event));
+                //TODO where is the 105 from?
+                labelHidden.style.top = (yPixelTop) + 'px';
+                labelHidden.style.left = getXPixelForLocation(event) - xTimeOnLeftWidth;
+                labelHidden.style.width = xBlockWidth + xTimeOnLeftWidth;
+                //labelHidden.style.bottom = getYPixelLocation(earliestStart, getEndDateTime(event)) + 'px';
+                //var height = getYPixelLocation(earliestStart, getEndDateTime(event)) - yPixelTop;
+                labelHidden.style.height = yHiddenButtonHeight + 'px';
+                labelHidden.style.font = fontSchedule;
+                labelHidden.style.backgroundColor = colorEventBack;colorEventFont
+                labelHidden.style.color = colorEventFont;
+                labelHidden.style.visibility = 'hidden';
+                labelHidden.id = event.name + currentDay + 'hidden';
+
+                //labelHidden.addEventListener("click", venueClick);
+                labelHidden.innerText = "HIDDEN \n" + event.name + "\n" + event.startTime + "-" + event.endTime;
+                
+                scheduleDoc.body.appendChild(labelHidden);
+
+                var buttonCloseOnLabel = scheduleDoc.createElement('button');
+                buttonCloseOnLabel.style.width = 100;
+                buttonCloseOnLabel.style.height = 100;
+                buttonCloseOnLabel.innerText = 'close';
+                buttonCloseOnLabel.style.width = 100;
+                buttonCloseOnLabel.id = event.name + currentDay + 'hidden';
+                buttonCloseOnLabel.disabled = true;
+
+                buttonViewable.addEventListener("click", hideLabel);
+
+                labelHidden.appendChild(buttonCloseOnLabel);
 
             }
+        }
+
+        function hideLabel(event)
+        {
+            var schedule = document.getElementById("schedule");
+            var scheduleDoc = schedule.contentDocument || schedule.contentWindow.document;
+            var labelHidden = scheduleDoc.getElementById(event.target.id + 'hidden');
+            labelHidden.style.visibility = 'hidden';
+        }
+
+        function eventClick(event)
+        {
+            var schedule = document.getElementById("schedule");
+            var scheduleDoc = schedule.contentDocument || schedule.contentWindow.document;
+            var labelHidden = scheduleDoc.getElementById(event.target.id + 'hidden');
+            labelHidden.style.visibility = 'visible';
         }
 
         function getXPixelForLocation(event) {
