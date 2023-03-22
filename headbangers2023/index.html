@@ -397,9 +397,9 @@
                 buttonCloseOnLabel.innerText = 'close';
                 buttonCloseOnLabel.style.width = 100;
                 buttonCloseOnLabel.id = event.name + currentDay + 'hidden';
-                buttonCloseOnLabel.disabled = true;
+                //buttonCloseOnLabel.disabled = true;
 
-                buttonViewable.addEventListener("click", hideLabel);
+                buttonCloseOnLabel.addEventListener("click", hideLabel);
 
                 labelHidden.appendChild(buttonCloseOnLabel);
 
@@ -410,7 +410,7 @@
         {
             var schedule = document.getElementById("schedule");
             var scheduleDoc = schedule.contentDocument || schedule.contentWindow.document;
-            var labelHidden = scheduleDoc.getElementById(event.target.id + 'hidden');
+            var labelHidden = scheduleDoc.getElementById(event.target.id);
             labelHidden.style.visibility = 'hidden';
         }
 
