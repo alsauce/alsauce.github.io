@@ -6,7 +6,7 @@
     test band name1, PD, Sept, 30, 12:30, PM, Sept, 30, 12:59, PM
     test band name2, PD, Sept, 30,  1:00, PM, Sept, 30,  3:00, PM
     test band name3, RT, Sept, 30, 1:30, PM,  Sept, 30,  2:00, PM
-    test band name3, RT, Sept, 30, 11:59, PM,  Oct,  1,  2:00, AM
+    test band name4, RT, Sept, 30, 11:59, PM,  Oct,  1,  2:00, AM
 </script>
     <script>
 
@@ -21,15 +21,18 @@
         var currentDay = 1;
 
 
-        var yBannerHeight = 50;
-        var yBannerBottom = yBannerHeight;
-        var yVenueTop = yBannerBottom;
-        var yVenueHeight = 50;
-        var yTopHeight = yBannerHeight + yVenueHeight
-        var yVenueBottom = yVenueTop + yVenueHeight;
+        //var yBannerHeight = 50;
+        //var yBannerBottom = yBannerHeight;
+        //var yVenueTop = yBannerBottom;
+        var yVenueHeight = 150;
+        var yTopHeight = yVenueHeight;//yBannerHeight + yVenueHeight
+        var yVenueBottom = yVenueHeight;//yVenueTop + yVenueHeight;
         var yEarliestBufferHours = 1;
         var yLatestBufferHours = 2;
-        var venueFont = (yVenueHeight - 10) + 'px serif';
+        var fontVenue = 40 + 'px serif';
+        var fontLeftTime = 40 + 'px serif';
+        var fontCurrentTime = 40 + 'px serif';
+        var fontSchedule = 35 + 'px serif';
 
         var xTimeOnLeftWidth = 160;
 
@@ -39,9 +42,27 @@
         var milliSecondsInAnHour = secondsInAnHour * 1000;
         var xBlockWidth = (window.innerWidth - xTimeOnLeftWidth) / locations.length;
 
+        var yHiddenButtonHeight = 1000;
+
         var storedVersion = "_v1";
 
         var storedDelayKey = "storedDelayHB" + year + storedVersion;
+
+        var colorVenueBack = 'black';
+        var colorVenueFont = 'red';
+        var colorCurrentTimeNumberBackground = 'lightgrey';
+        var colorCurrentTimeNumber = 'fuchsia';
+        var colorCurrentTimeLine = 'fuchsia';
+        var colorEventBack = 'black';
+        var colorEventFont = 'lightgrey';
+        var colorLeftTimeLines = 'white';
+        var colorLeftTimesNumber = 'black';
+        var colorLeftTimesBackground = 'grey';
+
+        function redrawEverything() {
+            drawTop();
+            drawTimeline();
+        }
 
         function drawTop() {
             var top = document.getElementById('top');
@@ -51,25 +72,27 @@
             var topDoc = top.contentDocument || top.contentWindow.document;
             for (var i = 0; i < locations.length; i++) {
 
-                var button = document.createElement('button');
-                button.style.position = 'absolute';
-                button.style.left = xTimeOnLeftWidth + (xBlockWidth * i) + 'px';
+                var buttonVenue = document.createElement('button');
+                buttonVenue.style.position = 'absolute';
+                buttonVenue.style.left = xTimeOnLeftWidth + (xBlockWidth * i) + 'px';
 
-                button.style.top = yVenueTop + 'px';
-                button.style.width = xBlockWidth;
-                button.style.height = yVenueHeight;
-                button.textContent = locations[i];
-                button.style.font = venueFont;
-                button.addEventListener("click", venueClick);
+                buttonVenue.style.top = 0 + 'px';
+                buttonVenue.style.width = xBlockWidth;
+                buttonVenue.style.height = yVenueHeight;
+                buttonVenue.textContent = locations[i] + ":" + getDelayMinutesForVenue(locations[i]) + "m";
+                buttonVenue.style.font = fontVenue;
+                buttonVenue.style.backgroundColor = colorVenueBack;
+                buttonVenue.style.color = colorVenueFont;
+                buttonVenue.addEventListener("click", venueClick);
 
-                topDoc.body.appendChild(button);
+                topDoc.body.appendChild(buttonVenue);
 
             }
         }
 
         function venueClick(venue) {
 
-            var venue = venue.target.textContent;
+            var venue = venue.target.textContent.split(":")[0];
             let delayStr = prompt("Minutes delayed for " + venue + " day " + currentDay, getDelayMinutesForVenue(venue));
             if (delayStr == null || "" == delayStr) {
                 return;
@@ -80,7 +103,7 @@
                 return;
             }
             localStorage.setItem(storedDelayKey + currentDay + venue, delay);
-            //TODO redraw stuff
+            redrawEverything()
 
         }
         function getDelayMinutesForVenue(location) {
@@ -145,17 +168,71 @@
             var hourAndMinuteLatest = latestEvent.endTime.split(":");
             latestEnd = getDateTime(year, latestEvent.endMonth, latestEvent.endDay, (hourAndMinuteLatest[0]) + ":00", latestEvent.endAMPM)
             latestEnd = new Date(latestEnd.getTime() + (milliSecondsInAnHour * yLatestBufferHours));
-            
+
 
             //TODO schedule heights based on y pixel of latest end
             var height = getYPixelLocation(earliestStart, latestEnd);
             schedule.style.height = getYPixelLocation(earliestStart, latestEnd) + "px";
-            
-            drawTimeOnLeft(earliestStart, latestEnd);
 
+            drawTimeOnLeft(earliestStart, latestEnd);
+            drawCurrentTime(earliestStart);
             drawEventsSchedule(events, earliestStart);
 
 
+        }
+
+        function drawCurrentTime(earliestStart) {
+
+            var schedule = document.getElementById("schedule");
+            var scheduleDoc = schedule.contentDocument || schedule.contentWindow.document;
+            var storedTimeTEST = new Date(earliestStart.getTime() + milliSecondsInAnHour);
+
+            var pixel = getYPixelLocation(earliestStart, storedTimeTEST);
+
+            var labelCurrentTimeNumber = scheduleDoc.createElement('label');
+            labelCurrentTimeNumber.style.position = 'absolute';
+            labelCurrentTimeNumber.style.left = 0 + 'px';
+
+            labelCurrentTimeNumber.style.top = (pixel + yTimePushLeftDown) + 'px';
+            labelCurrentTimeNumber.style.width = xBlockWidth;
+            labelCurrentTimeNumber.style.height = yTimeHourHeight;
+            var minutes = storedTimeTEST.getMinutes();
+            var minutesString;
+            if (minutes < 10) {
+                minutesString = "0" + minutes;
+            }
+            else {
+                minutesString = minutes;
+            }
+            var hours = storedTimeTEST.getHours();
+            var hoursString;
+            if (hours > 12) {
+                hoursString = hours - 12;
+            }
+            else {
+                hoursString = hours;
+            }
+
+            labelCurrentTimeNumber.textContent = hoursString + ":" + minutesString;
+            labelCurrentTimeNumber.style.font = fontCurrentTime;
+            labelCurrentTimeNumber.style.background = colorCurrentTimeNumberBackground;
+            labelCurrentTimeNumber.style.color = colorCurrentTimeNumber;
+            labelCurrentTimeNumber.style.height = 40;
+
+            scheduleDoc.body.appendChild(labelCurrentTimeNumber);
+
+            var labelCurentTimeLine = scheduleDoc.createElement('label');
+            labelCurentTimeLine.style.position = 'absolute';
+            labelCurentTimeLine.style.left = 0 + 'px';
+
+            labelCurentTimeLine.style.top = (pixel + yTimePushLeftDown) + 'px';
+            labelCurentTimeLine.style.width = window.innerWidth;
+            labelCurentTimeLine.style.height = 5;
+            labelCurentTimeLine.style.background = colorCurrentTimeLine;
+            //labelCurentTimeLine.style.font = venueFont;
+
+
+            scheduleDoc.body.appendChild(labelCurentTimeLine);
         }
 
         function getStartDateTime(event) {
@@ -165,31 +242,6 @@
             return getDateTime(year, event.endMonth, event.endDay, event.endTime, event.endAMPM);
         }
 
-        function getDateTime24HOUR(year, month, day, time, AMPM) {
-            var hourAndMinute = time.split(":");
-            var hour = Number(hourAndMinute[0]);
-            if (AMPM == "PM") {
-                //12:00PM needs to be 12:00
-                if (hour != 12) {
-                    hour = hour + 12;
-                }
-            }
-            else {
-                //12:00AM needs to be 0:00
-                if (hour == 12) {
-                    hour = 0;
-                }
-            }
-
-            var dateString = day + " " + month + " " + year + " " + hour + ":" + hourAndMinute[1] + ":00";
-
-            console.log("DATE STRING: " + dateString);
-            var date = new Date(Date.parse(dateString));
-            console.log("DATE: " + date);
-            return date;
-        }
-
-        //TODO remove the 24 hour if this works
         function getDateTime(year, month, day, time, AMPM) {
 
             var dateString = day + " " + month + " " + year + " " + time + ":00" + " " + AMPM;
@@ -211,13 +263,13 @@
             while (drawingTime < latestEnd) {
                 var yPixelLocation = getYPixelLocation(earliestStart, drawingTime);
 
-                var label = scheduleDoc.createElement('label');
-                label.style.position = 'absolute';
-                label.style.left = 0 + 'px';
+                var labelLeftTimes = scheduleDoc.createElement('label');
+                labelLeftTimes.style.position = 'absolute';
+                labelLeftTimes.style.left = 0 + 'px';
 
-                label.style.top = (yPixelLocation + yTimePushLeftDown) + 'px';
-                label.style.width = xBlockWidth;
-                label.style.height = yTimeHourHeight;
+                labelLeftTimes.style.top = (yPixelLocation + yTimePushLeftDown) + 'px';
+                labelLeftTimes.style.width = xTimeOnLeftWidth;
+                labelLeftTimes.style.height = yTimeHourHeight;
                 var startMinutesString;
                 if (startMinutes < 10) {
                     startMinutesString = "0" + startMinutes;
@@ -254,10 +306,26 @@
                     }
                 }
 
-                label.textContent = hourString + ":" + startMinutesString + ampm;
-                label.style.font = venueFont;
+                labelLeftTimes.textContent = hourString + ampm;
+                labelLeftTimes.style.font = fontLeftTime;
+                labelLeftTimes.style.backgroundColor = colorLeftTimesBackground;
+                labelLeftTimes.style.color = colorLeftTimesNumber;
 
-                scheduleDoc.body.appendChild(label);
+                scheduleDoc.body.appendChild(labelLeftTimes);
+
+                //draw line
+                var labelLeftTimeLine = scheduleDoc.createElement('label');
+                labelLeftTimeLine.style.position = 'absolute';
+                labelLeftTimeLine.style.left = 0 + 'px';
+
+                labelLeftTimeLine.style.top = (yPixelLocation + yTimePushLeftDown) + 'px';
+                labelLeftTimeLine.style.width = window.innerWidth;
+                labelLeftTimeLine.style.height = 5;
+                labelLeftTimeLine.style.backgroundColor = colorLeftTimeLines;
+                //labelCurentTimeLine.style.font = venueFont;
+
+
+            scheduleDoc.body.appendChild(labelLeftTimeLine);
                 //drawingHour++;
                 drawingTime = new Date(drawingTime.getTime() + milliSecondsInAnHour);
             }
@@ -279,24 +347,79 @@
             for (let i = 0; i < events.length; i++) {
                 var event = events[i];
 
-                var button = scheduleDoc.createElement('button');
-                button.style.position = 'absolute';
-                button.style.left = xTimeOnLeftWidth + 'px';
+                var buttonViewable = scheduleDoc.createElement('button');
+                buttonViewable.style.position = 'absolute';
+                buttonViewable.style.left = xTimeOnLeftWidth + 'px';
 
                 var yPixelTop = getYPixelLocation(earliestStart, getStartDateTime(event));
-                button.style.top = (yPixelTop + yTopHeight) + 'px';
-                button.style.left = getXPixelForLocation(event);
-                button.style.width = xBlockWidth;
-                //button.style.bottom = getYPixelLocation(earliestStart, getEndDateTime(event)) + 'px';
+                //TODO where is the 105 from?
+                buttonViewable.style.top = (yPixelTop + 105) + 'px';
+                buttonViewable.style.left = getXPixelForLocation(event);
+                buttonViewable.style.width = xBlockWidth;
+                //buttonViewable.style.bottom = getYPixelLocation(earliestStart, getEndDateTime(event)) + 'px';
                 var height = getYPixelLocation(earliestStart, getEndDateTime(event)) - yPixelTop;
-                button.style.height =  height + 'px';
-                button.textContent = event.name;
-                button.style.font = venueFont;
-                //button.addEventListener("click", venueClick);
+                buttonViewable.style.height = height + 'px';
+                buttonViewable.style.font = fontSchedule;
+                buttonViewable.style.backgroundColor = colorEventBack;colorEventFont
+                buttonViewable.style.color = colorEventFont;
+                buttonViewable.addEventListener("click", eventClick);
+                //buttonViewable.addEventListener("click", venueClick);
+                buttonViewable.innerText = event.name + "\n" + event.startTime + "-" + event.endTime;
+                buttonViewable.id = event.name + currentDay;
+                scheduleDoc.body.appendChild(buttonViewable);
 
-                scheduleDoc.body.appendChild(button);
+                var labelHidden = scheduleDoc.createElement('label');
+                labelHidden.style.position = 'absolute';
+                labelHidden.style.left = xTimeOnLeftWidth + 'px';
+
+                //var yPixelTop = getYPixelLocation(earliestStart, getStartDateTime(event));
+                //TODO where is the 105 from?
+                labelHidden.style.top = (yPixelTop) + 'px';
+                labelHidden.style.left = getXPixelForLocation(event) - xTimeOnLeftWidth;
+                labelHidden.style.width = xBlockWidth + xTimeOnLeftWidth;
+                //labelHidden.style.bottom = getYPixelLocation(earliestStart, getEndDateTime(event)) + 'px';
+                //var height = getYPixelLocation(earliestStart, getEndDateTime(event)) - yPixelTop;
+                labelHidden.style.height = yHiddenButtonHeight + 'px';
+                labelHidden.style.font = fontSchedule;
+                labelHidden.style.backgroundColor = colorEventBack;colorEventFont
+                labelHidden.style.color = colorEventFont;
+                labelHidden.style.visibility = 'hidden';
+                labelHidden.id = event.name + currentDay + 'hidden';
+
+                //labelHidden.addEventListener("click", venueClick);
+                labelHidden.innerText = "HIDDEN \n" + event.name + "\n" + event.startTime + "-" + event.endTime;
+                
+                scheduleDoc.body.appendChild(labelHidden);
+
+                var buttonCloseOnLabel = scheduleDoc.createElement('button');
+                buttonCloseOnLabel.style.width = 100;
+                buttonCloseOnLabel.style.height = 100;
+                buttonCloseOnLabel.innerText = 'close';
+                buttonCloseOnLabel.style.width = 100;
+                buttonCloseOnLabel.id = event.name + currentDay + 'hidden';
+                buttonCloseOnLabel.disabled = true;
+
+                buttonViewable.addEventListener("click", hideLabel);
+
+                labelHidden.appendChild(buttonCloseOnLabel);
 
             }
+        }
+
+        function hideLabel(event)
+        {
+            var schedule = document.getElementById("schedule");
+            var scheduleDoc = schedule.contentDocument || schedule.contentWindow.document;
+            var labelHidden = scheduleDoc.getElementById(event.target.id + 'hidden');
+            labelHidden.style.visibility = 'hidden';
+        }
+
+        function eventClick(event)
+        {
+            var schedule = document.getElementById("schedule");
+            var scheduleDoc = schedule.contentDocument || schedule.contentWindow.document;
+            var labelHidden = scheduleDoc.getElementById(event.target.id + 'hidden');
+            labelHidden.style.visibility = 'visible';
         }
 
         function getXPixelForLocation(event) {
@@ -320,7 +443,7 @@
 
 </head>
 
-<body onload="drawTimeline(); setInterval('drawTimeline()', 60000 ); drawTop(); setInterval('drawTop()', 60000 );">
+<body onload="redrawEverything();setInterval('redrawEverything()', 60000 ); ">
     <style>
         body {
             margin: 0;
@@ -359,32 +482,32 @@
             cursor: pointer;
             background-color: gold;
             border-radius: 12px;
-            height: 200px;
+            height: 150px;
             box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
     </style>
 
     <div class="top">
-        <iFrame id="top" position="fixed" width="100%" height="150" scrolling="no">
+        <iFrame id="top" position="fixed" width="100%" height="150" scrolling="no" style="background:black;">
             <!-- <canvas id="top" width="3200" height="150"></canvas>-->
         </iFrame>
     </div>
     <div class="schedule">
-        <iFrame id="schedule" position="fixed" width="100%" height="9000" style="background:white;" scrolling="no">
+        <iFrame id="schedule" position="fixed" width="100%" height="9000" style="background:lightgrey;" scrolling="no">
             <!--<canvas id="schedule" width="1600" height="9000"></canvas>-->
         </iFrame>
     </div>
-    <div class="bottom" id="bottom">
+    <div class="bottom" id="bottom" style="background:grey;"> 
         <button type="button" onclick="day1()" id="day1" class="button">D1</button>
         <button type="button" onclick="day2()" id="day2" class="button">D2</button>
         <button type="button" onclick="day3()" id="day3" class="button">D3</button>
         <button type="button" onclick="day4()" id="day4" class="button">D4</button>
-        <button type="button" onclick="modTapFunction()" id="changeTap" class="button"
-            style="background-color:greenyellow;"></button>
+        <!--<button type="button" onclick="modTapFunction()" id="changeTap" class="button"
+            style="background-color:greenyellow;"></button> -->
         <button type="button" onclick="alphaToggle()" id="alphaToggle" class="button"
             style="background-color:hotpink;">Alpha</button>
-        <button type="button" onclick="help()" id="help" class="button"
-            style="background-color:mediumturquoise;">Help</button>
+        <!-- <button type="button" onclick="help()" id="help" class="button"
+            style="background-color:mediumturquoise;">Help</button> -->
     </div>
 
 </body>
