@@ -88,7 +88,6 @@
         var colorGoingGoing = "lime";
         var colorGoingNotGoing = "darkred";
 
-
         setTimeout(function () {
             location.reload()
         }, 60 * 1000 * 2);
@@ -151,12 +150,17 @@
                 alert(delayStr + " is not a number");
                 return;
             }
-            localStorage.setItem(storedDelayKey + day + venue, delay);
-            redrasdsdfawEverything()
-
+            localStorage.setItem(getDelayKey(venue), delay);
+            location.reload();
         }
-        function getDelayMinutesForVenue(location) {
-            var delayMinutes = localStorage.getItem(storedDelayKey + day + location);
+
+        function getDelayKey(venue)
+        {
+            return storedDelayKey + day + venue;
+        }
+
+        function getDelayMinutesForVenue(venue) {
+            var delayMinutes = localStorage.getItem(getDelayKey(venue));
             if (delayMinutes == null) {
                 return 0;
             }
@@ -395,13 +399,17 @@
                 var buttonViewable = scheduleDoc.createElement('button');
                 buttonViewable.style.position = 'absolute';
                 buttonViewable.style.left = xTimeOnLeftWidth + 'px';
+                var location = event.location;
 
-                var yPixelTop = getYPixelLocation(earliestStart, getStartDateTime(event));
+                var startDate = new Date(getStartDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
+                var yPixelTop = getYPixelLocation(earliestStart, startDate);
                 //TODO where is the 105 from?
                 buttonViewable.style.top = (yPixelTop + 105) + 'px';
                 buttonViewable.style.left = getXPixelForLocation(event);
                 buttonViewable.style.width = xBlockWidth;
-                var height = getYPixelLocation(earliestStart, getEndDateTime(event)) - yPixelTop;
+                var endDate = new Date(getEndDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
+
+                var height = getYPixelLocation(earliestStart, endDate) - yPixelTop;
                 buttonViewable.style.height = height + 'px';
                 buttonViewable.style.font = fontSchedule;
 
@@ -417,11 +425,25 @@
                 if (goingInd == null) {
                     goingInd = goingUndecided;
                 }
-                buttonViewable.innerText = event.name + "\n" + event.startTime + "-" + event.endTime + "\n" + goingInd;
+                buttonViewable.innerText = event.name + "\n" + getTimeString(startDate) + "-" + getTimeString(endDate) + "\n" + goingInd;
 
                 scheduleDoc.body.appendChild(buttonViewable);
 
             }
+        }
+
+        function getTimeString(date) {
+            var hour = date.getHours();
+            if (hour > 12) {
+                hour -= 12;
+            }
+            var minute = date.getMinutes();
+            var minuteString = "";
+            if (minute < 10) {
+                minuteString += "0";
+            }
+            minuteString += minute;
+            return hour + ":" + minuteString;
         }
 
         function getGoingColor(event) {
@@ -451,10 +473,14 @@
             var scheduleDoc = schedule.contentDocument || schedule.contentWindow.document;
             for (let i = 0; i < events.length; i++) {
                 var event = events[i];
-
-                var yPixelTop = getYPixelLocation(earliestStart, getStartDateTime(event));
+                var location = event.location;
+                var startDate = new Date(getStartDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
+                
+                var yPixelTop = getYPixelLocation(earliestStart, startDate);
                 //TODO where is the 105 from?
-                var height = getYPixelLocation(earliestStart, getEndDateTime(event)) - yPixelTop;
+                var endDate = new Date(getStartDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
+                
+                var height = getYPixelLocation(earliestStart, getEndDateTime(endDate)) - yPixelTop;
 
                 var labelHidden = scheduleDoc.createElement('label');
                 labelHidden.style.position = 'absolute';
