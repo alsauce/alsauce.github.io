@@ -3,13 +3,30 @@
     <link rel="stylesheet" href="style.css">
     <!--TODO <script type="text/javascript" src="data.js?version=1"></script> -->
     <!--TODO externalize <script type="text/javascript" src="day1.js?version=1"></script>-->
-    <script id='day1' type='text'>
-        test band name1, PD, Sept, 30, 12:30, PM, Sept, 30, 12:59, PM
-        test band name2, PD, Sept, 30,  1:00, PM, Sept, 30,  3:00, PM
-        test band name3, RT, Sept, 30, 1:30, PM,  Sept, 30,  2:00, PM
-        test band name4, RT, Sept, 30, 11:59, PM,  Oct,  1,  2:00, AM
-        test band name1, SB, Sept, 30, 12:31, PM, Sept, 30, 1:01, PM
+    <script id='scheduleDay1' type='text'>
+        test band name1, PD, Sept, 30, 12:31, PM, Sept, 30, 12:59, PM
+        test band name2, PD, Sept, 30,  1:01, PM, Sept, 30,  3:01, PM
+        test band name3, RT, Sept, 30,  1:31, PM, Sept, 30,  2:01, PM
+        test band name4, RT, Sept, 30, 11:59, PM,  Oct,  1,  2:01, AM
+        test band name1, SB, Sept, 30, 12:31, PM, Sept, 30,  1:01, PM
     </script>
+    <script id='scheduleDay2' type='text'>
+        test band name2, SB, Oct, 1,  1:02, PM,  Oct, 1,  3:02, PM
+        test band name3, SL, Oct, 1,  1:32, PM,  Oct, 1,  2:02, PM
+        test band name4, SB, Oct, 1, 11:52, PM,  Oct, 2,  2:02, AM
+    </script>
+    <script id='scheduleDay3' type='text'>
+        test band name2, PD, Oct, 2,  1:03, PM,  Oct, 2,  3:03, PM
+        test band name3, RT, Oct, 2,  1:33, PM,  Oct, 2,  2:03, PM
+        test band name4, RT, Oct, 2, 11:53, PM,  Oct, 3,  2:03, AM
+    </script>
+
+    <script id='scheduleDay4' type='text'>
+        test band name2, PD, Oct, 3,  1:04, PM,  Oct, 3,  3:04, PM
+        test band name3, RT, Oct, 3,  1:34, PM,  Oct, 3,  2:04, PM
+        test band name4, RT, Oct, 3, 11:54, PM,  Oct, 4,  2:04, AM
+    </script>
+
     <script>
 
         //TODO externalize?
@@ -17,7 +34,7 @@
         let year = 2023;
 
         //TODO externalize above?
-        var currentDay = 1;
+        var day = 1;
         var yVenueHeight = 150;
         var yTopHeight = yVenueHeight;
         var yVenueBottom = yVenueHeight;
@@ -26,6 +43,7 @@
         var fontVenue = 40 + 'px serif';
         var fontLeftTime = 40 + 'px serif';
         var fontCurrentTime = 40 + 'px serif';
+        var fontGoingButton = 30 + 'px serif'
         var fontSchedule = 35 + 'px serif';
 
         var xTimeOnLeftWidth = 160;
@@ -41,6 +59,7 @@
         var storedVersion = "_v1";
 
         var storedDelayKey = "storedDelayHB" + year + storedVersion;
+        var storedDayKey = "storedDayHB" + year + storedVersion;
 
         var colorVenueBack = 'black';
         var colorVenueFont = 'red';
@@ -56,6 +75,8 @@
         var colorHiddenFont = 'black';
         var colorGoingButtonActiveBackground = 'blue';
         var colorGoingButtonNonActiveBackground = 'lightgray';
+        var colorDayBackgroundInactive = 'grey';
+        var colorDayBackgroundActive = 'gold';
 
         var goingUndecided = "Undecided";
         var goingMaybe = "Maybe";
@@ -75,21 +96,21 @@
 
         function redrawEverything() {
             console.log("refreshing");
-            var top = document.getElementById('top');
+            var storedDay = localStorage.getItem(storedDayKey);
 
-            const buttonsTop = top.querySelectorAll("button");
-            buttonsTop.forEach(buttonTop => buttonTop.remove());
-            const labelsTop = top.querySelectorAll("label");
-            labelsTop.forEach(labelTop => labelTop.remove());
-
-            var schedule = document.getElementById('schedule');
-            const buttonsSchedule = schedule.querySelectorAll("button");
-            buttonsSchedule.forEach(buttonSchedule => buttonSchedule.remove());
-            const labelsSchedule = schedule.querySelectorAll("label");
-            labelsSchedule.forEach(labelSchedule => labelSchedule.remove());
+            if (storedDay != null) {
+                if (storedDay < 1 || storedDay > 4) {
+                    //somehow it was 0 once
+                    storedDay = 1;
+                    localStorage.setItem(storedDayKey, 1);
+                    day = 1;
+                }
+                day = storedDay;
+            }
 
             drawTop();
             drawTimeline();
+            buttons();
         }
 
         function drawTop() {
@@ -121,7 +142,7 @@
         function venueClick(venue) {
 
             var venue = venue.target.textContent.split(":")[0];
-            let delayStr = prompt("Minutes delayed for " + venue + " day " + currentDay, getDelayMinutesForVenue(venue));
+            let delayStr = prompt("Minutes delayed for " + venue + " day " + day, getDelayMinutesForVenue(venue));
             if (delayStr == null || "" == delayStr) {
                 return;
             }
@@ -130,12 +151,12 @@
                 alert(delayStr + " is not a number");
                 return;
             }
-            localStorage.setItem(storedDelayKey + currentDay + venue, delay);
-            redrawEverything()
+            localStorage.setItem(storedDelayKey + day + venue, delay);
+            redrasdsdfawEverything()
 
         }
         function getDelayMinutesForVenue(location) {
-            var delayMinutes = localStorage.getItem(storedDelayKey + currentDay + location);
+            var delayMinutes = localStorage.getItem(storedDelayKey + day + location);
             if (delayMinutes == null) {
                 return 0;
             }
@@ -146,7 +167,7 @@
             var schedule = document.getElementById("schedule");
             var scheduleDoc = schedule.contentDocument || schedule.contentWindow.document;
 
-            var currentEvents = document.getElementById('day' + currentDay).innerHTML;
+            var currentEvents = document.getElementById('scheduleDay' + day).innerHTML;
             var eventsSplit = currentEvents.split("\n");
             var events = [];
             var earliestStart = getDateTime("2100", "Jan", "1", "1:00", "AM");
@@ -204,7 +225,6 @@
             drawTimeOnLeft(earliestStart, latestEnd);
             drawCurrentTime(earliestStart);
             drawEventsSchedule(events, earliestStart);
-
 
         }
 
@@ -391,45 +411,39 @@
                 buttonViewable.style.color = goingColor;
                 buttonViewable.addEventListener("click", eventClick);
                 buttonViewable.id = getUniqueEventId(event);
-                
+
 
                 var goingInd = localStorage.getItem(getGoingKey(event));
-                if (goingInd == null)
-                {
+                if (goingInd == null) {
                     goingInd = goingUndecided;
                 }
                 buttonViewable.innerText = event.name + "\n" + event.startTime + "-" + event.endTime + "\n" + goingInd;
-                
+
                 scheduleDoc.body.appendChild(buttonViewable);
 
             }
         }
 
-        function getGoingColor(event)
-        {
+        function getGoingColor(event) {
             var goingInd = localStorage.getItem(getGoingKey(event));
 
-            if (goingInd == null || goingInd == goingUndecided)
-            {
+            if (goingInd == null || goingInd == goingUndecided) {
                 return colorGoingUndecided;
             }
-            else if (goingInd == goingGoing)
-            {
+            else if (goingInd == goingGoing) {
                 return colorGoingGoing;
             }
-            else if (goingInd == goingNotGoing)
-            {
+            else if (goingInd == goingNotGoing) {
                 return colorGoingNotGoing;
             }
-            else if (goingInd == goingMaybe)
-            {
+            else if (goingInd == goingMaybe) {
                 return colorGoingMaybe;
             }
-            else{
+            else {
                 console.log("ERROR WITH GET GOING COLOR");
                 return "black";
             }
-            
+
             return
         }
         function drawHiddenOverlay(events, earliestStart) {
@@ -458,17 +472,26 @@
                 labelHidden.id = getUniqueEventId(event) + 'hidden';
 
                 labelHidden.innerText = event.name + "\n" + event.startTime + "-" + event.endTime + "\n";
+                var weirdButtonFix = scheduleDoc.createElement('button');
+                weirdButtonFix.style.width = 0 + 'px';
+                weirdButtonFix.style.height = 0 + 'px';
+                weirdButtonFix.style.visibility = 'hidden';
+                weirdButtonFix.style.bottom = "0";
+                weirdButtonFix.style.position = "absolute";
+
+                //TODO for some reason the label activates on the first button added
+                labelHidden.appendChild(weirdButtonFix);
 
                 scheduleDoc.body.appendChild(labelHidden);
 
                 var buttonCloseOnLabel = scheduleDoc.createElement('button');
-                buttonCloseOnLabel.style.width = 100;
-                buttonCloseOnLabel.style.height = 100;
+                buttonCloseOnLabel.style.width = 180 + 'px';
+                buttonCloseOnLabel.style.height = 100 + 'px';
                 buttonCloseOnLabel.innerText = 'close';
-                buttonCloseOnLabel.style.width = 100;
-                buttonCloseOnLabel.id = getUniqueEventId(event) + 'hidden';
+                buttonCloseOnLabel.id = getUniqueEventId(event) + 'hiddenClose';
                 buttonCloseOnLabel.style.bottom = "0";
                 buttonCloseOnLabel.style.position = "absolute";
+                buttonCloseOnLabel.style.font = fontGoingButton;
 
                 buttonCloseOnLabel.addEventListener("click", closeHiddenLabel);
 
@@ -479,7 +502,6 @@
                 var buttonGoingGoing = createButtonGoing(goingGoing, scheduleDoc, event);
                 var buttonGoingNotGoing = createButtonGoing(goingNotGoing, scheduleDoc, event);
 
-                //buttonGoingOnLabel.addEventListener("click", closeHiddenLabel);
                 labelHidden.appendChild(buttonGoingUndecided);
                 labelHidden.appendChild(buttonGoingMaybe);
                 labelHidden.appendChild(buttonGoingGoing);
@@ -487,44 +509,45 @@
 
             }
         }
+
+        function noop(e) {
+            e.stopPropagation();
+        }
         function getUniqueEventId(event) {
-            return event.name + currentDay + event.location + event.startTime;
+            return event.name + day + event.location + event.startTime;
         }
 
         function createButtonGoing(going, scheduleDoc, event) {
-            
+
             var buttonGoingOnLabel = scheduleDoc.createElement('button');
             var goingInd = localStorage.getItem(getGoingKey(event));
-            if (goingInd == null && going == goingUndecided)
-            {
+            if (goingInd == null && going == goingUndecided) {
                 buttonGoingOnLabel.style.backgroundColor = colorGoingButtonActiveBackground;
             }
-            else if (goingInd == going)
-            {
+            else if (goingInd == going) {
                 buttonGoingOnLabel.style.backgroundColor = colorGoingButtonActiveBackground;
             }
-            else{
+            else {
                 buttonGoingOnLabel.style.backgroundColor = colorGoingButtonNonActiveBackground;
             }
 
-            buttonGoingOnLabel.style.width = 100;
+            buttonGoingOnLabel.style.width = 180;
             buttonGoingOnLabel.style.height = 100;
             buttonGoingOnLabel.innerText = going;
-            buttonGoingOnLabel.style.width = 100;
             buttonGoingOnLabel.id = getGoingKey(event);
+            buttonGoingOnLabel.style.font = fontGoingButton;
 
             buttonGoingOnLabel.addEventListener("click", goingClick);
 
             return buttonGoingOnLabel;
         }
 
-        function goingClick(theclick)
-        {
+        function goingClick(theclick) {
 
             var schedule = document.getElementById("schedule");
             var scheduleDoc = schedule.contentDocument || schedule.contentWindow.document;
             var parentLabel = event.target.parentElement;
-            
+
             const buttonsOnLabel = parentLabel.querySelectorAll("button");
             buttonsOnLabel.forEach(buttonOnLabel => buttonOnLabel.style.backgroundColor = colorGoingButtonNonActiveBackground);
 
@@ -532,19 +555,20 @@
             var id = theclick.target.id;
             var innerText = theclick.target.innerText;
             localStorage.setItem(id, innerText);
-            location.reload();
+
         }
 
-        function getGoingKey(event)
-        {
+        function getGoingKey(event) {
             return getUniqueEventId(event) + "going_ind";
         }
 
         function closeHiddenLabel(event) {
+
             var schedule = document.getElementById("schedule");
             var scheduleDoc = schedule.contentDocument || schedule.contentWindow.document;
             var labelHidden = scheduleDoc.getElementById(event.target.id);
             labelHidden.style.visibility = 'hidden';
+            location.reload();
         }
 
         function eventClick(event) {
@@ -569,6 +593,28 @@
             }
         }
 
+        function handleDayButton(newDay) {
+            if (newDay != day) {
+                day = newDay;
+                localStorage.setItem(storedDayKey, day);
+                location.reload();
+            }
+        }
+
+        function buttons() {
+            document.getElementById("dayButton1").style.backgroundColor = colorDayBackgroundInactive;
+            document.getElementById("dayButton2").style.backgroundColor = colorDayBackgroundInactive;
+            document.getElementById("dayButton3").style.backgroundColor = colorDayBackgroundInactive;
+            document.getElementById("dayButton4").style.backgroundColor = colorDayBackgroundInactive;
+            document.getElementById("dayButton" + day).style.backgroundColor = colorDayBackgroundActive;
+
+            buttonWidth = Math.floor(window.innerWidth / 7) + "px";
+            document.getElementById("dayButton1").style.width = buttonWidth;
+            document.getElementById("dayButton2").style.width = buttonWidth;
+            document.getElementById("dayButton3").style.width = buttonWidth;
+            document.getElementById("dayButton4").style.width = buttonWidth;
+        }
+
     </script>
 
 </head>
@@ -577,25 +623,17 @@
 
     <div class="top">
         <iFrame id="top" position="fixed" width="100%" height="150" scrolling="no" style="background:black;">
-            <!-- <canvas id="top" width="3200" height="150"></canvas>-->
         </iFrame>
     </div>
     <div class="schedule">
         <iFrame id="schedule" position="fixed" width="100%" height="9000" style="background:lightgrey;" scrolling="no">
-            <!--<canvas id="schedule" width="1600" height="9000"></canvas>-->
         </iFrame>
     </div>
-    <div class="bottom" id="bottom" style="background:grey;">
-        <button type="button" onclick="day1()" id="day1" class="button">D1</button>
-        <button type="button" onclick="day2()" id="day2" class="button">D2</button>
-        <button type="button" onclick="day3()" id="day3" class="button">D3</button>
-        <button type="button" onclick="day4()" id="day4" class="button">D4</button>
-        <!--<button type="button" onclick="modTapFunction()" id="changeTap" class="button"
-                        style="background-color:greenyellow;"></button> -->
-        <!--<button type="button" onclick="alphaToggle()" id="alphaToggle" class="button"
-            style="background-color:hotpink;">Alpha</button> -->
-        <!-- <button type="button" onclick="help()" id="help" class="button"
-                        style="background-color:mediumturquoise;">Help</button> -->
+    <div class="bottom" id="bottom">
+        <button type="button" onclick="handleDayButton(1)" id="dayButton1" class="button">D1</button>
+        <button type="button" onclick="handleDayButton(2)" id="dayButton2" class="button">D2</button>
+        <button type="button" onclick="handleDayButton(3)" id="dayButton3" class="button">D3</button>
+        <button type="button" onclick="handleDayButton(4)" id="dayButton4" class="button">D4</button>
     </div>
 
 </body>
