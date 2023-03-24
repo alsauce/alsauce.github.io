@@ -4,27 +4,27 @@
     <!--TODO <script type="text/javascript" src="data.js?version=1"></script> -->
     <!--TODO externalize <script type="text/javascript" src="day1.js?version=1"></script>-->
     <script id='scheduleDay1' type='text'>
-        test band name1, PD, Sept, 30, 12:31, PM, Sept, 30, 12:59, PM
-        test band name2, PD, Sept, 30,  1:01, PM, Sept, 30,  3:01, PM
-        test band name3, RT, Sept, 30,  1:31, PM, Sept, 30,  2:01, PM
-        test band name4, RT, Sept, 30, 11:59, PM,  Oct,  1,  2:01, AM
-        test band name1, SB, Sept, 30, 12:31, PM, Sept, 30,  1:01, PM
+        1test band name1, PD, Sept, 30, 12:31, PM, Sept, 30, 12:59, PM
+        2test band name2, PD, Sept, 30,  1:01, PM, Sept, 30,  3:01, PM
+        3test band name3, RT, Sept, 30,  1:31, PM, Sept, 30,  2:01, PM
+        4test band name4, RT, Sept, 30, 11:59, PM,  Oct,  1,  2:01, AM
+        1test band name1, SB, Sept, 30, 12:31, PM, Sept, 30,  1:01, PM
     </script>
     <script id='scheduleDay2' type='text'>
-        test band name2, SB, Oct, 1,  1:02, PM,  Oct, 1,  3:02, PM
-        test band name3, SL, Oct, 1,  1:32, PM,  Oct, 1,  2:02, PM
-        test band name4, SB, Oct, 1, 11:52, PM,  Oct, 2,  2:02, AM
+        2test band name2, SB, Oct, 1,  9:02, PM,  Oct, 1,  10:02, PM
+        3test band name3, SL, Oct, 1,  1:32, PM,  Oct, 1,  2:02, PM
+        4test band name4, SB, Oct, 1, 11:52, PM,  Oct, 2,  2:02, AM
     </script>
     <script id='scheduleDay3' type='text'>
-        test band name2, PD, Oct, 2,  1:03, PM,  Oct, 2,  3:03, PM
-        test band name3, RT, Oct, 2,  1:33, PM,  Oct, 2,  2:03, PM
-        test band name4, RT, Oct, 2, 11:53, PM,  Oct, 3,  2:03, AM
+        2test band name2, PD, Oct, 2,  1:03, PM,  Oct, 2,  3:03, PM
+        3test band name3, RT, Oct, 2,  1:33, PM,  Oct, 2,  2:03, PM
+        4test band name4, RT, Oct, 2, 11:53, PM,  Oct, 3,  2:03, AM
     </script>
 
     <script id='scheduleDay4' type='text'>
-        test band name2, PD, Oct, 3,  1:04, PM,  Oct, 3,  3:04, PM
-        test band name3, RT, Oct, 3,  1:34, PM,  Oct, 3,  2:04, PM
-        test band name4, RT, Oct, 3, 11:54, PM,  Oct, 4,  2:04, AM
+        2test band name2, PD, Oct, 3,  1:04, PM,  Oct, 3,  3:04, PM
+        3test band name3, RT, Oct, 3,  1:34, PM,  Oct, 3,  2:04, PM
+        4test band name4, RT, Oct, 3, 11:54, PM,  Oct, 4,  2:04, AM
     </script>
 
     <script>
@@ -43,7 +43,7 @@
         var fontVenue = 40 + 'px serif';
         var fontLeftTime = 40 + 'px serif';
         var fontCurrentTime = 40 + 'px serif';
-        var fontGoingButton = 30 + 'px serif'
+        var fontGoingButton = 25 + 'px serif'
         var fontSchedule = 35 + 'px serif';
 
         var xTimeOnLeftWidth = 160;
@@ -60,6 +60,7 @@
 
         var storedDelayKey = "storedDelayHB" + year + storedVersion;
         var storedDayKey = "storedDayHB" + year + storedVersion;
+        var storedScrollToKey = "storedStoredScrollToKey" + year + storedVersion;
 
         var colorVenueBack = 'black';
         var colorVenueFont = 'red';
@@ -77,6 +78,7 @@
         var colorGoingButtonNonActiveBackground = 'lightgray';
         var colorDayBackgroundInactive = 'grey';
         var colorDayBackgroundActive = 'gold';
+        var colorGoToBackground = "grey";
 
         var goingUndecided = "Undecided";
         var goingMaybe = "Maybe";
@@ -92,24 +94,123 @@
             location.reload()
         }, 60 * 1000 * 2);
 
+        var eventNameToEvents;
+        var dayToData;
+
+        window.onbeforeunload = function () {
+            //TODO how to handle scrolling
+            window.scrollTo(0, localStorage.getItem(storedScrollToKey));
+        }
+
+        function primeData() {
+            eventNameToEvents = new Map();
+            dayToData = new Map();
+            for (var dayIndex = 1; dayIndex <= 4; dayIndex++) {
+                var currentEvents = document.getElementById('scheduleDay' + dayIndex).innerHTML;
+                var eventsSplit = currentEvents.split("\n");
+                var events = [];
+                var earliestStart = getDateTime("2100", "Jan", "1", "1:00", "AM");
+                var latestEnd = getDateTime("2000", "Jan", "1", "1:00", "AM");
+                var earliestEvent;
+                var latestEvent;
+                for (let i = 0; i < eventsSplit.length; i++) {
+
+                    if (!eventsSplit[i] || eventsSplit[i].trim() == "") {
+                        continue;
+                    }
+                    var eventWithDay = eventsSplit[i] + "," + dayIndex;
+                    var event = getEventFromCommas(eventWithDay);
+
+                    events.push(event);
+
+                    var startTime = getStartDateTime(event);
+                    if (startTime < earliestStart) {
+                        earliestStart = startTime;
+                        earliestEvent = event;
+                    }
+
+                    var endTime = getEndDateTime(event);
+                    if (endTime > latestEnd) {
+                        latestEnd = endTime;
+                        latestEvent = event;
+                    }
+                    addToEventNameToEventsMap(event);
+
+                }
+
+                //remove minutes and add some buffer time
+                var hourAndMinuteEarliest = earliestEvent.startTime.split(":");
+                earliestStart = getDateTime(year, earliestEvent.startMonth, earliestEvent.startDay, (hourAndMinuteEarliest[0]) + ":00", earliestEvent.startAMPM)
+                earliestStart = new Date(earliestStart.getTime() - (milliSecondsInAnHour * yEarliestBufferHours));
+                var hourAndMinuteLatest = latestEvent.endTime.split(":");
+                latestEnd = getDateTime(year, latestEvent.endMonth, latestEvent.endDay, (hourAndMinuteLatest[0]) + ":00", latestEvent.endAMPM)
+                latestEnd = new Date(latestEnd.getTime() + (milliSecondsInAnHour * yLatestBufferHours));
+
+                var data = {
+                    earliestStart: earliestStart,
+                    latestEnd: latestEnd,
+                    events: events
+                };
+                dayToData.set(dayIndex, data);
+            }
+        }
+
+        function getEventFromCommas(eventWithDay) {
+            var eventSplit = eventWithDay.split(",");
+            Object.keys(eventSplit).forEach(k => eventSplit[k] = eventSplit[k].trim());
+            var event = {
+                name: eventSplit[0],
+                location: eventSplit[1],
+                startMonth: eventSplit[2],
+                startDay: eventSplit[3],
+                startTime: eventSplit[4],
+                startAMPM: eventSplit[5],
+                endMonth: eventSplit[6],
+                endDay: eventSplit[7],
+                endTime: eventSplit[8],
+                endAMPM: eventSplit[9],
+                day: eventSplit[10]
+            };
+            return event;
+        }
+
+        function getCommaStringFromEvent(event) {
+            return event.name + "," + event.location + "," + event.startMonth + "," + event.startDay + "," +
+                event.startTime + "," + event.startAMPM + "," + event.endMonth + "," + event.endDay + "," +
+                event.endTime + "," + event.endAMPM + "," + event.day;
+        }
+
+        function addToEventNameToEventsMap(event) {
+            var events = eventNameToEvents.get(event.name);
+            if (events == null) {
+                events = [];
+                eventNameToEvents.set(event.name, events);
+            }
+            events.push(event);
+        }
 
         function redrawEverything() {
             console.log("refreshing");
+            primeData();
+
             var storedDay = localStorage.getItem(storedDayKey);
 
-            if (storedDay != null) {
-                if (storedDay < 1 || storedDay > 4) {
+            if (storedDay == undefined || storedDay == "undefined" || isNaN(storedDay)) {
+                day = Number(1);
+            }
+            else {
+                day = Number(storedDay);
+                if (day < 1 || day > 4) {
                     //somehow it was 0 once
-                    storedDay = 1;
-                    localStorage.setItem(storedDayKey, 1);
                     day = 1;
+                    localStorage.setItem(storedDayKey, 1);
                 }
-                day = storedDay;
             }
 
             drawTop();
             drawTimeline();
             buttons();
+
         }
 
         function drawTop() {
@@ -154,8 +255,7 @@
             location.reload();
         }
 
-        function getDelayKey(venue)
-        {
+        function getDelayKey(venue) {
             return storedDelayKey + day + venue;
         }
 
@@ -168,67 +268,14 @@
         }
 
         function drawTimeline() {
-            var schedule = document.getElementById("schedule");
-            var scheduleDoc = schedule.contentDocument || schedule.contentWindow.document;
+            var data = dayToData.get(day);
 
-            var currentEvents = document.getElementById('scheduleDay' + day).innerHTML;
-            var eventsSplit = currentEvents.split("\n");
-            var events = [];
-            var earliestStart = getDateTime("2100", "Jan", "1", "1:00", "AM");
-            var latestEnd = getDateTime("2000", "Jan", "1", "1:00", "AM");
-            var earliestEvent;
-            var latestEvent;
-            for (let i = 0; i < eventsSplit.length; i++) {
+            var height = getYPixelLocation(data.earliestStart, data.latestEnd);
+            schedule.style.height = getYPixelLocation(data.earliestStart, data.latestEnd) + "px";
 
-                if (!eventsSplit[i] || eventsSplit[i].trim() == "") {
-                    continue;
-                }
-                var eventSplit = eventsSplit[i].split(",");
-                Object.keys(eventSplit).forEach(k => eventSplit[k] = eventSplit[k].trim());
-
-                var event = {
-                    name: eventSplit[0],
-                    location: eventSplit[1],
-                    startMonth: eventSplit[2],
-                    startDay: eventSplit[3],
-                    startTime: eventSplit[4],
-                    startAMPM: eventSplit[5],
-                    endMonth: eventSplit[6],
-                    endDay: eventSplit[7],
-                    endTime: eventSplit[8],
-                    endAMPM: eventSplit[9]
-                };
-
-                events.push(event);
-
-                var startTime = getStartDateTime(event);
-                if (startTime < earliestStart) {
-                    earliestStart = startTime;
-                    earliestEvent = event;
-                }
-
-                var endTime = getEndDateTime(event);
-                if (endTime > latestEnd) {
-                    latestEnd = endTime;
-                    latestEvent = event;
-                }
-
-            }
-
-            //remove minutes and add some buffer time
-            var hourAndMinuteEarliest = earliestEvent.startTime.split(":");
-            earliestStart = getDateTime(year, earliestEvent.startMonth, earliestEvent.startDay, (hourAndMinuteEarliest[0]) + ":00", earliestEvent.startAMPM)
-            earliestStart = new Date(earliestStart.getTime() - (milliSecondsInAnHour * yEarliestBufferHours));
-            var hourAndMinuteLatest = latestEvent.endTime.split(":");
-            latestEnd = getDateTime(year, latestEvent.endMonth, latestEvent.endDay, (hourAndMinuteLatest[0]) + ":00", latestEvent.endAMPM)
-            latestEnd = new Date(latestEnd.getTime() + (milliSecondsInAnHour * yLatestBufferHours));
-
-            var height = getYPixelLocation(earliestStart, latestEnd);
-            schedule.style.height = getYPixelLocation(earliestStart, latestEnd) + "px";
-
-            drawTimeOnLeft(earliestStart, latestEnd);
-            drawCurrentTime(earliestStart);
-            drawEventsSchedule(events, earliestStart);
+            drawTimeOnLeft(data.earliestStart, data.latestEnd);
+            drawCurrentTime(data.earliestStart);
+            drawEventsSchedule(data.events, data.earliestStart);
 
         }
 
@@ -386,8 +433,9 @@
 
             drawFaceupSchedule(events, earliestStart);
             drawHiddenOverlay(events, earliestStart);
-
-
+            var schedule = document.getElementById("schedule");
+            var scheduleDoc = schedule.contentDocument || schedule.contentWindow.document;
+            
         }
 
         function drawFaceupSchedule(events, earliestStart) {
@@ -475,11 +523,11 @@
                 var event = events[i];
                 var location = event.location;
                 var startDate = new Date(getStartDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
-                
+
                 var yPixelTop = getYPixelLocation(earliestStart, startDate);
                 //TODO where is the 105 from?
                 var endDate = new Date(getStartDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
-                
+
                 var height = getYPixelLocation(earliestStart, getEndDateTime(endDate)) - yPixelTop;
 
                 var labelHidden = scheduleDoc.createElement('label');
@@ -488,8 +536,8 @@
 
                 //TODO where is the 105 from?
                 labelHidden.style.top = (yPixelTop) + 'px';
-                labelHidden.style.left = getXPixelForLocation(event) - xTimeOnLeftWidth;
-                labelHidden.style.width = xBlockWidth + xTimeOnLeftWidth;
+                labelHidden.style.left = 0;
+                labelHidden.style.width = "100%";
                 labelHidden.style.height = yHiddenButtonHeight + 'px';
                 labelHidden.style.font = fontSchedule;
                 labelHidden.style.backgroundColor = colorHiddenBackground;
@@ -497,7 +545,6 @@
                 labelHidden.style.visibility = 'hidden';
                 labelHidden.id = getUniqueEventId(event) + 'hidden';
 
-                labelHidden.innerText = event.name + "\n" + event.startTime + "-" + event.endTime + "\n";
                 var weirdButtonFix = scheduleDoc.createElement('button');
                 weirdButtonFix.style.width = 0 + 'px';
                 weirdButtonFix.style.height = 0 + 'px';
@@ -510,18 +557,11 @@
 
                 scheduleDoc.body.appendChild(labelHidden);
 
-                var buttonCloseOnLabel = scheduleDoc.createElement('button');
-                buttonCloseOnLabel.style.width = 180 + 'px';
-                buttonCloseOnLabel.style.height = 100 + 'px';
-                buttonCloseOnLabel.innerText = 'close';
-                buttonCloseOnLabel.id = getUniqueEventId(event) + 'hiddenClose';
-                buttonCloseOnLabel.style.bottom = "0";
-                buttonCloseOnLabel.style.position = "absolute";
-                buttonCloseOnLabel.style.font = fontGoingButton;
+                var labelBand = scheduleDoc.createElement('label');
+                labelBand.innerText = event.name + "\n" + event.startTime + "-" + event.endTime + "\n";
+                labelHidden.appendChild(labelBand);
+                labelHidden.appendChild(scheduleDoc.createElement('div'));
 
-                buttonCloseOnLabel.addEventListener("click", closeHiddenLabel);
-
-                labelHidden.appendChild(buttonCloseOnLabel);
 
                 var buttonGoingUndecided = createButtonGoing(goingUndecided, scheduleDoc, event);
                 var buttonGoingMaybe = createButtonGoing(goingMaybe, scheduleDoc, event);
@@ -533,7 +573,91 @@
                 labelHidden.appendChild(buttonGoingGoing);
                 labelHidden.appendChild(buttonGoingNotGoing);
 
+                labelHidden.appendChild(scheduleDoc.createElement('div'));
+
+                var buttonCloseOnLabel = scheduleDoc.createElement('button');
+                buttonCloseOnLabel.style.width = "20%";
+                buttonCloseOnLabel.style.height = 100 + 'px';
+                buttonCloseOnLabel.innerText = 'close';
+                buttonCloseOnLabel.id = getUniqueEventId(event) + 'hiddenClose';
+                //buttonCloseOnLabel.style.bottom = "0";
+                buttonCloseOnLabel.style.position = "absolute";
+                buttonCloseOnLabel.style.font = fontGoingButton;
+
+                buttonCloseOnLabel.addEventListener("click", closeHiddenLabel);
+                labelHidden.appendChild(scheduleDoc.createElement('div'));
+
+                labelHidden.appendChild(buttonCloseOnLabel);
+                labelHidden.appendChild(scheduleDoc.createElement('div'));
+                var alsoLabel = scheduleDoc.createElement('label');
+                //TODO divs don't appear to do what I want
+                alsoLabel.innerText = "\n\n\nAlso:";
+                labelHidden.appendChild(alsoLabel);
+
+                var eventsAll = eventNameToEvents.get(event.name);
+                eventsAll.forEach(eventIter => {
+                    if (getUniqueEventId(eventIter) == getUniqueEventId(event)) {
+                        return;
+                    }
+                    labelHidden.appendChild(scheduleDoc.createElement('div'));
+
+                    var labelBandAlso = scheduleDoc.createElement('label');
+                    //labelBandAlso.width = "100%";
+                    labelBandAlso.innerText = eventIter.name + " Day: " + eventIter.day + "\n" + " " + eventIter.startTime + "-" + eventIter.endTime + "\n";
+                    labelHidden.appendChild(labelBandAlso);
+                    labelHidden.appendChild(scheduleDoc.createElement('div'));
+                    var buttonGoingUndecided = createButtonGoing(goingUndecided, scheduleDoc, eventIter);
+                    var buttonGoingMaybe = createButtonGoing(goingMaybe, scheduleDoc, eventIter);
+                    var buttonGoingGoing = createButtonGoing(goingGoing, scheduleDoc, eventIter);
+                    var buttonGoingNotGoing = createButtonGoing(goingNotGoing, scheduleDoc, eventIter);
+
+                    labelHidden.appendChild(buttonGoingUndecided);
+                    labelHidden.appendChild(buttonGoingMaybe);
+                    labelHidden.appendChild(buttonGoingGoing);
+                    labelHidden.appendChild(buttonGoingNotGoing);
+
+                    var buttonGoTo = createButtonGoTo(eventIter, scheduleDoc);
+                    labelHidden.appendChild(buttonGoTo);
+
+                });
+
+
             }
+        }
+
+        function createButtonGoTo(event, scheduleDoc) {
+            var buttonGoTo = scheduleDoc.createElement('button');
+            buttonGoTo.style.backgroundColor = colorGoToBackground;
+
+
+            buttonGoTo.style.width = "20%";
+            buttonGoTo.style.height = 100;
+            buttonGoTo.innerText = "Go";
+            buttonGoTo.id = getGoToKey(event);
+            buttonGoTo.style.font = fontGoingButton;
+
+            buttonGoTo.addEventListener("click", goToClick);
+
+            return buttonGoTo;
+        }
+
+        function getGoToKey(event) {
+            return getCommaStringFromEvent(event) + ",goto";
+        }
+
+        function goToClick(event) {
+            //asdf
+            var eventObject = getEventFromCommas(event.target.id);
+            var day = eventObject.day;
+            localStorage.setItem(storedDayKey, eventObject.day);
+
+            var earliestStart = dayToData.get(Number(day)).earliestStart;
+            var time = getStartDateTime(eventObject);
+
+            var scrollToLocation = getYPixelLocation(earliestStart, time);
+            localStorage.setItem(storedScrollToKey, scrollToLocation);
+
+            location.reload();
         }
 
         function noop(e) {
@@ -547,8 +671,10 @@
 
             var buttonGoingOnLabel = scheduleDoc.createElement('button');
             var goingInd = localStorage.getItem(getGoingKey(event));
-            if (goingInd == null && going == goingUndecided) {
-                buttonGoingOnLabel.style.backgroundColor = colorGoingButtonActiveBackground;
+            if (goingInd == null) {
+                if (going == goingUndecided) {
+                    buttonGoingOnLabel.style.backgroundColor = colorGoingButtonActiveBackground;
+                }
             }
             else if (goingInd == going) {
                 buttonGoingOnLabel.style.backgroundColor = colorGoingButtonActiveBackground;
@@ -557,7 +683,7 @@
                 buttonGoingOnLabel.style.backgroundColor = colorGoingButtonNonActiveBackground;
             }
 
-            buttonGoingOnLabel.style.width = 180;
+            buttonGoingOnLabel.style.width = "20%";
             buttonGoingOnLabel.style.height = 100;
             buttonGoingOnLabel.innerText = going;
             buttonGoingOnLabel.id = getGoingKey(event);
@@ -572,15 +698,29 @@
 
             var schedule = document.getElementById("schedule");
             var scheduleDoc = schedule.contentDocument || schedule.contentWindow.document;
-            var parentLabel = event.target.parentElement;
+            var parentLabel = theclick.target.parentElement;
 
-            const buttonsOnLabel = parentLabel.querySelectorAll("button");
-            buttonsOnLabel.forEach(buttonOnLabel => buttonOnLabel.style.backgroundColor = colorGoingButtonNonActiveBackground);
-
-            theclick.target.style.backgroundColor = colorGoingButtonActiveBackground;
             var id = theclick.target.id;
+            console.log("THE ID: " + id);
             var innerText = theclick.target.innerText;
             localStorage.setItem(id, innerText);
+
+            const buttonsOnLabel = parentLabel.querySelectorAll("button");
+            buttonsOnLabel.forEach(buttonGoingOnLabel => {
+                var goingInd = localStorage.getItem(buttonGoingOnLabel.id);
+                if (goingInd == null) {
+                    buttonGoingOnLabel.style.backgroundColor = colorGoingButtonNonActiveBackground;
+                }
+                else {
+                    if (buttonGoingOnLabel.innerText == goingInd) {
+                        buttonGoingOnLabel.style.backgroundColor = colorGoingButtonActiveBackground;
+                    }
+                    else {
+                        buttonGoingOnLabel.style.backgroundColor = colorGoingButtonNonActiveBackground;
+                    }
+                }
+
+            });
 
         }
 
