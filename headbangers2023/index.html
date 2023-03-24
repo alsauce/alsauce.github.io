@@ -42,8 +42,9 @@
         var yLatestBufferHours = 2;
         var fontVenue = 40 + 'px serif';
         var fontLeftTime = 40 + 'px serif';
-        var fontCurrentTime = 40 + 'px serif';
-        var fontGoingButton = 25 + 'px serif'
+        var fontCurrentTime = 50 + 'px serif';
+        var fontGoingButton = 30 + 'px serif';
+        var fontCloseButton = 35 + 'px serif';
         var fontSchedule = 35 + 'px serif';
 
         var xTimeOnLeftWidth = 160;
@@ -63,33 +64,34 @@
         var storedScrollToKey = "storedStoredScrollToKey" + year + storedVersion;
         var storedGoingKey = "storedGoingKey" + year + storedVersion;
 
-        var colorVenueBack = 'black';
-        var colorVenueFont = 'red';
-        var colorCurrentTimeNumberBackground = 'lightgrey';
-        var colorCurrentTimeNumber = 'fuchsia';
+        var colorVenueBack = 'lightgrey';
+        var colorVenueFont = 'black';
+        var colorCurrentTimeNumberBackground = 'white';
+        var colorCurrentTimeNumber = 'black';
         var colorCurrentTimeLine = 'fuchsia';
-        var colorEventBack = 'black';
-        var colorEventFont = 'lightgrey';
         var colorLeftTimeLines = 'white';
         var colorLeftTimesNumber = 'black';
         var colorLeftTimesBackground = 'grey';
         var colorHiddenBackground = 'lightblue';
         var colorHiddenFont = 'black';
-        var colorGoingButtonActiveBackground = 'blue';
+        var colorGoingButtonActiveBackground = 'lightyellow';
         var colorGoingButtonNonActiveBackground = 'lightgray';
         var colorDayBackgroundInactive = 'grey';
         var colorDayBackgroundActive = 'gold';
         var colorGoToBackground = "grey";
 
+        
+        var colorGoingUndecided = "white";
+        var colorGoingMaybe = "yellow";
+        var colorGoingGoing = "lime";
+        var colorGoingNotGoing = "coral";
+        var colorEventBack = '#696969';
+        var colorEventFont = 'lightgrey';
+
         var goingUndecided = "Undecided";
         var goingMaybe = "Maybe";
         var goingGoing = "Going";
         var goingNotGoing = "Not going";
-
-        var colorGoingUndecided = "lightgrey";
-        var colorGoingMaybe = "yellow";
-        var colorGoingGoing = "lime";
-        var colorGoingNotGoing = "darkred";
 
         var storedTimeTEST = getDateTime(year, "Oct", 31, "2:37", "PM");
 
@@ -239,6 +241,7 @@
                 buttonVenue.style.font = fontVenue;
                 buttonVenue.style.backgroundColor = colorVenueBack;
                 buttonVenue.style.color = colorVenueFont;
+                buttonVenue.style.borderRadius = "12px";
                 buttonVenue.addEventListener("click", venueClick);
 
                 topDoc.body.appendChild(buttonVenue);
@@ -321,7 +324,8 @@
             labelCurrentTimeNumber.style.font = fontCurrentTime;
             labelCurrentTimeNumber.style.background = colorCurrentTimeNumberBackground;
             labelCurrentTimeNumber.style.color = colorCurrentTimeNumber;
-            labelCurrentTimeNumber.style.height = 40;
+            labelCurrentTimeNumber.style.height = 50;
+            labelCurrentTimeNumber.style.width = xTimeOnLeftWidth;
 
             scheduleDoc.body.appendChild(labelCurrentTimeNumber);
 
@@ -450,6 +454,8 @@
                 var event = events[i];
 
                 var buttonViewable = scheduleDoc.createElement('button');
+                buttonViewable.style.borderRadius = "12px";
+                
                 buttonViewable.style.position = 'absolute';
                 buttonViewable.style.left = xTimeOnLeftWidth + 'px';
                 var location = event.location;
@@ -468,7 +474,7 @@
 
                 //TODO color event based on going indicator
                 var goingColor = getGoingColor(event);
-                buttonViewable.style.backgroundColor = "black";
+                buttonViewable.style.backgroundColor = colorEventBack;
                 buttonViewable.style.color = goingColor;
                 buttonViewable.addEventListener("click", eventClick);
                 buttonViewable.id = getUniqueEventId(event);
@@ -581,13 +587,17 @@
                 labelHidden.appendChild(scheduleDoc.createElement('div'));
 
                 var buttonCloseOnLabel = scheduleDoc.createElement('button');
+                buttonCloseOnLabel.style.borderRadius = "12px";
                 buttonCloseOnLabel.style.width = "20%";
                 buttonCloseOnLabel.style.height = 100 + 'px';
                 buttonCloseOnLabel.innerText = 'close';
                 buttonCloseOnLabel.id = getUniqueEventId(event) + 'hiddenClose';
                 //buttonCloseOnLabel.style.bottom = "0";
                 buttonCloseOnLabel.style.position = "absolute";
-                buttonCloseOnLabel.style.font = fontGoingButton;
+                buttonCloseOnLabel.style.font = fontCloseButton;
+                buttonCloseOnLabel.style.top = 0;
+                buttonCloseOnLabel.style.right = 0;
+                
 
                 buttonCloseOnLabel.addEventListener("click", closeHiddenLabel);
                 labelHidden.appendChild(scheduleDoc.createElement('div'));
@@ -651,7 +661,6 @@
         }
 
         function goToClick(event) {
-            //asdf
             var eventObject = getEventFromCommas(event.target.id);
             var day = eventObject.day;
             localStorage.setItem(storedDayKey, eventObject.day);
@@ -675,6 +684,8 @@
         function createButtonGoing(going, scheduleDoc, event) {
 
             var buttonGoingOnLabel = scheduleDoc.createElement('button');
+            buttonGoingOnLabel.style.borderRadius = "12px";
+                
             var goingInd = localStorage.getItem(getGoingKey(event));
             if (goingInd == null) {
                 goingInd = goingUndecided;
@@ -705,7 +716,6 @@
             var parentLabel = theclick.target.parentElement;
 
             var id = theclick.target.id;
-            console.log("THE ID: " + id);
             var innerText = theclick.target.innerText;
             localStorage.setItem(id, innerText);
 
@@ -815,7 +825,7 @@
         </iFrame>
     </div>
     <div class="schedule">
-        <iFrame id="schedule" position="fixed" width="100%" height="9000" style="background:lightgrey;" scrolling="no">
+        <iFrame id="schedule" position="fixed" width="100%" height="9000" style="background-image: url('background.png');"" scrolling="no">
         </iFrame>
     </div>
     <div class="bottom" id="bottom">
