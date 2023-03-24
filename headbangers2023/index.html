@@ -4,27 +4,27 @@
     <!--TODO <script type="text/javascript" src="data.js?version=1"></script> -->
     <!--TODO externalize <script type="text/javascript" src="day1.js?version=1"></script>-->
     <script id='scheduleDay1' type='text'>
-        1test band name1, PD, Sept, 30, 12:31, PM, Sept, 30, 12:59, PM
-        2test band name2, PD, Sept, 30,  1:01, PM, Sept, 30,  3:01, PM
-        3test band name3, RT, Sept, 30,  1:31, PM, Sept, 30,  2:01, PM
-        4test band name4, RT, Sept, 30, 11:59, PM,  Oct,  1,  2:01, AM
-        1test band name1, SB, Sept, 30, 12:31, PM, Sept, 30,  1:01, PM
+        1test band name1, PD, Oct, 31, 12:31, PM, Oct, 31, 12:59, PM
+        2test band name2, PD, Oct, 31,  1:01, PM, Oct, 31,  3:01, PM
+        3test band name3, RT, Oct, 31,  1:31, PM, Oct, 31,  2:01, PM
+        4test band name4, RT, Oct, 31, 11:59, PM, Nov,  1,  2:01, AM
+        1test band name1, SB, Oct, 31, 12:31, PM, Oct, 31,  1:01, PM
     </script>
     <script id='scheduleDay2' type='text'>
-        2test band name2, SB, Oct, 1,  9:02, PM,  Oct, 1,  10:02, PM
-        3test band name3, SL, Oct, 1,  1:32, PM,  Oct, 1,  2:02, PM
-        4test band name4, SB, Oct, 1, 11:52, PM,  Oct, 2,  2:02, AM
+        2test band name2, SB, Nov, 1,  9:02, PM,  Nov, 1,  10:02, PM
+        3test band name3, SL, Nov, 1,  1:32, PM,  Nov, 1,  2:02, PM
+        4test band name4, SB, Nov, 1, 11:52, PM,  Nov, 2,  2:02, AM
     </script>
     <script id='scheduleDay3' type='text'>
-        2test band name2, PD, Oct, 2,  1:03, PM,  Oct, 2,  3:03, PM
-        3test band name3, RT, Oct, 2,  1:33, PM,  Oct, 2,  2:03, PM
-        4test band name4, RT, Oct, 2, 11:53, PM,  Oct, 3,  2:03, AM
+        2test band name2, PD, Nov, 2,  1:03, PM,  Nov, 2,  3:03, PM
+        3test band name3, RT, Nov, 2,  1:33, PM,  Nov, 2,  2:03, PM
+        4test band name4, RT, Nov, 2, 11:53, PM,  Nov, 3,  2:03, AM
     </script>
 
     <script id='scheduleDay4' type='text'>
-        2test band name2, PD, Oct, 3,  1:04, PM,  Oct, 3,  3:04, PM
-        3test band name3, RT, Oct, 3,  1:34, PM,  Oct, 3,  2:04, PM
-        4test band name4, RT, Oct, 3, 11:54, PM,  Oct, 4,  2:04, AM
+        2test band name2, PD, Nov, 3,  1:04, PM,  Nov, 3,  3:04, PM
+        3test band name3, RT, Nov, 3,  1:34, PM,  Nov, 3,  2:04, PM
+        4test band name4, RT, Nov, 3, 11:54, PM,  Nov, 4,  2:04, AM
     </script>
 
     <script>
@@ -91,6 +91,8 @@
         var colorGoingGoing = "lime";
         var colorGoingNotGoing = "darkred";
 
+        var storedTimeTEST = getDateTime(year, "Oct", 31, "2:37", "PM");
+
         setTimeout(function () {
             location.reload()
         }, 60 * 1000 * 2);
@@ -100,10 +102,9 @@
 
         window.onbeforeunload = function () {
             var scrollTo = localStorage.getItem(storedScrollToKey);
-            if (scrollTo != "-1")
-            {
+            if (scrollTo != "-1") {
                 window.scrollTo(0, scrollTo);
-            
+
             }
             localStorage.setItem(storedScrollToKey, -1);
         }
@@ -290,8 +291,6 @@
             var schedule = document.getElementById("schedule");
             var scheduleDoc = schedule.contentDocument || schedule.contentWindow.document;
 
-            var storedTimeTEST = new Date(earliestStart.getTime() + milliSecondsInAnHour);
-
             var pixel = getYPixelLocation(earliestStart, storedTimeTEST);
 
             var labelCurrentTimeNumber = scheduleDoc.createElement('label');
@@ -441,7 +440,7 @@
             drawHiddenOverlay(events, earliestStart);
             var schedule = document.getElementById("schedule");
             var scheduleDoc = schedule.contentDocument || schedule.contentWindow.document;
-            
+
         }
 
         function drawFaceupSchedule(events, earliestStart) {
@@ -661,7 +660,7 @@
             var time = getStartDateTime(eventObject);
 
             var scrollToLocation = getYPixelLocation(earliestStart, time);
-            localStorage.setItem(storedScrollToKey, scrollToLocation);
+            localStorage.setItem(storedScrollToKey, scrollToLocation - 200);
 
             location.reload();
         }
@@ -786,6 +785,25 @@
             document.getElementById("dayButton4").style.width = buttonWidth;
         }
 
+        function goToNow() {
+            for (var day = 1; day <= 4; i++) {
+                var data = dayToData.get(day);
+                if (data.earliestStart < storedTimeTEST && data.latestEnd > storedTimeTEST) {
+                    localStorage.setItem(storedDayKey, day);
+                    
+                    var scrollToLocation = getYPixelLocation(data.earliestStart, storedTimeTEST);
+                    localStorage.setItem(storedScrollToKey, scrollToLocation - 200);
+                    location.reload();
+                    return;
+                }
+            }
+        }
+
+        function alphaToggle()
+        {
+            window.location.assign("./alpha.html");
+        }
+
     </script>
 
 </head>
@@ -805,6 +823,8 @@
         <button type="button" onclick="handleDayButton(2)" id="dayButton2" class="button">D2</button>
         <button type="button" onclick="handleDayButton(3)" id="dayButton3" class="button">D3</button>
         <button type="button" onclick="handleDayButton(4)" id="dayButton4" class="button">D4</button>
+        <button type="button" onclick="alphaToggle()" id="alphaToggle" class="button" style="background-color:hotpink;">Alpha</button>
+        <button type="button" onclick="goToNow()" id="goToNow" class="button">Now</button>
     </div>
 
 </body>
