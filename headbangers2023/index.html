@@ -56,11 +56,12 @@
 
         var yHiddenButtonHeight = 1000;
 
-        var storedVersion = "_v1";
+        var storedVersion = "_v2";
 
         var storedDelayKey = "storedDelayHB" + year + storedVersion;
         var storedDayKey = "storedDayHB" + year + storedVersion;
         var storedScrollToKey = "storedStoredScrollToKey" + year + storedVersion;
+        var storedGoingKey = "storedGoingKey" + year + storedVersion;
 
         var colorVenueBack = 'black';
         var colorVenueFont = 'red';
@@ -98,8 +99,13 @@
         var dayToData;
 
         window.onbeforeunload = function () {
-            //TODO how to handle scrolling
-            window.scrollTo(0, localStorage.getItem(storedScrollToKey));
+            var scrollTo = localStorage.getItem(storedScrollToKey);
+            if (scrollTo != "-1")
+            {
+                window.scrollTo(0, scrollTo);
+            
+            }
+            localStorage.setItem(storedScrollToKey, -1);
         }
 
         function primeData() {
@@ -672,11 +678,10 @@
             var buttonGoingOnLabel = scheduleDoc.createElement('button');
             var goingInd = localStorage.getItem(getGoingKey(event));
             if (goingInd == null) {
-                if (going == goingUndecided) {
-                    buttonGoingOnLabel.style.backgroundColor = colorGoingButtonActiveBackground;
-                }
+                goingInd = goingUndecided;
+                localStorage.setItem(getGoingKey(event), goingInd);
             }
-            else if (goingInd == going) {
+            if (goingInd == going) {
                 buttonGoingOnLabel.style.backgroundColor = colorGoingButtonActiveBackground;
             }
             else {
@@ -725,7 +730,7 @@
         }
 
         function getGoingKey(event) {
-            return getUniqueEventId(event) + "going_ind";
+            return getUniqueEventId(event) + storedGoingKey;
         }
 
         function closeHiddenLabel(event) {
