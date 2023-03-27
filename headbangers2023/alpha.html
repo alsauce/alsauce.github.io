@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
-
+    <link rel="stylesheet" href="style.css">
+    
     <title>Headbangers boat 2023 Alpha</title>
 
     <script id='scheduleDay1' type='text'>
@@ -30,6 +31,20 @@
     </script>
     <script type="text/javascript">
         let allEvents = [];
+        let year = 2023;
+        var storedVersion = "_v2";
+
+        var storedGoingKey = "storedGoingKey" + year + storedVersion;
+
+        var colorGoingUndecided = "white";
+        var colorGoingMaybe = "yellow";
+        var colorGoingGoing = "lime";
+        var colorGoingNotGoing = "coral";
+        var goingUndecided = "Undecided";
+        var goingMaybe = "Maybe";
+        var goingGoing = "Going";
+        var goingNotGoing = "Not going";
+
         //TODO bunch of common code with index.html
         function getDateTime(year, month, day, time, AMPM) {
 
@@ -93,6 +108,10 @@
 
         }
 
+        function getGoingKey(event) {
+            return event.id + storedGoingKey;
+        }
+
         function getEventFromCommas(eventWithDay) {
             var eventSplit = eventWithDay.split(",");
             Object.keys(eventSplit).forEach(k => eventSplit[k] = eventSplit[k].trim());
@@ -107,9 +126,16 @@
                 endDay: eventSplit[7],
                 endTime: eventSplit[8],
                 endAMPM: eventSplit[9],
-                day: eventSplit[10]
+                day: eventSplit[10],
+                id: ""
             };
+            event.id = getCommaStringFromEvent(event);
             return event;
+        }
+        function getCommaStringFromEvent(event) {
+            return event.name + "," + event.location + "," + event.startMonth + "," + event.startDay + "," +
+                event.startTime + "," + event.startAMPM + "," + event.endMonth + "," + event.endDay + "," +
+                event.endTime + "," + event.endAMPM + "," + event.day;
         }
 
         function drawAlpha() {
@@ -123,14 +149,45 @@
             for (let i = 0; i < allEvents.length; i++) {
                 event = allEvents[i];
                 var label = document.createElement("textarea");
-                label.style.backgroundColor = 'lightgrey';
+                //label.style.backgroundColor = 'lightgrey';
                 label.style.width = labelWidth;
                 label.style.height = "250px";
                 label.style.fontSize = "30px";
-                label.innerHTML = event.name + "\nDay " + event.day + "\n" + event.startTime + event.startAMPM + "-" + event.endTime + event.endAMPM;
+                var goingInd = localStorage.getItem(getGoingKey(event));
+                if (goingInd == null) {
+                    goingInd = "Undecided";
+                }
+                var goingColor = getGoingColor(event);
+                label.style.backgroundColor = goingColor;
+                
+                label.innerHTML = event.name + "\nDay " + event.day + "\n" + event.startTime + event.startAMPM +
+                    "-" + event.endTime + event.endAMPM + "\n" + goingInd;
                 topDiv.appendChild(label);
             }
 
+        }
+
+        function getGoingColor(event) {
+            var goingInd = localStorage.getItem(getGoingKey(event));
+
+            if (goingInd == null || goingInd == goingUndecided) {
+                return colorGoingUndecided;
+            }
+            else if (goingInd == goingGoing) {
+                return colorGoingGoing;
+            }
+            else if (goingInd == goingNotGoing) {
+                return colorGoingNotGoing;
+            }
+            else if (goingInd == goingMaybe) {
+                return colorGoingMaybe;
+            }
+            else {
+                console.log("ERROR WITH GET GOING COLOR");
+                return "black";
+            }
+
+            return
         }
 
         function bottomButton() {
@@ -142,28 +199,6 @@
 </head>
 
 <body onload="drawAlpha();">
-    <style>
-        body {
-            margin: 0;
-        }
-
-
-        .button {
-            border: none;
-            padding: 15px 32px;
-            text-align: center;
-            color: black;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 60px;
-            margin: 4px 2px;
-            cursor: pointer;
-            background-color: gold;
-            border-radius: 12px;
-            height: 200px;
-            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        }
-    </style>
 
     <div id="topDiv" style="overflow:scroll; height:500px;">
     </div>
