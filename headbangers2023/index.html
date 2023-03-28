@@ -511,8 +511,19 @@
 
                 //TODO color event based on going indicator
                 var goingColor = getGoingColor(event);
+                if (goingColor == colorGoingGoing)
+                {
+                    buttonViewable.style.backgroundSize = 'cover';
+                    buttonViewable.style.backgroundPosition = 'center';
+                    buttonViewable.style.backgroundImage = "url(images/dog.png)";
+                    buttonViewable.style.color = "white";
+                
+                }
+                else{
                 buttonViewable.style.backgroundColor = colorEventBack;
                 buttonViewable.style.color = goingColor;
+                
+            }
                 buttonViewable.addEventListener("click", eventClick);
                 buttonViewable.id = getScheduleViewableButtonId(event);
 
@@ -870,11 +881,10 @@
 </head>
 
 <body onload="redrawEverything(); ">
-
     <div class="top" id="top">
     </div>
 
-    <div class="schedule" id="schedule" style="background-image: url('background.png');">
+    <div class="schedule" id="schedule" style="background-image: url('images/dude.png');">
     </div>
     
     <div class="bottom" id="bottom">
