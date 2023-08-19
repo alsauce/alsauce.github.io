@@ -584,13 +584,14 @@
                     buttonViewable.style.backgroundPosition = 'center';
                     buttonViewable.style.backgroundImage = "url(images/dog.png)";
                     buttonViewable.style.color = "white";
-                
+                    buttonViewable.style.fontWeight = "bold";
+                    buttonViewable.style.textShadow = "2px 2px 0px red";
+
                 }
                 else{
-                buttonViewable.style.backgroundColor = colorEventBack;
-                buttonViewable.style.color = goingColor;
-                
-            }
+                    buttonViewable.style.backgroundColor = colorEventBack;
+                    buttonViewable.style.color = goingColor;
+                }
                 buttonViewable.addEventListener("click", eventClick);
                 buttonViewable.id = getScheduleViewableButtonId(event);
 
