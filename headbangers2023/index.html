@@ -394,7 +394,10 @@
         function drawTimeline() {
             var data = dayToData.get(day);
             var schedule = document.getElementById("schedule");
-           
+
+            
+
+            
             var height = getYPixelLocation(data.earliestStart, data.latestEnd);
             schedule.style.height = getYPixelLocation(data.earliestStart, data.latestEnd) + "px";
 
@@ -407,7 +410,12 @@
         function drawCurrentTime(earliestStart) {
 
             var schedule = document.getElementById("schedule");
-            
+            var currentTime = new Date();    
+        
+        if (currentTime > storedTimeTEST)
+        {
+            storedTimeTEST = currentTime;
+        }
             var pixel = getYPixelLocation(earliestStart, storedTimeTEST);
 
             var labelCurrentTimeNumber = document.createElement('label');
