@@ -944,7 +944,7 @@
         }
 
         function goToNow() {
-            for (var day = 1; day <= 4; i++) {
+            for (var day = 1; day <= 4; day++) {
                 var data = dayToData.get(day);
                 if (data.earliestStart < storedTimeTEST && data.latestEnd > storedTimeTEST) {
                     localStorage.setItem(storedDayKey, day);
