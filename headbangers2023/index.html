@@ -366,7 +366,18 @@
         function venueClick(venue) {
 
             var venue = venue.target.textContent.split(":")[0];
-            let delayStr = prompt("Minutes delayed for " + venue + " day " + day, getDelayMinutesForVenue(venue));
+var moreVenue = "";
+if ("PO" == venue)
+{
+moreVenue = "pool deck";
+}
+else
+{
+moreVenue = venue;
+}
+
+            
+            let delayStr = prompt("Minutes delayed for " + moreVenue + " day " + day, getDelayMinutesForVenue(venue));
             if (delayStr == null || "" == delayStr) {
                 return;
             }
