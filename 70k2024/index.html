@@ -288,7 +288,25 @@
                 buttonVenue.style.top = 0 + 'px';
                 buttonVenue.style.width = xBlockWidth;
                 buttonVenue.style.height = yVenueHeight;
-                buttonVenue.textContent = locations[i] + ":" + getDelayMinutesForVenue(locations[i]) + "m";
+                var venueText = locations[i] + ":" + getDelayMinutesForVenue(locations[i]) + "m";
+                if ("PD" == locations[i])
+    			{
+                	venueText = venueText + " (11/12 mid)";
+    			}
+    		    else if ("RT" == locations[i])
+    		    {
+    		    	venueText  = venueText + " (3/4 rear)";
+        		}
+    		    else if ("SB" == locations[i])
+    		    {
+    		    	venueText = venueText + " (3 mid)";
+    		    }
+    		    else if ("SL" == locations[i])
+        		{
+    		    	venueText = venueText + " (5 rear)";
+        	    }
+
+                buttonVenue.textContent = venueText;
                 buttonVenue.style.font = fontVenue;
                 buttonVenue.style.backgroundColor = colorVenueBack;
                 buttonVenue.style.color = colorVenueFont;
@@ -303,7 +321,6 @@
 
         function venueClick(venue) {
 
-            let locations = ["PD", "RT", "SB", "SL"];
             var venue = venue.target.textContent.split(":")[0];
 			var moreVenue = "";
 			if ("PD" == venue)
