@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PM7ZMMTJG2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-PM7ZMMTJG2');
+    </script>
+    <link rel="stylesheet" href="style.css">
+    
+    <title>70k 2024 Alpha</title>
+    <script id='scheduleDay1' type='text'>
+        Band1,          PD, Jan, 29,  5:15, PM, Jan, 29,  6:15, PM
+        Band2,          RT, Jan, 29,  6:15, PM, Jan, 29,  7:15, PM
+        Band3,          SB, Jan, 29, 11:15, PM, Jan, 30, 12:15, AM
+        Band4,          SL, Jan, 30, 12:15, AM, Jan, 30,  1:15, AM
+    </script>
+    <script id='scheduleDay2' type='text'>
+        Band1,          PD, Jan, 30,  5:15, PM, Jan, 30,  6:15, PM
+        Band2,          RT, Jan, 30,  6:15, PM, Jan, 30,  7:15, PM
+        Band3,          SB, Jan, 30, 11:15, PM, Jan, 31, 12:15, AM
+        Band4,          SL, Jan, 31, 12:15, AM, Jan, 31,  1:15, AM
+    </script>
+    <script id='scheduleDay3' type='text'>
+        Band11,          PD, Jan, 31, 11:15, AM, Jan, 31, 12:15, PM
+        Band22,          RT, Jan, 31,  6:15, PM, Jan, 31,  7:15, PM
+        Band33,          SB, Jan, 31, 11:15, PM, Feb,  1, 12:15, AM
+        Band44,          SL, Feb,  1, 12:15, AM, Feb,  1,  1:15, AM
+    </script>
+    <script id='scheduleDay4' type='text'>
+        Band11,          PD, Feb,  1,  5:15, PM, Feb,  1,  6:15, PM
+        Band22,          RT, Feb,  1,  6:15, PM, Feb,  1,  7:15, PM
+        Band33,          SB, Feb,  1, 11:15, PM, Feb,  2, 12:15, AM
+        Band44,          SL, Feb,  2, 12:15, AM, Feb,  2,  1:15, AM
+    </script>
+
+
+    <script type="text/javascript">
+        let allEvents = [];
+        let year = 2024;
+        var storedVersion = "_v2";
+
+        var storedGoingKey = "storedGoingKey" + year + storedVersion;
+
+        var colorGoingUndecided = "white";
+        var colorGoingMaybe = "yellow";
+        var colorGoingGoing = "lime";
+        var colorGoingNotGoing = "coral";
+        var goingUndecided = "Undecided";
+        var goingMaybe = "Maybe";
+        var goingGoing = "Going";
+        var goingNotGoing = "Not going";
+
+        //TODO bunch of common code with index.html
+        function getDateTime(year, month, day, time, AMPM) {
+
+            var dateString = day + " " + month + " " + year + " " + time + ":00" + " " + AMPM;
+
+            var date = new Date(Date.parse(dateString));
+            return date;
+        }
+
+        function primeData() {
+
+            for (var dayIndex = 1; dayIndex <= 4; dayIndex++) {
+                var currentEvents = document.getElementById('scheduleDay' + dayIndex).innerHTML;
+                var eventsSplit = currentEvents.split("\n");
+
+                var earliestStart = getDateTime("2100", "Jan", "1", "1:00", "AM");
+                var latestEnd = getDateTime("2000", "Jan", "1", "1:00", "AM");
+                var earliestEvent;
+                var latestEvent;
+                for (let i = 0; i < eventsSplit.length; i++) {
+
+                    if (!eventsSplit[i] || eventsSplit[i].trim() == "") {
+                        continue;
+                    }
+                    var eventWithDay = eventsSplit[i] + "," + dayIndex;
+                    var event = getEventFromCommas(eventWithDay);
+
+
+                    allEvents.push(event);
+
+                }
+
+            }
+
+            allEvents = allEvents.sort((a, b) => {
+                if (a.name > b.name) {
+                    return 1;
+                } else if (a.name < b.name) {
+                    return -1;
+                } else {
+                    if (a.day > b.day) {
+                        return 1;
+                    }
+                    else if (a.day < b.day) {
+                        return -1;
+                    }
+                    else {
+                        if (a.location > b.location) {
+                            return 1;
+                        }
+                        else if (a.location < b.location) {
+                            return -1;
+                        }
+                        else {
+                            return 0;
+                        }
+                    }
+                }
+
+            });
+
+        }
+
+        function getGoingKey(event) {
+            return event.id + storedGoingKey;
+        }
+
+        function getEventFromCommas(eventWithDay) {
+            var eventSplit = eventWithDay.split(",");
+            Object.keys(eventSplit).forEach(k => eventSplit[k] = eventSplit[k].trim());
+            var event = {
+                name: eventSplit[0],
+                location: eventSplit[1],
+                startMonth: eventSplit[2],
+                startDay: eventSplit[3],
+                startTime: eventSplit[4],
+                startAMPM: eventSplit[5],
+                endMonth: eventSplit[6],
+                endDay: eventSplit[7],
+                endTime: eventSplit[8],
+                endAMPM: eventSplit[9],
+                day: eventSplit[10],
+                id: ""
+            };
+            event.id = getCommaStringFromEvent(event);
+            return event;
+        }
+        function getCommaStringFromEvent(event) {
+            return event.name + "," + event.location + "," + event.startMonth + "," + event.startDay + "," +
+                event.startTime + "," + event.startAMPM + "," + event.endMonth + "," + event.endDay + "," +
+                event.endTime + "," + event.endAMPM + "," + event.day;
+        }
+
+        function drawAlpha() {
+            primeData();
+            var topDiv = document.getElementById('topDiv');
+
+            topDiv.style.height = (window.innerHeight - 200) + "px";
+            labelWidth = Math.floor((window.innerWidth - 55) / 4) + "px";
+
+
+            for (let i = 0; i < allEvents.length; i++) {
+                event = allEvents[i];
+                var label = document.createElement("textarea");
+                //label.style.backgroundColor = 'lightgrey';
+                label.style.width = labelWidth;
+                label.style.height = "250px";
+                label.style.fontSize = "30px";
+                var goingInd = localStorage.getItem(getGoingKey(event));
+                if (goingInd == null) {
+                    goingInd = "Undecided";
+                }
+                var goingColor = getGoingColor(event);
+                label.style.backgroundColor = goingColor;
+                
+                label.innerHTML = event.name + "\nDay " + event.day + "\n" + event.startTime + event.startAMPM +
+                    "-" + event.endTime + event.endAMPM + "\n" + goingInd;
+                topDiv.appendChild(label);
+            }
+
+        }
+
+        function getGoingColor(event) {
+            var goingInd = localStorage.getItem(getGoingKey(event));
+
+            if (goingInd == null || goingInd == goingUndecided) {
+                return colorGoingUndecided;
+            }
+            else if (goingInd == goingGoing) {
+                return colorGoingGoing;
+            }
+            else if (goingInd == goingNotGoing) {
+                return colorGoingNotGoing;
+            }
+            else if (goingInd == goingMaybe) {
+                return colorGoingMaybe;
+            }
+            else {
+                console.log("ERROR WITH GET GOING COLOR");
+                return "black";
+            }
+
+            return
+        }
+
+        function bottomButton() {
+            window.location.assign("./index.html");
+        }
+
+    </script>
+
+</head>
+
+<body onload="drawAlpha();">
+
+    <div id="topDiv" style="overflow:scroll; height:500px;">
+    </div>
+
+    <div id="bottomDiv">
+        <button type="button" onclick="bottomButton()" id="bottomButton" class="button"
+            style="background-color:hotpink;">Time</button>
+    </div>
+
+</body>
+
+</html>

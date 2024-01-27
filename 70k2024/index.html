@@ -1,0 +1,948 @@
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PM7ZMMTJG2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-PM7ZMMTJG2');
+    </script>
+    <title>70k 2024</title>
+    <link rel="stylesheet" href="style.css">
+    <!--TODO <script type="text/javascript" src="data.js?version=1"></script> -->
+    <!--TODO externalize <script type="text/javascript" src="day1.js?version=1"></script>-->
+    <script id='scheduleDay1' type='text'>
+        Band1,          PD, Jan, 29,  5:15, PM, Jan, 29,  6:15, PM
+        Band2,          RT, Jan, 29,  6:15, PM, Jan, 29,  7:15, PM
+        Band3,          SB, Jan, 29, 11:15, PM, Jan, 30, 12:15, AM
+        Band4,          SL, Jan, 30, 12:15, AM, Jan, 30,  1:15, AM
+    </script>
+    <script id='scheduleDay2' type='text'>
+        Band1,          PD, Jan, 30,  5:15, PM, Jan, 30,  6:15, PM
+        Band2,          RT, Jan, 30,  6:15, PM, Jan, 30,  7:15, PM
+        Band3,          SB, Jan, 30, 11:15, PM, Jan, 31, 12:15, AM
+        Band4,          SL, Jan, 31, 12:15, AM, Jan, 31,  1:15, AM
+    </script>
+    <script id='scheduleDay3' type='text'>
+        Band11,          PD, Jan, 31, 11:15, AM, Jan, 31, 12:15, PM
+        Band22,          RT, Jan, 31,  6:15, PM, Jan, 31,  7:15, PM
+        Band33,          SB, Jan, 31, 11:15, PM, Feb,  1, 12:15, AM
+        Band44,          SL, Feb,  1, 12:15, AM, Feb,  1,  1:15, AM
+    </script>
+    <script id='scheduleDay4' type='text'>
+        Band11,          PD, Feb,  1,  5:15, PM, Feb,  1,  6:15, PM
+        Band22,          RT, Feb,  1,  6:15, PM, Feb,  1,  7:15, PM
+        Band33,          SB, Feb,  1, 11:15, PM, Feb,  2, 12:15, AM
+        Band44,          SL, Feb,  2, 12:15, AM, Feb,  2,  1:15, AM
+    </script>
+
+    <script>
+
+        //TODO externalize?
+        let locations = ["PD", "RT", "SB", "SL"];
+        let year = 2024;
+
+        //TODO externalize above?
+        var day = 1;
+        var yVenueHeight = 150;
+        var yTopHeight = yVenueHeight;
+        var yVenueBottom = yVenueHeight;
+        var yEarliestBufferHours = 1;
+        var yLatestBufferHours = 2;
+        var fontVenue = 40 + 'px serif';
+        var fontLeftTime = 40 + 'px serif';
+        var fontCurrentTime = 50 + 'px serif';
+        var fontGoingButton = 30 + 'px serif';
+        var fontCloseButton = 35 + 'px serif';
+        var fontSchedule = 30 + 'px serif';
+
+        var xTimeOnLeftWidth = 160;
+
+        var yTimeHourHeight = 400;
+        var yTimePushLeftDown = 100;
+        var secondsInAnHour = 60 * 60;
+        var milliSecondsInAnHour = secondsInAnHour * 1000;
+        var xBlockWidth = (window.innerWidth - xTimeOnLeftWidth) / locations.length;
+
+        var yHiddenButtonHeight = 1000;
+
+        var storedVersion = "_v2";
+
+        var storedDelayKey = "storedDelayHB" + year + storedVersion;
+        var storedDayKey = "storedDayHB" + year + storedVersion;
+        var storedScrollToKey = "storedStoredScrollToKey" + year + storedVersion;
+        var storedGoingKey = "storedGoingKey" + year + storedVersion;
+
+        var colorVenueBack = 'lightgrey';
+        var colorVenueFont = 'black';
+        var colorCurrentTimeNumberBackground = 'white';
+        var colorCurrentTimeNumber = 'black';
+        var colorCurrentTimeLine = 'fuchsia';
+        var colorLeftTimeLines = 'white';
+        var colorLeftTimesNumber = 'black';
+        var colorLeftTimesBackground = 'grey';
+        var colorHiddenBackground = 'lightblue';
+        var colorHiddenFont = 'black';
+        var colorGoingButtonActiveBackground = 'lightyellow';
+        var colorGoingButtonNonActiveBackground = 'lightgray';
+        var colorDayBackgroundInactive = 'grey';
+        var colorDayBackgroundActive = 'gold';
+        var colorGoToBackground = "grey";
+
+
+        var colorGoingUndecided = "lightgrey";
+        var colorGoingMaybe = "yellow";
+        var colorGoingGoing = "lime";
+        var colorGoingNotGoing = "black";
+        var colorEventBack = '#696969';
+        var colorEventFont = 'lightgrey';
+
+        var goingUndecided = "Undecided";
+        var goingMaybe = "Maybe";
+        var goingGoing = "Going";
+        var goingNotGoing = "Not going";
+
+        var storedTimeTEST = new Date();
+
+        var eventNameToEvents;
+        var dayToData;
+
+        function primeData() {
+            eventNameToEvents = new Map();
+            dayToData = new Map();
+            for (var dayIndex = 1; dayIndex <= 4; dayIndex++) {
+                var currentEvents = document.getElementById('scheduleDay' + dayIndex).innerHTML;
+                var eventsSplit = currentEvents.split("\n");
+                var events = [];
+                var earliestStart = getDateTime("2100", "Jan", "1", "1:00", "AM");
+                var latestEnd = getDateTime("2000", "Jan", "1", "1:00", "AM");
+                var earliestEvent;
+                var latestEvent;
+                for (let i = 0; i < eventsSplit.length; i++) {
+
+                    if (!eventsSplit[i] || eventsSplit[i].trim() == "") {
+                        continue;
+                    }
+                    var eventWithDay = eventsSplit[i] + "," + dayIndex;
+                    var event = getEventFromCommas(eventWithDay);
+
+                    events.push(event);
+
+                    var startTime = getStartDateTime(event);
+                    if (startTime < earliestStart) {
+                        earliestStart = startTime;
+                        earliestEvent = event;
+                    }
+
+                    var endTime = getEndDateTime(event);
+                    if (endTime > latestEnd) {
+                        latestEnd = endTime;
+                        latestEvent = event;
+                    }
+                    addToEventNameToEventsMap(event);
+
+                }
+
+                //remove minutes and add some buffer time
+                var hourAndMinuteEarliest = earliestEvent.startTime.split(":");
+                earliestStart = getDateTime(year, earliestEvent.startMonth, earliestEvent.startDay, (hourAndMinuteEarliest[0]) + ":00", earliestEvent.startAMPM)
+                earliestStart = new Date(earliestStart.getTime() - (milliSecondsInAnHour * yEarliestBufferHours));
+                var hourAndMinuteLatest = latestEvent.endTime.split(":");
+                latestEnd = getDateTime(year, latestEvent.endMonth, latestEvent.endDay, (hourAndMinuteLatest[0]) + ":00", latestEvent.endAMPM)
+                latestEnd = new Date(latestEnd.getTime() + (milliSecondsInAnHour * yLatestBufferHours));
+
+                var data = {
+                    earliestStart: earliestStart,
+                    latestEnd: latestEnd,
+                    events: events
+                };
+                dayToData.set(dayIndex, data);
+
+                var scrollTo = localStorage.getItem(storedScrollToKey);
+                if (scrollTo != "-1") {
+                    window.scroll(0, scrollTo);
+                }
+                localStorage.setItem(storedScrollToKey, -1);
+            }
+        }
+
+        function getEventFromCommas(eventWithDay) {
+            var eventSplit = eventWithDay.split(",");
+            Object.keys(eventSplit).forEach(k => eventSplit[k] = eventSplit[k].trim());
+            var event = {
+                name: eventSplit[0],
+                location: eventSplit[1],
+                startMonth: eventSplit[2],
+                startDay: eventSplit[3],
+                startTime: eventSplit[4],
+                startAMPM: eventSplit[5],
+                endMonth: eventSplit[6],
+                endDay: eventSplit[7],
+                endTime: eventSplit[8],
+                endAMPM: eventSplit[9],
+                day: eventSplit[10],
+                id: ""
+            };
+            event.id = getCommaStringFromEvent(event);
+            return event;
+        }
+
+        function getCommaStringFromEvent(event) {
+            return event.name + "," + event.location + "," + event.startMonth + "," + event.startDay + "," +
+                event.startTime + "," + event.startAMPM + "," + event.endMonth + "," + event.endDay + "," +
+                event.endTime + "," + event.endAMPM + "," + event.day;
+        }
+
+        function addToEventNameToEventsMap(event) {
+            var events = eventNameToEvents.get(event.name);
+            if (events == null) {
+                events = [];
+                eventNameToEvents.set(event.name, events);
+            }
+            events.push(event);
+        }
+
+        function redrawEverything() {
+            console.log("refreshing");
+
+            var schedule = document.getElementById("schedule");
+            var scheduleButtons = schedule.getElementsByTagName('button');
+            console.log("scheduleButtons: " + scheduleButtons.length);
+            while (scheduleButtons.length > 0) {
+                for (var i = 0; i < scheduleButtons.length; i++) {
+                    scheduleButtons[i].remove();
+                }
+                scheduleButtons = schedule.getElementsByTagName('button');
+                console.log("scheduleButtons: " + scheduleButtons.length);
+            }
+
+            var scheduleLabels = schedule.getElementsByTagName('label');
+            console.log("scheduleLabels: " + scheduleLabels.length);
+            while (scheduleLabels.length > 0)
+                if (scheduleLabels) {
+                    for (var i = 0; i < scheduleLabels.length; i++) {
+                        scheduleLabels[i].remove();
+                    }
+                    scheduleLabels = schedule.getElementsByTagName('label');
+                    console.log("scheduleLabels: " + scheduleLabels.length);
+                }
+
+            var top = document.getElementById('top');
+            //var topDoc = top.contentDocument || top.contentWindow.document;
+            var topButtons = top.getElementsByTagName('button');
+            console.log("topButtons: " + topButtons.length);
+            while (topButtons.length > 0) {
+                for (var i = 0; i < topButtons.length; i++) {
+                    topButtons[i].remove();
+                }
+                topButtons = top.getElementsByTagName('button');
+                console.log("topButtons: " + topButtons.length);
+            }
+
+            primeData();
+
+            var storedDay = localStorage.getItem(storedDayKey);
+
+            if (storedDay == undefined || storedDay == "undefined" || isNaN(storedDay)) {
+                day = Number(1);
+            }
+            else {
+                day = Number(storedDay);
+                if (day < 1 || day > 4) {
+                    //somehow it was 0 once
+                    day = 1;
+                    localStorage.setItem(storedDayKey, 1);
+                }
+            }
+
+            drawTimeline();
+            buttons();
+            drawTop();
+            
+            var scrollTo = localStorage.getItem(storedScrollToKey);
+            if (scrollTo != "-1") {
+                console.log("SCROLL TO " + scrollTo);
+                window.scroll(0, Number(scrollTo));
+                //setTimeout(function () { window.scrollTo(0, scrollTo); }, 100);
+            }
+            else {
+                console.log("SCROLL TO " + "NOPE");
+
+            }
+            localStorage.setItem(storedScrollToKey, -1);
+
+        }
+
+        function drawTop() {
+            var top = document.getElementById('top');
+            top.style.width = window.innerWidth;
+            top.style.height = yTopHeight;
+
+            for (var i = 0; i < locations.length; i++) {
+
+                var buttonVenue = document.createElement('button');
+                buttonVenue.style.position = 'absolute';
+                buttonVenue.style.left = xTimeOnLeftWidth + (xBlockWidth * i) + 'px';
+
+                buttonVenue.style.top = 0 + 'px';
+                buttonVenue.style.width = xBlockWidth;
+                buttonVenue.style.height = yVenueHeight;
+                buttonVenue.textContent = locations[i] + ":" + getDelayMinutesForVenue(locations[i]) + "m";
+                buttonVenue.style.font = fontVenue;
+                buttonVenue.style.backgroundColor = colorVenueBack;
+                buttonVenue.style.color = colorVenueFont;
+                buttonVenue.style.borderRadius = "12px";
+                buttonVenue.style.zIndex = 10000000;
+                buttonVenue.addEventListener("click", venueClick);
+
+                top.appendChild(buttonVenue);
+
+            }
+        }
+
+        function venueClick(venue) {
+
+            let locations = ["PD", "RT", "SB", "SL"];
+            var venue = venue.target.textContent.split(":")[0];
+			var moreVenue = "";
+			if ("PD" == venue)
+			{
+				moreVenue = "pool deck 12 mid";
+			}
+		    else if ("RT" == venue)
+		    {
+				moreVenue = "royal theater 3/4 rear";
+    		}
+		    else if ("SB" == venue)
+		    {
+				moreVenue = "studio b 3 mid (no rear access)";
+		    }
+		    else if ("SL" == venue)
+    		{
+    			moreVenue = "star lounge 5 rear";
+    	    }
+			else
+			{
+				moreVenue = venue;
+			}
+
+            
+            let delayStr = prompt("Minutes delayed for " + moreVenue + " day " + day, getDelayMinutesForVenue(venue));
+            if (delayStr == null || "" == delayStr) {
+                return;
+            }
+            let delay = parseInt(delayStr);
+            if (Number.isNaN(delay)) {
+                alert(delayStr + " is not a number");
+                return;
+            }
+            localStorage.setItem(getDelayKey(venue), delay);
+            redrawEverything();
+        }
+
+        function getDelayKey(venue) {
+            return storedDelayKey + day + venue;
+        }
+
+        function getDelayMinutesForVenue(venue) {
+            var delayMinutes = localStorage.getItem(getDelayKey(venue));
+            if (delayMinutes == null) {
+                return 0;
+            }
+            return delayMinutes;
+        }
+
+        function drawTimeline() {
+            var data = dayToData.get(day);
+            var schedule = document.getElementById("schedule");
+
+            
+
+            
+            var height = getYPixelLocation(data.earliestStart, data.latestEnd);
+            schedule.style.height = getYPixelLocation(data.earliestStart, data.latestEnd) + "px";
+
+            drawTimeOnLeft(data.earliestStart, data.latestEnd);
+            drawCurrentTime(data.earliestStart);
+            drawEventsSchedule(data.events, data.earliestStart);
+
+        }
+
+        function drawCurrentTime(earliestStart) {
+
+            var schedule = document.getElementById("schedule");
+            var currentTime = new Date();    
+        
+        if (currentTime > storedTimeTEST)
+        {
+            storedTimeTEST = currentTime;
+        }
+            var pixel = getYPixelLocation(earliestStart, storedTimeTEST);
+
+            var labelCurrentTimeNumber = document.createElement('label');
+            labelCurrentTimeNumber.style.position = 'absolute';
+            labelCurrentTimeNumber.style.left = 0 + 'px';
+
+            labelCurrentTimeNumber.style.top = (pixel + yTimePushLeftDown) + 'px';
+            labelCurrentTimeNumber.style.width = xBlockWidth;
+            labelCurrentTimeNumber.style.height = yTimeHourHeight;
+            var minutes = storedTimeTEST.getMinutes();
+            var minutesString;
+            if (minutes < 10) {
+                minutesString = "0" + minutes;
+            }
+            else {
+                minutesString = minutes;
+            }
+            var hours = storedTimeTEST.getHours();
+            var hoursString;
+            if (hours > 12) {
+                hoursString = hours - 12;
+            }
+            else {
+                hoursString = hours;
+            }
+
+            labelCurrentTimeNumber.textContent = hoursString + ":" + minutesString;
+            labelCurrentTimeNumber.style.font = fontCurrentTime;
+            labelCurrentTimeNumber.style.background = colorCurrentTimeNumberBackground;
+            labelCurrentTimeNumber.style.color = colorCurrentTimeNumber;
+            labelCurrentTimeNumber.style.height = 50;
+            labelCurrentTimeNumber.style.width = xTimeOnLeftWidth;
+
+            schedule.appendChild(labelCurrentTimeNumber);
+
+            var labelCurentTimeLine = document.createElement('label');
+            labelCurentTimeLine.style.position = 'absolute';
+            labelCurentTimeLine.style.left = 0 + 'px';
+
+            labelCurentTimeLine.style.top = (pixel + yTimePushLeftDown) + 'px';
+            labelCurentTimeLine.style.width = window.innerWidth;
+            labelCurentTimeLine.style.height = 5;
+            labelCurentTimeLine.style.background = colorCurrentTimeLine;
+
+            schedule.appendChild(labelCurentTimeLine);
+        }
+
+        function getStartDateTime(event) {
+            return getDateTime(year, event.startMonth, event.startDay, event.startTime, event.startAMPM);
+        }
+        function getEndDateTime(event) {
+            return getDateTime(year, event.endMonth, event.endDay, event.endTime, event.endAMPM);
+        }
+
+        function getDateTime(year, month, day, time, AMPM) {
+
+            var dateString = day + " " + month + " " + year + " " + time + ":00" + " " + AMPM;
+
+            var date = new Date(Date.parse(dateString));
+            return date;
+        }
+
+        function drawTimeOnLeft(earliestStart, latestEnd) {
+            var schedule = document.getElementById("schedule");
+            
+            var startMinutes = earliestStart.getMinutes();
+
+            var drawingTime = earliestStart;
+            while (drawingTime < latestEnd) {
+                var yPixelLocation = getYPixelLocation(earliestStart, drawingTime);
+
+                var labelLeftTimes = document.createElement('label');
+                labelLeftTimes.style.position = 'absolute';
+                labelLeftTimes.style.left = 0 + 'px';
+
+                labelLeftTimes.style.top = (yPixelLocation + yTimePushLeftDown) + 'px';
+                labelLeftTimes.style.width = xTimeOnLeftWidth;
+                labelLeftTimes.style.height = yTimeHourHeight;
+                var startMinutesString;
+                if (startMinutes < 10) {
+                    startMinutesString = "0" + startMinutes;
+                }
+                else {
+                    startMinutesString = startMinutes;
+                }
+
+                var hourString;
+                var ampm = "AM";
+                var drawingHour = drawingTime.getHours();
+                //TODO clean this up
+                if (drawingHour > 12) {
+                    hourString = drawingHour - 12;
+                    if (drawingHour == 24) {
+                        ampm = "AM";
+                        hourString = 12;
+                    }
+                    else {
+                        ampm = "PM";
+                    }
+                }
+                else {
+                    if (drawingHour == 12) {
+                        ampm = "PM";
+                        hourString = drawingHour;
+                    }
+                    else {
+                        ampm = "AM";
+                        hourString = drawingHour;
+                    }
+                    if (drawingHour == 0) {
+                        hourString = 12;
+                    }
+                }
+
+                labelLeftTimes.textContent = hourString + ampm;
+                labelLeftTimes.style.font = fontLeftTime;
+                labelLeftTimes.style.backgroundColor = colorLeftTimesBackground;
+                labelLeftTimes.style.color = colorLeftTimesNumber;
+
+                schedule.appendChild(labelLeftTimes);
+
+                //draw line
+                var labelLeftTimeLine = document.createElement('label');
+                labelLeftTimeLine.style.position = 'absolute';
+                labelLeftTimeLine.style.left = 0 + 'px';
+
+                labelLeftTimeLine.style.top = (yPixelLocation + yTimePushLeftDown) + 'px';
+                labelLeftTimeLine.style.width = window.innerWidth;
+                labelLeftTimeLine.style.height = 5;
+                labelLeftTimeLine.style.backgroundColor = colorLeftTimeLines;
+
+                schedule.appendChild(labelLeftTimeLine);
+                drawingTime = new Date(drawingTime.getTime() + milliSecondsInAnHour);
+            }
+
+        }
+
+        function getYPixelLocation(earliestStart, time) {
+            var hoursPast = (time.getTime() - earliestStart.getTime()) / milliSecondsInAnHour;
+            var pixel = (yTimeHourHeight * hoursPast);
+            return Number(pixel);
+        }
+
+        function drawEventsSchedule(events, earliestStart) {
+
+            drawFaceupSchedule(events, earliestStart);
+            drawHiddenOverlay(events, earliestStart);
+        }
+
+        function drawFaceupSchedule(events, earliestStart) {
+            var schedule = document.getElementById("schedule");
+            for (let i = 0; i < events.length; i++) {
+                var event = events[i];
+
+                var buttonViewable = document.createElement('button');
+                buttonViewable.style.borderRadius = "12px";
+
+                buttonViewable.style.position = 'absolute';
+                buttonViewable.style.left = xTimeOnLeftWidth + 'px';
+                var location = event.location;
+
+                var startDate = new Date(getStartDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
+                var yPixelTop = getYPixelLocation(earliestStart, startDate);
+                //TODO where is the 105 from?
+                buttonViewable.style.top = (yPixelTop + 105) + 'px';
+                buttonViewable.style.left = getXPixelForLocation(event);
+                buttonViewable.style.width = xBlockWidth;
+                var endDate = new Date(getEndDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
+
+                var height = getYPixelLocation(earliestStart, endDate) - yPixelTop;
+                buttonViewable.style.height = height + 'px';
+                buttonViewable.style.font = fontSchedule;
+
+                //TODO color event based on going indicator
+                var goingColor = getGoingColor(event);
+                if (goingColor == colorGoingGoing)
+                {
+                    buttonViewable.style.backgroundSize = 'cover';
+                    buttonViewable.style.backgroundPosition = 'center';
+                    buttonViewable.style.backgroundImage = "url(images/dog.png)";
+                    buttonViewable.style.color = "cyan";
+                    buttonViewable.style.fontWeight = "bold";
+                    buttonViewable.style.textShadow = "2px 2px 0px black";
+
+                }
+                else{
+                    buttonViewable.style.backgroundColor = colorEventBack;
+                    buttonViewable.style.color = goingColor;
+                }
+                buttonViewable.addEventListener("click", eventClick);
+                buttonViewable.id = getScheduleViewableButtonId(event);
+
+
+                var goingInd = localStorage.getItem(getGoingKey(event));
+                if (goingInd == null) {
+                    goingInd = goingUndecided;
+                }
+                buttonViewable.innerText = event.name + "\n" + getTimeString(startDate) + "-" + getTimeString(endDate) + "\n" + goingInd;
+
+                schedule.appendChild(buttonViewable);
+
+            }
+        }
+
+        function getScheduleViewableButtonId(event) {
+            return event.id + ",scheduleViewableButton";
+        }
+
+        function getTimeString(date) {
+            var hour = date.getHours();
+            if (hour > 12) {
+                hour -= 12;
+            }
+            if (hour == 0)
+            {
+                hour = 12;
+            }
+            var minute = date.getMinutes();
+            var minuteString = "";
+            if (minute < 10) {
+                minuteString += "0";
+            }
+            minuteString += minute;
+            return hour + ":" + minuteString;
+        }
+
+        function getGoingColor(event) {
+            var goingInd = localStorage.getItem(getGoingKey(event));
+
+            if (goingInd == null || goingInd == '' || goingInd == goingUndecided) {
+                return colorGoingUndecided;
+            }
+            else if (goingInd == goingGoing) {
+                return colorGoingGoing;
+            }
+            else if (goingInd == goingNotGoing) {
+                return colorGoingNotGoing;
+            }
+            else if (goingInd == goingMaybe) {
+                return colorGoingMaybe;
+            }
+            else {
+                console.log("ERROR WITH GET GOING COLOR");
+                return "black";
+            }
+
+            return
+        }
+        function drawHiddenOverlay(events, earliestStart) {
+            var schedule = document.getElementById("schedule");
+            for (let i = 0; i < events.length; i++) {
+                var event = events[i];
+                var location = event.location;
+                var startDate = new Date(getStartDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
+
+                var yPixelTop = getYPixelLocation(earliestStart, startDate);
+                //TODO where is the 105 from?
+                var endDate = new Date(getStartDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
+
+                var height = getYPixelLocation(earliestStart, getEndDateTime(endDate)) - yPixelTop;
+
+                var labelHidden = document.createElement('label');
+                labelHidden.style.position = 'absolute';
+                labelHidden.style.left = xTimeOnLeftWidth + 'px';
+
+                //TODO where is the 105 from?
+                labelHidden.style.top = (yPixelTop) + 'px';
+                labelHidden.style.left = 0;
+                labelHidden.style.width = "100%";
+                labelHidden.style.height = yHiddenButtonHeight + 'px';
+                labelHidden.style.font = fontSchedule;
+                labelHidden.style.backgroundColor = colorHiddenBackground;
+                labelHidden.style.color = colorHiddenFont;
+                labelHidden.style.visibility = 'hidden';
+                labelHidden.id = getScheduleHiddenEventId(event);
+                labelHidden.style.zIndex = 100000;
+
+                var weirdButtonFix = document.createElement('button');
+                weirdButtonFix.style.width = 0 + 'px';
+                weirdButtonFix.style.height = 0 + 'px';
+                weirdButtonFix.style.visibility = 'hidden';
+                weirdButtonFix.style.bottom = "0";
+                weirdButtonFix.style.position = "absolute";
+
+                //TODO for some reason the label activates on the first button added
+                labelHidden.appendChild(weirdButtonFix);
+
+                schedule.appendChild(labelHidden);
+
+                var labelBand = document.createElement('label');
+                labelBand.innerText = event.name + "\n" + event.startTime + "-" + event.endTime + "\n";
+                labelHidden.appendChild(labelBand);
+                labelHidden.appendChild(document.createElement('div'));
+
+
+                var buttonGoingUndecided = createButtonGoing(goingUndecided, schedule, event);
+                var buttonGoingMaybe = createButtonGoing(goingMaybe, schedule, event);
+                var buttonGoingGoing = createButtonGoing(goingGoing, schedule, event);
+                var buttonGoingNotGoing = createButtonGoing(goingNotGoing, schedule, event);
+
+                labelHidden.appendChild(buttonGoingUndecided);
+                labelHidden.appendChild(buttonGoingMaybe);
+                labelHidden.appendChild(buttonGoingGoing);
+                labelHidden.appendChild(buttonGoingNotGoing);
+
+                labelHidden.appendChild(document.createElement('div'));
+
+                var buttonCloseOnLabel = document.createElement('button');
+                buttonCloseOnLabel.style.borderRadius = "12px";
+                buttonCloseOnLabel.style.width = "20%";
+                buttonCloseOnLabel.style.height = 100 + 'px';
+                buttonCloseOnLabel.innerText = 'close';
+                var closeId = getCloseButtonId(event);
+                buttonCloseOnLabel.id = closeId;
+                //buttonCloseOnLabel.style.bottom = "0";
+                buttonCloseOnLabel.style.position = "absolute";
+                buttonCloseOnLabel.style.font = fontCloseButton;
+                buttonCloseOnLabel.style.top = 0;
+                buttonCloseOnLabel.style.right = 0;
+
+
+                buttonCloseOnLabel.addEventListener("click", closeHiddenLabel);
+                labelHidden.appendChild(document.createElement('div'));
+
+                labelHidden.appendChild(buttonCloseOnLabel);
+                labelHidden.appendChild(document.createElement('div'));
+                var alsoLabel = document.createElement('label');
+                //TODO divs don't appear to do what I want
+                alsoLabel.innerText = "\n\n\nAlso:";
+                labelHidden.appendChild(alsoLabel);
+
+                var eventsAll = eventNameToEvents.get(event.name);
+                eventsAll.forEach(eventIter => {
+                    if (eventIter.id == event.id) {
+                        return;
+                    }
+                    labelHidden.appendChild(document.createElement('div'));
+
+                    var labelBandAlso = document.createElement('label');
+                    //labelBandAlso.width = "100%";
+                    labelBandAlso.innerText = eventIter.name + " Day: " + eventIter.day + "\n" + " " + eventIter.startTime + "-" + eventIter.endTime + "\n";
+                    labelHidden.appendChild(labelBandAlso);
+                    labelHidden.appendChild(document.createElement('div'));
+                    var buttonGoingUndecided = createButtonGoing(goingUndecided, schedule, eventIter);
+                    var buttonGoingMaybe = createButtonGoing(goingMaybe, schedule, eventIter);
+                    var buttonGoingGoing = createButtonGoing(goingGoing, schedule, eventIter);
+                    var buttonGoingNotGoing = createButtonGoing(goingNotGoing, schedule, eventIter);
+
+                    labelHidden.appendChild(buttonGoingUndecided);
+                    labelHidden.appendChild(buttonGoingMaybe);
+                    labelHidden.appendChild(buttonGoingGoing);
+                    labelHidden.appendChild(buttonGoingNotGoing);
+
+                    var buttonGoTo = createButtonGoTo(eventIter, schedule);
+                    labelHidden.appendChild(buttonGoTo);
+
+                });
+            }
+        }
+
+        function getCloseButtonId(event) {
+            return event.id + ",hiddenClose";
+        }
+        function getScheduleHiddenEventId(event) {
+            return event.id + ",scheduleHidden";
+        }
+
+        function createButtonGoTo(event, schedule) {
+            var buttonGoTo = document.createElement('button');
+            buttonGoTo.style.backgroundColor = colorGoToBackground;
+
+            buttonGoTo.style.width = "20%";
+            buttonGoTo.style.height = 100;
+            buttonGoTo.innerText = "Go";
+            buttonGoTo.id = getGoToKey(event);
+            buttonGoTo.style.font = fontGoingButton;
+
+            buttonGoTo.addEventListener("click", goToClick);
+
+            return buttonGoTo;
+        }
+
+        function getGoToKey(event) {
+            return event.id + ",goto";
+        }
+
+        function goToClick(event) {
+            var eventObject = getEventFromCommas(event.target.id);
+            var day = eventObject.day;
+            localStorage.setItem(storedDayKey, eventObject.day);
+
+            var earliestStart = dayToData.get(Number(day)).earliestStart;
+            var time = getStartDateTime(eventObject);
+
+            var scrollToLocation = getYPixelLocation(earliestStart, time);
+            localStorage.setItem(storedScrollToKey, scrollToLocation - 200);
+
+            var parentLabel = event.target.parentElement;
+            var label = getEventFromCommas(parentLabel.id);
+            hideLabel(label);
+            redrawEverything();
+        }
+
+        function noop(e) {
+            e.stopPropagation();
+        }
+
+        function createButtonGoing(going, schedule, event) {
+
+            var buttonGoingOnLabel = document.createElement('button');
+            buttonGoingOnLabel.style.borderRadius = "12px";
+
+            var goingInd = localStorage.getItem(getGoingKey(event));
+            if (goingInd == null) {
+                goingInd = goingUndecided;
+                localStorage.setItem(getGoingKey(event), goingInd);
+            }
+            if (goingInd == going) {
+                buttonGoingOnLabel.style.backgroundColor = colorGoingButtonActiveBackground;
+            }
+            else {
+                buttonGoingOnLabel.style.backgroundColor = colorGoingButtonNonActiveBackground;
+            }
+
+            buttonGoingOnLabel.style.width = "20%";
+            buttonGoingOnLabel.style.height = 100;
+            buttonGoingOnLabel.innerText = going;
+            buttonGoingOnLabel.id = getGoingKey(event);
+            buttonGoingOnLabel.style.font = fontGoingButton;
+
+            buttonGoingOnLabel.addEventListener("click", goingClick);
+
+            return buttonGoingOnLabel;
+        }
+
+        function goingClick(theclick) {
+
+            var schedule = document.getElementById("schedule");
+            var parentLabel = theclick.target.parentElement;
+
+            var id = theclick.target.id;
+            var innerText = theclick.target.innerText;
+            localStorage.setItem(id, innerText);
+
+            const buttonsOnLabel = parentLabel.querySelectorAll("button");
+            buttonsOnLabel.forEach(buttonGoingOnLabel => {
+                var goingInd = localStorage.getItem(buttonGoingOnLabel.id);
+                if (goingInd == null) {
+                    buttonGoingOnLabel.style.backgroundColor = colorGoingButtonNonActiveBackground;
+                }
+                else {
+                    if (buttonGoingOnLabel.innerText == goingInd) {
+                        //this is if the text of the button is the same as the stored going indication
+                        buttonGoingOnLabel.style.backgroundColor = colorGoingButtonActiveBackground;
+                    }
+                    else {
+                        buttonGoingOnLabel.style.backgroundColor = colorGoingButtonNonActiveBackground;
+                    }
+                }
+
+            });
+
+        }
+
+        function getGoingKey(event) {
+            return event.id + storedGoingKey;
+        }
+
+        function hideLabel(event) {
+            
+            var labelHidden = document.getElementById(getScheduleHiddenEventId(event));
+            labelHidden.style.visibility = 'hidden';
+        }
+
+        function closeHiddenLabel(event) {
+
+            var eventId = event.target.id;
+            var theEvent = getEventFromCommas(event.target.id);
+            hideLabel(theEvent);
+            redrawEverything();
+
+        }
+
+        function eventClick(event) {
+            var id = event.target.id;
+            var eventWithValues = getEventFromCommas(id);
+            var labelHidden = document.getElementById(getScheduleHiddenEventId(eventWithValues));
+            labelHidden.style.visibility = 'visible';
+        }
+
+        function getXPixelForLocation(event) {
+            var locationIndex = getLocationIndex(event.location);
+
+            var left = (locationIndex * xBlockWidth) + xTimeOnLeftWidth;
+            return left;
+        }
+
+        function getLocationIndex(location) {
+            for (let i = 0; i < locations.length; i++) {
+                if (location === locations[i]) {
+                    return i;
+                }
+            }
+        }
+
+        function handleDayButton(newDay) {
+            if (newDay != day) {
+                day = newDay;
+                localStorage.setItem(storedDayKey, day);
+                redrawEverything();
+            }
+        }
+
+        function buttons() {
+            document.getElementById("dayButton1").style.backgroundColor = colorDayBackgroundInactive;
+            document.getElementById("dayButton2").style.backgroundColor = colorDayBackgroundInactive;
+            document.getElementById("dayButton3").style.backgroundColor = colorDayBackgroundInactive;
+            document.getElementById("dayButton4").style.backgroundColor = colorDayBackgroundInactive;
+            document.getElementById("dayButton" + day).style.backgroundColor = colorDayBackgroundActive;
+
+            buttonWidth = Math.floor(window.innerWidth / 7) + "px";
+            document.getElementById("dayButton1").style.width = buttonWidth;
+            document.getElementById("dayButton2").style.width = buttonWidth;
+            document.getElementById("dayButton3").style.width = buttonWidth;
+            document.getElementById("dayButton4").style.width = buttonWidth;
+        }
+
+        function goToNow() {
+            for (var day = 1; day <= 4; day++) {
+                var data = dayToData.get(day);
+                if (data.earliestStart < storedTimeTEST && data.latestEnd > storedTimeTEST) {
+                    localStorage.setItem(storedDayKey, day);
+
+                    var scrollToLocation = getYPixelLocation(data.earliestStart, storedTimeTEST);
+                    localStorage.setItem(storedScrollToKey, scrollToLocation - 200);
+                    redrawEverything();
+                    return;
+                }
+            }
+        }
+
+        function alphaToggle() {
+            window.location.assign("./alpha.html");
+        }
+
+    </script>
+
+</head>
+
+<body onload="redrawEverything(); ">
+    <div class="top" id="top">
+    </div>
+
+    <div class="schedule" id="schedule" style="background-color: black;"></div>
+ 
+    <div class="bottom" id="bottom">
+        <button type="button" onclick="handleDayButton(1)" id="dayButton1" class="button">29M</button>
+        <button type="button" onclick="handleDayButton(2)" id="dayButton2" class="button">30T</button>
+        <button type="button" onclick="handleDayButton(3)" id="dayButton3" class="button">31W</button>
+        <button type="button" onclick="handleDayButton(4)" id="dayButton4" class="button">1TR</button>
+        <button type="button" onclick="alphaToggle()" id="alphaToggle" class="button"
+            style="background-color:hotpink;">Alpha</button>
+        <button type="button" onclick="goToNow()" id="goToNow" class="button">Now</button>
+    </div>
+
+</body>
+
+</html>
