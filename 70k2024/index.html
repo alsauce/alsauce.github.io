@@ -391,6 +391,23 @@ I am the Night,      SL, Feb, 1, 10:45, PM, Feb, 1, 11:30, PM
             var top = document.getElementById('top');
             top.style.width = window.innerWidth;
             top.style.height = yTopHeight;
+            
+            //Donut
+            var buttonVenueMe = document.createElement('button');
+            buttonVenueMe.style.position = 'absolute';
+            buttonVenueMe.style.left = 0 + 'px';
+
+            buttonVenueMe.style.top = 0 + 'px';
+            buttonVenueMe.style.width = xTimeOnLeftWidth;
+            buttonVenueMe.style.height = yVenueHeight;
+            buttonVenueMe.style.backgroundImage = "url(images/Donut.png)";
+            buttonVenueMe.style.backgroundSize = 'cover';
+            buttonVenueMe.style.backgroundPosition = 'center';
+            buttonVenueMe.addEventListener("click", donutClick);
+
+            top.appendChild(buttonVenueMe);
+
+            
 
             for (var i = 0; i < locations.length; i++) {
 
@@ -430,6 +447,11 @@ I am the Night,      SL, Feb, 1, 10:45, PM, Feb, 1, 11:30, PM
                 top.appendChild(buttonVenue);
 
             }
+        }
+        
+        function donutClick(donut) {
+        	alert("Donutsauce!");
+        	
         }
 
         function venueClick(venue) {
