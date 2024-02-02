@@ -551,7 +551,10 @@ I am the Night,      SL, Feb, 1, 10:45, PM, Feb, 1, 11:30, PM
             var hoursString;
             if (hours > 12) {
                 hoursString = hours - 12;
-            }
+	    }
+	    else if (hours == 0) {
+		hoursString = 12;
+	    }
             else {
                 hoursString = hours;
             }
