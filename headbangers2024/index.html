@@ -13,11 +13,12 @@
     <!--TODO <script type="text/javascript" src="data.js?version=1"></script> -->
     <!--TODO externalize <script type="text/javascript" src="day1.js?version=1"></script>-->
     <script id='scheduleDay1' type='text'>
-        PO, Jan, 28, 6:00, PM, Jan, 28, 6:45, PM, test11
-        ST, Jan, 28, 6:10, PM, Jan, 28, 6:45, PM, test22
-        SP, Jan, 28, 6:30, PM, Jan, 28, 6:55, PM, test33
-        AT, Jan, 28, 7:10, PM, Jan, 28, 7:45, PM, test44
-        MA, Jan, 28, 7:00, PM, Jan, 28, 7:45, PM, test55
+        PO, Oct, 28, 6:00, PM, Oct, 28, 6:45, PM, test11
+        ST, Oct, 28, 6:10, PM, Oct, 28, 6:45, PM, test22
+        SP, Oct, 28, 6:30, PM, Oct, 28, 6:55, PM, test33
+        AT, Oct, 28, 7:10, PM, Oct, 28, 7:45, PM, test44
+        MA, Oct, 28, 7:00, PM, Oct, 28, 7:45, PM, test55
+        PO, Oct, 29, 12:00, AM, Oct, 29, 12:30, AM, test66
 
     </script>
     <script id='scheduleDay2' type='text'>
@@ -73,13 +74,13 @@
         var yEarliestBufferHours = 1;
         var yLatestBufferHours = 2;
         var fontVenue = 40 + 'px serif';
-        var fontLeftTime = 40 + 'px serif';
-        var fontCurrentTime = 50 + 'px serif';
+        var fontLeftTime = 35 + 'px serif';
+        var fontCurrentTime = 40 + 'px serif';
         var fontGoingButton = 30 + 'px serif';
         var fontCloseButton = 35 + 'px serif';
         var fontSchedule = 35 + 'px serif';
 
-        var xTimeOnLeftWidth = 160;
+        var xTimeOnLeftWidth = 100;
 
         var yTimeHourHeight = 400;
         var yTimePushLeftDown = 100;
@@ -102,12 +103,12 @@
 
         var colorVenueBack = 'lightgrey';
         var colorVenueFont = 'black';
-        var colorCurrentTimeNumberBackground = 'white';
-        var colorCurrentTimeNumber = 'black';
+        var colorCurrentTimeNumberBackground = 'black';
+        var colorCurrentTimeNumber = 'white';
         var colorCurrentTimeLine = 'fuchsia';
         var colorLeftTimeLines = 'white';
         var colorLeftTimesNumber = 'cyan';
-        var colorLeftTimesBackground = 'grey';
+        var colorLeftTimesBackground = "hsla(0, 0%, 0%, 1)";
         var colorHiddenBackground = 'lightblue';
         var colorHiddenFont = 'black';
         var colorGoingButtonActiveBackground = 'lightyellow';
@@ -124,7 +125,8 @@
         var goingGoing = "Going";
         var goingNotGoing = "No";
 
-        var storedTimeTEST = new Date();
+        //TODO swap these when done testing var storedTimeTEST = new Date();
+        var storedTimeTEST = getDateTime("2024", "Oct", "29", "12:02", "AM");
 
         var eventNameToEvents;
         var dayToData;
@@ -455,10 +457,10 @@
             var hoursString;
             if (hours > 12) {
                 hoursString = hours - 12;
-	    }
-	    else if (hours == 0) {
-		hoursString = 12;
-	    }
+            }
+                else if (hours == 0) {
+                hoursString = 12;
+            }
             else {
                 hoursString = hours;
             }
@@ -631,6 +633,9 @@
                     
                 }
                 var goingInd = localStorage.getItem(getGoingKey(event));
+                if (goingInd == null) {
+                    goingInd = goingUndecided;
+                }
                 buttonViewable.innerText = event.name + "\n"  + genreText + getTimeString(startDate) + "-" + getTimeString(endDate) + "\n" + goingInd;
 
                 var leftPortion = document.createElement("span");
@@ -655,7 +660,7 @@
                 }
                 else{
                     //TBD
-                    leftPortion.style.backgroundColor = "hsla(0, 0%, 7%, 1)";
+                    leftPortion.style.backgroundColor = "hsla(240, 100%, 10%, 1)";
                 }
 
                 buttonViewable.appendChild(leftPortion);
