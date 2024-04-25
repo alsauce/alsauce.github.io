@@ -1,0 +1,12 @@
+Notes
+
+TODO:
+venues need to be objects
+mess with colors
+verify time works/update testing approach
+venues differ from 70k, check previous year
+have alpha reference schedule from index
+
+Done:
+update button day/dates so they make sense
+

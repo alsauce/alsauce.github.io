@@ -4,14 +4,6 @@
 .text {
     text-align: left;
     width: 90%; /* Initially, text takes up 90% of the width */
-    font-size: 2em; /* Set a default font size */
-    max-width: 600px; /* Set a maximum width for the text */
+    font-size: 24px; /* Set a default font size */
 }
 
-/* Media query for smaller screens */
-@media screen and (max-width: 600px) {
-    .text {
-        width: 100%; /* Make text take up the entire width */
-        font-size: 1.5em; /* Adjust font size for smaller screens */
-    }
-}

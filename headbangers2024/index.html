@@ -8,7 +8,7 @@
 
         gtag('config', 'G-PM7ZMMTJG2');
     </script>
-    <title>70k 2024</title>
+    <title>Headbanger's boat 2024</title>
     <link rel="stylesheet" href="style.css">
     <!--TODO <script type="text/javascript" src="data.js?version=1"></script> -->
     <!--TODO externalize <script type="text/javascript" src="day1.js?version=1"></script>-->
@@ -153,7 +153,33 @@ I am the Night,      SL, Feb, 1, 10:45, PM, Feb, 1, 11:30, PM
     <script>
 
         //TODO externalize?
-        let locations = ["PD", "RT", "SB", "SL"];
+        let locations = [
+        	{
+        		abbrev: "PO",
+        		fullName: "Pool Deck",
+        		location: "12 mid"
+        	},
+        	{
+        		abbrev: "ST",
+        		fullName: "Stardust Theater",
+        		location: "6,7 fwd"
+        	},
+        	{
+        		abbrev: "SP",
+        		fullName: "Spinnaker Lounge",
+        		location: "13 fwd"
+        	},
+        	{
+        		abbrev: "AT",
+        		fullName: "Atrium",
+        		location: "7,8 mid"
+        	},
+        	{
+        		abbrev: "MA",
+        		fullName: "Magnums",
+        		location: "6 mid"
+        	}
+        ];
         let year = 2024;
 
         //TODO externalize above?
@@ -418,24 +444,8 @@ I am the Night,      SL, Feb, 1, 10:45, PM, Feb, 1, 11:30, PM
                 buttonVenue.style.top = 0 + 'px';
                 buttonVenue.style.width = xBlockWidth;
                 buttonVenue.style.height = yVenueHeight;
-                var venueText = locations[i] + ":" + getDelayMinutesForVenue(locations[i]) + "m";
-                if ("PD" == locations[i])
-    			{
-                	venueText = venueText + " (11/12 mid)";
-    			}
-    		    else if ("RT" == locations[i])
-    		    {
-    		    	venueText  = venueText + " (3/4 fwd)";
-        		}
-    		    else if ("SB" == locations[i])
-    		    {
-    		    	venueText = venueText + " (3 mid rear)";
-    		    }
-    		    else if ("SL" == locations[i])
-        		{
-    		    	venueText = venueText + " (5 fwd)";
-        	    }
-
+                var venueText = locations[i].abbrev + ":" + getDelayMinutesForVenue(locations[i].abbrev) + "m " + locations[i].location;
+               
                 buttonVenue.textContent = venueText;
                 buttonVenue.style.font = fontVenue;
                 buttonVenue.style.backgroundColor = colorVenueBack;
@@ -1110,10 +1120,10 @@ I am the Night,      SL, Feb, 1, 10:45, PM, Feb, 1, 11:30, PM
     <div class="schedule" id="schedule" style="background-color: black;"></div>
  
     <div class="bottom" id="bottom">
-        <button type="button" onclick="handleDayButton(1)" id="dayButton1" class="button" style="text-align: left; padding-left: 0">29M</button>
-        <button type="button" onclick="handleDayButton(2)" id="dayButton2" class="button" style="text-align: left; padding-left: 0">30T</button>
-        <button type="button" onclick="handleDayButton(3)" id="dayButton3" class="button" style="text-align: left; padding-left: 0">31W</button>
-        <button type="button" onclick="handleDayButton(4)" id="dayButton4" class="button" style="text-align: left; padding-left: 0">1TR</button>
+        <button type="button" onclick="handleDayButton(1)" id="dayButton1" class="button" style="text-align: left; padding-left: 0">28M</button>
+        <button type="button" onclick="handleDayButton(2)" id="dayButton2" class="button" style="text-align: left; padding-left: 0">29T</button>
+        <button type="button" onclick="handleDayButton(3)" id="dayButton3" class="button" style="text-align: left; padding-left: 0">30W</button>
+        <button type="button" onclick="handleDayButton(4)" id="dayButton4" class="button" style="text-align: left; padding-left: 0">31R</button>
         <button type="button" onclick="alphaToggle()" id="alphaToggle" class="button"
             style="background-color:hotpink; text-align: left">Alpha</button>
         <button type="button" onclick="goToNow()" id="goToNow" class="button">Now</button>
