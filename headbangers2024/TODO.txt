@@ -1,25 +1,25 @@
 Notes
 
 TODO:
-putting the text over the pic means tapping it doesn't work.
 verify time works/update testing approach
 have alpha reference schedule from index
 Make alpha more functional - add going and not going and "more info"?
-fix venue info code
 extra band info somewhere
-the way background color is being used right now is a travesty
 add personal Notes
 filter/search for bands
 Going to an already past event doesn't go to the right spot.
 Current Time on left shows 0 for midnight
-tab picture up top
 
 in progress:
 mess with colors
+tab picture up top
 
 Done:
 venues need to be objects
 band genres
+venue click more venue info
+fix venue info code
+the way background color is being used right now is a travesty
 
 Needs every time:
 update button day/dates so they make sense

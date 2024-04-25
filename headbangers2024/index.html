@@ -93,7 +93,7 @@
        
         var yHiddenButtonHeight = 1000;
 
-        var storedVersion = "_hbb_v3";
+        var storedVersion = "_hbb_v6";
 
         var storedDelayKey = "storedDelayHB" + year + storedVersion;
         var storedDayKey = "storedDayHB" + year + storedVersion;
@@ -116,18 +116,13 @@
         var colorDayBackgroundActive = 'gold';
         var colorGoToBackground = "grey";
 
-//120 green, 0 red, 60 yellow, 240 blue
-        var colorGoingUndecided = "hsl(0, 30%, 30%)";
-        var colorGoingMaybe = "hsl(0, 90%, 60%)";
-        var colorGoingGoing = "hsl(0, 70%, 60%)";
-        var colorGoingNotGoing = "hsl(0, 50%, 60%)";
         var colorEventBack = '#696969';
         var colorEventFont = 'lightgrey';
 
-        var goingUndecided = "Undecided";
+        var goingUndecided = "TBD";
         var goingMaybe = "Maybe";
         var goingGoing = "Going";
-        var goingNotGoing = "Not going";
+        var goingNotGoing = "No";
 
         var storedTimeTEST = new Date();
 
@@ -326,20 +321,19 @@
             top.style.width = fullWidth;
             top.style.height = yTopHeight;
             
-            //Donut
-            var buttonVenueMe = document.createElement('button');
-            buttonVenueMe.style.position = 'absolute';
-            buttonVenueMe.style.left = 0 + 'px';
+            var buttonTopLeft = document.createElement('button');
+            buttonTopLeft.style.position = 'absolute';
+            buttonTopLeft.style.left = 0 + 'px';
 
-            buttonVenueMe.style.top = 0 + 'px';
-            buttonVenueMe.style.width = xTimeOnLeftWidth;
-            buttonVenueMe.style.height = yVenueHeight;
-            buttonVenueMe.style.backgroundImage = "url(images/Donut.png)";
-            buttonVenueMe.style.backgroundSize = 'cover';
-            buttonVenueMe.style.backgroundPosition = 'center';
-            buttonVenueMe.addEventListener("click", donutClick);
+            buttonTopLeft.style.top = 0 + 'px';
+            buttonTopLeft.style.width = xTimeOnLeftWidth;
+            buttonTopLeft.style.height = yVenueHeight;
+            buttonTopLeft.style.backgroundImage = "url(images/hands.png)";
+            buttonTopLeft.style.backgroundSize = 'cover';
+            buttonTopLeft.style.backgroundPosition = 'center';
+            buttonTopLeft.addEventListener("click", buttonTopLeftClick);
 
-            top.appendChild(buttonVenueMe);
+            top.appendChild(buttonTopLeft);
 
             
 
@@ -376,38 +370,24 @@
             }
         }
         
-        function donutClick(donut) {
-        	alert("Donutsauce!");
+        function buttonTopLeftClick(donut) {
+        	alert("You can click venues for more info and to add delay");
         	
         }
 
-        function venueClick(venue) {
+        function venueClick(venueClicked) {
 
-            var venue = venue.target.textContent.split(":")[0];
-			var moreVenue = "";
-			if ("PD" == venue)
-			{
-				moreVenue = "pool deck (11/12 mid)";
-			}
-		    else if ("RT" == venue)
-		    {
-				moreVenue = "royal theater (3/4 fwd, 3 only has fwd access)";
-    		}
-		    else if ("SB" == venue)
-		    {
-				moreVenue = "studio b (3 mid, no fwd access)";
-		    }
-		    else if ("SL" == venue)
-    		{
-    			moreVenue = "star lounge (5 fwd)";
-    	    }
-			else
-			{
-				moreVenue = venue;
-			}
+            var venueAbbrev = venueClicked.target.textContent.split(":")[0];
+            var venue;
+            for (var i = 0; i < locations.length; i++) {
+                if (locations[i].abbrev == venueAbbrev)
+                {
+                    venue = locations[i];
+                    break;
+                }
+            }
 
-            
-            let delayStr = prompt("Minutes delayed for " + moreVenue + " day " + day, getDelayMinutesForVenue(venue));
+            let delayStr = prompt("Minutes delayed for " + venue.fullName + " day " + day, getDelayMinutesForVenue(venue));
             if (delayStr == null || "" == delayStr) {
                 return;
             }
@@ -416,7 +396,7 @@
                 alert(delayStr + " is not a number");
                 return;
             }
-            localStorage.setItem(getDelayKey(venue), delay);
+            localStorage.setItem(getDelayKey(venue.abbrev), delay);
             redrawEverything();
         }
 
@@ -436,9 +416,6 @@
             var data = dayToData.get(day);
             var schedule = document.getElementById("schedule");
 
-            
-
-            
             var height = getYPixelLocation(data.earliestStart, data.latestEnd);
             schedule.style.height = getYPixelLocation(data.earliestStart, data.latestEnd) + "px";
 
@@ -633,97 +610,55 @@
                 var height = getYPixelLocation(earliestStart, endDate) - yPixelTop;
                 buttonViewable.style.height = height + 'px';
                 buttonViewable.style.font = fontSchedule;
-
-                //TODO color event based on going indicator
-                //TODO this code needs to change it's so dumb
-                var goingColor = getGoingColor(event);
-                if (goingColor == colorGoingGoing)
-                {
-                    buttonViewable.style.backgroundSize = 'cover';
-                    buttonViewable.style.backgroundPosition = 'center';
-                    //buttonViewable.style.backgroundImage = "url(images/dog.png)";
-                    buttonViewable.style.color = "limegreen";
-                    buttonViewable.style.fontWeight = "bold";
-                    buttonViewable.style.textShadow = "2px 2px 0px black";
-                    
-                    //buttonViewable.style.backgroundColor = colorGoingGoing;
-                    //buttonViewable.style.color = "white";
-                    //buttonViewable.style.textShadow = "2px 2px 0px black";
-                    //var img = new Image();
-                    //img.src = "url(images/dog.png)";
-                    //img.classList.add("button-background");
-                    //buttonViewable.appendChild(img);
-
-                    
-                }
-                else if (goingColor == colorGoingUndecided) {
-                    buttonViewable.style.backgroundColor = goingColor;
-                    buttonViewable.style.color = "white";
-                    buttonViewable.style.textShadow = "2px 2px 0px black";
-                    
-
-                }
-                else if (goingColor == colorGoingNotGoing) {
-                    buttonViewable.style.backgroundColor = goingColor;
-                    buttonViewable.style.color = "white";
-                    buttonViewable.style.textShadow = "2px 2px 0px black";
-
-                }
-                else if (goingColor == colorGoingMaybe) {
-                    buttonViewable.style.backgroundColor = goingColor;
-                    buttonViewable.style.color = "black";
-                    //buttonViewable.style.textShadow = "2px 2px 0px black";
-
-                }
-                buttonViewable.innerText = event.name + "\n"  + genreText + getTimeString(startDate) + "-" + getTimeString(endDate) + "\n" + goingInd;
-
+                
                 buttonViewable.addEventListener("click", eventClick);
                 buttonViewable.id = getScheduleViewableButtonId(event);
                 buttonViewable.style.textAlign = "left";
-                buttonViewable.style.paddingLeft = "15";
+                buttonViewable.style.paddingLeft = "15px";
                 //third one to make grey
                 buttonViewable.style.backgroundColor = "hsla(0, 0%, 20%, 1)";
                 buttonViewable.style.color = "white";
                 buttonViewable.style.textShadow = "2px 2px 0px black";
+                
+                
+                var genre = bandToBandInfo.get(event.name);
+                console.log("genre: " + genre);
+                var genreText = "";
+                if (genre != null && genre != "undefined")
+                {
+                    genreText = genre + "\n";
+                    console.log("genreText: " + genreText);
+                    
+                }
+                var goingInd = localStorage.getItem(getGoingKey(event));
+                buttonViewable.innerText = event.name + "\n"  + genreText + getTimeString(startDate) + "-" + getTimeString(endDate) + "\n" + goingInd;
+
                 var leftPortion = document.createElement("span");
                 leftPortion.style.position = "absolute";
                 leftPortion.style.top = "0";
                 leftPortion.style.left = "0";
-                leftPortion.style.width = "10%"; // Adjust this value as needed
+                leftPortion.style.width = "10px";
                 leftPortion.style.height = "100%";
-                leftPortion.style.backgroundColor = "black";
                 leftPortion.style.backgroundSize = "10px 10px";
-                    //leftPortion.style.backgroundColor = "blue";
 
-                    // Append left portion to button
-                   
-
-
-                var goingInd = localStorage.getItem(getGoingKey(event));
-                if (goingInd == null || goingInd == goingUndecided) {
-                     
-                }
-                else if (goingInd == goingGoing)
+                if (goingInd == goingGoing)
                 {
-                    
+                    leftPortion.style.backgroundColor = "limegreen";
                 }
                 else if (goingInd == goingNotGoing)
                 {
-                    
+                    leftPortion.style.backgroundColor = "hsla(0, 100%, 25%, 1)";
                 }
                 else if (goingInd == goingMaybe)
                 {
                     leftPortion.style.backgroundImage = "repeating-linear-gradient(-45deg, limegreen, limegreen 5px, black 5px, black 10px)"; // Striped pattern
                 }
-                buttonViewable.appendChild(leftPortion);
-                var genre = bandToBandInfo.get(event.name);
-                var genreText = "";
-                if (genre != null)
-                {
-                    genreText = genre + "\n";
+                else{
+                    //TBD
+                    leftPortion.style.backgroundColor = "hsla(0, 0%, 7%, 1)";
                 }
 
-               
+                buttonViewable.appendChild(leftPortion);
                 schedule.appendChild(buttonViewable);
 
             }
@@ -751,28 +686,6 @@
             return hour + ":" + minuteString;
         }
 
-        function getGoingColor(event) {
-            var goingInd = localStorage.getItem(getGoingKey(event));
-
-            if (goingInd == null || goingInd == '' || goingInd == goingUndecided) {
-                return colorGoingUndecided;
-            }
-            else if (goingInd == goingGoing) {
-                return colorGoingGoing;
-            }
-            else if (goingInd == goingNotGoing) {
-                return colorGoingNotGoing;
-            }
-            else if (goingInd == goingMaybe) {
-                return colorGoingMaybe;
-            }
-            else {
-                console.log("ERROR WITH GET GOING COLOR");
-                return "black";
-            }
-
-            return
-        }
         function drawHiddenOverlay(events, earliestStart) {
             var schedule = document.getElementById("schedule");
             for (let i = 0; i < events.length; i++) {
@@ -781,7 +694,7 @@
                 var startDate = new Date(getStartDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
 
                 var yPixelTop = getYPixelLocation(earliestStart, startDate);
-                //TODO where is the 105 from?
+                
                 var endDate = new Date(getStartDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
 
                 var height = getYPixelLocation(earliestStart, getEndDateTime(endDate)) - yPixelTop;
@@ -790,7 +703,6 @@
                 labelHidden.style.position = 'absolute';
                 labelHidden.style.left = xTimeOnLeftWidth + 'px';
 
-                //TODO where is the 105 from?
                 labelHidden.style.top = (yPixelTop) + 'px';
                 labelHidden.style.left = 0;
                 labelHidden.style.width = "100%";
@@ -868,16 +780,16 @@
                     labelBandAlso.innerText = eventIter.name + " Day: " + eventIter.day + "\n" + " " + eventIter.startTime + "-" + eventIter.endTime + " " + eventIter.endAMPM + "\n";
                     labelHidden.appendChild(labelBandAlso);
                     labelHidden.appendChild(document.createElement('div'));
+                    var buttonGoingGoing = createButtonGoing(goingGoing, schedule, eventIter);
                     var buttonGoingUndecided = createButtonGoing(goingUndecided, schedule, eventIter);
                     var buttonGoingMaybe = createButtonGoing(goingMaybe, schedule, eventIter);
-                    var buttonGoingGoing = createButtonGoing(goingGoing, schedule, eventIter);
                     var buttonGoingNotGoing = createButtonGoing(goingNotGoing, schedule, eventIter);
 
-                    labelHidden.appendChild(buttonGoingUndecided);
-                    labelHidden.appendChild(buttonGoingMaybe);
                     labelHidden.appendChild(buttonGoingGoing);
                     labelHidden.appendChild(buttonGoingNotGoing);
-
+                    labelHidden.appendChild(buttonGoingMaybe);
+                    labelHidden.appendChild(buttonGoingUndecided);
+                    
                     var buttonGoTo = createButtonGoTo(eventIter, schedule);
                     labelHidden.appendChild(buttonGoTo);
 

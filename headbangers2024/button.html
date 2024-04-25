@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Button with Line</title>
+<style>
+  .button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: relative; /* Required for positioning the line */
+  }
+
+  .button::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px; /* Adjust the width of the line as needed */
+    background-color: #0056b3; /* Same as button's background color */
+    border-top-left-radius: 5px; /* Adjust if needed */
+    border-bottom-left-radius: 5px; /* Adjust if needed */
+  }
+</style>
+</head>
+<body>
+
+<button class="button">Button with Line</button>
+
+</body>
+</html>
