@@ -7,4 +7,12 @@
     font-size: 24px; /* Set a default font size */
 }
 
-@media screen and (max-width:769px){.text{font-size:24px;}}
+@media only screen and (max-width: 768px) {
+    h2 {
+        font-size: 28px; /* Adjust font size for mobile devices */
+    }
+
+    li {
+        font-size: 18px; /* Adjust font size for mobile devices */
+    }
+}
