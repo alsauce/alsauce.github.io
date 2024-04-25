@@ -238,7 +238,6 @@
         }
 
         function addToEventNameToEventsMap(event) {
-            console.log(event);
             var events = eventNameToEvents.get(event.name);
             if (events == null) {
                 events = [];
@@ -252,36 +251,31 @@
 
             var schedule = document.getElementById("schedule");
             var scheduleButtons = schedule.getElementsByTagName('button');
-            console.log("scheduleButtons: " + scheduleButtons.length);
+            
             while (scheduleButtons.length > 0) {
                 for (var i = 0; i < scheduleButtons.length; i++) {
                     scheduleButtons[i].remove();
                 }
                 scheduleButtons = schedule.getElementsByTagName('button');
-                console.log("scheduleButtons: " + scheduleButtons.length);
             }
 
             var scheduleLabels = schedule.getElementsByTagName('label');
-            console.log("scheduleLabels: " + scheduleLabels.length);
             while (scheduleLabels.length > 0)
                 if (scheduleLabels) {
                     for (var i = 0; i < scheduleLabels.length; i++) {
                         scheduleLabels[i].remove();
                     }
                     scheduleLabels = schedule.getElementsByTagName('label');
-                    console.log("scheduleLabels: " + scheduleLabels.length);
                 }
 
             var top = document.getElementById('top');
             //var topDoc = top.contentDocument || top.contentWindow.document;
             var topButtons = top.getElementsByTagName('button');
-            console.log("topButtons: " + topButtons.length);
             while (topButtons.length > 0) {
                 for (var i = 0; i < topButtons.length; i++) {
                     topButtons[i].remove();
                 }
                 topButtons = top.getElementsByTagName('button');
-                console.log("topButtons: " + topButtons.length);
             }
 
             primeData();
@@ -306,16 +300,9 @@
             
             var scrollTo = localStorage.getItem(storedScrollToKey);
             if (scrollTo != "-1") {
-                console.log("SCROLL TO " + scrollTo);
                 window.scroll(0, Number(scrollTo));
-                //setTimeout(function () { window.scrollTo(0, scrollTo); }, 100);
-            }
-            else {
-                console.log("SCROLL TO " + "NOPE");
-
             }
             localStorage.setItem(storedScrollToKey, -1);
-
         }
 
         function drawTop() {
@@ -335,9 +322,7 @@
             buttonTopLeft.style.backgroundPosition = 'center';
             buttonTopLeft.addEventListener("click", buttonTopLeftClick);
 
-            top.appendChild(buttonTopLeft);
-
-            
+            // leaving blank for now top.appendChild(buttonTopLeft);
 
             for (var i = 0; i < locations.length; i++) {
 
@@ -356,7 +341,6 @@
                 buttonText.style.backgroundColor = "rgba(0, 0, 0, 0.8)"; // Set the background color of the text
                 buttonVenue.appendChild(buttonText);
 
-                //buttonVenue.textContent = venueText;
                 buttonVenue.style.font = fontVenue;
                 buttonVenue.style.backgroundColor = colorVenueBack;
                 buttonVenue.style.color = colorVenueFont;
@@ -374,7 +358,6 @@
         
         function buttonTopLeftClick(donut) {
         	alert("You can click venues for more info and to add delay");
-        	
         }
 
         function venueClick(venueClicked) {
@@ -624,13 +607,10 @@
                 
                 
                 var genre = bandToBandInfo.get(event.name);
-                console.log("genre: " + genre);
                 var genreText = "";
                 if (genre != null && genre != "undefined")
                 {
                     genreText = genre + "\n";
-                    console.log("genreText: " + genreText);
-                    
                 }
                 var goingInd = localStorage.getItem(getGoingKey(event));
                 if (goingInd == null) {
@@ -660,7 +640,7 @@
                 }
                 else{
                     //TBD
-                    leftPortion.style.backgroundColor = "hsla(240, 100%, 10%, 1)";
+                    leftPortion.style.backgroundColor = "hsla(240, 100%, 15%, 1)";
                 }
 
                 buttonViewable.appendChild(leftPortion);
@@ -881,7 +861,7 @@
 
             var schedule = document.getElementById("schedule");
             var parentLabel = theclick.target.parentElement;
-console.log("theClick: " + theClick);
+
             var id = theclick.target.id;
             var innerText = theclick.target.innerText;
             localStorage.setItem(id, innerText);
@@ -1003,7 +983,7 @@ console.log("theClick: " + theClick);
         <button type="button" onclick="handleDayButton(3)" id="dayButton3" class="button">30W</button>
         <button type="button" onclick="handleDayButton(4)" id="dayButton4" class="button">31R</button>
         <button type="button" onclick="alphaToggle()" id="alphaToggle" class="button"
-            style="background-color:hotpink; text-align: left">Alpha</button>
+            style="background-color: darkblue; color:lightgrey; text-align: left">Alpha</button>
         <button type="button" onclick="goToNow()" id="goToNow" class="button">Now</button>
     </div>
 
