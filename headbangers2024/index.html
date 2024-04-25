@@ -22,6 +22,8 @@
 
     </script>
     <script id='scheduleDay2' type='text'>
+        PO, Oct, 29, 5:00, PM, Oct, 29, 6:45, PM, test11
+       
     </script>
     <script id='scheduleDay3' type='text'>
     </script>
@@ -101,7 +103,7 @@
         var storedScrollToKey = "storedStoredScrollToKey" + year + storedVersion;
         var storedGoingKey = "storedGoingKey" + year + storedVersion;
 
-        var colorVenueBack = 'lightgrey';
+        var colorVenueBack = 'darkgrey';
         var colorVenueFont = 'black';
         var colorCurrentTimeNumberBackground = 'black';
         var colorCurrentTimeNumber = 'white';
@@ -322,7 +324,7 @@
             buttonTopLeft.style.backgroundPosition = 'center';
             buttonTopLeft.addEventListener("click", buttonTopLeftClick);
 
-            // leaving blank for now top.appendChild(buttonTopLeft);
+            // leaving blank for now, maybe put info there top.appendChild(buttonTopLeft);
 
             for (var i = 0; i < locations.length; i++) {
 
@@ -335,12 +337,6 @@
                 buttonVenue.style.height = yVenueHeight;
                 var venueText = locations[i].abbrev + ":" + getDelayMinutesForVenue(locations[i].abbrev) + "m " + locations[i].location;
                
-                var buttonText = document.createElement("label");
-                buttonText.innerText =venueText;
-                buttonText.style.color = "white";
-                buttonText.style.backgroundColor = "rgba(0, 0, 0, 0.8)"; // Set the background color of the text
-                buttonVenue.appendChild(buttonText);
-
                 buttonVenue.style.font = fontVenue;
                 buttonVenue.style.backgroundColor = colorVenueBack;
                 buttonVenue.style.color = colorVenueFont;
@@ -348,7 +344,8 @@
                 buttonVenue.style.zIndex = 10000000;
                 buttonVenue.style.backgroundSize = 'cover';
                 buttonVenue.style.backgroundPosition = 'center';
-                buttonVenue.style.backgroundImage = "url(images/hands.png)";
+                buttonVenue.innerText = venueText;
+                //buttonVenue.style.backgroundImage = "url(images/hands.png)";
                 buttonVenue.addEventListener("click", venueClick);
 
                 top.appendChild(buttonVenue);
@@ -722,10 +719,10 @@
                 var buttonGoingGoing = createButtonGoing(goingGoing, schedule, event);
                 var buttonGoingNotGoing = createButtonGoing(goingNotGoing, schedule, event);
 
-                labelHidden.appendChild(buttonGoingUndecided);
-                labelHidden.appendChild(buttonGoingMaybe);
                 labelHidden.appendChild(buttonGoingGoing);
                 labelHidden.appendChild(buttonGoingNotGoing);
+                labelHidden.appendChild(buttonGoingMaybe);
+                labelHidden.appendChild(buttonGoingUndecided);
 
                 labelHidden.appendChild(document.createElement('div'));
 
