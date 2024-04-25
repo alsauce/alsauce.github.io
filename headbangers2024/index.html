@@ -9,7 +9,7 @@
         gtag('config', 'G-PM7ZMMTJG2');
     </script>
     <title>Headbanger's boat 2024</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v1">
     <!--TODO <script type="text/javascript" src="data.js?version=1"></script> -->
     <!--TODO externalize <script type="text/javascript" src="day1.js?version=1"></script>-->
     <script id='scheduleDay1' type='text'>
@@ -85,8 +85,10 @@
         var yTimePushLeftDown = 100;
         var secondsInAnHour = 60 * 60;
         var milliSecondsInAnHour = secondsInAnHour * 1000;
-        var xBlockWidth = (window.innerWidth - xTimeOnLeftWidth) / locations.length;
-
+        //cap width to make desktop look less awful.  Must match style.css values
+        var fullWidth = window.innerWidth > 800 ? 800 : window.innerWidth;
+        var xBlockWidth = (fullWidth - xTimeOnLeftWidth) / locations.length;
+       
         var yHiddenButtonHeight = 1000;
 
         var storedVersion = "_hbb_v3";
@@ -319,7 +321,7 @@
 
         function drawTop() {
             var top = document.getElementById('top');
-            top.style.width = window.innerWidth;
+            top.style.width = fullWidth;
             top.style.height = yTopHeight;
             
             //Donut
@@ -496,7 +498,7 @@
             labelCurentTimeLine.style.left = 0 + 'px';
 
             labelCurentTimeLine.style.top = (pixel + yTimePushLeftDown) + 'px';
-            labelCurentTimeLine.style.width = window.innerWidth;
+            labelCurentTimeLine.style.width = fullWidth;
             labelCurentTimeLine.style.height = 5;
             labelCurentTimeLine.style.background = colorCurrentTimeLine;
 
@@ -584,7 +586,7 @@
                 labelLeftTimeLine.style.left = 0 + 'px';
 
                 labelLeftTimeLine.style.top = (yPixelLocation + yTimePushLeftDown) + 'px';
-                labelLeftTimeLine.style.width = window.innerWidth;
+                labelLeftTimeLine.style.width = fullWidth;
                 labelLeftTimeLine.style.height = 5;
                 labelLeftTimeLine.style.backgroundColor = colorLeftTimeLines;
 
@@ -655,6 +657,17 @@
                     buttonViewable.style.backgroundColor = goingColor;
                     buttonViewable.style.color = "white";
                     buttonViewable.style.textShadow = "2px 2px 0px black";
+                    var leftPortion = document.createElement("span");
+                    leftPortion.style.position = "absolute";
+                    leftPortion.style.top = "0";
+                    leftPortion.style.left = "0";
+                    leftPortion.style.width = "5%"; // Adjust this value as needed
+                    leftPortion.style.height = "100%";
+                    leftPortion.style.backgroundImage = "repeating-linear-gradient(-45deg, transparent, transparent 5px, " + "blue" + " 5px, " + "pink" + " 10px)"; // Striped pattern
+                    //leftPortion.style.backgroundColor = "blue";
+
+                    // Append left portion to button
+                    buttonViewable.appendChild(leftPortion);
 
                 }
                 else if (goingColor == colorGoingNotGoing) {
@@ -688,11 +701,13 @@
                 //var buttonText = document.createElement("span");
                 //var buttonText = document.createElement("div");
                 var buttonText = document.createElement("label");
-                    buttonText.innerText = event.name + "\n"  + genreText + getTimeString(startDate) + "-" + getTimeString(endDate) + "\n" + goingInd;
-                    //buttonText.classList.add("button-text");
-                    buttonText.style.color = "lightgrey";
-                    buttonText.style.backgroundColor = "rgba(0, 0, 0, 0.7)"; // Set the background color of the text
-                    buttonViewable.appendChild(buttonText);
+                buttonText.innerHTML = event.name + "\n"  + genreText + getTimeString(startDate) + "-" + getTimeString(endDate) + "\n" + goingInd;
+                //buttonText.classList.add("button-text");
+                buttonText.style.color = "lightgrey";
+                buttonText.style.display = "block";
+                buttonText.style.textAlign = "left";
+                buttonText.style.backgroundColor = "rgba(0, 0, 0, 0.7)"; // Set the background color of the text
+                buttonViewable.appendChild(buttonText);
 
                 //buttonViewable.innerText = event.name + "\n"  +genreText + getTimeString(startDate) + "-" + getTimeString(endDate) + "\n" + goingInd;
 
@@ -1017,7 +1032,7 @@
             document.getElementById("dayButton4").style.backgroundColor = colorDayBackgroundInactive;
             document.getElementById("dayButton" + day).style.backgroundColor = colorDayBackgroundActive;
 
-            buttonWidth = Math.floor(window.innerWidth / 7) + "px";
+            buttonWidth = Math.floor(fullWidth / 7) + "px";
             document.getElementById("dayButton1").style.width = buttonWidth;
             document.getElementById("dayButton2").style.width = buttonWidth;
             document.getElementById("dayButton3").style.width = buttonWidth;
@@ -1050,13 +1065,13 @@
     <div class="top" id="top">
     </div>
 
-    <div class="schedule" id="schedule" style="background-color: black;"></div>
+    <div class="schedule" id="schedule"></div>
  
     <div class="bottom" id="bottom">
-        <button type="button" onclick="handleDayButton(1)" id="dayButton1" class="button" style="text-align: left; padding-left: 0">28M</button>
-        <button type="button" onclick="handleDayButton(2)" id="dayButton2" class="button" style="text-align: left; padding-left: 0">29T</button>
-        <button type="button" onclick="handleDayButton(3)" id="dayButton3" class="button" style="text-align: left; padding-left: 0">30W</button>
-        <button type="button" onclick="handleDayButton(4)" id="dayButton4" class="button" style="text-align: left; padding-left: 0">31R</button>
+        <button type="button" onclick="handleDayButton(1)" id="dayButton1" class="button">28M</button>
+        <button type="button" onclick="handleDayButton(2)" id="dayButton2" class="button">29T</button>
+        <button type="button" onclick="handleDayButton(3)" id="dayButton3" class="button">30W</button>
+        <button type="button" onclick="handleDayButton(4)" id="dayButton4" class="button">31R</button>
         <button type="button" onclick="alphaToggle()" id="alphaToggle" class="button"
             style="background-color:hotpink; text-align: left">Alpha</button>
         <button type="button" onclick="goToNow()" id="goToNow" class="button">Now</button>

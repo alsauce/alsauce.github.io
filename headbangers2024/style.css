@@ -12,30 +12,38 @@ body {
     padding: 0;
     font-size: 50px;
     z-index: 100000;
+    max-width: 800px;
 }
 
 .bottom {
     overflow: hidden;
-    background-color: white;
+    background-color: black;
     position: fixed;
     bottom: 0;
     width: 100%;
     font-size: 50px;
     z-index: 100000;
+    max-width: 800px;
+}
+
+.schedule {
+    background-color: black;
+    max-width: 800px;
 }
 
 
 .button {
     border: none;
-    padding: 15px 32px;
     text-align: left;
+    padding-left: 0;
     color: black;
     text-decoration: none;
     display: inline-block;
-    font-size: 60px;
+    font-size: 50px;
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 12px;
-    height: 150px;
+    height: 90px;
+    width: auto;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
