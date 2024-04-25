@@ -1,15 +1,27 @@
 Notes
 
 TODO:
-cache name unique
-mess with colors
 verify time works/update testing approach
-venues differ from 70k, check previous year
 have alpha reference schedule from index
+Make alpha more functional - add going and not going and "more info"?
+fix venue info code
+extra band info somewhere
+the way background color is being used right now is a travesty
+add personal Notes
+filter/search for bands
+Going to an already past event doesn't go to the right spot.
+Current Time on left shows 0 for midnight
+tab picture up top
 
 in progress:
-venues need to be objects
+mess with colors
 
 Done:
-update button day/dates so they make sense
+venues need to be objects
+band genres
 
+Needs every time:
+update button day/dates so they make sense
+cache name unique
+verify "current time" works
+venues may change up top

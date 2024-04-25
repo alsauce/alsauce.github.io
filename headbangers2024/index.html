@@ -27,6 +27,12 @@
     <script id='scheduleDay4' type='text'>
     </script>
 
+    <script id='bandInfo' type='text'>
+        test11, genre1
+        test22, genre2
+        test44, genre three
+    </script>
+
     <script>
 
         //TODO externalize?
@@ -83,7 +89,7 @@
 
         var yHiddenButtonHeight = 1000;
 
-        var storedVersion = "_hbb_v2";
+        var storedVersion = "_hbb_v3";
 
         var storedDelayKey = "storedDelayHB" + year + storedVersion;
         var storedDayKey = "storedDayHB" + year + storedVersion;
@@ -106,11 +112,11 @@
         var colorDayBackgroundActive = 'gold';
         var colorGoToBackground = "grey";
 
-
-        var colorGoingUndecided = "lightgrey";
-        var colorGoingMaybe = "yellow";
-        var colorGoingGoing = "lime";
-        var colorGoingNotGoing = "black";
+//120 green, 0 red, 60 yellow, 240 blue
+        var colorGoingUndecided = "hsl(0, 30%, 30%)";
+        var colorGoingMaybe = "hsl(0, 90%, 60%)";
+        var colorGoingGoing = "hsl(0, 70%, 60%)";
+        var colorGoingNotGoing = "hsl(0, 50%, 60%)";
         var colorEventBack = '#696969';
         var colorEventFont = 'lightgrey';
 
@@ -123,10 +129,29 @@
 
         var eventNameToEvents;
         var dayToData;
+        var bandToBandInfo;
+
+        function primeBandToBandInfo()
+        {
+            bandToBandInfo = new Map();
+            var bands = document.getElementById('bandInfo').innerHTML;
+            var bandsSplit = bands.split("\n");
+            for (let i = 0; i < bandsSplit.length; i++) {
+                if (!bandsSplit[i] || bandsSplit[i].trim() == "") {
+                    continue;
+                }
+                var bandSplit = bandsSplit[i].split(",");
+                Object.keys(bandSplit).forEach(k => bandSplit[k] = bandSplit[k].trim());
+            
+                bandToBandInfo.set(bandSplit[0], bandSplit[1]);
+            }
+            
+        }
 
         function primeData() {
             eventNameToEvents = new Map();
             dayToData = new Map();
+            primeBandToBandInfo();
             for (var dayIndex = 1; dayIndex <= 4; dayIndex++) {
                 var currentEvents = document.getElementById('scheduleDay' + dayIndex).innerHTML;
                 var eventsSplit = currentEvents.split("\n");
@@ -208,7 +233,7 @@
         function getCommaStringFromEvent(event) {
             return event.location + "," + event.startMonth + "," + event.startDay + "," +
                 event.startTime + "," + event.startAMPM + "," + event.endMonth + "," + event.endDay + "," +
-                event.endTime + "," + event.endAMPM + "," + event.day + "," +  event.name;
+                event.endTime + "," + event.endAMPM + "," + event.name + "," +  event.day;
         }
 
         function addToEventNameToEventsMap(event) {
@@ -325,12 +350,21 @@
                 buttonVenue.style.height = yVenueHeight;
                 var venueText = locations[i].abbrev + ":" + getDelayMinutesForVenue(locations[i].abbrev) + "m " + locations[i].location;
                
-                buttonVenue.textContent = venueText;
+                var buttonText = document.createElement("label");
+                buttonText.innerText =venueText;
+                buttonText.style.color = "white";
+                buttonText.style.backgroundColor = "rgba(0, 0, 0, 0.8)"; // Set the background color of the text
+                buttonVenue.appendChild(buttonText);
+
+                //buttonVenue.textContent = venueText;
                 buttonVenue.style.font = fontVenue;
                 buttonVenue.style.backgroundColor = colorVenueBack;
                 buttonVenue.style.color = colorVenueFont;
                 buttonVenue.style.borderRadius = "12px";
                 buttonVenue.style.zIndex = 10000000;
+                buttonVenue.style.backgroundSize = 'cover';
+                buttonVenue.style.backgroundPosition = 'center';
+                buttonVenue.style.backgroundImage = "url(images/hands.png)";
                 buttonVenue.addEventListener("click", venueClick);
 
                 top.appendChild(buttonVenue);
@@ -604,29 +638,33 @@
                     buttonViewable.style.backgroundSize = 'cover';
                     buttonViewable.style.backgroundPosition = 'center';
                     buttonViewable.style.backgroundImage = "url(images/dog.png)";
-                    buttonViewable.style.color = "cyan";
+                    buttonViewable.style.color = goingColor;
                     buttonViewable.style.fontWeight = "bold";
                     buttonViewable.style.textShadow = "2px 2px 0px black";
-                    //buttonViewable.style.backgroundColor = "green";
+                    //buttonViewable.style.backgroundColor = colorGoingGoing;
                     //buttonViewable.style.color = "white";
                     //buttonViewable.style.textShadow = "2px 2px 0px black";
-                    
+                    //var img = new Image();
+                    //img.src = "url(images/dog.png)";
+                    //img.classList.add("button-background");
+                    //buttonViewable.appendChild(img);
 
+                    
                 }
                 else if (goingColor == colorGoingUndecided) {
-                    buttonViewable.style.backgroundColor = "#262626";
+                    buttonViewable.style.backgroundColor = goingColor;
                     buttonViewable.style.color = "white";
                     buttonViewable.style.textShadow = "2px 2px 0px black";
 
                 }
                 else if (goingColor == colorGoingNotGoing) {
-                    buttonViewable.style.backgroundColor = "red";
+                    buttonViewable.style.backgroundColor = goingColor;
                     buttonViewable.style.color = "white";
                     buttonViewable.style.textShadow = "2px 2px 0px black";
 
                 }
                 else if (goingColor == colorGoingMaybe) {
-                    buttonViewable.style.backgroundColor = "yellow";
+                    buttonViewable.style.backgroundColor = goingColor;
                     buttonViewable.style.color = "black";
                     //buttonViewable.style.textShadow = "2px 2px 0px black";
 
@@ -640,7 +678,23 @@
                 if (goingInd == null) {
                     goingInd = goingUndecided;
                 }
-                buttonViewable.innerText = event.name + "\n" + getTimeString(startDate) + "-" + getTimeString(endDate) + "\n" + goingInd;
+                var genre = bandToBandInfo.get(event.name);
+                var genreText = "";
+                if (genre != null)
+                {
+                    genreText = genre + "\n";
+                }
+                // Create the span element for text
+                //var buttonText = document.createElement("span");
+                //var buttonText = document.createElement("div");
+                var buttonText = document.createElement("label");
+                    buttonText.innerText = event.name + "\n"  + genreText + getTimeString(startDate) + "-" + getTimeString(endDate) + "\n" + goingInd;
+                    //buttonText.classList.add("button-text");
+                    buttonText.style.color = "lightgrey";
+                    buttonText.style.backgroundColor = "rgba(0, 0, 0, 0.7)"; // Set the background color of the text
+                    buttonViewable.appendChild(buttonText);
+
+                //buttonViewable.innerText = event.name + "\n"  +genreText + getTimeString(startDate) + "-" + getTimeString(endDate) + "\n" + goingInd;
 
                 schedule.appendChild(buttonViewable);
 
