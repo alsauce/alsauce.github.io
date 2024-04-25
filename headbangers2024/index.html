@@ -43,27 +43,32 @@
         	{
         		abbrev: "PO",
         		fullName: "Pool Deck",
-        		location: "12 mid"
+        		location: "12 mid",
+                note: "test1"
         	},
         	{
         		abbrev: "ST",
         		fullName: "Stardust Theater",
-        		location: "6,7 fwd"
+        		location: "6,7 fwd",
+                note: "test 2"
         	},
         	{
         		abbrev: "SP",
         		fullName: "Spinnaker Lounge",
-        		location: "13 fwd"
+        		location: "13 fwd",
+                note: ""
         	},
         	{
         		abbrev: "AT",
         		fullName: "Atrium",
-        		location: "7,8 mid"
+        		location: "7,8 mid",
+                note: ""
         	},
         	{
         		abbrev: "MA",
         		fullName: "Magnums",
-        		location: "6 mid"
+        		location: "6 mid",
+                note: ""
         	}
         ];
         let year = 2024;
@@ -369,7 +374,13 @@
                 }
             }
 
-            let delayStr = prompt("Minutes delayed for " + venue.fullName + " day " + day, getDelayMinutesForVenue(venue));
+            var note = "";
+            if (venue.note != "" && venue.note != undefined)
+            {
+                note += ". " + venue.note;
+            }
+
+            let delayStr = prompt("Minutes delayed for " + venue.fullName + " day " + day + note, getDelayMinutesForVenue(venue));
             if (delayStr == null || "" == delayStr) {
                 return;
             }
