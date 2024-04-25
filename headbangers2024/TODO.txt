@@ -1,6 +1,7 @@
 Notes
 
 TODO:
+putting the text over the pic means tapping it doesn't work.
 verify time works/update testing approach
 have alpha reference schedule from index
 Make alpha more functional - add going and not going and "more info"?
