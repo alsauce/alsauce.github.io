@@ -12,7 +12,6 @@ body {
     padding: 0;
     font-size: 50px;
     z-index: 100000;
-    max-width: 800px;
 }
 
 .bottom {
@@ -23,12 +22,10 @@ body {
     width: 100%;
     font-size: 50px;
     z-index: 100000;
-    max-width: 800px;
 }
 
 .schedule {
     background-color: black;
-    max-width: 800px;
 }
 
 

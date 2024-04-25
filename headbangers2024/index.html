@@ -86,7 +86,9 @@
         var secondsInAnHour = 60 * 60;
         var milliSecondsInAnHour = secondsInAnHour * 1000;
         //cap width to make desktop look less awful.  Must match style.css values
-        var fullWidth = window.innerWidth > 800 ? 800 : window.innerWidth;
+        // seems to not help much 
+        //var fullWidth = window.innerWidth > 2000 ? 2000 : window.innerWidth;
+        var fullWidth = window.innerWidth;
         var xBlockWidth = (fullWidth - xTimeOnLeftWidth) / locations.length;
        
         var yHiddenButtonHeight = 1000;
@@ -639,10 +641,11 @@
                 {
                     buttonViewable.style.backgroundSize = 'cover';
                     buttonViewable.style.backgroundPosition = 'center';
-                    buttonViewable.style.backgroundImage = "url(images/dog.png)";
-                    buttonViewable.style.color = goingColor;
+                    //buttonViewable.style.backgroundImage = "url(images/dog.png)";
+                    buttonViewable.style.color = "limegreen";
                     buttonViewable.style.fontWeight = "bold";
                     buttonViewable.style.textShadow = "2px 2px 0px black";
+                    
                     //buttonViewable.style.backgroundColor = colorGoingGoing;
                     //buttonViewable.style.color = "white";
                     //buttonViewable.style.textShadow = "2px 2px 0px black";
@@ -657,17 +660,7 @@
                     buttonViewable.style.backgroundColor = goingColor;
                     buttonViewable.style.color = "white";
                     buttonViewable.style.textShadow = "2px 2px 0px black";
-                    var leftPortion = document.createElement("span");
-                    leftPortion.style.position = "absolute";
-                    leftPortion.style.top = "0";
-                    leftPortion.style.left = "0";
-                    leftPortion.style.width = "5%"; // Adjust this value as needed
-                    leftPortion.style.height = "100%";
-                    leftPortion.style.backgroundImage = "repeating-linear-gradient(-45deg, transparent, transparent 5px, " + "blue" + " 5px, " + "pink" + " 10px)"; // Striped pattern
-                    //leftPortion.style.backgroundColor = "blue";
-
-                    // Append left portion to button
-                    buttonViewable.appendChild(leftPortion);
+                    
 
                 }
                 else if (goingColor == colorGoingNotGoing) {
@@ -682,35 +675,55 @@
                     //buttonViewable.style.textShadow = "2px 2px 0px black";
 
                 }
+                buttonViewable.innerText = event.name + "\n"  + genreText + getTimeString(startDate) + "-" + getTimeString(endDate) + "\n" + goingInd;
 
                 buttonViewable.addEventListener("click", eventClick);
                 buttonViewable.id = getScheduleViewableButtonId(event);
+                buttonViewable.style.textAlign = "left";
+                buttonViewable.style.paddingLeft = "15";
+                //third one to make grey
+                buttonViewable.style.backgroundColor = "hsla(0, 0%, 20%, 1)";
+                buttonViewable.style.color = "white";
+                buttonViewable.style.textShadow = "2px 2px 0px black";
+                var leftPortion = document.createElement("span");
+                leftPortion.style.position = "absolute";
+                leftPortion.style.top = "0";
+                leftPortion.style.left = "0";
+                leftPortion.style.width = "10%"; // Adjust this value as needed
+                leftPortion.style.height = "100%";
+                leftPortion.style.backgroundColor = "black";
+                leftPortion.style.backgroundSize = "10px 10px";
+                    //leftPortion.style.backgroundColor = "blue";
+
+                    // Append left portion to button
+                   
 
 
                 var goingInd = localStorage.getItem(getGoingKey(event));
-                if (goingInd == null) {
-                    goingInd = goingUndecided;
+                if (goingInd == null || goingInd == goingUndecided) {
+                     
                 }
+                else if (goingInd == goingGoing)
+                {
+                    
+                }
+                else if (goingInd == goingNotGoing)
+                {
+                    
+                }
+                else if (goingInd == goingMaybe)
+                {
+                    leftPortion.style.backgroundImage = "repeating-linear-gradient(-45deg, limegreen, limegreen 5px, black 5px, black 10px)"; // Striped pattern
+                }
+                buttonViewable.appendChild(leftPortion);
                 var genre = bandToBandInfo.get(event.name);
                 var genreText = "";
                 if (genre != null)
                 {
                     genreText = genre + "\n";
                 }
-                // Create the span element for text
-                //var buttonText = document.createElement("span");
-                //var buttonText = document.createElement("div");
-                var buttonText = document.createElement("label");
-                buttonText.innerHTML = event.name + "\n"  + genreText + getTimeString(startDate) + "-" + getTimeString(endDate) + "\n" + goingInd;
-                //buttonText.classList.add("button-text");
-                buttonText.style.color = "lightgrey";
-                buttonText.style.display = "block";
-                buttonText.style.textAlign = "left";
-                buttonText.style.backgroundColor = "rgba(0, 0, 0, 0.7)"; // Set the background color of the text
-                buttonViewable.appendChild(buttonText);
 
-                //buttonViewable.innerText = event.name + "\n"  +genreText + getTimeString(startDate) + "-" + getTimeString(endDate) + "\n" + goingInd;
-
+               
                 schedule.appendChild(buttonViewable);
 
             }
