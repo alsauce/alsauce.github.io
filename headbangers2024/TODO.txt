@@ -1,11 +1,14 @@
 Notes
 
 TODO:
-venues need to be objects
+cache name unique
 mess with colors
 verify time works/update testing approach
 venues differ from 70k, check previous year
 have alpha reference schedule from index
+
+in progress:
+venues need to be objects
 
 Done:
 update button day/dates so they make sense
