@@ -9,6 +9,7 @@ add personal Notes
 filter/search for bands
 Going to an already past event doesn't go to the right spot.
 Current Time on left shows 0 for midnight
+I think storage has messed up or something.  The key got messed up with the venue name as object change?
 
 in progress:
 mess with colors

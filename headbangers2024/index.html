@@ -106,7 +106,7 @@
         var colorCurrentTimeNumberBackground = 'black';
         var colorCurrentTimeNumber = 'white';
         var colorCurrentTimeLine = 'fuchsia';
-        var colorLeftTimeLines = 'white';
+        var colorLeftTimeLines = 'darkgrey';
         var colorLeftTimesNumber = 'cyan';
         var colorLeftTimesBackground = "hsla(0, 0%, 0%, 1)";
         var colorHiddenBackground = 'lightblue';
@@ -881,7 +881,7 @@
 
             var schedule = document.getElementById("schedule");
             var parentLabel = theclick.target.parentElement;
-
+console.log("theClick: " + theClick);
             var id = theclick.target.id;
             var innerText = theclick.target.innerText;
             localStorage.setItem(id, innerText);
