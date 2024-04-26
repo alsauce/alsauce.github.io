@@ -34,9 +34,7 @@
         var yTimePushLeftDown = 100;
         var secondsInAnHour = 60 * 60;
         var milliSecondsInAnHour = secondsInAnHour * 1000;
-        //cap width to make desktop look less awful.  Must match style.css values
-        // seems to not help much 
-        //var fullWidth = window.innerWidth > 2000 ? 2000 : window.innerWidth;
+
         var fullWidth = window.innerWidth;
         var xBlockWidth = (fullWidth - xTimeOnLeftWidth) / common.locations.length;
        
@@ -61,7 +59,7 @@
         var colorEventBack = '#696969';
         var colorEventFont = 'lightgrey';
         
-        // these need to be reset every time we redraw everything so don't initialize them here
+        // these need to be reset every redraw so don't initialize them here
         var eventNameToEvents;
         var dayToData;
         var bandToBandInfo;
@@ -125,7 +123,7 @@
                             var eventStartDateCompare = getStartDateTime(eventCompare);
                             var eventEndDateCompare = getEndDateTime(eventCompare);
 
-                            if (eventStartDate <= eventEndDateCompare && eventStartDateCompare <= eventEndDate)
+                            if (eventStartDate < eventEndDateCompare && eventStartDateCompare < eventEndDate)
                             {
                                 console.log("overlap " + event.name + " " + eventCompare.name);
                                 var goingInd = localStorage.getItem(common.getGoingKey(eventCompare));
@@ -628,7 +626,12 @@
                 schedule.appendChild(labelHidden);
 
                 var labelBand = document.createElement('label');
-                labelBand.innerText = event.name + "\n" + event.startTime + "-" + event.endTime + " " + event.endAMPM + "\n" + "Conflicts: " + event.overlap;
+                var conflicts = event.overlap.trim();
+                if (conflicts == "")
+                {
+                    conflicts = "None.";
+                }
+                labelBand.innerText = event.name + "\n" + event.startTime + "-" + event.endTime + " " + event.endAMPM + "\n" + "Conflicts: " + conflicts;
                 labelHidden.appendChild(labelBand);
                 labelHidden.appendChild(document.createElement('div'));
 
@@ -658,7 +661,6 @@
                 buttonCloseOnLabel.style.top = 0;
                 buttonCloseOnLabel.style.right = 0;
 
-
                 buttonCloseOnLabel.addEventListener("click", closeHiddenLabel);
                 labelHidden.appendChild(document.createElement('div'));
 
@@ -677,8 +679,13 @@
                     labelHidden.appendChild(document.createElement('div'));
 
                     var labelBandAlso = document.createElement('label');
-                    //labelBandAlso.width = "100%";
-                    labelBandAlso.innerText = "Day: " + eventIter.day + " " + " " + eventIter.startTime + "-" + eventIter.endTime + " " + eventIter.endAMPM + "\n" + "Conflicts: " + eventIter.overlap;
+
+                    var conflicts = eventIter.overlap.trim();
+                    if (conflicts == "")
+                    {
+                        conflicts = "None.";
+                    }
+                    labelBandAlso.innerText = "Day: " + eventIter.day + " " + " " + eventIter.startTime + "-" + eventIter.endTime + " " + eventIter.endAMPM + "\n" + "Conflicts: " + conflicts;
                     labelHidden.appendChild(labelBandAlso);
                     labelHidden.appendChild(document.createElement('div'));
                     var buttonGoingGoing = createButtonGoing(common.goingGoing, schedule, eventIter);
