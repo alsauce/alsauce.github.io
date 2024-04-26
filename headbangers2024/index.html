@@ -51,10 +51,10 @@
         var colorHiddenBackground = 'lightblue';
         var colorHiddenFont = 'black';
         var colorGoingButtonActiveBackground = "hsla(0, 0%, 90%, 1)";
-        var colorGoingButtonNonActiveBackground = "hsla(0, 0%, 20%, 1)";
+        var colorGoingButtonNonActiveBackground = "hsla(0, 0%, 50%, 1)";
         var colorDayBackgroundInactive = 'grey';
         var colorDayBackgroundActive = 'gold';
-        var colorGoToBackground = "grey";
+        var colorGoToBackground = "lightblue";
 
         var colorEventBack = '#696969';
         var colorEventFont = 'lightgrey';
@@ -563,7 +563,7 @@
                 else if (goingInd == common.goingNotGoing)
                 {
                     leftPortion.style.backgroundColor = "hsla(0, 100%, 25%, 1)";
-                    buttonViewable.style.opacity = ".2";
+                    buttonViewable.style.opacity = ".4";
                 }
                 else if (goingInd == common.goingMaybe)
                 {
@@ -739,7 +739,7 @@
 
             buttonGoTo.style.width = "20%";
             buttonGoTo.style.height = 100;
-            buttonGoTo.innerText = "Go";
+            buttonGoTo.innerText = "GoTo";
             buttonGoTo.id = getGoToKey(event);
             buttonGoTo.style.font = fontGoingButton;
 
