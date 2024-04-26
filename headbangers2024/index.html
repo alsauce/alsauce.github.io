@@ -10,70 +10,11 @@
     </script>
     <title>Headbanger's boat 2024</title>
     <link rel="stylesheet" href="style.css?v1">
-    <!--TODO <script type="text/javascript" src="data.js?version=1"></script> -->
-    <!--TODO externalize <script type="text/javascript" src="day1.js?version=1"></script>-->
-    <script id='scheduleDay1' type='text'>
-        PO, Oct, 28, 6:00, PM, Oct, 28, 6:45, PM, test11
-        ST, Oct, 28, 6:10, PM, Oct, 28, 6:45, PM, test22
-        SP, Oct, 28, 6:30, PM, Oct, 28, 6:55, PM, test33
-        AT, Oct, 28, 7:10, PM, Oct, 28, 7:45, PM, test44
-        MA, Oct, 28, 7:00, PM, Oct, 28, 7:45, PM, test55
-        PO, Oct, 29, 12:00, AM, Oct, 29, 12:30, AM, test66
-
-    </script>
-    <script id='scheduleDay2' type='text'>
-        PO, Oct, 29, 5:00, PM, Oct, 29, 6:45, PM, test11
-       
-    </script>
-    <script id='scheduleDay3' type='text'>
-    </script>
-    <script id='scheduleDay4' type='text'>
-    </script>
-
-    <script id='bandInfo' type='text'>
-        test11, genre1
-        test22, genre2
-        test44, genre three
-    </script>
-
-    <script>
-
-        //TODO externalize?
-        let locations = [
-        	{
-        		abbrev: "PO",
-        		fullName: "Pool Deck",
-        		location: "12 mid",
-                note: "test1"
-        	},
-        	{
-        		abbrev: "ST",
-        		fullName: "Stardust Theater",
-        		location: "6,7 fwd",
-                note: "test 2"
-        	},
-        	{
-        		abbrev: "SP",
-        		fullName: "Spinnaker Lounge",
-        		location: "13 fwd",
-                note: ""
-        	},
-        	{
-        		abbrev: "AT",
-        		fullName: "Atrium",
-        		location: "7,8 mid",
-                note: ""
-        	},
-        	{
-        		abbrev: "MA",
-        		fullName: "Magnums",
-        		location: "6 mid",
-                note: ""
-        	}
-        ];
-        let year = 2024;
-
-        //TODO externalize above?
+    
+    <script type="module">
+        
+        import * as common from './common.js?v2';
+        
         var day = 1;
         var yVenueHeight = 150;
         var yTopHeight = yVenueHeight;
@@ -97,16 +38,16 @@
         // seems to not help much 
         //var fullWidth = window.innerWidth > 2000 ? 2000 : window.innerWidth;
         var fullWidth = window.innerWidth;
-        var xBlockWidth = (fullWidth - xTimeOnLeftWidth) / locations.length;
+        var xBlockWidth = (fullWidth - xTimeOnLeftWidth) / common.locations.length;
        
         var yHiddenButtonHeight = 1000;
 
         var storedVersion = "_hbb_v6";
 
-        var storedDelayKey = "storedDelayHB" + year + storedVersion;
-        var storedDayKey = "storedDayHB" + year + storedVersion;
-        var storedScrollToKey = "storedStoredScrollToKey" + year + storedVersion;
-        var storedGoingKey = "storedGoingKey" + year + storedVersion;
+        var storedDelayKey = "storedDelayHB" + common.year + storedVersion;
+        var storedDayKey = "storedDayHB" + common.year + storedVersion;
+        var storedScrollToKey = "storedStoredScrollToKey" + common.year + storedVersion;
+        var storedGoingKey = "storedGoingKey" + common.year + storedVersion;
 
         var colorVenueBack = 'darkgrey';
         var colorVenueFont = 'black';
@@ -132,40 +73,32 @@
         var goingGoing = "Going";
         var goingNotGoing = "No";
 
-        //TODO swap these when done testing var storedTimeTEST = new Date();
-        var storedTimeTEST = getDateTime("2024", "Oct", "29", "12:02", "AM");
-
-        var eventNameToEvents;
+        
+        var eventNameToEvents = new Map();
         var dayToData;
         var bandToBandInfo;
 
         function primeBandToBandInfo()
         {
             bandToBandInfo = new Map();
-            var bands = document.getElementById('bandInfo').innerHTML;
-            var bandsSplit = bands.split("\n");
-            for (let i = 0; i < bandsSplit.length; i++) {
-                if (!bandsSplit[i] || bandsSplit[i].trim() == "") {
-                    continue;
-                }
-                var bandSplit = bandsSplit[i].split(",");
-                Object.keys(bandSplit).forEach(k => bandSplit[k] = bandSplit[k].trim());
-            
-                bandToBandInfo.set(bandSplit[0], bandSplit[1]);
+            var bands = common.bandInfo;
+            for (let i = 0; i < bands.length; i++) {
+                let band = bands[i];
+                bandToBandInfo.set(band[0], {genre: band[1]});
             }
             
         }
 
         function primeData() {
-            eventNameToEvents = new Map();
+            //window.eventNameToEvents = new Map();
             dayToData = new Map();
             primeBandToBandInfo();
-            for (var dayIndex = 1; dayIndex <= 4; dayIndex++) {
-                var currentEvents = document.getElementById('scheduleDay' + dayIndex).innerHTML;
+            for (var dayIndex = 0; dayIndex < common.schedule.length; dayIndex++) {
+                var currentEvents = common.schedule[dayIndex];
                 var eventsSplit = currentEvents.split("\n");
                 var events = [];
-                var earliestStart = getDateTime("2100", "Jan", "1", "1:00", "AM");
-                var latestEnd = getDateTime("2000", "Jan", "1", "1:00", "AM");
+                var earliestStart = common.getDateTime("2100", "Jan", "1", "1:00", "AM");
+                var latestEnd = common.getDateTime("2000", "Jan", "1", "1:00", "AM");
                 var earliestEvent;
                 var latestEvent;
                 for (let i = 0; i < eventsSplit.length; i++) {
@@ -173,7 +106,7 @@
                     if (!eventsSplit[i] || eventsSplit[i].trim() == "") {
                         continue;
                     }
-                    var eventWithDay = eventsSplit[i] + "," + dayIndex;
+                    var eventWithDay = eventsSplit[i] + "," + (dayIndex + 1);
                     var event = getEventFromCommas(eventWithDay);
 
                     events.push(event);
@@ -195,10 +128,10 @@
 
                 //remove minutes and add some buffer time
                 var hourAndMinuteEarliest = earliestEvent.startTime.split(":");
-                earliestStart = getDateTime(year, earliestEvent.startMonth, earliestEvent.startDay, (hourAndMinuteEarliest[0]) + ":00", earliestEvent.startAMPM)
+                earliestStart = common.getDateTime(common.year, earliestEvent.startMonth, earliestEvent.startDay, (hourAndMinuteEarliest[0]) + ":00", earliestEvent.startAMPM)
                 earliestStart = new Date(earliestStart.getTime() - (milliSecondsInAnHour * yEarliestBufferHours));
                 var hourAndMinuteLatest = latestEvent.endTime.split(":");
-                latestEnd = getDateTime(year, latestEvent.endMonth, latestEvent.endDay, (hourAndMinuteLatest[0]) + ":00", latestEvent.endAMPM)
+                latestEnd = common.getDateTime(common.year, latestEvent.endMonth, latestEvent.endDay, (hourAndMinuteLatest[0]) + ":00", latestEvent.endAMPM)
                 latestEnd = new Date(latestEnd.getTime() + (milliSecondsInAnHour * yLatestBufferHours));
 
                 var data = {
@@ -206,7 +139,7 @@
                     latestEnd: latestEnd,
                     events: events
                 };
-                dayToData.set(dayIndex, data);
+                dayToData.set((dayIndex + 1), data);
 
                 var scrollTo = localStorage.getItem(storedScrollToKey);
                 if (scrollTo != "-1") {
@@ -245,10 +178,10 @@
         }
 
         function addToEventNameToEventsMap(event) {
-            var events = eventNameToEvents.get(event.name);
+            var events =eventNameToEvents.get(event.name);
             if (events == null) {
                 events = [];
-                eventNameToEvents.set(event.name, events);
+               eventNameToEvents.set(event.name, events);
             }
             events.push(event);
         }
@@ -312,6 +245,7 @@
             localStorage.setItem(storedScrollToKey, -1);
         }
 
+        
         function drawTop() {
             var top = document.getElementById('top');
             top.style.width = fullWidth;
@@ -331,7 +265,7 @@
 
             // leaving blank for now, maybe put info there top.appendChild(buttonTopLeft);
 
-            for (var i = 0; i < locations.length; i++) {
+            for (var i = 0; i < common.locations.length; i++) {
 
                 var buttonVenue = document.createElement('button');
                 buttonVenue.style.position = 'absolute';
@@ -340,7 +274,7 @@
                 buttonVenue.style.top = 0 + 'px';
                 buttonVenue.style.width = xBlockWidth;
                 buttonVenue.style.height = yVenueHeight;
-                var venueText = locations[i].abbrev + ":" + getDelayMinutesForVenue(locations[i].abbrev) + "m " + locations[i].location;
+                var venueText = common.locations[i].abbrev + ":" + getDelayMinutesForVenue(common.locations[i].abbrev) + "m " + common.locations[i].location;
                
                 buttonVenue.style.font = fontVenue;
                 buttonVenue.style.backgroundColor = colorVenueBack;
@@ -366,10 +300,10 @@
 
             var venueAbbrev = venueClicked.target.textContent.split(":")[0];
             var venue;
-            for (var i = 0; i < locations.length; i++) {
-                if (locations[i].abbrev == venueAbbrev)
+            for (var i = 0; i < common.locations.length; i++) {
+                if (common.locations[i].abbrev == venueAbbrev)
                 {
-                    venue = locations[i];
+                    venue = common.locations[i];
                     break;
                 }
             }
@@ -423,11 +357,11 @@
             var schedule = document.getElementById("schedule");
             var currentTime = new Date();    
         
-        if (currentTime > storedTimeTEST)
+        if (currentTime > common.storedTimeTEST)
         {
-            storedTimeTEST = currentTime;
+            common.storedTimeTEST = currentTime;
         }
-            var pixel = getYPixelLocation(earliestStart, storedTimeTEST);
+            var pixel = getYPixelLocation(earliestStart, common.storedTimeTEST);
 
             var labelCurrentTimeNumber = document.createElement('label');
             labelCurrentTimeNumber.style.position = 'absolute';
@@ -436,7 +370,7 @@
             labelCurrentTimeNumber.style.top = (pixel + yTimePushLeftDown) + 'px';
             labelCurrentTimeNumber.style.width = xBlockWidth;
             labelCurrentTimeNumber.style.height = yTimeHourHeight;
-            var minutes = storedTimeTEST.getMinutes();
+            var minutes = common.storedTimeTEST.getMinutes();
             var minutesString;
             if (minutes < 10) {
                 minutesString = "0" + minutes;
@@ -444,7 +378,7 @@
             else {
                 minutesString = minutes;
             }
-            var hours = storedTimeTEST.getHours();
+            var hours = common.storedTimeTEST.getHours();
             var hoursString;
             if (hours > 12) {
                 hoursString = hours - 12;
@@ -478,18 +412,10 @@
         }
 
         function getStartDateTime(event) {
-            return getDateTime(year, event.startMonth, event.startDay, event.startTime, event.startAMPM);
+            return common.getDateTime(common.year, event.startMonth, event.startDay, event.startTime, event.startAMPM);
         }
         function getEndDateTime(event) {
-            return getDateTime(year, event.endMonth, event.endDay, event.endTime, event.endAMPM);
-        }
-
-        function getDateTime(year, month, day, time, AMPM) {
-
-            var dateString = day + " " + month + " " + year + " " + time + ":00" + " " + AMPM;
-
-            var date = new Date(Date.parse(dateString));
-            return date;
+            return common.getDateTime(common.year, event.endMonth, event.endDay, event.endTime, event.endAMPM);
         }
 
         function drawTimeOnLeft(earliestStart, latestEnd) {
@@ -614,11 +540,11 @@
                 buttonViewable.style.textShadow = "2px 2px 0px black";
                 
                 
-                var genre = bandToBandInfo.get(event.name);
+                var bandInfo = bandToBandInfo.get(event.name);
                 var genreText = "";
-                if (genre != null && genre != "undefined")
+                if (bandInfo != null && bandInfo != "undefined")
                 {
-                    genreText = genre + "\n";
+                    genreText = bandInfo.genre + "\n";
                 }
                 var goingInd = localStorage.getItem(getGoingKey(event));
                 if (goingInd == null) {
@@ -928,8 +854,8 @@
         }
 
         function getLocationIndex(location) {
-            for (let i = 0; i < locations.length; i++) {
-                if (location === locations[i].abbrev) {
+            for (let i = 0; i < common.locations.length; i++) {
+                if (location === common.locations[i].abbrev) {
                     return i;
                 }
             }
@@ -950,7 +876,7 @@
             document.getElementById("dayButton4").style.backgroundColor = colorDayBackgroundInactive;
             document.getElementById("dayButton" + day).style.backgroundColor = colorDayBackgroundActive;
 
-            buttonWidth = Math.floor(fullWidth / 7) + "px";
+            var buttonWidth = Math.floor(fullWidth / 7) + "px";
             document.getElementById("dayButton1").style.width = buttonWidth;
             document.getElementById("dayButton2").style.width = buttonWidth;
             document.getElementById("dayButton3").style.width = buttonWidth;
@@ -960,10 +886,10 @@
         function goToNow() {
             for (var day = 1; day <= 4; day++) {
                 var data = dayToData.get(day);
-                if (data.earliestStart < storedTimeTEST && data.latestEnd > storedTimeTEST) {
+                if (data.earliestStart < common.storedTimeTEST && data.latestEnd > common.storedTimeTEST) {
                     localStorage.setItem(storedDayKey, day);
 
-                    var scrollToLocation = getYPixelLocation(data.earliestStart, storedTimeTEST);
+                    var scrollToLocation = getYPixelLocation(data.earliestStart, common.storedTimeTEST);
                     localStorage.setItem(storedScrollToKey, scrollToLocation - 200);
                     redrawEverything();
                     return;
@@ -974,6 +900,10 @@
         function alphaToggle() {
             window.location.assign("./alpha.html");
         }
+        window.redrawEverything = redrawEverything;
+        window.handleDayButton = handleDayButton;
+        window.alphaToggle = alphaToggle;
+        window.goToNow = goToNow;
 
     </script>
 

@@ -14,10 +14,10 @@
     <link rel="stylesheet" href="style.css">
     
     <title>Headbangers 2024 Alpha</title>
-    <script id='scheduleDay1' src="/index.html#scheduleDay1" type='text'>
-    </script>
     
     <script type="text/javascript">
+        console.log(eventNameToEvents);
+            
         let allEvents = [];
         let year = 2024;
         var storedVersion = "_v2";
@@ -43,7 +43,7 @@
         }
 
         function primeData() {
-
+            console.log(eventNameToEvents);
             for (var dayIndex = 1; dayIndex <= 1; dayIndex++) {
                 var currentEvents = document.getElementById('scheduleDay' + dayIndex);
                 console.log(currentEvents.innerHTML);
