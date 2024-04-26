@@ -233,7 +233,7 @@
             buttonTopLeft.style.width = xTimeOnLeftWidth;
             buttonTopLeft.style.height = yVenueHeight;
             //buttonTopLeft.style.backgroundImage = "url(images/hands.png)";
-            buttonTopLeft.innerText = "TAP 4 INFO";
+            buttonTopLeft.innerText = "TAP FOR INFO";
             buttonTopLeft.style.font = '35px serif';
             
             buttonTopLeft.style.color = "hsla(0, 0%, 80%, 1)";
@@ -278,9 +278,9 @@
         }
         
         function buttonTopLeftClick() {
-        	alert("-The venues, schedule, and bottom buttons all do things when tapped.\n" +
+        	alert("-The venues, schedule, and bottom buttons all do things when tapped, so, tap stuff and see what it does.\n" +
               "-The current time will be drawn on the schedule, so tapping \"now\" will go to that when the shows start.\n" +
-              "-You may be able to use this site without data by making the site \"available offline\" in your devide's browser.\n");
+              "-Need data for this to work onboard.  All the going statuses may suddenly reset.  I may break it at any point.  No guarantees on this site's reliability, basically.\n");
         }
 
         function venueClick(venueClicked) {
@@ -544,8 +544,8 @@
                 buttonLabel.innerText = text;
                 //TODO wonder if making this id the same as the button is bad, but the click uses the id of the thing that was clicked to pick which overlay to show 
                 buttonLabel.id = getScheduleViewableButtonId(event);
-                buttonLabel.style.color = "red";
-                buttonLabel.style.backgroundColor = "rgba(0, 0, 0, 0.8)"; // Set the background color of the text
+                buttonLabel.style.color = "white";
+                buttonLabel.style.backgroundColor = "rgba(0, 0, 0, 1)"; // Set the background color of the text
                 buttonViewable.appendChild(buttonLabel);
                 //buttonViewable.innerText = text;
 
@@ -560,6 +560,7 @@
                 if (goingInd == common.goingGoing)
                 {
                     leftPortion.style.backgroundColor = "limegreen";
+                    //buttonLabel.style.color = "limegreen";
                 }
                 else if (goingInd == common.goingNotGoing)
                 {
