@@ -68,6 +68,8 @@
         var dayToData;
         var bandToBandInfo;
 
+        var pauseRefreshing = false;
+
         function primeBandToBandInfo()
         {
             bandToBandInfo = new Map();
@@ -166,6 +168,11 @@
 
         function redrawEverything() {
             console.log("refreshing");
+            if (pauseRefreshing)
+            {
+                console.log("refreshing is paused");
+                return;
+            }
 
             deleteEverything();
 
@@ -844,7 +851,7 @@
         }
 
         function closeHiddenLabel(event) {
-
+            pauseRefreshing = false;
             var eventId = event.target.id;
             var theEvent = common.getEventFromCommas(event.target.id);
             hideLabel(theEvent);
@@ -857,6 +864,7 @@
             var eventWithValues = common.getEventFromCommas(id);
             var labelHidden = document.getElementById(getScheduleHiddenEventId(eventWithValues));
             labelHidden.style.visibility = 'visible';
+            pauseRefreshing = true;
         }
 
         function getXPixelForLocation(event) {
@@ -943,7 +951,7 @@
 
 </head>
 
-<body onload="redrawEverything(); setInterval('redrawEverything()', 120000);">
+<body onload="redrawEverything(); setInterval('redrawEverything()', 60000);">
     <div class="top" id="top">
     </div>
 

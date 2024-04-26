@@ -12,6 +12,10 @@ hidden overlay weird behavior
 hidden overlay style
 clicking an event, then clicking another brings up the other overlay
 refresh is closing the overlay
+iphone:
+- top left button text
+- some text might be too long, like with 2 genres and stuff
+- overlay text colors are blue??
 
 in progress:
 
