@@ -15,42 +15,25 @@
     
     <title>Headbangers 2024 Alpha</title>
     
-    <script type="text/javascript">
-        console.log(eventNameToEvents);
+    <script type="module">
+        
+        import * as common from './common.js?v2';
             
         let allEvents = [];
-        let year = 2024;
-        var storedVersion = "_v2";
-
-        var storedGoingKey = "storedGoingKey" + year + storedVersion;
 
         var colorGoingUndecided = "white";
         var colorGoingMaybe = "yellow";
         var colorGoingGoing = "lime";
         var colorGoingNotGoing = "coral";
-        var goingUndecided = "Undecided";
-        var goingMaybe = "Maybe";
-        var goingGoing = "Going";
-        var goingNotGoing = "Not going";
-
-        //TODO bunch of common code with index.html
-        function getDateTime(year, month, day, time, AMPM) {
-
-            var dateString = day + " " + month + " " + year + " " + time + ":00" + " " + AMPM;
-
-            var date = new Date(Date.parse(dateString));
-            return date;
-        }
 
         function primeData() {
-            console.log(eventNameToEvents);
-            for (var dayIndex = 1; dayIndex <= 1; dayIndex++) {
-                var currentEvents = document.getElementById('scheduleDay' + dayIndex);
-                console.log(currentEvents.innerHTML);
+            //TODO some common code with index.html
+            for (var dayIndex = 0; dayIndex < common.schedule.length; dayIndex++) {
+                var currentEvents = common.schedule[dayIndex];
                 var eventsSplit = currentEvents.split("\n");
-
-                var earliestStart = getDateTime("2100", "Jan", "1", "1:00", "AM");
-                var latestEnd = getDateTime("2000", "Jan", "1", "1:00", "AM");
+                var events = [];
+                var earliestStart = common.getDateTime("2100", "Jan", "1", "1:00", "AM");
+                var latestEnd = common.getDateTime("2000", "Jan", "1", "1:00", "AM");
                 var earliestEvent;
                 var latestEvent;
                 for (let i = 0; i < eventsSplit.length; i++) {
@@ -58,15 +41,11 @@
                     if (!eventsSplit[i] || eventsSplit[i].trim() == "") {
                         continue;
                     }
-                    var eventWithDay = eventsSplit[i] + "," + dayIndex;
-                    var event = getEventFromCommas(eventWithDay);
+                    var eventWithDay = eventsSplit[i] + "," + (dayIndex + 1);
+                    var event = common.getEventFromCommas(eventWithDay);
                     
-
-
                     allEvents.push(event);
-
                 }
-
             }
 
             allEvents = allEvents.sort((a, b) => {
@@ -93,39 +72,7 @@
                         }
                     }
                 }
-
             });
-
-        }
-
-        function getGoingKey(event) {
-            return event.id + storedGoingKey;
-        }
-
-        function getEventFromCommas(eventWithDay) {
-            var eventSplit = eventWithDay.split(",");
-            Object.keys(eventSplit).forEach(k => eventSplit[k] = eventSplit[k].trim());
-            var event = {
-                location: eventSplit[x++],
-                startMonth: eventSplit[x++],
-                startDay: eventSplit[x++],
-                startTime: eventSplit[x++],
-                startAMPM: eventSplit[x++],
-                endMonth: eventSplit[x++],
-                endDay: eventSplit[x++],
-                endTime: eventSplit[x++],
-                endAMPM: eventSplit[x++],
-                name: eventSplit[x++],
-                day: eventSplit[x++],
-                id: ""
-            };
-            event.id = getCommaStringFromEvent(event);
-            return event;
-        }
-        function getCommaStringFromEvent(event) {
-            return event.location + "," + event.startMonth + "," + event.startDay + "," +
-                event.startTime + "," + event.startAMPM + "," + event.endMonth + "," + event.endDay + "," +
-                event.endTime + "," + event.endAMPM + "," + event.name + "," +  event.day;
         }
 
         function drawAlpha() {
@@ -133,9 +80,8 @@
             var topDiv = document.getElementById('topDiv');
 
             topDiv.style.height = (window.innerHeight - 200) + "px";
-            labelWidth = Math.floor((window.innerWidth - 55) / 4) + "px";
-
-
+            var labelWidth = Math.floor((window.innerWidth - 55) / 4) + "px";
+            
             for (let i = 0; i < allEvents.length; i++) {
                 event = allEvents[i];
                 var label = document.createElement("textarea");
@@ -143,7 +89,7 @@
                 label.style.width = labelWidth;
                 label.style.height = "250px";
                 label.style.fontSize = "30px";
-                var goingInd = localStorage.getItem(getGoingKey(event));
+                var goingInd = localStorage.getItem(common.getGoingKey(event));
                 if (goingInd == null) {
                     goingInd = "Undecided";
                 }
@@ -158,18 +104,18 @@
         }
 
         function getGoingColor(event) {
-            var goingInd = localStorage.getItem(getGoingKey(event));
+            var goingInd = localStorage.getItem(common.getGoingKey(event));
 
-            if (goingInd == null || goingInd == goingUndecided) {
+            if (goingInd == null || goingInd == common.goingUndecided) {
                 return colorGoingUndecided;
             }
-            else if (goingInd == goingGoing) {
+            else if (goingInd == common.goingGoing) {
                 return colorGoingGoing;
             }
-            else if (goingInd == goingNotGoing) {
+            else if (goingInd == common.goingNotGoing) {
                 return colorGoingNotGoing;
             }
-            else if (goingInd == goingMaybe) {
+            else if (goingInd == common.goingMaybe) {
                 return colorGoingMaybe;
             }
             else {
@@ -177,27 +123,26 @@
                 return "black";
             }
 
-            return
+            return;
         }
 
         function bottomButton() {
             window.location.assign("./index.html");
         }
 
+        window.drawAlpha = drawAlpha;
+        window.bottomButton = bottomButton;
     </script>
-
 </head>
 
 <body onload="drawAlpha();">
-
     <div id="topDiv" style="overflow:scroll; height:500px;">
     </div>
 
     <div id="bottomDiv">
         <button type="button" onclick="bottomButton()" id="bottomButton" class="button"
-            style="background-color:hotpink;">Time</button>
+            style="background-color:lightgrey;">Time</button>
     </div>
 
 </body>
-
 </html>

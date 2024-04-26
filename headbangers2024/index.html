@@ -42,13 +42,6 @@
        
         var yHiddenButtonHeight = 1000;
 
-        var storedVersion = "_hbb_v6";
-
-        var storedDelayKey = "storedDelayHB" + common.year + storedVersion;
-        var storedDayKey = "storedDayHB" + common.year + storedVersion;
-        var storedScrollToKey = "storedStoredScrollToKey" + common.year + storedVersion;
-        var storedGoingKey = "storedGoingKey" + common.year + storedVersion;
-
         var colorVenueBack = 'darkgrey';
         var colorVenueFont = 'black';
         var colorCurrentTimeNumberBackground = 'black';
@@ -67,14 +60,9 @@
 
         var colorEventBack = '#696969';
         var colorEventFont = 'lightgrey';
-
-        var goingUndecided = "TBD";
-        var goingMaybe = "Maybe";
-        var goingGoing = "Going";
-        var goingNotGoing = "No";
-
         
-        var eventNameToEvents = new Map();
+        // these need to be reset every time we redraw everything so don't initialize them here
+        var eventNameToEvents;
         var dayToData;
         var bandToBandInfo;
 
@@ -90,7 +78,7 @@
         }
 
         function primeData() {
-            //window.eventNameToEvents = new Map();
+            eventNameToEvents = new Map();
             dayToData = new Map();
             primeBandToBandInfo();
             for (var dayIndex = 0; dayIndex < common.schedule.length; dayIndex++) {
@@ -107,7 +95,7 @@
                         continue;
                     }
                     var eventWithDay = eventsSplit[i] + "," + (dayIndex + 1);
-                    var event = getEventFromCommas(eventWithDay);
+                    var event = common.getEventFromCommas(eventWithDay);
 
                     events.push(event);
 
@@ -141,40 +129,12 @@
                 };
                 dayToData.set((dayIndex + 1), data);
 
-                var scrollTo = localStorage.getItem(storedScrollToKey);
+                var scrollTo = localStorage.getItem(common.storedScrollToKey);
                 if (scrollTo != "-1") {
                     window.scroll(0, scrollTo);
                 }
-                localStorage.setItem(storedScrollToKey, -1);
+                localStorage.setItem(common.storedScrollToKey, -1);
             }
-        }
-
-        function getEventFromCommas(eventWithDay) {
-            var eventSplit = eventWithDay.split(",");
-            Object.keys(eventSplit).forEach(k => eventSplit[k] = eventSplit[k].trim());
-            let x = 0;
-            var event = {
-                location: eventSplit[x++],
-                startMonth: eventSplit[x++],
-                startDay: eventSplit[x++],
-                startTime: eventSplit[x++],
-                startAMPM: eventSplit[x++],
-                endMonth: eventSplit[x++],
-                endDay: eventSplit[x++],
-                endTime: eventSplit[x++],
-                endAMPM: eventSplit[x++],
-                name: eventSplit[x++],
-                day: eventSplit[x++],
-                id: ""
-            };
-            event.id = getCommaStringFromEvent(event);
-            return event;
-        }
-
-        function getCommaStringFromEvent(event) {
-            return event.location + "," + event.startMonth + "," + event.startDay + "," +
-                event.startTime + "," + event.startAMPM + "," + event.endMonth + "," + event.endDay + "," +
-                event.endTime + "," + event.endAMPM + "," + event.name + "," +  event.day;
         }
 
         function addToEventNameToEventsMap(event) {
@@ -189,38 +149,11 @@
         function redrawEverything() {
             console.log("refreshing");
 
-            var schedule = document.getElementById("schedule");
-            var scheduleButtons = schedule.getElementsByTagName('button');
-            
-            while (scheduleButtons.length > 0) {
-                for (var i = 0; i < scheduleButtons.length; i++) {
-                    scheduleButtons[i].remove();
-                }
-                scheduleButtons = schedule.getElementsByTagName('button');
-            }
-
-            var scheduleLabels = schedule.getElementsByTagName('label');
-            while (scheduleLabels.length > 0)
-                if (scheduleLabels) {
-                    for (var i = 0; i < scheduleLabels.length; i++) {
-                        scheduleLabels[i].remove();
-                    }
-                    scheduleLabels = schedule.getElementsByTagName('label');
-                }
-
-            var top = document.getElementById('top');
-            //var topDoc = top.contentDocument || top.contentWindow.document;
-            var topButtons = top.getElementsByTagName('button');
-            while (topButtons.length > 0) {
-                for (var i = 0; i < topButtons.length; i++) {
-                    topButtons[i].remove();
-                }
-                topButtons = top.getElementsByTagName('button');
-            }
+            deleteEverything();
 
             primeData();
 
-            var storedDay = localStorage.getItem(storedDayKey);
+            var storedDay = localStorage.getItem(common.storedDayKey);
 
             if (storedDay == undefined || storedDay == "undefined" || isNaN(storedDay)) {
                 day = Number(1);
@@ -230,7 +163,7 @@
                 if (day < 1 || day > 4) {
                     //somehow it was 0 once
                     day = 1;
-                    localStorage.setItem(storedDayKey, 1);
+                    localStorage.setItem(common.storedDayKey, 1);
                 }
             }
 
@@ -238,11 +171,35 @@
             buttons();
             drawTop();
             
-            var scrollTo = localStorage.getItem(storedScrollToKey);
+            var scrollTo = localStorage.getItem(common.storedScrollToKey);
             if (scrollTo != "-1") {
                 window.scroll(0, Number(scrollTo));
             }
-            localStorage.setItem(storedScrollToKey, -1);
+            localStorage.setItem(common.storedScrollToKey, -1);
+        }
+
+        function deleteAll(element, tagName)
+        {
+            var elements = element.getElementsByTagName(tagName);
+            while (elements.length > 0) {
+                for (var i = 0; i < elements.length; i++) {
+                    elements[i].remove();
+                }
+                elements = schedule.getElementsByTagName(tagName);
+            }
+        }
+
+        function deleteEverything()
+        {
+            var schedule = document.getElementById("schedule");
+
+            deleteAll(schedule, 'button');
+            deleteAll(schedule, 'label');
+            deleteAll(schedule, 'div');
+            
+            var top = document.getElementById('top');
+            deleteAll(top, 'button');
+            
         }
 
         
@@ -328,7 +285,7 @@
         }
 
         function getDelayKey(venue) {
-            return storedDelayKey + day + venue;
+            return common.storedDelayKey + day + venue;
         }
 
         function getDelayMinutesForVenue(venue) {
@@ -356,11 +313,11 @@
 
             var schedule = document.getElementById("schedule");
             var currentTime = new Date();    
-        
-        if (currentTime > common.storedTimeTEST)
-        {
-            common.storedTimeTEST = currentTime;
-        }
+            
+            if (currentTime > common.storedTimeTEST)
+            {
+                common.storedTimeTEST = currentTime;
+            }
             var pixel = getYPixelLocation(earliestStart, common.storedTimeTEST);
 
             var labelCurrentTimeNumber = document.createElement('label');
@@ -546,9 +503,9 @@
                 {
                     genreText = bandInfo.genre + "\n";
                 }
-                var goingInd = localStorage.getItem(getGoingKey(event));
+                var goingInd = localStorage.getItem(common.getGoingKey(event));
                 if (goingInd == null) {
-                    goingInd = goingUndecided;
+                    goingInd = common.goingUndecided;
                 }
                 buttonViewable.innerText = event.name + "\n"  + genreText + getTimeString(startDate) + "-" + getTimeString(endDate) + "\n" + goingInd;
 
@@ -560,15 +517,15 @@
                 leftPortion.style.height = "100%";
                 leftPortion.style.backgroundSize = "10px 10px";
 
-                if (goingInd == goingGoing)
+                if (goingInd == common.goingGoing)
                 {
                     leftPortion.style.backgroundColor = "limegreen";
                 }
-                else if (goingInd == goingNotGoing)
+                else if (goingInd == common.goingNotGoing)
                 {
                     leftPortion.style.backgroundColor = "hsla(0, 100%, 25%, 1)";
                 }
-                else if (goingInd == goingMaybe)
+                else if (goingInd == common.goingMaybe)
                 {
                     leftPortion.style.backgroundImage = "repeating-linear-gradient(-45deg, limegreen, limegreen 5px, black 5px, black 10px)"; // Striped pattern
                 }
@@ -651,10 +608,10 @@
                 labelHidden.appendChild(document.createElement('div'));
 
 
-                var buttonGoingUndecided = createButtonGoing(goingUndecided, schedule, event);
-                var buttonGoingMaybe = createButtonGoing(goingMaybe, schedule, event);
-                var buttonGoingGoing = createButtonGoing(goingGoing, schedule, event);
-                var buttonGoingNotGoing = createButtonGoing(goingNotGoing, schedule, event);
+                var buttonGoingUndecided = createButtonGoing(common.goingUndecided, schedule, event);
+                var buttonGoingMaybe = createButtonGoing(common.goingMaybe, schedule, event);
+                var buttonGoingGoing = createButtonGoing(common.goingGoing, schedule, event);
+                var buttonGoingNotGoing = createButtonGoing(common.goingNotGoing, schedule, event);
 
                 labelHidden.appendChild(buttonGoingGoing);
                 labelHidden.appendChild(buttonGoingNotGoing);
@@ -692,6 +649,7 @@
                     if (eventIter.id == event.id) {
                         return;
                     }
+                    console.log("appending hidden children");
                     labelHidden.appendChild(document.createElement('div'));
 
                     var labelBandAlso = document.createElement('label');
@@ -699,10 +657,10 @@
                     labelBandAlso.innerText = eventIter.name + " Day: " + eventIter.day + "\n" + " " + eventIter.startTime + "-" + eventIter.endTime + " " + eventIter.endAMPM + "\n";
                     labelHidden.appendChild(labelBandAlso);
                     labelHidden.appendChild(document.createElement('div'));
-                    var buttonGoingGoing = createButtonGoing(goingGoing, schedule, eventIter);
-                    var buttonGoingUndecided = createButtonGoing(goingUndecided, schedule, eventIter);
-                    var buttonGoingMaybe = createButtonGoing(goingMaybe, schedule, eventIter);
-                    var buttonGoingNotGoing = createButtonGoing(goingNotGoing, schedule, eventIter);
+                    var buttonGoingGoing = createButtonGoing(common.goingGoing, schedule, eventIter);
+                    var buttonGoingUndecided = createButtonGoing(common.goingUndecided, schedule, eventIter);
+                    var buttonGoingMaybe = createButtonGoing(common.goingMaybe, schedule, eventIter);
+                    var buttonGoingNotGoing = createButtonGoing(common.goingNotGoing, schedule, eventIter);
 
                     labelHidden.appendChild(buttonGoingGoing);
                     labelHidden.appendChild(buttonGoingNotGoing);
@@ -743,18 +701,18 @@
         }
 
         function goToClick(event) {
-            var eventObject = getEventFromCommas(event.target.id);
+            var eventObject = common.getEventFromCommas(event.target.id);
             var day = eventObject.day;
-            localStorage.setItem(storedDayKey, eventObject.day);
+            localStorage.setItem(common.storedDayKey, eventObject.day);
 
             var earliestStart = dayToData.get(Number(day)).earliestStart;
             var time = getStartDateTime(eventObject);
 
             var scrollToLocation = getYPixelLocation(earliestStart, time);
-            localStorage.setItem(storedScrollToKey, scrollToLocation - 200);
+            localStorage.setItem(common.storedScrollToKey, scrollToLocation - 200);
 
             var parentLabel = event.target.parentElement;
-            var label = getEventFromCommas(parentLabel.id);
+            var label = common.getEventFromCommas(parentLabel.id);
             hideLabel(label);
             redrawEverything();
         }
@@ -768,10 +726,10 @@
             var buttonGoingOnLabel = document.createElement('button');
             buttonGoingOnLabel.style.borderRadius = "12px";
 
-            var goingInd = localStorage.getItem(getGoingKey(event));
+            var goingInd = localStorage.getItem(common.getGoingKey(event));
             if (goingInd == null) {
-                goingInd = goingUndecided;
-                localStorage.setItem(getGoingKey(event), goingInd);
+                goingInd = common.goingUndecided;
+                localStorage.setItem(common.getGoingKey(event), goingInd);
             }
             if (goingInd == going) {
                 buttonGoingOnLabel.style.backgroundColor = colorGoingButtonActiveBackground;
@@ -783,7 +741,7 @@
             buttonGoingOnLabel.style.width = "20%";
             buttonGoingOnLabel.style.height = 100;
             buttonGoingOnLabel.innerText = going;
-            buttonGoingOnLabel.id = getGoingKey(event);
+            buttonGoingOnLabel.id = common.getGoingKey(event);
             buttonGoingOnLabel.style.font = fontGoingButton;
 
             buttonGoingOnLabel.addEventListener("click", goingClick);
@@ -820,10 +778,6 @@
 
         }
 
-        function getGoingKey(event) {
-            return event.id + storedGoingKey;
-        }
-
         function hideLabel(event) {
             
             var labelHidden = document.getElementById(getScheduleHiddenEventId(event));
@@ -833,7 +787,7 @@
         function closeHiddenLabel(event) {
 
             var eventId = event.target.id;
-            var theEvent = getEventFromCommas(event.target.id);
+            var theEvent = common.getEventFromCommas(event.target.id);
             hideLabel(theEvent);
             redrawEverything();
 
@@ -841,7 +795,7 @@
 
         function eventClick(event) {
             var id = event.target.id;
-            var eventWithValues = getEventFromCommas(id);
+            var eventWithValues = common.getEventFromCommas(id);
             var labelHidden = document.getElementById(getScheduleHiddenEventId(eventWithValues));
             labelHidden.style.visibility = 'visible';
         }
@@ -864,7 +818,7 @@
         function handleDayButton(newDay) {
             if (newDay != day) {
                 day = newDay;
-                localStorage.setItem(storedDayKey, day);
+                localStorage.setItem(common.storedDayKey, day);
                 redrawEverything();
             }
         }
@@ -887,10 +841,10 @@
             for (var day = 1; day <= 4; day++) {
                 var data = dayToData.get(day);
                 if (data.earliestStart < common.storedTimeTEST && data.latestEnd > common.storedTimeTEST) {
-                    localStorage.setItem(storedDayKey, day);
+                    localStorage.setItem(common.storedDayKey, day);
 
                     var scrollToLocation = getYPixelLocation(data.earliestStart, common.storedTimeTEST);
-                    localStorage.setItem(storedScrollToKey, scrollToLocation - 200);
+                    localStorage.setItem(common.storedScrollToKey, scrollToLocation - 200);
                     redrawEverything();
                     return;
                 }

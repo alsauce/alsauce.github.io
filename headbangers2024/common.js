@@ -62,6 +62,16 @@ export let bandInfo = [
     ["test44", "genre three"]
 ];
 
+export var storedVersion = "_hbb_v6";
+export var storedDelayKey = "storedDelay" + year + storedVersion;
+export var storedDayKey = "storedDay" + year + storedVersion;
+export var storedScrollToKey = "storedStoredScrollToKey" + year + storedVersion;
+export var storedGoingKey = "storedGoingKey" + year + storedVersion;
+
+export var goingUndecided = "TBD";
+export var goingMaybe = "Maybe";
+export var goingGoing = "Going";
+export var goingNotGoing = "No";
 
 export function getDateTime(year, month, day, time, AMPM) {
 
@@ -69,4 +79,36 @@ export function getDateTime(year, month, day, time, AMPM) {
 
     var date = new Date(Date.parse(dateString));
     return date;
+}
+
+export function getEventFromCommas(eventWithDay) {
+    var eventSplit = eventWithDay.split(",");
+    Object.keys(eventSplit).forEach(k => eventSplit[k] = eventSplit[k].trim());
+    let x = 0;
+    var event = {
+        location: eventSplit[x++],
+        startMonth: eventSplit[x++],
+        startDay: eventSplit[x++],
+        startTime: eventSplit[x++],
+        startAMPM: eventSplit[x++],
+        endMonth: eventSplit[x++],
+        endDay: eventSplit[x++],
+        endTime: eventSplit[x++],
+        endAMPM: eventSplit[x++],
+        name: eventSplit[x++],
+        day: eventSplit[x++],
+        id: ""
+    };
+    event.id = getCommaStringFromEvent(event);
+    return event;
+}
+
+export function getCommaStringFromEvent(event) {
+    return event.location + "," + event.startMonth + "," + event.startDay + "," +
+        event.startTime + "," + event.startAMPM + "," + event.endMonth + "," + event.endDay + "," +
+        event.endTime + "," + event.endAMPM + "," + event.name + "," +  event.day;
+}
+
+export function getGoingKey(event) {
+    return event.id + storedGoingKey;
 }

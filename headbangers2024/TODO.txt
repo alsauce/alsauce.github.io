@@ -1,20 +1,15 @@
 Notes
 
 TODO:
-tap an event, close it, tap it again, saw a bunch more buttons show up beneath it.
 have alpha reference schedule from index
 Make alpha more functional - add going and not going and "more info"?
 extra band info somewhere
 add personal Notes
 filter/search for bands
 Going to an already past event doesn't go to the right spot.
-I think storage has messed up or something.  The key got messed up with the venue name as object change?
 pick style for venue buttons
-move band info to file
 
 in progress:
-mess with colors
-tab picture up top
 
 Done:
 Current Time on left shows 0 for midnight
@@ -25,9 +20,15 @@ fix venue info code
 the way background color is being used right now is a travesty
 verify time works/update testing approach
 got common.js
+move band info to file
+tap an event, close it, tap it again, saw a bunch more buttons show up beneath it
+I think storage has messed up or something.  The key got messed up with the venue name as object change?
+mess with colors
+tab picture up top
 
 Needs every time:
-update button day/dates so they make sense
+update button day/dates
+common.js has most data now
 cache name unique
 verify "current time" works
-venues may change up top
+venues  up top
