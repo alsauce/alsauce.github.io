@@ -58,6 +58,10 @@
 
         var colorEventBack = '#696969';
         var colorEventFont = 'lightgrey';
+
+        //goTo and close text are used in processing
+        var goToButtonText = "GoTo";
+        var closeButtonText = "Close";
         
         // these need to be reset every redraw so don't initialize them here
         var eventNameToEvents;
@@ -671,7 +675,7 @@
                 buttonCloseOnLabel.style.borderRadius = "12px";
                 buttonCloseOnLabel.style.width = "20%";
                 buttonCloseOnLabel.style.height = 100 + 'px';
-                buttonCloseOnLabel.innerText = 'close';
+                buttonCloseOnLabel.innerText = closeButtonText;
                 var closeId = getCloseButtonId(event);
                 buttonCloseOnLabel.id = closeId;
                 //buttonCloseOnLabel.style.bottom = "0";
@@ -739,7 +743,7 @@
 
             buttonGoTo.style.width = "20%";
             buttonGoTo.style.height = 100;
-            buttonGoTo.innerText = "GoTo";
+            buttonGoTo.innerText = goToButtonText;
             buttonGoTo.id = getGoToKey(event);
             buttonGoTo.style.font = fontGoingButton;
 
@@ -815,7 +819,7 @@
             buttonsOnLabel.forEach(buttonGoingOnLabel => {
                 var goingInd = localStorage.getItem(buttonGoingOnLabel.id);
                 if (goingInd == null) {
-                    if (buttonGoingOnLabel.innerText != "close" && buttonGoingOnLabel.innerText != "Go"){
+                    if (buttonGoingOnLabel.innerText != closeButtonText && buttonGoingOnLabel.innerText != goToButtonText){
                         buttonGoingOnLabel.style.backgroundColor = colorGoingButtonNonActiveBackground;
                     }
                 }
