@@ -232,12 +232,17 @@
             buttonTopLeft.style.top = 0 + 'px';
             buttonTopLeft.style.width = xTimeOnLeftWidth;
             buttonTopLeft.style.height = yVenueHeight;
-            buttonTopLeft.style.backgroundImage = "url(images/hands.png)";
+            //buttonTopLeft.style.backgroundImage = "url(images/hands.png)";
+            buttonTopLeft.innerText = "TAP 4 INFO";
+            buttonTopLeft.style.font = '35px serif';
+            
+            buttonTopLeft.style.color = "hsla(0, 0%, 80%, 1)";
+            buttonTopLeft.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
             buttonTopLeft.style.backgroundSize = 'cover';
             buttonTopLeft.style.backgroundPosition = 'center';
             buttonTopLeft.addEventListener("click", buttonTopLeftClick);
 
-            // leaving blank for now, maybe put info there top.appendChild(buttonTopLeft);
+            top.appendChild(buttonTopLeft);
 
             for (var i = 0; i < common.locations.length; i++) {
 
@@ -272,8 +277,10 @@
             }
         }
         
-        function buttonTopLeftClick(donut) {
-        	alert("You can click venues for more info and to add delay");
+        function buttonTopLeftClick() {
+        	alert("-The venues, schedule, and bottom buttons all do things when tapped.\n" +
+              "-The current time will be drawn on the schedule, so tapping \"now\" will go to that when the shows start.\n" +
+              "-You may be able to use this site without data by making the site \"available offline\" in your devide's browser.\n");
         }
 
         function venueClick(venueClicked) {
@@ -518,7 +525,9 @@
                 buttonViewable.style.backgroundColor = "hsla(0, 0%, 20%, 1)";
                 buttonViewable.style.color = "white";
                 buttonViewable.style.textShadow = "2px 2px 0px black";
-                
+                buttonViewable.style.backgroundSize = 'cover';
+                buttonViewable.style.backgroundPosition = 'center';
+                buttonViewable.style.backgroundImage = "url(images/dog.png)";
                 
                 var bandInfo = bandToBandInfo.get(event.name);
                 var genreText = "";
@@ -530,7 +539,15 @@
                 if (goingInd == null) {
                     goingInd = common.goingUndecided;
                 }
-                buttonViewable.innerText = event.name + "\n"  + genreText + getTimeString(startDate) + "-" + getTimeString(endDate) + "\n" + goingInd;
+                var text = event.name + "\n"  + genreText + getTimeString(startDate) + "-" + getTimeString(endDate) + "\n" + goingInd;
+                var buttonLabel = document.createElement("label");
+                buttonLabel.innerText = text;
+                //TODO wonder if making this id the same as the button is bad, but the click uses the id of the thing that was clicked to pick which overlay to show 
+                buttonLabel.id = getScheduleViewableButtonId(event);
+                buttonLabel.style.color = "red";
+                buttonLabel.style.backgroundColor = "rgba(0, 0, 0, 0.8)"; // Set the background color of the text
+                buttonViewable.appendChild(buttonLabel);
+                //buttonViewable.innerText = text;
 
                 var leftPortion = document.createElement("span");
                 leftPortion.style.position = "absolute";
@@ -606,9 +623,9 @@
                 labelHidden.style.left = 0;
                 labelHidden.style.width = "100%";
                 labelHidden.style.height = yHiddenButtonHeight + 'px';
-                labelHidden.style.font = fontSchedule;
-                labelHidden.style.backgroundColor = colorHiddenBackground;
-                labelHidden.style.color = colorHiddenFont;
+                labelHidden.style.font = "40px serif";
+                labelHidden.style.backgroundColor = "hsla(0, 0%, 10%, .8)";
+                labelHidden.style.color = "red";
                 labelHidden.style.visibility = 'hidden';
                 labelHidden.id = getScheduleHiddenEventId(event);
                 labelHidden.style.zIndex = 100000;
