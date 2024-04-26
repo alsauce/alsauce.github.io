@@ -97,7 +97,8 @@ export function getEventFromCommas(eventWithDay) {
         endAMPM: eventSplit[x++],
         name: eventSplit[x++],
         day: eventSplit[x++],
-        id: ""
+        id: "",
+        overlap: ""
     };
     event.id = getCommaStringFromEvent(event);
     return event;

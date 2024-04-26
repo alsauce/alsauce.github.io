@@ -114,6 +114,31 @@
 
                 }
 
+                events.forEach(event => {
+                    console.log(event.name);
+                    var eventStartDate = getStartDateTime(event);
+                    var eventEndDate = getEndDateTime(event);
+                    events.forEach(eventCompare => {
+                        console.log(eventCompare.name);
+                        if (event.name != eventCompare.name)
+                        {
+                            var eventStartDateCompare = getStartDateTime(eventCompare);
+                            var eventEndDateCompare = getEndDateTime(eventCompare);
+
+                            if (eventStartDate <= eventEndDateCompare && eventStartDateCompare <= eventEndDate)
+                            {
+                                console.log("overlap " + event.name + " " + eventCompare.name);
+                                var goingInd = localStorage.getItem(common.getGoingKey(eventCompare));
+                                if (goingInd == null) {
+                                    goingInd = common.goingUndecided;
+                                }
+                                event.overlap += eventCompare.name + "(" + goingInd + ") ";
+                            }
+                        }
+                    });
+                });
+
+
                 //remove minutes and add some buffer time
                 var hourAndMinuteEarliest = earliestEvent.startTime.split(":");
                 earliestStart = common.getDateTime(common.year, earliestEvent.startMonth, earliestEvent.startDay, (hourAndMinuteEarliest[0]) + ":00", earliestEvent.startAMPM)
@@ -128,12 +153,6 @@
                     events: events
                 };
                 dayToData.set((dayIndex + 1), data);
-
-                var scrollTo = localStorage.getItem(common.storedScrollToKey);
-                if (scrollTo != "-1") {
-                    window.scroll(0, scrollTo);
-                }
-                localStorage.setItem(common.storedScrollToKey, -1);
             }
         }
 
@@ -185,7 +204,7 @@
                 for (var i = 0; i < elements.length; i++) {
                     elements[i].remove();
                 }
-                elements = schedule.getElementsByTagName(tagName);
+                elements = element.getElementsByTagName(tagName);
             }
         }
 
@@ -232,7 +251,13 @@
                 buttonVenue.style.width = xBlockWidth;
                 buttonVenue.style.height = yVenueHeight;
                 var venueText = common.locations[i].abbrev + ":" + getDelayMinutesForVenue(common.locations[i].abbrev) + "m " + common.locations[i].location;
-               
+                
+                var buttonText = document.createElement("label");
+                buttonText.innerText =venueText;
+                buttonText.style.color = "red";
+                buttonText.style.backgroundColor = "rgba(0, 0, 0, 0.8)"; // Set the background color of the text
+                buttonVenue.appendChild(buttonText);
+
                 buttonVenue.style.font = fontVenue;
                 buttonVenue.style.backgroundColor = colorVenueBack;
                 buttonVenue.style.color = colorVenueFont;
@@ -240,8 +265,8 @@
                 buttonVenue.style.zIndex = 10000000;
                 buttonVenue.style.backgroundSize = 'cover';
                 buttonVenue.style.backgroundPosition = 'center';
-                buttonVenue.innerText = venueText;
-                //buttonVenue.style.backgroundImage = "url(images/hands.png)";
+                //buttonVenue.innerText = venueText;
+                buttonVenue.style.backgroundImage = "url(images/hands.png)";
                 buttonVenue.addEventListener("click", venueClick);
 
                 top.appendChild(buttonVenue);
@@ -603,7 +628,7 @@
                 schedule.appendChild(labelHidden);
 
                 var labelBand = document.createElement('label');
-                labelBand.innerText = event.name + "\n" + event.startTime + "-" + event.endTime + " " + event.endAMPM + "\n";
+                labelBand.innerText = event.name + "\n" + event.startTime + "-" + event.endTime + " " + event.endAMPM + "\n" + "Conflicts: " + event.overlap;
                 labelHidden.appendChild(labelBand);
                 labelHidden.appendChild(document.createElement('div'));
 
@@ -649,12 +674,11 @@
                     if (eventIter.id == event.id) {
                         return;
                     }
-                    console.log("appending hidden children");
                     labelHidden.appendChild(document.createElement('div'));
 
                     var labelBandAlso = document.createElement('label');
                     //labelBandAlso.width = "100%";
-                    labelBandAlso.innerText = eventIter.name + " Day: " + eventIter.day + "\n" + " " + eventIter.startTime + "-" + eventIter.endTime + " " + eventIter.endAMPM + "\n";
+                    labelBandAlso.innerText = "Day: " + eventIter.day + " " + " " + eventIter.startTime + "-" + eventIter.endTime + " " + eventIter.endAMPM + "\n" + "Conflicts: " + eventIter.overlap;
                     labelHidden.appendChild(labelBandAlso);
                     labelHidden.appendChild(document.createElement('div'));
                     var buttonGoingGoing = createButtonGoing(common.goingGoing, schedule, eventIter);
@@ -824,17 +848,37 @@
         }
 
         function buttons() {
-            document.getElementById("dayButton1").style.backgroundColor = colorDayBackgroundInactive;
-            document.getElementById("dayButton2").style.backgroundColor = colorDayBackgroundInactive;
-            document.getElementById("dayButton3").style.backgroundColor = colorDayBackgroundInactive;
-            document.getElementById("dayButton4").style.backgroundColor = colorDayBackgroundInactive;
-            document.getElementById("dayButton" + day).style.backgroundColor = colorDayBackgroundActive;
+            
+            resetButton("dayButton1", "29M");
+            resetButton("dayButton2", "29T");
+            resetButton("dayButton3", "30W");
+            resetButton("dayButton4", "31R");
 
+            document.getElementById("dayButton" + day).style.backgroundColor = colorDayBackgroundActive;
+            document.getElementById("dayButton" + day).style.backgroundImage = "url(images/dude.png)";
+            
             var buttonWidth = Math.floor(fullWidth / 7) + "px";
             document.getElementById("dayButton1").style.width = buttonWidth;
             document.getElementById("dayButton2").style.width = buttonWidth;
             document.getElementById("dayButton3").style.width = buttonWidth;
             document.getElementById("dayButton4").style.width = buttonWidth;
+        }
+
+        function resetButton(buttonName, buttonText)
+        {
+            var button = document.getElementById(buttonName);
+            button.delete
+            deleteAll(button, 'label');
+            
+            button.style.backgroundImage = "url(images/hands.png)";
+            button.style.backgroundSize = 'cover';
+            button.style.backgroundPosition = 'center';
+
+            var buttonLabel = document.createElement("label");
+            buttonLabel.innerText = buttonText;
+            buttonLabel.style.color = "red";
+            buttonLabel.style.backgroundColor = "rgba(0, 0, 0, 0.8)"; // Set the background color of the text
+            button.appendChild(buttonLabel);
         }
 
         function goToNow() {
@@ -844,6 +888,7 @@
                     localStorage.setItem(common.storedDayKey, day);
 
                     var scrollToLocation = getYPixelLocation(data.earliestStart, common.storedTimeTEST);
+                    
                     localStorage.setItem(common.storedScrollToKey, scrollToLocation - 200);
                     redrawEverything();
                     return;
@@ -863,20 +908,27 @@
 
 </head>
 
-<body onload="redrawEverything(); setInterval('redrawEverything()', 60000);">
+<body onload="redrawEverything(); setInterval('redrawEverything()', 120000);">
     <div class="top" id="top">
     </div>
 
     <div class="schedule" id="schedule"></div>
  
     <div class="bottom" id="bottom">
-        <button type="button" onclick="handleDayButton(1)" id="dayButton1" class="button">28M</button>
-        <button type="button" onclick="handleDayButton(2)" id="dayButton2" class="button">29T</button>
-        <button type="button" onclick="handleDayButton(3)" id="dayButton3" class="button">30W</button>
-        <button type="button" onclick="handleDayButton(4)" id="dayButton4" class="button">31R</button>
+        <button type="button" onclick="handleDayButton(1)" id="dayButton1" class="button"></button>
+        <button type="button" onclick="handleDayButton(2)" id="dayButton2" class="button"></button>
+        <button type="button" onclick="handleDayButton(3)" id="dayButton3" class="button"></button>
+        <button type="button" onclick="handleDayButton(4)" id="dayButton4" class="button"></button>
+        <button type="button" onclick="goToNow()" id="goToNow" class="button"
+            style="background-image: url(images/pinklady.png); background-size: cover; background-position: center; text-align: left">
+            <label style="background-color:  rgba(0, 0, 0, 0.8); color: red">Now
+            </label>
+        </button>
         <button type="button" onclick="alphaToggle()" id="alphaToggle" class="button"
-            style="background-color: darkblue; color:lightgrey; text-align: left">Alpha</button>
-        <button type="button" onclick="goToNow()" id="goToNow" class="button">Now</button>
+            style="background-image: url(images/pinklady.png); background-size: cover; background-position: center; text-align: left">
+            <label style="background-color:  rgba(0, 0, 0, 0.8); color: red">List
+            </label>
+        </button>
     </div>
 
 </body>

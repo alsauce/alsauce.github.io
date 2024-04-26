@@ -25,6 +25,8 @@ tap an event, close it, tap it again, saw a bunch more buttons show up beneath i
 I think storage has messed up or something.  The key got messed up with the venue name as object change?
 mess with colors
 tab picture up top
+clicking "now" isn't scrolling from a different day to the right spot
+conflicts on overlay
 
 Needs every time:
 update button day/dates

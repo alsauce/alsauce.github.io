@@ -32,10 +32,7 @@
                 var currentEvents = common.schedule[dayIndex];
                 var eventsSplit = currentEvents.split("\n");
                 var events = [];
-                var earliestStart = common.getDateTime("2100", "Jan", "1", "1:00", "AM");
-                var latestEnd = common.getDateTime("2000", "Jan", "1", "1:00", "AM");
-                var earliestEvent;
-                var latestEvent;
+               
                 for (let i = 0; i < eventsSplit.length; i++) {
                     
                     if (!eventsSplit[i] || eventsSplit[i].trim() == "") {
@@ -134,14 +131,17 @@
         window.bottomButton = bottomButton;
     </script>
 </head>
-
-<body onload="drawAlpha();">
+"
+<body onload="drawAlpha();" style="background-color: black;">
     <div id="topDiv" style="overflow:scroll; height:500px;">
     </div>
 
-    <div id="bottomDiv">
+    <div id="bottomDiv" class="bottom">
         <button type="button" onclick="bottomButton()" id="bottomButton" class="button"
-            style="background-color:lightgrey;">Time</button>
+            style="background-image: url(images/hands.png); background-size: cover; background-position: center; text-align: left">
+            <label style="background-color:  rgba(0, 0, 0, 0.8); color: red">Schedule
+            </label>
+        </button>
     </div>
 
 </body>
