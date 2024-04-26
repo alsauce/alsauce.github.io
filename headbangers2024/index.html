@@ -50,8 +50,8 @@
         var colorLeftTimesBackground = "hsla(0, 0%, 0%, 1)";
         var colorHiddenBackground = 'lightblue';
         var colorHiddenFont = 'black';
-        var colorGoingButtonActiveBackground = 'lightyellow';
-        var colorGoingButtonNonActiveBackground = 'lightgray';
+        var colorGoingButtonActiveBackground = "hsla(0, 0%, 90%, 1)";
+        var colorGoingButtonNonActiveBackground = "hsla(0, 0%, 20%, 1)";
         var colorDayBackgroundInactive = 'grey';
         var colorDayBackgroundActive = 'gold';
         var colorGoToBackground = "grey";
@@ -113,11 +113,9 @@
                 }
 
                 events.forEach(event => {
-                    console.log(event.name);
                     var eventStartDate = getStartDateTime(event);
                     var eventEndDate = getEndDateTime(event);
                     events.forEach(eventCompare => {
-                        console.log(eventCompare.name);
                         if (event.name != eventCompare.name)
                         {
                             var eventStartDateCompare = getStartDateTime(eventCompare);
@@ -125,12 +123,10 @@
 
                             if (eventStartDate < eventEndDateCompare && eventStartDateCompare < eventEndDate)
                             {
-                                console.log("overlap " + event.name + " " + eventCompare.name);
                                 var goingInd = localStorage.getItem(common.getGoingKey(eventCompare));
                                 if (goingInd == null) {
                                     goingInd = common.goingUndecided;
                                 }
-                                event.overlap += eventCompare.name + "(" + goingInd + ") ";
                             }
                         }
                     });
@@ -561,18 +557,22 @@
                 {
                     leftPortion.style.backgroundColor = "limegreen";
                     //buttonLabel.style.color = "limegreen";
+                    buttonViewable.style.opacity = "1";
                 }
                 else if (goingInd == common.goingNotGoing)
                 {
                     leftPortion.style.backgroundColor = "hsla(0, 100%, 25%, 1)";
+                    buttonViewable.style.opacity = ".2";
                 }
                 else if (goingInd == common.goingMaybe)
                 {
                     leftPortion.style.backgroundImage = "repeating-linear-gradient(-45deg, limegreen, limegreen 5px, black 5px, black 10px)"; // Striped pattern
+                    buttonViewable.style.opacity = ".8";
                 }
                 else{
                     //TBD
                     leftPortion.style.backgroundColor = "hsla(240, 100%, 15%, 1)";
+                    buttonViewable.style.opacity = ".7";
                 }
 
                 buttonViewable.appendChild(leftPortion);
@@ -626,7 +626,7 @@
                 labelHidden.style.height = yHiddenButtonHeight + 'px';
                 labelHidden.style.font = "40px serif";
                 labelHidden.style.backgroundColor = "hsla(0, 0%, 10%, .8)";
-                labelHidden.style.color = "red";
+                labelHidden.style.color = "lightblue";
                 labelHidden.style.visibility = 'hidden';
                 labelHidden.id = getScheduleHiddenEventId(event);
                 labelHidden.style.zIndex = 100000;
@@ -678,6 +678,8 @@
                 buttonCloseOnLabel.style.font = fontCloseButton;
                 buttonCloseOnLabel.style.top = 0;
                 buttonCloseOnLabel.style.right = 0;
+                buttonCloseOnLabel.style.opacity = ".7";
+                buttonCloseOnLabel.style.backgroundColor = "hsla(0, 0%, 90%, 1)";
 
                 buttonCloseOnLabel.addEventListener("click", closeHiddenLabel);
                 labelHidden.appendChild(document.createElement('div'));
@@ -792,6 +794,7 @@
             buttonGoingOnLabel.innerText = going;
             buttonGoingOnLabel.id = common.getGoingKey(event);
             buttonGoingOnLabel.style.font = fontGoingButton;
+            buttonGoingOnLabel.style.opacity = ".7";
 
             buttonGoingOnLabel.addEventListener("click", goingClick);
 
@@ -811,14 +814,16 @@
             buttonsOnLabel.forEach(buttonGoingOnLabel => {
                 var goingInd = localStorage.getItem(buttonGoingOnLabel.id);
                 if (goingInd == null) {
-                    buttonGoingOnLabel.style.backgroundColor = colorGoingButtonNonActiveBackground;
+                    if (buttonGoingOnLabel.innerText != "close" && buttonGoingOnLabel.innerText != "Go"){
+                        buttonGoingOnLabel.style.backgroundColor = colorGoingButtonNonActiveBackground;
+                    }
                 }
                 else {
                     if (buttonGoingOnLabel.innerText == goingInd) {
                         //this is if the text of the button is the same as the stored going indication
                         buttonGoingOnLabel.style.backgroundColor = colorGoingButtonActiveBackground;
                     }
-                    else {
+                    else{
                         buttonGoingOnLabel.style.backgroundColor = colorGoingButtonNonActiveBackground;
                     }
                 }

@@ -10,6 +10,8 @@ Going to an already past event doesn't go to the right spot.
 pick style for venue buttons
 hidden overlay weird behavior
 hidden overlay style
+clicking an event, then clicking another brings up the other overlay
+refresh is closing the overlay
 
 in progress:
 
@@ -29,6 +31,7 @@ mess with colors
 tab picture up top
 clicking "now" isn't scrolling from a different day to the right spot
 conflicts on overlay
+changing the status of an event in the overlay changes some of the buttons color
 
 Needs every time:
 update button day/dates
