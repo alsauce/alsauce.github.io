@@ -739,9 +739,11 @@
                 note.style.width = "96%";
                 note.style.marginLeft = "2%";
                 note.style.height = 500;
-                note.style.font = fontGoingButton;
-                note.style.opacity = ".7";
+                note.style.color = "hsla(0, 100%, 100%, 1)";
+                note.style.backgroundColor = "hsla(0, 0%, 0%, 1)";
+                note.style.opacity = ".9";
                 note.style.justifyContent = "center";
+                note.style.font = '35px serif';
                 note.id = event.name;
 
                 let existingNote = localStorage.getItem(getNoteId(event.name));
