@@ -57,7 +57,7 @@ PO, Oct, 29, 12:00, AM, Oct, 29, 12:30, AM, test66 \
 ];
 
 export let bandInfo = [
-    ["test11", "genre1"],
+    ["test11", "genre1", "This band is from wherever and <a href='https://www.google.com'>Google</a>"],
     ["test22", "genre2"],
     ["test44", "genre three"]
 ];

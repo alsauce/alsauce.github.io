@@ -76,7 +76,10 @@
             let bands = common.bandInfo;
             for (let i = 0; i < bands.length; i++) {
                 let band = bands[i];
-                bandToBandInfo.set(band[0], {genre: band[1]});
+                bandToBandInfo.set(band[0], {
+                    genre: band[1],
+                    info: band[2]
+                });
             }
             
         }
@@ -643,16 +646,6 @@
                 labelHidden.id = getScheduleHiddenEventId(event);
                 labelHidden.style.zIndex = 100000;
 
-                let weirdButtonFix = document.createElement('button');
-                weirdButtonFix.style.width = 0 + 'px';
-                weirdButtonFix.style.height = 0 + 'px';
-                weirdButtonFix.style.visibility = 'hidden';
-                weirdButtonFix.style.bottom = "0";
-                weirdButtonFix.style.position = "absolute";
-
-                //TODO for some reason the label activates on the first button added
-                labelHidden.appendChild(weirdButtonFix);
-
                 schedule.appendChild(labelHidden);
 
                 let labelBand = document.createElement('label');
@@ -699,8 +692,8 @@
                 labelHidden.appendChild(buttonCloseOnLabel);
                 labelHidden.appendChild(document.createElement('div'));
                 let alsoLabel = document.createElement('label');
-                //TODO divs don't appear to do what I want
-                alsoLabel.innerText = "\n\n\nAlso:";
+                
+                alsoLabel.innerText = "\nAlso:";
                 labelHidden.appendChild(alsoLabel);
 
                 let eventsAll = eventNameToEvents.get(event.name);
@@ -735,6 +728,24 @@
 
                 });
 
+                ///////////////
+                //add band info
+                let bandInfo = bandToBandInfo.get(event.name);
+
+                if (bandInfo)
+                {
+                    if (bandInfo.info)
+                    {
+                        let divBeforeBandInfo = document.createElement('div');
+                        divBeforeBandInfo.style.paddingTop = "40px";
+
+                        divBeforeBandInfo.innerHTML = bandInfo.info;
+                        labelHidden.appendChild(divBeforeBandInfo);
+                    }
+                }
+                
+                ///////////
+                //add note
                 let note = document.createElement("textarea");
                 note.style.width = "96%";
                 note.style.marginLeft = "2%";
@@ -754,16 +765,15 @@
                 else{
                     note.value = "Add band notes here";
                 }
+
                 note.addEventListener("input", function(textareaParam) {
-                        console.log("Text in the textarea has changed:", note.value)
-                    
-                        console.log(textareaParam.target.id);
-                        console.log(getNoteId(textareaParam.target.id));
                         localStorage.setItem(getNoteId(textareaParam.target.id), encodeURI(note.value));
                     }
                 );
-
-                labelHidden.appendChild(document.createElement('div'));
+                
+                let divBeforeNote = document.createElement('div');
+                divBeforeNote.style.paddingTop = "40px";
+                labelHidden.appendChild(divBeforeNote);
                 labelHidden.appendChild(note);
                 
             }

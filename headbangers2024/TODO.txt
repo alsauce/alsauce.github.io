@@ -4,14 +4,10 @@ TODO:
 have alpha reference schedule from index
 Make alpha more functional - add going and not going and "more info"?
 extra band info somewhere
-add personal Notes
 filter/search for bands
 Going to an already past event doesn't go to the right spot.
-pick style for venue buttons
-hidden overlay weird behavior
-hidden overlay style
 clicking an event, then clicking another brings up the other overlay
-refresh is closing the overlay
+check TODOs in code
 iphone:
 - top left button text
 - some text might be too long, like with 2 genres and stuff
@@ -36,6 +32,11 @@ tab picture up top
 clicking "now" isn't scrolling from a different day to the right spot
 conflicts on overlay
 changing the status of an event in the overlay changes some of the buttons color
+refresh is closing the overlay
+hidden overlay weird behavior
+hidden overlay style
+pick style for venue buttons
+add personal Notes
 
 Needs every time:
 update button day/dates
