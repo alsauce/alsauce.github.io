@@ -551,7 +551,16 @@
                 if (goingInd == null) {
                     goingInd = common.goingUndecided;
                 }
+
                 let text = event.name + "\n"  + genreText + getTimeString(startDate) + "-" + getTimeString(endDate);// + "\n" + goingInd;
+
+                let eventAppendText = localStorage.getItem(getEventAppendTextId(event.id));
+                if (eventAppendText)
+                {
+                    text += "\n";
+                    text += eventAppendText;
+                }
+
                 let buttonLabel = document.createElement("label");
                 buttonLabel.innerText = text;
                 //TODO wonder if making this id the same as the button is bad, but the click uses the id of the thing that was clicked to pick which overlay to show 
@@ -670,8 +679,37 @@
                 labelHidden.appendChild(buttonGoingMaybe);
                 labelHidden.appendChild(buttonGoingUndecided);
 
-                labelHidden.appendChild(document.createElement('div'));
+                ////////////
+                // add event append text box
+                let eventAppendText = document.createElement('input');
 
+                let existingEventAppendText = localStorage.getItem(getEventAppendTextId(event.id));
+                if (existingEventAppendText)
+                {
+                    eventAppendText.value = existingEventAppendText;
+                }
+                else{
+                    eventAppendText.value = "(add event text)";
+                }
+                
+                eventAppendText.style.font = "35px serif";
+                eventAppendText.style.width = "90%";
+                eventAppendText.style.height = 50;
+                eventAppendText.style.marginLeft = "2%";
+                eventAppendText.id = event.id;
+
+                eventAppendText.addEventListener("input", function(eventAppendTextParam) {
+                        localStorage.setItem(getEventAppendTextId(eventAppendTextParam.target.id), eventAppendText.value);
+                        //TODO limit char length?
+                    }
+                );
+
+                labelHidden.appendChild(document.createElement('div'));           
+                labelHidden.appendChild(eventAppendText);
+
+                ////////////
+                //
+                
                 let buttonCloseOnLabel = document.createElement('button');
                 buttonCloseOnLabel.style.borderRadius = "12px";
                 buttonCloseOnLabel.style.width = "20%";
@@ -679,7 +717,6 @@
                 buttonCloseOnLabel.innerText = closeButtonText;
                 let closeId = getCloseButtonId(event);
                 buttonCloseOnLabel.id = closeId;
-                //buttonCloseOnLabel.style.bottom = "0";
                 buttonCloseOnLabel.style.position = "absolute";
                 buttonCloseOnLabel.style.font = fontCloseButton;
                 buttonCloseOnLabel.style.top = 0;
@@ -795,6 +832,11 @@
                 labelHidden.appendChild(note);
                 
             }
+        }
+
+        function getEventAppendTextId(eventName)
+        {
+            return common.storedAppendTextKey + "," + eventName;
         }
 
         function getCloseButtonId(event) {

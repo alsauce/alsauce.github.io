@@ -68,6 +68,7 @@ export let storedDayKey = "storedDay" + year + storedVersion;
 export let storedScrollToKey = "storedStoredScrollToKey" + year + storedVersion;
 export let storedGoingKey = "storedGoingKey" + year + storedVersion;
 export let storedNoteKey = "storedNoteKey" + year + storedVersion;
+export let storedAppendTextKey = "storedAppendTextKey" + year + storedVersion;
 
 export let goingUndecided = "TBD";
 export let goingMaybe = "Maybe";
