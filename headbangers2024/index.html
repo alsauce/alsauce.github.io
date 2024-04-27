@@ -547,7 +547,7 @@
                 if (goingInd == null) {
                     goingInd = common.goingUndecided;
                 }
-                var text = event.name + "\n"  + genreText + getTimeString(startDate) + "-" + getTimeString(endDate) + "\n" + goingInd;
+                var text = event.name + "\n"  + genreText + getTimeString(startDate) + "-" + getTimeString(endDate);// + "\n" + goingInd;
                 var buttonLabel = document.createElement("label");
                 buttonLabel.innerText = text;
                 //TODO wonder if making this id the same as the button is bad, but the click uses the id of the thing that was clicked to pick which overlay to show 
@@ -734,6 +734,19 @@
                     labelHidden.appendChild(buttonGoTo);
 
                 });
+
+                labelHidden.appendChild(document.createElement('div'));
+                //asdf
+                var buttonLabel = document.createElement("label");
+                buttonLabel.innerText = "test";
+                buttonLabel.style.color = "red";
+                buttonLabel.style.backgroundColor = "rgba(0, 0, 0, 0.8)"; // Set the background color of the text
+                labelHidden.appendChild(buttonLabel);
+
+
+                //labelHidden.appendChild
+
+
             }
         }
 
@@ -778,10 +791,6 @@
             var label = common.getEventFromCommas(parentLabel.id);
             hideLabel(label);
             redrawEverything();
-        }
-
-        function noop(e) {
-            e.stopPropagation();
         }
 
         function createButtonGoing(going, schedule, event) {
