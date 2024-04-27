@@ -15,65 +15,65 @@
         
         import * as common from './common.js?v2';
         
-        var day = 1;
-        var yVenueHeight = 150;
-        var yTopHeight = yVenueHeight;
-        var yVenueBottom = yVenueHeight;
-        var yEarliestBufferHours = 1;
-        var yLatestBufferHours = 2;
-        var fontVenue = 40 + 'px serif';
-        var fontLeftTime = 35 + 'px serif';
-        var fontCurrentTime = 40 + 'px serif';
-        var fontGoingButton = 30 + 'px serif';
-        var fontCloseButton = 35 + 'px serif';
-        var fontSchedule = 35 + 'px serif';
+        let day = 1;
+        let yVenueHeight = 150;
+        let yTopHeight = yVenueHeight;
+        let yVenueBottom = yVenueHeight;
+        let yEarliestBufferHours = 1;
+        let yLatestBufferHours = 2;
+        let fontVenue = 40 + 'px serif';
+        let fontLeftTime = 35 + 'px serif';
+        let fontCurrentTime = 40 + 'px serif';
+        let fontGoingButton = 30 + 'px serif';
+        let fontCloseButton = 35 + 'px serif';
+        let fontSchedule = 35 + 'px serif';
 
-        var xTimeOnLeftWidth = 100;
+        let xTimeOnLeftWidth = 100;
 
-        var yTimeHourHeight = 400;
-        var yTimePushLeftDown = 100;
-        var secondsInAnHour = 60 * 60;
-        var milliSecondsInAnHour = secondsInAnHour * 1000;
+        let yTimeHourHeight = 400;
+        let yTimePushLeftDown = 100;
+        let secondsInAnHour = 60 * 60;
+        let milliSecondsInAnHour = secondsInAnHour * 1000;
 
-        var fullWidth = window.innerWidth;
-        var xBlockWidth = (fullWidth - xTimeOnLeftWidth) / common.locations.length;
+        let fullWidth = window.innerWidth;
+        let xBlockWidth = (fullWidth - xTimeOnLeftWidth) / common.locations.length;
        
-        var yHiddenButtonHeight = 1000;
+        let yHiddenButtonHeight = 1000;
 
-        var colorVenueBack = 'darkgrey';
-        var colorVenueFont = 'black';
-        var colorCurrentTimeNumberBackground = 'black';
-        var colorCurrentTimeNumber = 'white';
-        var colorCurrentTimeLine = 'fuchsia';
-        var colorLeftTimeLines = 'darkgrey';
-        var colorLeftTimesNumber = 'cyan';
-        var colorLeftTimesBackground = "hsla(0, 0%, 0%, 1)";
-        var colorHiddenBackground = 'lightblue';
-        var colorHiddenFont = 'black';
-        var colorGoingButtonActiveBackground = "hsla(0, 0%, 90%, 1)";
-        var colorGoingButtonNonActiveBackground = "hsla(0, 0%, 50%, 1)";
-        var colorDayBackgroundInactive = 'grey';
-        var colorDayBackgroundActive = 'gold';
-        var colorGoToBackground = "lightblue";
+        let colorVenueBack = 'darkgrey';
+        let colorVenueFont = 'black';
+        let colorCurrentTimeNumberBackground = 'black';
+        let colorCurrentTimeNumber = 'white';
+        let colorCurrentTimeLine = 'fuchsia';
+        let colorLeftTimeLines = 'darkgrey';
+        let colorLeftTimesNumber = 'cyan';
+        let colorLeftTimesBackground = "hsla(0, 0%, 0%, 1)";
+        let colorHiddenBackground = 'lightblue';
+        let colorHiddenFont = 'black';
+        let colorGoingButtonActiveBackground = "hsla(0, 0%, 90%, 1)";
+        let colorGoingButtonNonActiveBackground = "hsla(0, 0%, 50%, 1)";
+        let colorDayBackgroundInactive = 'grey';
+        let colorDayBackgroundActive = 'gold';
+        let colorGoToBackground = "lightblue";
 
-        var colorEventBack = '#696969';
-        var colorEventFont = 'lightgrey';
+        let colorEventBack = '#696969';
+        let colorEventFont = 'lightgrey';
 
         //goTo and close text are used in processing
-        var goToButtonText = "GoTo";
-        var closeButtonText = "Close";
+        let goToButtonText = "GoTo";
+        let closeButtonText = "Close";
         
         // these need to be reset every redraw so don't initialize them here
-        var eventNameToEvents;
-        var dayToData;
-        var bandToBandInfo;
+        let eventNameToEvents;
+        let dayToData;
+        let bandToBandInfo;
 
-        var pauseRefreshing = false;
+        let pauseRefreshing = false;
 
         function primeBandToBandInfo()
         {
             bandToBandInfo = new Map();
-            var bands = common.bandInfo;
+            let bands = common.bandInfo;
             for (let i = 0; i < bands.length; i++) {
                 let band = bands[i];
                 bandToBandInfo.set(band[0], {genre: band[1]});
@@ -86,30 +86,30 @@
             dayToData = new Map();
             primeBandToBandInfo();
             for (var dayIndex = 0; dayIndex < common.schedule.length; dayIndex++) {
-                var currentEvents = common.schedule[dayIndex];
-                var eventsSplit = currentEvents.split("\n");
-                var events = [];
-                var earliestStart = common.getDateTime("2100", "Jan", "1", "1:00", "AM");
-                var latestEnd = common.getDateTime("2000", "Jan", "1", "1:00", "AM");
-                var earliestEvent;
-                var latestEvent;
+                let currentEvents = common.schedule[dayIndex];
+                let eventsSplit = currentEvents.split("\n");
+                let events = [];
+                let earliestStart = common.getDateTime("2100", "Jan", "1", "1:00", "AM");
+                let latestEnd = common.getDateTime("2000", "Jan", "1", "1:00", "AM");
+                let earliestEvent;
+                let latestEvent;
                 for (let i = 0; i < eventsSplit.length; i++) {
 
                     if (!eventsSplit[i] || eventsSplit[i].trim() == "") {
                         continue;
                     }
-                    var eventWithDay = eventsSplit[i] + "," + (dayIndex + 1);
-                    var event = common.getEventFromCommas(eventWithDay);
+                    let eventWithDay = eventsSplit[i] + "," + (dayIndex + 1);
+                    let event = common.getEventFromCommas(eventWithDay);
 
                     events.push(event);
 
-                    var startTime = getStartDateTime(event);
+                    let startTime = getStartDateTime(event);
                     if (startTime < earliestStart) {
                         earliestStart = startTime;
                         earliestEvent = event;
                     }
 
-                    var endTime = getEndDateTime(event);
+                    let endTime = getEndDateTime(event);
                     if (endTime > latestEnd) {
                         latestEnd = endTime;
                         latestEvent = event;
@@ -119,17 +119,17 @@
                 }
 
                 events.forEach(event => {
-                    var eventStartDate = getStartDateTime(event);
-                    var eventEndDate = getEndDateTime(event);
+                    let eventStartDate = getStartDateTime(event);
+                    let eventEndDate = getEndDateTime(event);
                     events.forEach(eventCompare => {
                         if (event.name != eventCompare.name)
                         {
-                            var eventStartDateCompare = getStartDateTime(eventCompare);
-                            var eventEndDateCompare = getEndDateTime(eventCompare);
+                            let eventStartDateCompare = getStartDateTime(eventCompare);
+                            let eventEndDateCompare = getEndDateTime(eventCompare);
 
                             if (eventStartDate < eventEndDateCompare && eventStartDateCompare < eventEndDate)
                             {
-                                var goingInd = localStorage.getItem(common.getGoingKey(eventCompare));
+                                let goingInd = localStorage.getItem(common.getGoingKey(eventCompare));
                                 if (goingInd == null) {
                                     goingInd = common.goingUndecided;
                                 }
@@ -141,14 +141,14 @@
 
 
                 //remove minutes and add some buffer time
-                var hourAndMinuteEarliest = earliestEvent.startTime.split(":");
+                let hourAndMinuteEarliest = earliestEvent.startTime.split(":");
                 earliestStart = common.getDateTime(common.year, earliestEvent.startMonth, earliestEvent.startDay, (hourAndMinuteEarliest[0]) + ":00", earliestEvent.startAMPM)
                 earliestStart = new Date(earliestStart.getTime() - (milliSecondsInAnHour * yEarliestBufferHours));
-                var hourAndMinuteLatest = latestEvent.endTime.split(":");
+                let hourAndMinuteLatest = latestEvent.endTime.split(":");
                 latestEnd = common.getDateTime(common.year, latestEvent.endMonth, latestEvent.endDay, (hourAndMinuteLatest[0]) + ":00", latestEvent.endAMPM)
                 latestEnd = new Date(latestEnd.getTime() + (milliSecondsInAnHour * yLatestBufferHours));
 
-                var data = {
+                let data = {
                     earliestStart: earliestStart,
                     latestEnd: latestEnd,
                     events: events
@@ -158,7 +158,7 @@
         }
 
         function addToEventNameToEventsMap(event) {
-            var events =eventNameToEvents.get(event.name);
+            let events =eventNameToEvents.get(event.name);
             if (events == null) {
                 events = [];
                eventNameToEvents.set(event.name, events);
@@ -178,7 +178,7 @@
 
             primeData();
 
-            var storedDay = localStorage.getItem(common.storedDayKey);
+            let storedDay = localStorage.getItem(common.storedDayKey);
 
             if (storedDay == undefined || storedDay == "undefined" || isNaN(storedDay)) {
                 day = Number(1);
@@ -196,7 +196,7 @@
             buttons();
             drawTop();
             
-            var scrollTo = localStorage.getItem(common.storedScrollToKey);
+            let scrollTo = localStorage.getItem(common.storedScrollToKey);
             if (scrollTo != "-1") {
                 window.scroll(0, Number(scrollTo));
             }
@@ -205,7 +205,7 @@
 
         function deleteAll(element, tagName)
         {
-            var elements = element.getElementsByTagName(tagName);
+            let elements = element.getElementsByTagName(tagName);
             while (elements.length > 0) {
                 for (var i = 0; i < elements.length; i++) {
                     elements[i].remove();
@@ -216,24 +216,24 @@
 
         function deleteEverything()
         {
-            var schedule = document.getElementById("schedule");
+            let schedule = document.getElementById("schedule");
 
             deleteAll(schedule, 'button');
             deleteAll(schedule, 'label');
             deleteAll(schedule, 'div');
             
-            var top = document.getElementById('top');
+            let top = document.getElementById('top');
             deleteAll(top, 'button');
             
         }
 
         
         function drawTop() {
-            var top = document.getElementById('top');
+            let top = document.getElementById('top');
             top.style.width = fullWidth;
             top.style.height = yTopHeight;
             
-            var buttonTopLeft = document.createElement('button');
+            let buttonTopLeft = document.createElement('button');
             buttonTopLeft.style.position = 'absolute';
             buttonTopLeft.style.left = 0 + 'px';
 
@@ -254,16 +254,16 @@
 
             for (var i = 0; i < common.locations.length; i++) {
 
-                var buttonVenue = document.createElement('button');
+                let buttonVenue = document.createElement('button');
                 buttonVenue.style.position = 'absolute';
                 buttonVenue.style.left = xTimeOnLeftWidth + (xBlockWidth * i) + 'px';
 
                 buttonVenue.style.top = 0 + 'px';
                 buttonVenue.style.width = xBlockWidth;
                 buttonVenue.style.height = yVenueHeight;
-                var venueText = common.locations[i].abbrev + ":" + getDelayMinutesForVenue(common.locations[i].abbrev) + "m " + common.locations[i].location;
+                let venueText = common.locations[i].abbrev + ":" + getDelayMinutesForVenue(common.locations[i].abbrev) + "m " + common.locations[i].location;
                 
-                var buttonText = document.createElement("label");
+                let buttonText = document.createElement("label");
                 buttonText.innerText =venueText;
                 buttonText.style.color = "red";
                 buttonText.style.backgroundColor = "rgba(0, 0, 0, 0.8)"; // Set the background color of the text
@@ -293,8 +293,8 @@
 
         function venueClick(venueClicked) {
 
-            var venueAbbrev = venueClicked.target.textContent.split(":")[0];
-            var venue;
+            let venueAbbrev = venueClicked.target.textContent.split(":")[0];
+            let venue;
             for (var i = 0; i < common.locations.length; i++) {
                 if (common.locations[i].abbrev == venueAbbrev)
                 {
@@ -303,7 +303,7 @@
                 }
             }
 
-            var note = "";
+            let note = "";
             if (venue.note != "" && venue.note != undefined)
             {
                 note += ". " + venue.note;
@@ -327,7 +327,7 @@
         }
 
         function getDelayMinutesForVenue(venue) {
-            var delayMinutes = localStorage.getItem(getDelayKey(venue));
+            let delayMinutes = localStorage.getItem(getDelayKey(venue));
             if (delayMinutes == null) {
                 return 0;
             }
@@ -335,10 +335,10 @@
         }
 
         function drawTimeline() {
-            var data = dayToData.get(day);
-            var schedule = document.getElementById("schedule");
+            let data = dayToData.get(day);
+            let schedule = document.getElementById("schedule");
 
-            var height = getYPixelLocation(data.earliestStart, data.latestEnd);
+            let height = getYPixelLocation(data.earliestStart, data.latestEnd);
             schedule.style.height = getYPixelLocation(data.earliestStart, data.latestEnd) + "px";
 
             drawTimeOnLeft(data.earliestStart, data.latestEnd);
@@ -349,32 +349,32 @@
 
         function drawCurrentTime(earliestStart) {
 
-            var schedule = document.getElementById("schedule");
-            var currentTime = new Date();    
+            let schedule = document.getElementById("schedule");
+            let currentTime = new Date();    
             
             if (currentTime > common.storedTimeTEST)
             {
                 common.storedTimeTEST = currentTime;
             }
-            var pixel = getYPixelLocation(earliestStart, common.storedTimeTEST);
+            let pixel = getYPixelLocation(earliestStart, common.storedTimeTEST);
 
-            var labelCurrentTimeNumber = document.createElement('label');
+            let labelCurrentTimeNumber = document.createElement('label');
             labelCurrentTimeNumber.style.position = 'absolute';
             labelCurrentTimeNumber.style.left = 0 + 'px';
 
             labelCurrentTimeNumber.style.top = (pixel + yTimePushLeftDown) + 'px';
             labelCurrentTimeNumber.style.width = xBlockWidth;
             labelCurrentTimeNumber.style.height = yTimeHourHeight;
-            var minutes = common.storedTimeTEST.getMinutes();
-            var minutesString;
+            let minutes = common.storedTimeTEST.getMinutes();
+            let minutesString;
             if (minutes < 10) {
                 minutesString = "0" + minutes;
             }
             else {
                 minutesString = minutes;
             }
-            var hours = common.storedTimeTEST.getHours();
-            var hoursString;
+            let hours = common.storedTimeTEST.getHours();
+            let hoursString;
             if (hours > 12) {
                 hoursString = hours - 12;
             }
@@ -394,7 +394,7 @@
 
             schedule.appendChild(labelCurrentTimeNumber);
 
-            var labelCurentTimeLine = document.createElement('label');
+            let labelCurentTimeLine = document.createElement('label');
             labelCurentTimeLine.style.position = 'absolute';
             labelCurentTimeLine.style.left = 0 + 'px';
 
@@ -414,22 +414,22 @@
         }
 
         function drawTimeOnLeft(earliestStart, latestEnd) {
-            var schedule = document.getElementById("schedule");
+            let schedule = document.getElementById("schedule");
             
-            var startMinutes = earliestStart.getMinutes();
+            let startMinutes = earliestStart.getMinutes();
 
-            var drawingTime = earliestStart;
+            let drawingTime = earliestStart;
             while (drawingTime < latestEnd) {
-                var yPixelLocation = getYPixelLocation(earliestStart, drawingTime);
+                let yPixelLocation = getYPixelLocation(earliestStart, drawingTime);
 
-                var labelLeftTimes = document.createElement('label');
+                let labelLeftTimes = document.createElement('label');
                 labelLeftTimes.style.position = 'absolute';
                 labelLeftTimes.style.left = 0 + 'px';
 
                 labelLeftTimes.style.top = (yPixelLocation + yTimePushLeftDown) + 'px';
                 labelLeftTimes.style.width = xTimeOnLeftWidth;
                 labelLeftTimes.style.height = yTimeHourHeight;
-                var startMinutesString;
+                let startMinutesString;
                 if (startMinutes < 10) {
                     startMinutesString = "0" + startMinutes;
                 }
@@ -437,9 +437,9 @@
                     startMinutesString = startMinutes;
                 }
 
-                var hourString;
-                var ampm = "AM";
-                var drawingHour = drawingTime.getHours();
+                let hourString;
+                let ampm = "AM";
+                let drawingHour = drawingTime.getHours();
                 //TODO clean this up
                 if (drawingHour > 12) {
                     hourString = drawingHour - 12;
@@ -474,7 +474,7 @@
                 schedule.appendChild(labelLeftTimes);
 
                 //draw line
-                var labelLeftTimeLine = document.createElement('label');
+                let labelLeftTimeLine = document.createElement('label');
                 labelLeftTimeLine.style.position = 'absolute';
                 labelLeftTimeLine.style.left = 0 + 'px';
 
@@ -490,8 +490,8 @@
         }
 
         function getYPixelLocation(earliestStart, time) {
-            var hoursPast = (time.getTime() - earliestStart.getTime()) / milliSecondsInAnHour;
-            var pixel = (yTimeHourHeight * hoursPast);
+            let hoursPast = (time.getTime() - earliestStart.getTime()) / milliSecondsInAnHour;
+            let pixel = (yTimeHourHeight * hoursPast);
             return Number(pixel);
         }
 
@@ -502,26 +502,26 @@
         }
 
         function drawFaceupSchedule(events, earliestStart) {
-            var schedule = document.getElementById("schedule");
+            let schedule = document.getElementById("schedule");
             for (let i = 0; i < events.length; i++) {
-                var event = events[i];
+                let event = events[i];
 
-                var buttonViewable = document.createElement('button');
+                let buttonViewable = document.createElement('button');
                 buttonViewable.style.borderRadius = "12px";
 
                 buttonViewable.style.position = 'absolute';
                 buttonViewable.style.left = xTimeOnLeftWidth + 'px';
-                var location = event.location;
+                let location = event.location;
 
-                var startDate = new Date(getStartDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
-                var yPixelTop = getYPixelLocation(earliestStart, startDate);
+                let startDate = new Date(getStartDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
+                let yPixelTop = getYPixelLocation(earliestStart, startDate);
                 //TODO where is the 105 from?
                 buttonViewable.style.top = (yPixelTop + 105) + 'px';
                 buttonViewable.style.left = getXPixelForLocation(event);
                 buttonViewable.style.width = xBlockWidth;
-                var endDate = new Date(getEndDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
+                let endDate = new Date(getEndDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
 
-                var height = getYPixelLocation(earliestStart, endDate) - yPixelTop;
+                let height = getYPixelLocation(earliestStart, endDate) - yPixelTop;
                 buttonViewable.style.height = height + 'px';
                 buttonViewable.style.font = fontSchedule;
                 
@@ -537,18 +537,18 @@
                 buttonViewable.style.backgroundPosition = 'center';
                 buttonViewable.style.backgroundImage = "url(images/dog.png)";
                 
-                var bandInfo = bandToBandInfo.get(event.name);
-                var genreText = "";
+                let bandInfo = bandToBandInfo.get(event.name);
+                let genreText = "";
                 if (bandInfo != null && bandInfo != "undefined")
                 {
                     genreText = bandInfo.genre + "\n";
                 }
-                var goingInd = localStorage.getItem(common.getGoingKey(event));
+                let goingInd = localStorage.getItem(common.getGoingKey(event));
                 if (goingInd == null) {
                     goingInd = common.goingUndecided;
                 }
-                var text = event.name + "\n"  + genreText + getTimeString(startDate) + "-" + getTimeString(endDate);// + "\n" + goingInd;
-                var buttonLabel = document.createElement("label");
+                let text = event.name + "\n"  + genreText + getTimeString(startDate) + "-" + getTimeString(endDate);// + "\n" + goingInd;
+                let buttonLabel = document.createElement("label");
                 buttonLabel.innerText = text;
                 //TODO wonder if making this id the same as the button is bad, but the click uses the id of the thing that was clicked to pick which overlay to show 
                 buttonLabel.id = getScheduleViewableButtonId(event);
@@ -557,7 +557,7 @@
                 buttonViewable.appendChild(buttonLabel);
                 //buttonViewable.innerText = text;
 
-                var leftPortion = document.createElement("span");
+                let leftPortion = document.createElement("span");
                 leftPortion.style.position = "absolute";
                 leftPortion.style.top = "0";
                 leftPortion.style.left = "0";
@@ -598,7 +598,7 @@
         }
 
         function getTimeString(date) {
-            var hour = date.getHours();
+            let hour = date.getHours();
             if (hour > 12) {
                 hour -= 12;
             }
@@ -606,8 +606,8 @@
             {
                 hour = 12;
             }
-            var minute = date.getMinutes();
-            var minuteString = "";
+            let minute = date.getMinutes();
+            let minuteString = "";
             if (minute < 10) {
                 minuteString += "0";
             }
@@ -616,19 +616,19 @@
         }
 
         function drawHiddenOverlay(events, earliestStart) {
-            var schedule = document.getElementById("schedule");
+            let schedule = document.getElementById("schedule");
             for (let i = 0; i < events.length; i++) {
-                var event = events[i];
-                var location = event.location;
-                var startDate = new Date(getStartDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
+                let event = events[i];
+                let location = event.location;
+                let startDate = new Date(getStartDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
 
-                var yPixelTop = getYPixelLocation(earliestStart, startDate);
+                let yPixelTop = getYPixelLocation(earliestStart, startDate);
                 
-                var endDate = new Date(getStartDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
+                let endDate = new Date(getStartDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
 
-                var height = getYPixelLocation(earliestStart, getEndDateTime(endDate)) - yPixelTop;
+                let height = getYPixelLocation(earliestStart, getEndDateTime(endDate)) - yPixelTop;
 
-                var labelHidden = document.createElement('label');
+                let labelHidden = document.createElement('label');
                 labelHidden.style.position = 'absolute';
                 labelHidden.style.left = xTimeOnLeftWidth + 'px';
 
@@ -643,7 +643,7 @@
                 labelHidden.id = getScheduleHiddenEventId(event);
                 labelHidden.style.zIndex = 100000;
 
-                var weirdButtonFix = document.createElement('button');
+                let weirdButtonFix = document.createElement('button');
                 weirdButtonFix.style.width = 0 + 'px';
                 weirdButtonFix.style.height = 0 + 'px';
                 weirdButtonFix.style.visibility = 'hidden';
@@ -655,8 +655,8 @@
 
                 schedule.appendChild(labelHidden);
 
-                var labelBand = document.createElement('label');
-                var conflicts = event.overlap.trim();
+                let labelBand = document.createElement('label');
+                let conflicts = event.overlap.trim();
                 if (conflicts == "")
                 {
                     conflicts = "None.";
@@ -666,10 +666,10 @@
                 labelHidden.appendChild(document.createElement('div'));
 
 
-                var buttonGoingUndecided = createButtonGoing(common.goingUndecided, schedule, event);
-                var buttonGoingMaybe = createButtonGoing(common.goingMaybe, schedule, event);
-                var buttonGoingGoing = createButtonGoing(common.goingGoing, schedule, event);
-                var buttonGoingNotGoing = createButtonGoing(common.goingNotGoing, schedule, event);
+                let buttonGoingUndecided = createButtonGoing(common.goingUndecided, schedule, event);
+                let buttonGoingMaybe = createButtonGoing(common.goingMaybe, schedule, event);
+                let buttonGoingGoing = createButtonGoing(common.goingGoing, schedule, event);
+                let buttonGoingNotGoing = createButtonGoing(common.goingNotGoing, schedule, event);
 
                 labelHidden.appendChild(buttonGoingGoing);
                 labelHidden.appendChild(buttonGoingNotGoing);
@@ -678,12 +678,12 @@
 
                 labelHidden.appendChild(document.createElement('div'));
 
-                var buttonCloseOnLabel = document.createElement('button');
+                let buttonCloseOnLabel = document.createElement('button');
                 buttonCloseOnLabel.style.borderRadius = "12px";
                 buttonCloseOnLabel.style.width = "20%";
                 buttonCloseOnLabel.style.height = 100 + 'px';
                 buttonCloseOnLabel.innerText = closeButtonText;
-                var closeId = getCloseButtonId(event);
+                let closeId = getCloseButtonId(event);
                 buttonCloseOnLabel.id = closeId;
                 //buttonCloseOnLabel.style.bottom = "0";
                 buttonCloseOnLabel.style.position = "absolute";
@@ -698,21 +698,21 @@
 
                 labelHidden.appendChild(buttonCloseOnLabel);
                 labelHidden.appendChild(document.createElement('div'));
-                var alsoLabel = document.createElement('label');
+                let alsoLabel = document.createElement('label');
                 //TODO divs don't appear to do what I want
                 alsoLabel.innerText = "\n\n\nAlso:";
                 labelHidden.appendChild(alsoLabel);
 
-                var eventsAll = eventNameToEvents.get(event.name);
+                let eventsAll = eventNameToEvents.get(event.name);
                 eventsAll.forEach(eventIter => {
                     if (eventIter.id == event.id) {
                         return;
                     }
                     labelHidden.appendChild(document.createElement('div'));
 
-                    var labelBandAlso = document.createElement('label');
+                    let labelBandAlso = document.createElement('label');
 
-                    var conflicts = eventIter.overlap.trim();
+                    let conflicts = eventIter.overlap.trim();
                     if (conflicts == "")
                     {
                         conflicts = "None.";
@@ -720,33 +720,50 @@
                     labelBandAlso.innerText = "Day: " + eventIter.day + " " + " " + eventIter.startTime + "-" + eventIter.endTime + " " + eventIter.endAMPM + "\n" + "Conflicts: " + conflicts;
                     labelHidden.appendChild(labelBandAlso);
                     labelHidden.appendChild(document.createElement('div'));
-                    var buttonGoingGoing = createButtonGoing(common.goingGoing, schedule, eventIter);
-                    var buttonGoingUndecided = createButtonGoing(common.goingUndecided, schedule, eventIter);
-                    var buttonGoingMaybe = createButtonGoing(common.goingMaybe, schedule, eventIter);
-                    var buttonGoingNotGoing = createButtonGoing(common.goingNotGoing, schedule, eventIter);
+                    let buttonGoingGoing = createButtonGoing(common.goingGoing, schedule, eventIter);
+                    let buttonGoingUndecided = createButtonGoing(common.goingUndecided, schedule, eventIter);
+                    let buttonGoingMaybe = createButtonGoing(common.goingMaybe, schedule, eventIter);
+                    let buttonGoingNotGoing = createButtonGoing(common.goingNotGoing, schedule, eventIter);
 
                     labelHidden.appendChild(buttonGoingGoing);
                     labelHidden.appendChild(buttonGoingNotGoing);
                     labelHidden.appendChild(buttonGoingMaybe);
                     labelHidden.appendChild(buttonGoingUndecided);
                     
-                    var buttonGoTo = createButtonGoTo(eventIter, schedule);
+                    let buttonGoTo = createButtonGoTo(eventIter, schedule);
                     labelHidden.appendChild(buttonGoTo);
 
                 });
 
+                let note = document.createElement("textarea");
+                note.style.width = "96%";
+                note.style.marginLeft = "2%";
+                note.style.height = 500;
+                note.style.font = fontGoingButton;
+                note.style.opacity = ".7";
+                note.style.justifyContent = "center";
+                note.id = event.name;
+
+                let existingNote = localStorage.getItem(getNoteId(event.name));
+                if (existingNote)
+                {
+                    note.value = decodeURI(existingNote);
+                }
+                else{
+                    note.value = "Add band notes here";
+                }
+                note.addEventListener("input", function(textareaParam) {
+                        console.log("Text in the textarea has changed:", note.value)
+                    
+                        console.log(textareaParam.target.id);
+                        console.log(getNoteId(textareaParam.target.id));
+                        localStorage.setItem(getNoteId(textareaParam.target.id), encodeURI(note.value));
+                    }
+                );
+
                 labelHidden.appendChild(document.createElement('div'));
-                //asdf
-                var buttonLabel = document.createElement("label");
-                buttonLabel.innerText = "test";
-                buttonLabel.style.color = "red";
-                buttonLabel.style.backgroundColor = "rgba(0, 0, 0, 0.8)"; // Set the background color of the text
-                labelHidden.appendChild(buttonLabel);
-
-
-                //labelHidden.appendChild
-
-
+                labelHidden.appendChild(note);
+                
             }
         }
 
@@ -757,8 +774,13 @@
             return event.id + ",scheduleHidden";
         }
 
+        function getNoteId(eventName)
+        {
+            return common.storedNoteKey + "," + eventName;
+        }
+
         function createButtonGoTo(event, schedule) {
-            var buttonGoTo = document.createElement('button');
+            let buttonGoTo = document.createElement('button');
             buttonGoTo.style.backgroundColor = colorGoToBackground;
 
             buttonGoTo.style.width = "20%";
@@ -777,28 +799,29 @@
         }
 
         function goToClick(event) {
-            var eventObject = common.getEventFromCommas(event.target.id);
-            var day = eventObject.day;
+            let eventObject = common.getEventFromCommas(event.target.id);
+            let day = eventObject.day;
             localStorage.setItem(common.storedDayKey, eventObject.day);
 
-            var earliestStart = dayToData.get(Number(day)).earliestStart;
-            var time = getStartDateTime(eventObject);
+            let earliestStart = dayToData.get(Number(day)).earliestStart;
+            let time = getStartDateTime(eventObject);
 
-            var scrollToLocation = getYPixelLocation(earliestStart, time);
+            let scrollToLocation = getYPixelLocation(earliestStart, time);
             localStorage.setItem(common.storedScrollToKey, scrollToLocation - 200);
 
-            var parentLabel = event.target.parentElement;
-            var label = common.getEventFromCommas(parentLabel.id);
+            let parentLabel = event.target.parentElement;
+            let label = common.getEventFromCommas(parentLabel.id);
             hideLabel(label);
+            pauseRefreshing = false;
             redrawEverything();
         }
 
         function createButtonGoing(going, schedule, event) {
 
-            var buttonGoingOnLabel = document.createElement('button');
+            let buttonGoingOnLabel = document.createElement('button');
             buttonGoingOnLabel.style.borderRadius = "12px";
 
-            var goingInd = localStorage.getItem(common.getGoingKey(event));
+            let goingInd = localStorage.getItem(common.getGoingKey(event));
             if (goingInd == null) {
                 goingInd = common.goingUndecided;
                 localStorage.setItem(common.getGoingKey(event), goingInd);
@@ -824,16 +847,16 @@
 
         function goingClick(theclick) {
 
-            var schedule = document.getElementById("schedule");
-            var parentLabel = theclick.target.parentElement;
+            let schedule = document.getElementById("schedule");
+            let parentLabel = theclick.target.parentElement;
 
-            var id = theclick.target.id;
-            var innerText = theclick.target.innerText;
+            let id = theclick.target.id;
+            let innerText = theclick.target.innerText;
             localStorage.setItem(id, innerText);
 
             const buttonsOnLabel = parentLabel.querySelectorAll("button");
             buttonsOnLabel.forEach(buttonGoingOnLabel => {
-                var goingInd = localStorage.getItem(buttonGoingOnLabel.id);
+                let goingInd = localStorage.getItem(buttonGoingOnLabel.id);
                 if (goingInd == null) {
                     if (buttonGoingOnLabel.innerText != closeButtonText && buttonGoingOnLabel.innerText != goToButtonText){
                         buttonGoingOnLabel.style.backgroundColor = colorGoingButtonNonActiveBackground;
@@ -855,31 +878,31 @@
 
         function hideLabel(event) {
             
-            var labelHidden = document.getElementById(getScheduleHiddenEventId(event));
+            let labelHidden = document.getElementById(getScheduleHiddenEventId(event));
             labelHidden.style.visibility = 'hidden';
         }
 
         function closeHiddenLabel(event) {
             pauseRefreshing = false;
-            var eventId = event.target.id;
-            var theEvent = common.getEventFromCommas(event.target.id);
+            let eventId = event.target.id;
+            let theEvent = common.getEventFromCommas(event.target.id);
             hideLabel(theEvent);
             redrawEverything();
 
         }
 
         function eventClick(event) {
-            var id = event.target.id;
-            var eventWithValues = common.getEventFromCommas(id);
-            var labelHidden = document.getElementById(getScheduleHiddenEventId(eventWithValues));
+            let id = event.target.id;
+            let eventWithValues = common.getEventFromCommas(id);
+            let labelHidden = document.getElementById(getScheduleHiddenEventId(eventWithValues));
             labelHidden.style.visibility = 'visible';
             pauseRefreshing = true;
         }
 
         function getXPixelForLocation(event) {
-            var locationIndex = getLocationIndex(event.location);
+            let locationIndex = getLocationIndex(event.location);
 
-            var left = (locationIndex * xBlockWidth) + xTimeOnLeftWidth;
+            let left = (locationIndex * xBlockWidth) + xTimeOnLeftWidth;
             return left;
         }
 
@@ -909,7 +932,7 @@
             document.getElementById("dayButton" + day).style.backgroundColor = colorDayBackgroundActive;
             document.getElementById("dayButton" + day).style.backgroundImage = "url(images/dude.png)";
             
-            var buttonWidth = Math.floor(fullWidth / 7) + "px";
+            let buttonWidth = Math.floor(fullWidth / 7) + "px";
             document.getElementById("dayButton1").style.width = buttonWidth;
             document.getElementById("dayButton2").style.width = buttonWidth;
             document.getElementById("dayButton3").style.width = buttonWidth;
@@ -918,7 +941,7 @@
 
         function resetButton(buttonName, buttonText)
         {
-            var button = document.getElementById(buttonName);
+            let button = document.getElementById(buttonName);
             button.delete
             deleteAll(button, 'label');
             
@@ -926,7 +949,7 @@
             button.style.backgroundSize = 'cover';
             button.style.backgroundPosition = 'center';
 
-            var buttonLabel = document.createElement("label");
+            let buttonLabel = document.createElement("label");
             buttonLabel.innerText = buttonText;
             buttonLabel.style.color = "red";
             buttonLabel.style.backgroundColor = "rgba(0, 0, 0, 0.8)"; // Set the background color of the text
@@ -935,11 +958,11 @@
 
         function goToNow() {
             for (var day = 1; day <= 4; day++) {
-                var data = dayToData.get(day);
+                let data = dayToData.get(day);
                 if (data.earliestStart < common.storedTimeTEST && data.latestEnd > common.storedTimeTEST) {
                     localStorage.setItem(common.storedDayKey, day);
 
-                    var scrollToLocation = getYPixelLocation(data.earliestStart, common.storedTimeTEST);
+                    let scrollToLocation = getYPixelLocation(data.earliestStart, common.storedTimeTEST);
                     
                     localStorage.setItem(common.storedScrollToKey, scrollToLocation - 200);
                     redrawEverything();

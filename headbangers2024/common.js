@@ -1,5 +1,5 @@
-//TODO swap these when done testing var storedTimeTEST = new Date();
-export var storedTimeTEST = getDateTime("2024", "Oct", "29", "12:02", "AM");
+//TODO swap these when done testing let storedTimeTEST = new Date();
+export let storedTimeTEST = getDateTime("2024", "Oct", "29", "12:02", "AM");
 
 export let locations = [
     {
@@ -62,30 +62,31 @@ export let bandInfo = [
     ["test44", "genre three"]
 ];
 
-export var storedVersion = "_hbb_v6";
-export var storedDelayKey = "storedDelay" + year + storedVersion;
-export var storedDayKey = "storedDay" + year + storedVersion;
-export var storedScrollToKey = "storedStoredScrollToKey" + year + storedVersion;
-export var storedGoingKey = "storedGoingKey" + year + storedVersion;
+export let storedVersion = "_hbb_v6";
+export let storedDelayKey = "storedDelay" + year + storedVersion;
+export let storedDayKey = "storedDay" + year + storedVersion;
+export let storedScrollToKey = "storedStoredScrollToKey" + year + storedVersion;
+export let storedGoingKey = "storedGoingKey" + year + storedVersion;
+export let storedNoteKey = "storedNoteKey" + year + storedVersion;
 
-export var goingUndecided = "TBD";
-export var goingMaybe = "Maybe";
-export var goingGoing = "Going";
-export var goingNotGoing = "No";
+export let goingUndecided = "TBD";
+export let goingMaybe = "Maybe";
+export let goingGoing = "Going";
+export let goingNotGoing = "No";
 
 export function getDateTime(year, month, day, time, AMPM) {
 
-    var dateString = day + " " + month + " " + year + " " + time + ":00" + " " + AMPM;
+    let dateString = day + " " + month + " " + year + " " + time + ":00" + " " + AMPM;
 
-    var date = new Date(Date.parse(dateString));
+    let date = new Date(Date.parse(dateString));
     return date;
 }
 
 export function getEventFromCommas(eventWithDay) {
-    var eventSplit = eventWithDay.split(",");
+    let eventSplit = eventWithDay.split(",");
     Object.keys(eventSplit).forEach(k => eventSplit[k] = eventSplit[k].trim());
     let x = 0;
-    var event = {
+    let event = {
         location: eventSplit[x++],
         startMonth: eventSplit[x++],
         startDay: eventSplit[x++],
