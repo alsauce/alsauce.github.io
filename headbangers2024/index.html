@@ -78,7 +78,8 @@
                 let band = bands[i];
                 bandToBandInfo.set(band[0], {
                     genre: band[1],
-                    info: band[2]
+                    info: band[2],
+                    links: band[3]
                 });
             }
             
@@ -381,7 +382,7 @@
             if (hours > 12) {
                 hoursString = hours - 12;
             }
-                else if (hours == 0) {
+            else if (hours == 0) {
                 hoursString = 12;
             }
             else {
@@ -697,10 +698,12 @@
                 labelHidden.appendChild(alsoLabel);
 
                 let eventsAll = eventNameToEvents.get(event.name);
+                let otherEventExists = false;
                 eventsAll.forEach(eventIter => {
                     if (eventIter.id == event.id) {
                         return;
                     }
+                    otherEventExists = true;
                     labelHidden.appendChild(document.createElement('div'));
 
                     let labelBandAlso = document.createElement('label');
@@ -725,8 +728,14 @@
                     
                     let buttonGoTo = createButtonGoTo(eventIter, schedule);
                     labelHidden.appendChild(buttonGoTo);
-
                 });
+                if (!otherEventExists)
+                {
+                    let alsoLabel = document.createElement('label');
+                
+                    alsoLabel.innerText = "\nNo other events.";
+                    labelHidden.appendChild(alsoLabel);
+                }
 
                 ///////////////
                 //add band info
@@ -738,8 +747,17 @@
                     {
                         let divBeforeBandInfo = document.createElement('div');
                         divBeforeBandInfo.style.paddingTop = "40px";
+                        divBeforeBandInfo.style.color = "white";
 
-                        divBeforeBandInfo.innerHTML = bandInfo.info;
+                        let bandInfoWithLinks = bandInfo.info;
+                        let links = bandInfo.links;
+                        if (links)
+                        {
+                            links.forEach(link => {
+                                bandInfoWithLinks += " <br> <a href='" + link + "' style='color: lightblue;'>" + link + "</a>";
+                            });
+                        }
+                        divBeforeBandInfo.innerHTML = bandInfoWithLinks;
                         labelHidden.appendChild(divBeforeBandInfo);
                     }
                 }
@@ -763,7 +781,7 @@
                     note.value = decodeURI(existingNote);
                 }
                 else{
-                    note.value = "Add band notes here";
+                    note.value = "Add notes here";
                 }
 
                 note.addEventListener("input", function(textareaParam) {
