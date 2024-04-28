@@ -1,6 +1,7 @@
 Notes
 
 TODO:
+when going from alpha to schedule, set the value needed in the localStorage
 have alpha reference schedule from index
 Make alpha more functional - add going and not going and "more info"?
 extra band info somewhere

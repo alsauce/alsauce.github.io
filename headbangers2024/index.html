@@ -681,29 +681,8 @@
 
                 ////////////
                 // add event append text box
-                let eventAppendText = document.createElement('input');
-
-                let existingEventAppendText = localStorage.getItem(getEventAppendTextId(event.id));
-                if (existingEventAppendText)
-                {
-                    eventAppendText.value = existingEventAppendText;
-                }
-                else{
-                    eventAppendText.value = "(add event text)";
-                }
+                let eventAppendText = getEventAppendTextBox(event);
                 
-                eventAppendText.style.font = "35px serif";
-                eventAppendText.style.width = "90%";
-                eventAppendText.style.height = 50;
-                eventAppendText.style.marginLeft = "2%";
-                eventAppendText.id = event.id;
-
-                eventAppendText.addEventListener("input", function(eventAppendTextParam) {
-                        localStorage.setItem(getEventAppendTextId(eventAppendTextParam.target.id), eventAppendText.value);
-                        //TODO limit char length?
-                    }
-                );
-
                 labelHidden.appendChild(document.createElement('div'));           
                 labelHidden.appendChild(eventAppendText);
 
@@ -765,6 +744,13 @@
                     
                     let buttonGoTo = createButtonGoTo(eventIter, schedule);
                     labelHidden.appendChild(buttonGoTo);
+
+                    /////////////////
+                    //add event append text
+                    let eventAppendText = getEventAppendTextBox(eventIter);
+                
+                    labelHidden.appendChild(document.createElement('div'));           
+                    labelHidden.appendChild(eventAppendText);
                 });
                 if (!otherEventExists)
                 {
@@ -832,6 +818,38 @@
                 labelHidden.appendChild(note);
                 
             }
+        }
+
+        function getEventAppendTextBox(event)
+        {
+            let eventAppendText = document.createElement('input');
+
+            console.log("getEventAppendTextBox" + event.id)
+            let existingEventAppendText = localStorage.getItem(getEventAppendTextId(event.id));
+            if (existingEventAppendText)
+            {
+                eventAppendText.value = existingEventAppendText;
+            }
+            else{
+                eventAppendText.value = "(add event text)";
+            }
+            eventAppendText.style.color = "hsla(0, 100%, 90%, 1)";
+            eventAppendText.style.backgroundColor = "hsla(0, 0%, 20%, 1)";
+            eventAppendText.style.opacity = ".9";
+            eventAppendText.style.justifyContent = "center";
+            eventAppendText.style.font = "35px serif";
+            eventAppendText.style.width = "90%";
+            eventAppendText.style.height = 50;
+            eventAppendText.style.marginLeft = "2%";
+            eventAppendText.id = event.id;
+
+            eventAppendText.addEventListener("input", function(eventAppendTextParam) {
+                    localStorage.setItem(getEventAppendTextId(eventAppendTextParam.target.id), eventAppendText.value);
+                    //TODO limit char length?
+                }
+            );
+
+            return eventAppendText;
         }
 
         function getEventAppendTextId(eventName)
