@@ -797,7 +797,8 @@
                 note.style.opacity = ".9";
                 note.style.justifyContent = "center";
                 note.style.font = '35px serif';
-                note.id = event.name;
+                //TODO trying to fix scroll on note on mobile
+                note.style.overflowY = "scroll";
 
                 let existingNote = localStorage.getItem(getNoteId(event.name));
                 if (existingNote)
@@ -1064,10 +1065,70 @@
         function alphaToggle() {
             window.location.assign("./alpha.html");
         }
+
+        /////////////
+        // search
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+
+        // List of strings to search
+        const searchOverlay = document.getElementById('searchOverlay');
+
+        function openSearchOverlay() {
+        searchOverlay.style.display = 'block';
+        }
+
+        function closeSearchOverlay() {
+        searchOverlay.style.display = 'none';
+        }
+
+        function search(query) {
+            const regex = new RegExp(query, 'i');
+            let eventNames = Array.from(eventNameToEvents.keys());
+            console.log("eventNames " + eventNames);
+            let results = eventNames.filter(item => regex.test(item));
+            console.log("results " + results);
+            return results;
+        }
+
+        function displayResults(results) {
+            searchResults.innerHTML = '';
+            results.forEach(result => {
+                const li = document.createElement('li');
+                li.textContent = result;
+                searchResults.appendChild(li);
+            });
+            searchResults.style.display = results.length ? 'block' : 'none';
+        }
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.trim();
+            const results = search(query);
+            displayResults(results);
+        });
+
+        // Hide results when clicking outside the search dialog
+        document.addEventListener('click', (event) => {
+        if (!event.target.closest('.search-dialog')) {
+            searchResults.style.display = 'none';
+        }
+        });
+
+        // Populate search input with selected result
+        searchResults.addEventListener('click', (event) => {
+        if (event.target.tagName === 'LI') {
+            searchInput.value = event.target.textContent;
+            searchResults.style.display = 'none';
+        }
+        });
+
+        
         window.redrawEverything = redrawEverything;
         window.handleDayButton = handleDayButton;
         window.alphaToggle = alphaToggle;
         window.goToNow = goToNow;
+        window.openSearchOverlay = openSearchOverlay;
+        window.closeSearchOverlay = closeSearchOverlay;
 
     </script>
 
@@ -1094,7 +1155,19 @@
             <label style="background-color:  rgba(0, 0, 0, 0.8); color: red">List
             </label>
         </button>
+        <button type="button" onclick="openSearchOverlay()" id="search" class="button"
+            style="background-image: url(images/search.png); background-size: cover; background-position: center; text-align: left; width: 90px; padding-bottom: 28px;">
+        </button>
     </div>
+
+    <div id="searchOverlay" class="overlay">
+        <div class="overlay-content">
+          <span class="close" onclick="closeSearchOverlay()">&times;</span>
+          <h2>Search</h2>
+          <input type="text" id="searchInput" placeholder="Search...">
+          <ul id="searchResults"></ul>
+        </div>
+      </div>
 
 </body>
 
