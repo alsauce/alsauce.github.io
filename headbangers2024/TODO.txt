@@ -1,18 +1,29 @@
 Notes
 
 TODO:
-when going from alpha to schedule, set the value needed in the localStorage
+dedicated scroll bar for extra text
+
 have alpha reference schedule from index
 Make alpha more functional - add going and not going and "more info"?
-extra band info somewhere
 filter/search for bands
 Going to an already past event doesn't go to the right spot.
 clicking an event, then clicking another brings up the other overlay
 check TODOs in code
+
+alpha:
+when going from alpha to schedule, set the value needed in the localStorage
+flat list
+sort by date
+filter pas events
+show more info
+
+
 iphone:
 - top left button text
 - some text might be too long, like with 2 genres and stuff
 - overlay text colors are blue??
+
+
 
 in progress:
 
@@ -38,6 +49,7 @@ hidden overlay weird behavior
 hidden overlay style
 pick style for venue buttons
 add personal Notes
+extra band info somewhere
 
 Needs every time:
 update button day/dates
