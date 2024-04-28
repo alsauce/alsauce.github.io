@@ -2,7 +2,8 @@ Notes
 
 TODO:
 dedicated scroll bar for extra text
-
+it looks like there's "placeholder text" instead of what I've been doing
+ - placeholder="Search..."
 have alpha reference schedule from index
 Make alpha more functional - add going and not going and "more info"?
 filter/search for bands

@@ -806,6 +806,7 @@
                     note.value = decodeURI(existingNote);
                 }
                 else{
+                    //TODO why didn't note.placeholder work?
                     note.value = "Add notes here";
                 }
 
@@ -1085,14 +1086,13 @@
         function search(query) {
             const regex = new RegExp(query, 'i');
             let eventNames = Array.from(eventNameToEvents.keys());
-            console.log("eventNames " + eventNames);
             let results = eventNames.filter(item => regex.test(item));
-            console.log("results " + results);
             return results;
         }
 
         function displayResults(results) {
             searchResults.innerHTML = '';
+            searchResults.style.font = "35px serif";
             results.forEach(result => {
                 const li = document.createElement('li');
                 li.textContent = result;
@@ -1163,8 +1163,7 @@
     <div id="searchOverlay" class="overlay">
         <div class="overlay-content">
           <span class="close" onclick="closeSearchOverlay()">&times;</span>
-          <h2>Search</h2>
-          <input type="text" id="searchInput" placeholder="Search...">
+          <input type="text" id="searchInput" placeholder="Search..." style="color: hsla(0, 100%, 0%, 1); font: 35px serif; height: 50">
           <ul id="searchResults"></ul>
         </div>
       </div>
