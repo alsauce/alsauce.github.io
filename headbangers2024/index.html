@@ -302,8 +302,8 @@
               "---There may be some info about the band if I got around to adding it.\n" +
               "---There is a text area to add your own notes about the band.\n" +
               "-The first few bottom buttons change which day the schedule displays\n" +
-              "-The current time line will be drawn on the schedule, so tapping the \"now\" button at bottom will take the schedule there when the shows start.\n" +
-              "-The List button displays the list view, which has a button to come back to the schedule view.\n" +
+              "-The current time and a line will be drawn on the schedule, so tapping the \"now\" button at bottom will take the schedule there.\n" +
+              "-The List button displays the list view, which has a button to come back to the schedule view.  I'm not sure how useful the list is now that I've added search on the timeline view, so it's falling behind in updates.\n" +
               "-The search button opens the search dialogue.\n" +
               "-All of your changes are stored locally on your phone in the specific browser you've done the changes with.  Clearing the cache will delete your changes.\n" +
               "-Need data for this to work.  All user input may suddenly reset.  Things may break/change.  It's a side project.  Hope you like it though!\n");
@@ -1081,11 +1081,15 @@
         const searchOverlay = document.getElementById('searchOverlay');
 
         function openSearchOverlay() {
-        searchOverlay.style.display = 'block';
+            searchOverlay.style.display = 'block';
+            searchInput.focus();
+            const query = searchInput.value.trim();
+            const results = search(query);
+            displayResults(results);
         }
 
         function closeSearchOverlay() {
-        searchOverlay.style.display = 'none';
+            searchOverlay.style.display = 'none';
         }
 
         function search(query) {
@@ -1100,13 +1104,21 @@
             searchResults.style.font = "35px serif";
             let totalResults = 0;
             results.forEach(result => {
+                searchResults.appendChild(document.createElement("div"));
+                let searchResultEventNameLabel = document.createElement("label");
+                searchResultEventNameLabel.style.color = "hsla(0, 0%, 80%, 1)";
+                searchResultEventNameLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
+                searchResultEventNameLabel.innerHTML = "<h1>" + result + "</h1>";
+
+                searchResults.appendChild(searchResultEventNameLabel);
                 
                 let events = eventNameToEvents.get(result);
+                
                 events.forEach(event => {
                     let searchResultLabel = document.createElement("label");
                     searchResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
                     searchResultLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
-                    searchResultLabel.innerText = event.name + " Day: " + event.day + " " + " " + event.startTime + "-" + event.endTime + " " + event.endAMPM + " Conflicts: " + event.conflicts;
+                    searchResultLabel.innerHTML = "<li> Day: " + event.day + " " + " " + event.startTime + "-" + event.endTime + " " + event.endAMPM + "</li><li>Conflicts: " + event.conflicts + "</li>";
                     
                     let buttonGoTo = document.createElement('button');
                     buttonGoTo.style.backgroundColor = colorGoToBackground;
@@ -1119,8 +1131,14 @@
 
                     buttonGoTo.addEventListener("click", goToClickSearch);
 
+                    let gotoLabel = document.createElement("label");
+                    gotoLabel.style.color = "hsla(0, 0%, 80%, 1)";
+                    gotoLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
+                    gotoLabel.innerHTML = "";
+
                     searchResults.appendChild(document.createElement("div"));
                     searchResults.appendChild(searchResultLabel);
+                    searchResults.appendChild(gotoLabel);
                     searchResults.appendChild(buttonGoTo);
                     totalResults++;
                 });
@@ -1132,21 +1150,6 @@
             const query = searchInput.value.trim();
             const results = search(query);
             displayResults(results);
-        });
-
-        // Hide results when clicking outside the search dialog
-        document.addEventListener('click', (event) => {
-        if (!event.target.closest('.search-dialog')) {
-            searchResults.style.display = 'none';
-        }
-        });
-
-        // Populate search input with selected result
-        searchResults.addEventListener('click', (event) => {
-        if (event.target.tagName === 'LI') {
-            searchInput.value = event.target.textContent;
-            searchResults.style.display = 'none';
-        }
         });
 
         function goToClickSearch(event) {
