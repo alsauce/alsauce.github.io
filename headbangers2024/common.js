@@ -39,8 +39,8 @@ export let year = 2024;
 export let schedule = [
 "\
 PO, Oct, 28, 6:00, PM, Oct, 28, 6:45, PM, test11 \n\
-ST, Oct, 28, 6:10, PM, Oct, 28, 6:45, PM, test22 \n\
-SP, Oct, 28, 6:30, PM, Oct, 28, 6:55, PM, test33 \n\
+ST, Oct, 28, 6:10, PM, Oct, 28, 6:45, PM, test33 \n\
+SP, Oct, 28, 6:30, PM, Oct, 28, 6:55, PM, test22 \n\
 AT, Oct, 28, 7:10, PM, Oct, 28, 7:45, PM, test44 \n\
 MA, Oct, 28, 7:00, PM, Oct, 28, 7:45, PM, test55 \n\
 PO, Oct, 29, 12:00, AM, Oct, 29, 12:30, AM, test66 \

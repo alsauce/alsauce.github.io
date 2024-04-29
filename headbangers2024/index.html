@@ -9,6 +9,7 @@
         gtag('config', 'G-PM7ZMMTJG2');
     </script>
     <title>Headbanger's boat 2024</title>
+    <link rel="icon" href="images/hands.png" type="images/x-icon">
     <link rel="stylesheet" href="style.css?v1">
     
     <script type="module">
@@ -118,11 +119,14 @@
                         latestEnd = endTime;
                         latestEvent = event;
                     }
-                    addToEventNameToEventsMap(event);
 
                 }
 
+                events.sort((eventA, eventB) => eventA.name.toLowerCase().localeCompare(eventB.name.toLowerCase()));
+
                 events.forEach(event => {
+                    
+                    addToEventNameToEventsMap(event);
                     let eventStartDate = getStartDateTime(event);
                     let eventEndDate = getEndDateTime(event);
                     events.forEach(eventCompare => {
@@ -171,6 +175,7 @@
                eventNameToEvents.set(event.name, events);
             }
             events.push(event);
+            //would be better after all area added but generally only 2 events anyway
             events.sort((eventA, eventB) => getStartDateTime(eventA) - getStartDateTime(eventB));
         }
 
@@ -294,18 +299,18 @@
         }
         
         function buttonTopLeftClick() {
-        	alert("-Top buttons are venues - tap to set the delay minutes for a venue.\n" +
-              "-Each event on the schedule is a button - tap to bring up a helpful overlay:\n" +
+        	alert("Functionality includes things like searching for events, adding notes/schedule text, adding venue delay times, and navigation.  Scroll the text below to learn more.\n" +
+              "-Tap the top buttons to set the delay minutes for a venue, and see a bit more info about them.\n" +
+              "-Tap an event on the schedule to bring up an overlay:\n" +
               "---Tap desired \"going status\"\n" +
-              "---Tapping GoTo will go to that event on the schedule.\n" +
-              "---Add event text and it will show up on the schedule.  There's a text area further down for more band notes.\n" +
+              "---Tap GoTo to go to that event on the schedule.\n" +
+              "---Add event text and it will show up on the schedule.  Space there is limited and will look bad if too much is added.  There's a text area further down where you can add more band notes.\n" +
               "---There may be some info about the band if I got around to adding it.\n" +
-              "---There is a text area to add your own notes about the band.\n" +
-              "-The first few bottom buttons change which day the schedule displays\n" +
-              "-The current time and a line will be drawn on the schedule, so tapping the \"now\" button at bottom will take the schedule there.\n" +
-              "-The List button displays the list view, which has a button to come back to the schedule view.  I'm not sure how useful the list is now that I've added search on the timeline view, so it's falling behind in updates.\n" +
-              "-The search button opens the search dialogue.\n" +
-              "-All of your changes are stored locally on your phone in the specific browser you've done the changes with.  Clearing the cache will delete your changes.\n" +
+              "-Tap the first few bottom buttons to change which day the schedule displays\n" +
+              "-Tap \"Now\" bottom button to go to the current time on the schedule.\n" +
+              "-Tap \"List\" bottom button to go to the list view, which has a button to come back to the schedule view.  I'm not sure how useful the list is now that I've added search on the timeline view, so it's falling behind in updates.\n" +
+              "-Tap the search bottom button to search events.\n" +
+              "-All of your changes are stored locally on your device in the specific browser you've done the changes with.  Clearing the cache will delete your changes.\n" +
               "-Need data for this to work.  All user input may suddenly reset.  Things may break/change.  It's a side project.  Hope you like it though!\n");
         }
 
