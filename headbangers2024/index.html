@@ -1108,18 +1108,25 @@
             searchResults.innerHTML = '';
             searchResults.style.font = "35px serif";
             let totalResults = 0;
-            let resultString = "Results: ";
-            results.forEach(result => {
-                resultString += result + " ";
-            });
-            let allResults = document.createElement("label");
-            allResults.style.color = "hsla(0, 0%, 80%, 1)";
-            allResults.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
-            allResults.innerHTML = resultString;
-            let allResultsDiv = document.createElement("div");
-            searchResults.appendChild(allResultsDiv);
-            searchResults.appendChild(allResults);
             
+            results.forEach(result => {
+                let searchResultLabel = document.createElement("label");
+                searchResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
+                searchResultLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
+                searchResultLabel.style.padding = "10px";
+                // Add click event listener to the label
+                searchResultLabel.addEventListener('click', function(searchResultLabelClicked) {
+                    // Perform actions when the label is clicked
+                    console.log('Label clicked!');
+                    searchInput.value = searchResultLabel.innerHTML;
+                    const results = search(searchInput.value);
+                    displayResults(results);
+                    // You can add any action you want here
+                });
+                searchResultLabel.innerHTML = result;
+                searchResults.appendChild(searchResultLabel);
+            });
+
             results.forEach(result => {
                 
                 let events = eventNameToEvents.get(result);
