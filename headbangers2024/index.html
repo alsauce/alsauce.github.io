@@ -1101,14 +1101,12 @@
             let totalResults = 0;
             results.forEach(result => {
                 
-                // console.log(result);
-                //it's a list of events
-                
                 let events = eventNameToEvents.get(result);
                 events.forEach(event => {
-                   //const li = document.createElement('li');
                     let searchResultLabel = document.createElement("label");
-                    searchResultLabel.innerText = event.name + " Day: " + event.day + " " + " " + event.startTime + "-" + event.endTime + " " + event.endAMPM + "\n" + "Conflicts: " + event.conflicts;
+                    searchResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
+                    searchResultLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
+                    searchResultLabel.innerText = event.name + " Day: " + event.day + " " + " " + event.startTime + "-" + event.endTime + " " + event.endAMPM + " Conflicts: " + event.conflicts;
                     
                     let buttonGoTo = document.createElement('button');
                     buttonGoTo.style.backgroundColor = colorGoToBackground;
@@ -1120,10 +1118,6 @@
                     buttonGoTo.style.font = fontGoingButton;
 
                     buttonGoTo.addEventListener("click", goToClickSearch);
-
-                    console.log(event.id);
-                    //li.textContent = event.id;
-
 
                     searchResults.appendChild(document.createElement("div"));
                     searchResults.appendChild(searchResultLabel);
@@ -1156,6 +1150,7 @@
         });
 
         function goToClickSearch(event) {
+            searchOverlay.style.display = 'none';
             let eventObject = common.getEventFromCommas(event.target.id);
             let day = eventObject.day;
             localStorage.setItem(common.storedDayKey, eventObject.day);
@@ -1167,9 +1162,7 @@
             localStorage.setItem(common.storedScrollToKey, scrollToLocation - 200);
 
             let parentLabel = event.target.parentElement;
-            //let label = common.getEventFromCommas(parentLabel.id);
-            //hideLabel(label);
-            //pauseRefreshing = false;
+
             redrawEverything();
         }
 
@@ -1214,7 +1207,7 @@
     <div id="searchOverlay" class="overlay">
         <div class="overlay-content">
             <span class="close" onclick="closeSearchOverlay()">&times;</span>
-            <input type="text" id="searchInput" placeholder="Search..." style="color: hsla(0, 100%, 0%, 1); font: 35px serif; height: 50">
+            <input type="text" id="searchInput" placeholder="Search..." style="color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 70">
             <ul id="searchResults"></ul>
         </div>
     </div>
