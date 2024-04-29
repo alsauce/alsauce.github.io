@@ -100,7 +100,7 @@ export function getEventFromCommas(eventWithDay) {
         name: eventSplit[x++],
         day: eventSplit[x++],
         id: "",
-        overlap: ""
+        conflicts: "None."
     };
     event.id = getCommaStringFromEvent(event);
     return event;
