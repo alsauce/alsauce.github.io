@@ -1087,7 +1087,6 @@
 
         function openSearchOverlay() {
             searchOverlay.style.display = 'block';
-            searchInput.focus();
             const query = searchInput.value.trim();
             const results = search(query);
             displayResults(results);
@@ -1114,17 +1113,15 @@
                 searchResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
                 searchResultLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
                 searchResultLabel.style.padding = "10px";
-                // Add click event listener to the label
+                
                 searchResultLabel.addEventListener('click', function(searchResultLabelClicked) {
-                    // Perform actions when the label is clicked
-                    console.log('Label clicked!');
                     searchInput.value = searchResultLabel.innerHTML;
                     const results = search(searchInput.value);
                     displayResults(results);
-                    // You can add any action you want here
                 });
                 searchResultLabel.innerHTML = result;
                 searchResults.appendChild(searchResultLabel);
+                searchInput.focus();
             });
 
             results.forEach(result => {
@@ -1135,7 +1132,7 @@
                     let searchResultLabel = document.createElement("label");
                     searchResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
                     searchResultLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
-                    searchResultLabel.innerHTML = event.name + " Day: " + event.day + " " + " " + event.startTime + "-" + event.endTime + " " + event.endAMPM;
+                    searchResultLabel.innerHTML = "<b>" + event.name + "</b> Day: " + event.day + " " + " " + event.startTime + "-" + event.endTime + " " + event.endAMPM;
                     
                     let buttonGoTo = document.createElement('button');
                     buttonGoTo.style.backgroundColor = colorGoToBackground;
@@ -1189,6 +1186,13 @@
             redrawEverything();
         }
 
+        function handleClearSearch()
+        {
+            searchInput.value = "";
+            const results = search(searchInput.value);
+            displayResults(results);
+        }
+
         
         window.redrawEverything = redrawEverything;
         window.handleDayButton = handleDayButton;
@@ -1196,6 +1200,7 @@
         window.goToNow = goToNow;
         window.openSearchOverlay = openSearchOverlay;
         window.closeSearchOverlay = closeSearchOverlay;
+        window.handleClearSearch = handleClearSearch;
 
     </script>
 
@@ -1230,7 +1235,8 @@
     <div id="searchOverlay" class="overlay">
         <div class="overlay-content">
             <span class="close" onclick="closeSearchOverlay()">&times;</span>
-            <input type="search" id="searchInput" style="color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 70">
+            <input type="text" id="searchInput" placeholder="Search..." style="color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 70; padding-left: 10px">
+            <button onclick="handleClearSearch()" style="color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 70">Clear</button>
             <ul id="searchResults"></ul>
         </div>
     </div>
