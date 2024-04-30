@@ -46,11 +46,13 @@ MA, Oct, 28, 7:00, PM, Oct, 28, 7:45, PM, xtest25 \n\
 PO, Oct, 29, 12:00, AM, Oct, 29, 12:30, AM, xtest66 \
 "
 ,
-
-"PO, Oct, 29, 5:00, PM, Oct, 29, 6:45, PM, xtest11"
+"\
+PO, Oct, 29, 5:00, PM, Oct, 29, 6:45, PM, xtest11 \n\
+PO, Oct, 29, 11:00, PM, Oct, 30, 1:00, AM, xtest13 NoGenre \
+"
 ,
 
-"PO, Oct, 30, 5:00, PM, Oct, 30, 6:45, PM, xtest11"
+"PO, Oct, 30, 10:00, AM, Oct, 30, 10:45, PM, xtest11"
 ,
 
 "PO, Oct, 31, 5:00, PM, Oct, 31, 6:45, PM, xtest11"

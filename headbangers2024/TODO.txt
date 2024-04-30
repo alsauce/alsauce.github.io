@@ -2,26 +2,15 @@ Notes
 
 TODO:
 dedicated scroll bar for extra text / make this work better, I think it doesn't scroll when it's in focus, it's weird.
-it looks like there's "placeholder text" instead of what I've been doing on overlay text boxes
- - placeholder="Search..."
-Make alpha more functional - add going and not going and "more info"?
 Going to an already past event doesn't go to the right spot.
 clicking an event, then clicking another brings up the other overlay
-check TODOs in code
-
-alpha:
-when going from alpha to schedule, set the value needed in the localStorage
-flat list
-sort by date
-filter past events
-show more info
 
 iphone:
-- top left button text
 - some text might be too long, like with 2 genres and stuff
-- overlay text colors are blue??
 
 in progress:
+- top left button text
+- overlay text colors are blue??
 
 Done:
 Current Time on left shows 0 for midnight
@@ -47,6 +36,17 @@ pick style for venue buttons
 add personal Notes
 extra band info somewhere
 filter/search for bands
+it looks like there's "placeholder text" instead of what I've been doing on overlay text boxes
+ - placeholder="Search..."
+check TODOs in code
+
+alpha: got removed
+when going from alpha to schedule, set the value needed in the localStorage
+flat list
+sort by date
+filter past events
+show more info
+Make alpha more functional - add going and not going and "more info"?
 
 Needs every time:
 update button day/dates

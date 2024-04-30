@@ -261,6 +261,7 @@
             buttonTopLeft.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
             buttonTopLeft.style.backgroundSize = 'cover';
             buttonTopLeft.style.backgroundPosition = 'center';
+            buttonTopLeft.style.textAlign = "left";
             buttonTopLeft.addEventListener("click", buttonTopLeftClick);
 
             top.appendChild(buttonTopLeft);
@@ -310,7 +311,7 @@
               "-Tap \"Now\" bottom button - goes the current time on the schedule.\n" +
               "-Tap the search bottom button to search events.  Note you can tap results in the list as they apper.\n" +
               "-All of your changes are stored locally on your device in the specific browser you've done the changes with.  Clearing the browser cache will delete your changes.\n" +
-              "-Need data for this to work.  All user input may suddenly reset.  Things may break/change.  It's a side project of mine.  I'm clueless on some of the genres so hopefully it's not so far off.  Hope you like it though!\n");
+              "-Need data for this to work.  All user input may suddenly reset.  Things may break/change.  It's a side project of mine.  I'm clueless on some of the genres so hopefully it's not so far off.  Happy to hear feedback/bugs, hope you like it!\n");
         }
 
         function venueClick(venueClicked) {
@@ -459,33 +460,9 @@
                     startMinutesString = startMinutes;
                 }
 
-                let hourString;
-                let ampm = "AM";
                 let drawingHour = drawingTime.getHours();
-                //TODO clean this up
-                if (drawingHour > 12) {
-                    hourString = drawingHour - 12;
-                    if (drawingHour == 24) {
-                        ampm = "AM";
-                        hourString = 12;
-                    }
-                    else {
-                        ampm = "PM";
-                    }
-                }
-                else {
-                    if (drawingHour == 12) {
-                        ampm = "PM";
-                        hourString = drawingHour;
-                    }
-                    else {
-                        ampm = "AM";
-                        hourString = drawingHour;
-                    }
-                    if (drawingHour == 0) {
-                        hourString = 12;
-                    }
-                }
+                let hourString = drawingHour % 12 || 12;
+                let ampm = drawingHour >= 12 ? "PM" : "AM";
 
                 labelLeftTimes.textContent = hourString + ampm;
                 labelLeftTimes.style.font = fontLeftTime;
@@ -580,13 +557,11 @@
 
                 let buttonLabel = document.createElement("label");
                 buttonLabel.innerText = text;
-                //TODO wonder if making this id the same as the button is bad, but the click uses the id of the thing that was clicked to pick which overlay to show 
                 buttonLabel.id = getScheduleViewableButtonId(event);
                 buttonLabel.style.color = "white";
-                buttonLabel.style.backgroundColor = "rgba(0, 0, 0, 1)"; // Set the background color of the text
+                buttonLabel.style.backgroundColor = "rgba(0, 0, 0, 1)";
                 buttonViewable.appendChild(buttonLabel);
-                //buttonViewable.innerText = text;
-
+                
                 let leftPortion = document.createElement("span");
                 leftPortion.style.position = "absolute";
                 leftPortion.style.top = "0";
@@ -598,7 +573,6 @@
                 if (goingInd == common.goingGoing)
                 {
                     leftPortion.style.backgroundColor = "limegreen";
-                    //buttonLabel.style.color = "limegreen";
                     buttonViewable.style.opacity = "1";
                 }
                 else if (goingInd == common.goingNotGoing)
@@ -667,7 +641,7 @@
             eventAppendText.id = event.id;
 
             eventAppendText.addEventListener("input", function(eventAppendTextParam) {
-                    localStorage.setItem(getEventAppendTextId(eventAppendTextParam.target.id), eventAppendText.value);TODO
+                    localStorage.setItem(getEventAppendTextId(eventAppendTextParam.target.id), eventAppendText.value);
                 }
             );
 
@@ -745,6 +719,7 @@
             buttonGoingOnLabel.id = common.getGoingKey(event);
             buttonGoingOnLabel.style.font = fontGoingButton;
             buttonGoingOnLabel.style.opacity = ".7";
+            buttonGoingOnLabel.style.color = "black";
 
             buttonGoingOnLabel.addEventListener("click", goingClick);
 
@@ -758,7 +733,7 @@
             let innerText = theclick.target.innerText;
             localStorage.setItem(id, innerText);
             
-            //TODO really innefficient to prime data again, just need to change the conflict test, but this is easy
+            //primeData again to reset the conflicts going ind field
             primeData();
             openSearchOverlay();
 
