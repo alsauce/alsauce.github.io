@@ -76,7 +76,9 @@ export let bandInfo = [
     ["Poison the Well", "core"],
     ["Soulfly", "nu thrash death"],
     ["Unearth", "core"],
-    ["UnityTX", "nu"]
+    ["UnityTX", "nu"],
+    ["xtest25"],
+    ["xtest66"]
 ];
 
 export let storedVersion = "_hbb_v6";

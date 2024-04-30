@@ -169,6 +169,10 @@
         }
 
         function addToEventNameToEventsMap(event) {
+            if (bandToBandInfo.get(event.name) == null)
+            {
+                alert("Add bandInfo entry for \n" + event.name);
+            }
             let events = eventNameToEvents.get(event.name);
             if (events == null) {
                 events = [];
@@ -713,6 +717,7 @@
 
             let parentLabel = event.target.parentElement;
             let label = common.getEventFromCommas(parentLabel.id);
+            eventThatWasClicked = eventWithValues;
             hideLabel(label);
             redrawEverything();
         }
@@ -850,10 +855,15 @@
         // List of strings to search
         const searchOverlay = document.getElementById('searchOverlay');
 
+        function openSearchOverlayButtonClick() {            
+            openSearchOverlay()
+        }
+
         function openSearchOverlay() {
             searchOverlay.style.display = 'block';
             const query = searchInput.value.trim();
             const results = search(query);
+
             displayResults(results);
         }
 
@@ -906,7 +916,6 @@
                 searchResultLabel.innerHTML = result;
                 searchResults.appendChild(searchResultLabel);
                 searchResults.appendChild(document.createElement("div"));
-                searchInput.focus();
             });
             let separateFilteredResults = document.createElement("div");
             separateFilteredResults.style.padding = "10px";
@@ -1075,7 +1084,7 @@
             <label style="background-color:  rgba(0, 0, 0, 0.8); color: red">Now
             </label>
         </button>
-        <button type="button" onclick="openSearchOverlay()" id="search" class="button"
+        <button type="button" onclick="openSearchOverlayButtonClick()" id="search" class="button"
             style="background-image: url(images/search.png); background-size: cover; background-position: center; text-align: left; width: 90px; padding-bottom: 28px;">
         </button>
     </div>
