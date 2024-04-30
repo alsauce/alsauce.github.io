@@ -77,6 +77,13 @@ export let bandInfo = [
     ["Soulfly", "nu thrash death"],
     ["Unearth", "core"],
     ["UnityTX", "nu"],
+    ["Lamb of God", "core"],
+    ["Dethklok", "death"],
+    ["Mark Morton", "solo band"],
+    ["Shayne Smith", "comedy"],
+    ["Mike Abrusci", "comedy"],
+    ["Jose Mangin", "metal dude"],
+    ["Riki Ratchman", "metal dude"],
     ["xtest25"],
     ["xtest66"]
 ];
