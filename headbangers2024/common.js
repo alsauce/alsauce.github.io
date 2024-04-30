@@ -38,28 +38,45 @@ export let year = 2024;
 
 export let schedule = [
 "\
-PO, Oct, 28, 6:00, PM, Oct, 28, 6:45, PM, test11 \n\
-ST, Oct, 28, 6:10, PM, Oct, 28, 6:45, PM, test33 \n\
-SP, Oct, 28, 6:30, PM, Oct, 28, 6:55, PM, test22 \n\
-AT, Oct, 28, 7:10, PM, Oct, 28, 7:45, PM, test44 \n\
-MA, Oct, 28, 7:00, PM, Oct, 28, 7:45, PM, test55 \n\
-PO, Oct, 29, 12:00, AM, Oct, 29, 12:30, AM, test66 \
+PO, Oct, 28, 6:00, PM, Oct, 28, 6:45, PM, xtest11 \n\
+ST, Oct, 28, 6:10, PM, Oct, 28, 6:45, PM, xtest13 NoGenre \n\
+SP, Oct, 28, 6:30, PM, Oct, 28, 6:55, PM, xtest12 \n\
+AT, Oct, 28, 7:10, PM, Oct, 28, 7:45, PM, xtest24 \n\
+MA, Oct, 28, 7:00, PM, Oct, 28, 7:45, PM, xtest25 \n\
+PO, Oct, 29, 12:00, AM, Oct, 29, 12:30, AM, xtest66 \
 "
 ,
 
-"PO, Oct, 29, 5:00, PM, Oct, 29, 6:45, PM, test11"
+"PO, Oct, 29, 5:00, PM, Oct, 29, 6:45, PM, xtest11"
 ,
 
-"PO, Oct, 30, 5:00, PM, Oct, 30, 6:45, PM, test11"
+"PO, Oct, 30, 5:00, PM, Oct, 30, 6:45, PM, xtest11"
 ,
 
-"PO, Oct, 31, 5:00, PM, Oct, 31, 6:45, PM, test11"
+"PO, Oct, 31, 5:00, PM, Oct, 31, 6:45, PM, xtest11"
 ];
 
 export let bandInfo = [
-    ["test11", "genre1", "This band is from wherever.", ["https://www.metal-archives.com/bands/emperor/30"]],
-    ["test22", "genre2"],
-    ["test44", "genre three"]
+    ["xtest11", "genre1", "This band is from wherever.", ["https://www.metal-archives.com/bands/emperor/30"]],
+    ["xtest12", "genre2"],
+    ["xtest24", "genre three"],
+    ["xtest13 NoGenre"],
+    ["xtest7", "genre"],
+    ["xtestNoGenre"],
+    ["After the Burial", "prog"],
+    ["At the Gates", "death"],
+    ["Bleeding Through", "core"],
+    ["Chimaira", "Groove core"],
+    ["Corrosion of Conformity", "Sludge Southern"],
+    ["Currents", "core"],
+    ["Exodus", "Thrash"],
+    ["Eyehategod", "doom"],
+    ["Frozen Soul", "death"],
+    ["Napalm Death", "punk death"],
+    ["Poison the Well", "core"],
+    ["Soulfly", "nu thrash death"],
+    ["Unearth", "core"],
+    ["UnityTX", "nu"]
 ];
 
 export let storedVersion = "_hbb_v6";

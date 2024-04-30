@@ -74,7 +74,7 @@
         function primeBandToBandInfo()
         {
             bandToBandInfo = new Map();
-            let bands = common.bandInfo;
+            let bands = common.bandInfo.sort((eventA, eventB) => eventA[0].toLowerCase().localeCompare(eventB[0].toLowerCase()));
             for (let i = 0; i < bands.length; i++) {
                 let band = bands[i];
                 bandToBandInfo.set(band[0], {
@@ -83,7 +83,7 @@
                     links: band[3]
                 });
             }
-            
+
         }
 
         function primeData() {
@@ -561,7 +561,7 @@
                 
                 let bandInfo = bandToBandInfo.get(event.name);
                 let genreText = "";
-                if (bandInfo != null && bandInfo != "undefined")
+                if (bandInfo != null && bandInfo != "undefined" && bandInfo.genre != null && bandInfo.genre != "")
                 {
                     genreText = bandInfo.genre + "\n";
                 }
@@ -808,6 +808,7 @@
                 note.style.font = '35px serif';
                 //TODO trying to fix scroll on note on mobile
                 note.style.overflowY = "scroll";
+                note.id = event.name;
 
                 let existingNote = localStorage.getItem(getNoteId(event.name));
                 if (existingNote)
@@ -820,6 +821,8 @@
                 }
 
                 note.addEventListener("input", function(textareaParam) {
+                    console.log(textareaParam.target.id);
+                    //TODO asdf todo: putting test in search doese not refresh the text from the schedule for textarea
                         localStorage.setItem(getNoteId(textareaParam.target.id), encodeURI(note.value));
                     }
                 );
@@ -1093,7 +1096,7 @@
 
         function search(query) {
             const regex = new RegExp(query, 'i');
-            let eventNames = Array.from(eventNameToEvents.keys());
+            let eventNames = Array.from(bandToBandInfo.keys());
             let results = eventNames.filter(item => regex.test(item));
             return results;
         }
@@ -1115,45 +1118,98 @@
                 });
                 searchResultLabel.innerHTML = result;
                 searchResults.appendChild(searchResultLabel);
+                searchResults.appendChild(document.createElement("div"));
                 searchInput.focus();
             });
-
+            let separateFilteredResults = document.createElement("div");
+            separateFilteredResults.style.padding = "10px";
+                
+            searchResults.appendChild(separateFilteredResults);
+                
             results.forEach(result => {
                 
                 let events = eventNameToEvents.get(result);
+
+                if (events == null || events.length == 0)
+                {
+                    let divBeforeNoEventsLabel = document.createElement("div");
+                    let noEventsLabel = document.createElement("label");
+                    noEventsLabel.style.color = "hsla(0, 0%, 80%, 1)";
+                    noEventsLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
+                    noEventsLabel.innerHTML = result + ": No event data yet.";
+                    searchResults.appendChild(divBeforeNoEventsLabel);
+                    searchResults.appendChild(noEventsLabel);
+                }
+                else
+                {
+                    events.forEach(event => {
+                        let searchResultLabel = document.createElement("label");
+                        searchResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
+                        searchResultLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
+                        searchResultLabel.innerHTML = "<b>" + event.name + "</b> Day: " + event.day + " " + " " + event.startTime + "-" + event.endTime + " " + event.endAMPM;
+                        
+                        let buttonGoTo = document.createElement('button');
+                        buttonGoTo.style.backgroundColor = colorGoToBackground;
+
+                        buttonGoTo.style.width = "20%";
+                        buttonGoTo.style.height = 80;
+                        buttonGoTo.innerText = "Go";
+                        buttonGoTo.id = getGoToKey(event);
+                        buttonGoTo.style.font = fontGoingButton;
+
+                        buttonGoTo.addEventListener("click", goToClickSearch);
+
+                        let conflictsLabel = document.createElement("label");
+                        conflictsLabel.style.color = "hsla(0, 0%, 80%, 1)";
+                        conflictsLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
+                        conflictsLabel.innerHTML = "<br>- Conflicts: " + event.conflicts + "";
+
+                        let divBetweenResults = document.createElement("div");
+
+                        divBetweenResults.style.paddingTop = "40px";
+                        searchResults.appendChild(divBetweenResults);
+                        searchResults.appendChild(searchResultLabel);
+                        searchResults.appendChild(buttonGoTo);
+                        searchResults.appendChild(conflictsLabel);
+                        searchResults.appendChild(getEventAppendTextBox(event));
+                    });
+                }
+
+                ///////////
+                //add note to search dialog
+                let note = document.createElement("textarea");
+                note.style.width = "96%";
+                note.style.marginLeft = "2%";
+                note.style.height = 500;
+                note.style.color = "hsla(0, 100%, 100%, 1)";
+                note.style.backgroundColor = "hsla(0, 0%, 0%, 1)";
+                note.style.opacity = ".9";
+                note.style.justifyContent = "center";
+                note.style.font = '35px serif';
+                //TODO trying to fix scroll on note on mobile
+                note.style.overflowY = "scroll";
+                note.id = result;
+
+                let existingNote = localStorage.getItem(getNoteId(result));
+                if (existingNote)
+                {
+                    note.value = decodeURI(existingNote);
+                }
+                else{
+                    //TODO why didn't note.placeholder work?
+                    note.value = "Add notes here";
+                }
+
+                note.addEventListener("input", function(textareaParam) {
+                        console.log("id " + (textareaParam.target.id));
+                        localStorage.setItem(getNoteId(textareaParam.target.id), encodeURI(note.value));
+                    }
+                );
                 
-                events.forEach(event => {
-                    let searchResultLabel = document.createElement("label");
-                    searchResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
-                    searchResultLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
-                    searchResultLabel.innerHTML = "<b>" + event.name + "</b> Day: " + event.day + " " + " " + event.startTime + "-" + event.endTime + " " + event.endAMPM;
-                    
-                    let buttonGoTo = document.createElement('button');
-                    buttonGoTo.style.backgroundColor = colorGoToBackground;
-
-                    buttonGoTo.style.width = "20%";
-                    buttonGoTo.style.height = 80;
-                    buttonGoTo.innerText = "Go";
-                    buttonGoTo.id = getGoToKey(event);
-                    buttonGoTo.style.font = fontGoingButton;
-
-                    buttonGoTo.addEventListener("click", goToClickSearch);
-
-                    let conflictsLabel = document.createElement("label");
-                    conflictsLabel.style.color = "hsla(0, 0%, 80%, 1)";
-                    conflictsLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
-                    conflictsLabel.innerHTML = "<br>- Conflicts: " + event.conflicts + "";
-
-                    let divBetweenResults = document.createElement("div");
-
-                    divBetweenResults.style.paddingTop = "40px";
-                    searchResults.appendChild(divBetweenResults);
-                    searchResults.appendChild(searchResultLabel);
-                    searchResults.appendChild(buttonGoTo);
-                    searchResults.appendChild(conflictsLabel);
-                    searchResults.appendChild(getEventAppendTextBox(event));
-
-                });
+                let divBeforeNote = document.createElement('div');
+                divBeforeNote.style.paddingTop = "40px";
+                searchResults.appendChild(divBeforeNote);
+                searchResults.appendChild(note);
             });
         }
 
