@@ -69,7 +69,7 @@
         let dayToData;
         let bandToBandInfo;
 
-        let pauseRefreshing = false;
+        let eventThatWasClicked;
 
         function primeBandToBandInfo()
         {
@@ -181,11 +181,7 @@
 
         function redrawEverything() {
             console.log("refreshing");
-            if (pauseRefreshing)
-            {
-                console.log("refreshing is paused");
-                return;
-            }
+
 
             deleteEverything();
 
@@ -304,13 +300,13 @@
               "-Tap an event on the schedule to bring up an overlay:\n" +
               "---Tap desired \"going status\"\n" +
               "---Tap GoTo to go to that event on the schedule.\n" +
-              "---Add event text and it will show up on the schedule.  Space there is limited.  There's a text sarea further down where you can add more band notes.\n" +
+              "---Add event text and it will show up on the schedule.  Space there is limited.  There's a text area further down where you can add more band notes.\n" +
               "---There may be some info about the band if I got around to adding it.\n" +
               "-Tap the first few bottom buttons to change which day the schedule displays\n" +
               "-Tap \"Now\" bottom button to go to the current time on the schedule.\n" +
               "-Tap the search bottom button to search events.  Note you can tap results in the list as they apper.\n" +
               "-All of your changes are stored locally on your device in the specific browser you've done the changes with.  Clearing the browser cache will delete your changes.\n" +
-              "-Need data for this to work.  All user input may suddenly reset.  Things may break/change.  It's a side project of mine.  Hope you like it though!\n");
+              "-Need data for this to work.  All user input may suddenly reset.  Things may break/change.  It's a side project of mine.  I'm clueless on some of the genres so hopefully it's not so far off.  Hope you like it though!\n");
         }
 
         function venueClick(venueClicked) {
@@ -520,7 +516,6 @@
         function drawEventsSchedule(events, earliestStart) {
 
             drawFaceupSchedule(events, earliestStart);
-            drawHiddenOverlay(events, earliestStart);
         }
 
         function drawFaceupSchedule(events, earliestStart) {
@@ -547,7 +542,7 @@
                 buttonViewable.style.height = height + 'px';
                 buttonViewable.style.font = fontSchedule;
                 
-                buttonViewable.addEventListener("click", eventClick);
+                buttonViewable.addEventListener("click", eventClickBringUpSearch);
                 buttonViewable.id = getScheduleViewableButtonId(event);
                 buttonViewable.style.textAlign = "left";
                 buttonViewable.style.paddingLeft = "15px";
@@ -646,207 +641,17 @@
             return hour + ":" + minuteString;
         }
 
-        function drawHiddenOverlay(events, earliestStart) {
-            let schedule = document.getElementById("schedule");
-            for (let i = 0; i < events.length; i++) {
-                let event = events[i];
-                let location = event.location;
-                let startDate = new Date(getStartDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
-
-                let yPixelTop = getYPixelLocation(earliestStart, startDate);
-                
-                let endDate = new Date(getStartDateTime(event).getTime() + (1000 * 60 * getDelayMinutesForVenue(location)));
-
-                let height = getYPixelLocation(earliestStart, getEndDateTime(endDate)) - yPixelTop;
-
-                let labelHidden = document.createElement('label');
-                labelHidden.style.position = 'absolute';
-                labelHidden.style.left = xTimeOnLeftWidth + 'px';
-
-                labelHidden.style.top = (yPixelTop) + 'px';
-                labelHidden.style.left = 0;
-                labelHidden.style.width = "100%";
-                labelHidden.style.height = yHiddenButtonHeight + 'px';
-                labelHidden.style.font = "40px serif";
-                labelHidden.style.backgroundColor = "hsla(0, 0%, 10%, .8)";
-                labelHidden.style.color = "lightblue";
-                labelHidden.style.visibility = 'hidden';
-                labelHidden.id = getScheduleHiddenEventId(event);
-                labelHidden.style.zIndex = 100000;
-
-                schedule.appendChild(labelHidden);
-
-                let labelBand = document.createElement('label');
-                let conflicts = event.conflicts.trim();
-                labelBand.innerText = event.name + "\n" + event.startTime + "-" + event.endTime + " " + event.endAMPM + "\n" + "Conflicts: " + conflicts;
-                labelHidden.appendChild(labelBand);
-                labelHidden.appendChild(document.createElement('div'));
-
-
-                let buttonGoingUndecided = createButtonGoing(common.goingUndecided, schedule, event);
-                let buttonGoingMaybe = createButtonGoing(common.goingMaybe, schedule, event);
-                let buttonGoingGoing = createButtonGoing(common.goingGoing, schedule, event);
-                let buttonGoingNotGoing = createButtonGoing(common.goingNotGoing, schedule, event);
-
-                labelHidden.appendChild(buttonGoingGoing);
-                labelHidden.appendChild(buttonGoingNotGoing);
-                labelHidden.appendChild(buttonGoingMaybe);
-                labelHidden.appendChild(buttonGoingUndecided);
-
-                ////////////
-                // add event append text box
-                let eventAppendText = getEventAppendTextBox(event);
-                
-                labelHidden.appendChild(document.createElement('div'));           
-                labelHidden.appendChild(eventAppendText);
-
-                ////////////
-                //
-                
-                let buttonCloseOnLabel = document.createElement('button');
-                buttonCloseOnLabel.style.borderRadius = "12px";
-                buttonCloseOnLabel.style.width = "20%";
-                buttonCloseOnLabel.style.height = 100 + 'px';
-                buttonCloseOnLabel.innerText = closeButtonText;
-                let closeId = getCloseButtonId(event);
-                buttonCloseOnLabel.id = closeId;
-                buttonCloseOnLabel.style.position = "absolute";
-                buttonCloseOnLabel.style.font = fontCloseButton;
-                buttonCloseOnLabel.style.top = 0;
-                buttonCloseOnLabel.style.right = 0;
-                buttonCloseOnLabel.style.opacity = ".7";
-                buttonCloseOnLabel.style.backgroundColor = "hsla(0, 0%, 90%, 1)";
-
-                buttonCloseOnLabel.addEventListener("click", closeHiddenLabel);
-                labelHidden.appendChild(document.createElement('div'));
-
-                labelHidden.appendChild(buttonCloseOnLabel);
-                labelHidden.appendChild(document.createElement('div'));
-                let alsoLabel = document.createElement('label');
-                
-                alsoLabel.innerText = "\nAlso:";
-                labelHidden.appendChild(alsoLabel);
-
-                let eventsAll = eventNameToEvents.get(event.name);
-                let otherEventExists = false;
-                eventsAll.forEach(eventIter => {
-                    if (eventIter.id == event.id) {
-                        return;
-                    }
-                    otherEventExists = true;
-                    labelHidden.appendChild(document.createElement('div'));
-
-                    let labelBandAlso = document.createElement('label');
-
-                    let conflicts = eventIter.conflicts.trim();
-                    labelBandAlso.innerText = "Day: " + eventIter.day + " " + " " + eventIter.startTime + "-" + eventIter.endTime + " " + eventIter.endAMPM + "\n" + "Conflicts: " + conflicts;
-                    labelHidden.appendChild(labelBandAlso);
-                    labelHidden.appendChild(document.createElement('div'));
-                    let buttonGoingGoing = createButtonGoing(common.goingGoing, schedule, eventIter);
-                    let buttonGoingUndecided = createButtonGoing(common.goingUndecided, schedule, eventIter);
-                    let buttonGoingMaybe = createButtonGoing(common.goingMaybe, schedule, eventIter);
-                    let buttonGoingNotGoing = createButtonGoing(common.goingNotGoing, schedule, eventIter);
-
-                    labelHidden.appendChild(buttonGoingGoing);
-                    labelHidden.appendChild(buttonGoingNotGoing);
-                    labelHidden.appendChild(buttonGoingMaybe);
-                    labelHidden.appendChild(buttonGoingUndecided);
-                    
-                    let buttonGoTo = createButtonGoTo(eventIter, schedule);
-                    labelHidden.appendChild(buttonGoTo);
-
-                    /////////////////
-                    //add event append text
-                    let eventAppendText = getEventAppendTextBox(eventIter);
-                
-                    labelHidden.appendChild(document.createElement('div'));           
-                    labelHidden.appendChild(eventAppendText);
-                });
-                if (!otherEventExists)
-                {
-                    let alsoLabel = document.createElement('label');
-                
-                    alsoLabel.innerText = "\nNo other events.";
-                    labelHidden.appendChild(alsoLabel);
-                }
-
-                ///////////////
-                //add band info
-                let bandInfo = bandToBandInfo.get(event.name);
-
-                if (bandInfo)
-                {
-                    if (bandInfo.info)
-                    {
-                        let divBeforeBandInfo = document.createElement('div');
-                        divBeforeBandInfo.style.paddingTop = "40px";
-                        divBeforeBandInfo.style.color = "white";
-
-                        let bandInfoWithLinks = bandInfo.info;
-                        let links = bandInfo.links;
-                        if (links)
-                        {
-                            links.forEach(link => {
-                                bandInfoWithLinks += " <br> <a href='" + link + "' style='color: lightblue;'>" + link + "</a>";
-                            });
-                        }
-                        divBeforeBandInfo.innerHTML = bandInfoWithLinks;
-                        labelHidden.appendChild(divBeforeBandInfo);
-                    }
-                }
-                
-                ///////////
-                //add note
-                let note = document.createElement("textarea");
-                note.style.width = "96%";
-                note.style.marginLeft = "2%";
-                note.style.height = 500;
-                note.style.color = "hsla(0, 100%, 100%, 1)";
-                note.style.backgroundColor = "hsla(0, 0%, 0%, 1)";
-                note.style.opacity = ".9";
-                note.style.justifyContent = "center";
-                note.style.font = '35px serif';
-                //TODO trying to fix scroll on note on mobile
-                note.style.overflowY = "scroll";
-                note.id = event.name;
-
-                let existingNote = localStorage.getItem(getNoteId(event.name));
-                if (existingNote)
-                {
-                    note.value = decodeURI(existingNote);
-                }
-                else{
-                    //TODO why didn't note.placeholder work?
-                    note.value = "Add notes here";
-                }
-
-                note.addEventListener("input", function(textareaParam) {
-                    console.log(textareaParam.target.id);
-                    //TODO asdf todo: putting test in search doese not refresh the text from the schedule for textarea
-                        localStorage.setItem(getNoteId(textareaParam.target.id), encodeURI(note.value));
-                    }
-                );
-                
-                let divBeforeNote = document.createElement('div');
-                divBeforeNote.style.paddingTop = "40px";
-                labelHidden.appendChild(divBeforeNote);
-                labelHidden.appendChild(note);
-                
-            }
-        }
-
         function getEventAppendTextBox(event)
         {
             let eventAppendText = document.createElement('input');
+            eventAppendText.placeholder = "Add text on schedule...";
 
             let existingEventAppendText = localStorage.getItem(getEventAppendTextId(event.id));
             if (existingEventAppendText)
             {
                 eventAppendText.value = existingEventAppendText;
             }
-            else {
-                eventAppendText.value = "(add event text)";
-            }
+
             eventAppendText.style.color = "hsla(0, 100%, 90%, 1)";
             eventAppendText.style.backgroundColor = "hsla(0, 0%, 20%, 1)";
             eventAppendText.style.opacity = ".9";
@@ -858,8 +663,7 @@
             eventAppendText.id = event.id;
 
             eventAppendText.addEventListener("input", function(eventAppendTextParam) {
-                    localStorage.setItem(getEventAppendTextId(eventAppendTextParam.target.id), eventAppendText.value);
-                    //TODO limit char length?
+                    localStorage.setItem(getEventAppendTextId(eventAppendTextParam.target.id), eventAppendText.value);TODO
                 }
             );
 
@@ -871,12 +675,6 @@
             return common.storedAppendTextKey + "," + eventName;
         }
 
-        function getCloseButtonId(event) {
-            return event.id + ",hiddenClose";
-        }
-        function getScheduleHiddenEventId(event) {
-            return event.id + ",scheduleHidden";
-        }
 
         function getNoteId(eventName)
         {
@@ -916,11 +714,10 @@
             let parentLabel = event.target.parentElement;
             let label = common.getEventFromCommas(parentLabel.id);
             hideLabel(label);
-            pauseRefreshing = false;
             redrawEverything();
         }
 
-        function createButtonGoing(going, schedule, event) {
+        function createButtonGoing(going, event) {
 
             let buttonGoingOnLabel = document.createElement('button');
             buttonGoingOnLabel.style.borderRadius = "12px";
@@ -951,57 +748,27 @@
 
         function goingClick(theclick) {
 
-            let schedule = document.getElementById("schedule");
-            let parentLabel = theclick.target.parentElement;
 
             let id = theclick.target.id;
             let innerText = theclick.target.innerText;
             localStorage.setItem(id, innerText);
-
-            const buttonsOnLabel = parentLabel.querySelectorAll("button");
-            buttonsOnLabel.forEach(buttonGoingOnLabel => {
-                let goingInd = localStorage.getItem(buttonGoingOnLabel.id);
-                if (goingInd == null) {
-                    if (buttonGoingOnLabel.innerText != closeButtonText && buttonGoingOnLabel.innerText != goToButtonText){
-                        buttonGoingOnLabel.style.backgroundColor = colorGoingButtonNonActiveBackground;
-                    }
-                }
-                else {
-                    if (buttonGoingOnLabel.innerText == goingInd) {
-                        //this is if the text of the button is the same as the stored going indication
-                        buttonGoingOnLabel.style.backgroundColor = colorGoingButtonActiveBackground;
-                    }
-                    else{
-                        buttonGoingOnLabel.style.backgroundColor = colorGoingButtonNonActiveBackground;
-                    }
-                }
-
-            });
-
-        }
-
-        function hideLabel(event) {
             
-            let labelHidden = document.getElementById(getScheduleHiddenEventId(event));
-            labelHidden.style.visibility = 'hidden';
-        }
-
-        function closeHiddenLabel(event) {
-            pauseRefreshing = false;
-            let eventId = event.target.id;
-            let theEvent = common.getEventFromCommas(event.target.id);
-            hideLabel(theEvent);
-            redrawEverything();
+            //TODO really innefficient to prime data again, just need to change the conflict test, but this is easy
+            primeData();
+            openSearchOverlay();
 
         }
 
-        function eventClick(event) {
+
+        function eventClickBringUpSearch(event) {
             let id = event.target.id;
             let eventWithValues = common.getEventFromCommas(id);
-            let labelHidden = document.getElementById(getScheduleHiddenEventId(eventWithValues));
-            labelHidden.style.visibility = 'visible';
-            pauseRefreshing = true;
+            eventThatWasClicked = eventWithValues;
+            searchInput.value = eventWithValues.name;
+            openSearchOverlay();
         }
+
+
 
         function getXPixelForLocation(event) {
             let locationIndex = getLocationIndex(event.location);
@@ -1092,12 +859,32 @@
 
         function closeSearchOverlay() {
             searchOverlay.style.display = 'none';
+            eventThatWasClicked = null;
+            redrawEverything();
         }
 
         function search(query) {
             const regex = new RegExp(query, 'i');
-            let eventNames = Array.from(bandToBandInfo.keys());
-            let results = eventNames.filter(item => regex.test(item));
+
+            let eventTexts = [];
+            let eventNamesIndex = 0;
+
+            bandToBandInfo.forEach((value, key) => {
+                
+                let eventText = key;
+                    if (value != null && value.genre != null && value.genre != "")
+                    {
+                        eventText += ", " + value.genre;
+                    }
+                    else
+                    {
+                        eventText += ", " + "No Genre Found";
+                    }
+                    eventTexts.push(eventText);
+
+            });
+
+            let results = eventTexts.filter(item => regex.test(item));
             return results;
         }
 
@@ -1112,7 +899,7 @@
                 searchResultLabel.style.padding = "10px";
                 
                 searchResultLabel.addEventListener('click', function(searchResultLabelClicked) {
-                    searchInput.value = searchResultLabel.innerHTML;
+                    searchInput.value = searchResultLabel.innerHTML.split(",")[0];
                     const results = search(searchInput.value);
                     displayResults(results);
                 });
@@ -1125,10 +912,12 @@
             separateFilteredResults.style.padding = "10px";
                 
             searchResults.appendChild(separateFilteredResults);
-                
+            
             results.forEach(result => {
                 
-                let events = eventNameToEvents.get(result);
+                let resultName = result.split(",")[0];
+
+                let events = eventNameToEvents.get(resultName);
 
                 if (events == null || events.length == 0)
                 {
@@ -1136,7 +925,7 @@
                     let noEventsLabel = document.createElement("label");
                     noEventsLabel.style.color = "hsla(0, 0%, 80%, 1)";
                     noEventsLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
-                    noEventsLabel.innerHTML = result + ": No event data yet.";
+                    noEventsLabel.innerHTML = resultName + ": No event data yet.";
                     searchResults.appendChild(divBeforeNoEventsLabel);
                     searchResults.appendChild(noEventsLabel);
                 }
@@ -1146,14 +935,20 @@
                         let searchResultLabel = document.createElement("label");
                         searchResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
                         searchResultLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
-                        searchResultLabel.innerHTML = "<b>" + event.name + "</b> Day: " + event.day + " " + " " + event.startTime + "-" + event.endTime + " " + event.endAMPM;
+                        let searchResultLabelText = "<b>" + event.name + "</b> Day: " + event.day + " " + " " + event.startTime + "-" + event.endTime + " " + event.endAMPM;
+                        if (eventThatWasClicked != null && event.id == eventThatWasClicked.id)
+                        {
+                            searchResultLabel.style.color = "limegreen";
+                            searchResultLabelText = searchResultLabelText;
+                        }
+                        searchResultLabel.innerHTML = searchResultLabelText;
                         
                         let buttonGoTo = document.createElement('button');
                         buttonGoTo.style.backgroundColor = colorGoToBackground;
 
                         buttonGoTo.style.width = "20%";
                         buttonGoTo.style.height = 80;
-                        buttonGoTo.innerText = "Go";
+                        buttonGoTo.innerText = goToButtonText;
                         buttonGoTo.id = getGoToKey(event);
                         buttonGoTo.style.font = fontGoingButton;
 
@@ -1169,6 +964,19 @@
                         divBetweenResults.style.paddingTop = "40px";
                         searchResults.appendChild(divBetweenResults);
                         searchResults.appendChild(searchResultLabel);
+
+                        let buttonGoingGoing = createButtonGoing(common.goingGoing, event);
+                        let buttonGoingUndecided = createButtonGoing(common.goingUndecided, event);
+                        let buttonGoingMaybe = createButtonGoing(common.goingMaybe, event);
+                        let buttonGoingNotGoing = createButtonGoing(common.goingNotGoing, event);
+
+                        let divBeforeGoingButtons = document.createElement("div");
+                        searchResults.appendChild(divBeforeGoingButtons);
+                        searchResults.appendChild(buttonGoingGoing);
+                        searchResults.appendChild(buttonGoingNotGoing);
+                        searchResults.appendChild(buttonGoingMaybe);
+                        searchResults.appendChild(buttonGoingUndecided);
+                    
                         searchResults.appendChild(buttonGoTo);
                         searchResults.appendChild(conflictsLabel);
                         searchResults.appendChild(getEventAppendTextBox(event));
@@ -1178,6 +986,7 @@
                 ///////////
                 //add note to search dialog
                 let note = document.createElement("textarea");
+                note.placeholder = "Add notes for this band here";
                 note.style.width = "96%";
                 note.style.marginLeft = "2%";
                 note.style.height = 500;
@@ -1194,10 +1003,6 @@
                 if (existingNote)
                 {
                     note.value = decodeURI(existingNote);
-                }
-                else{
-                    //TODO why didn't note.placeholder work?
-                    note.value = "Add notes here";
                 }
 
                 note.addEventListener("input", function(textareaParam) {
