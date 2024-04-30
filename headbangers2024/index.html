@@ -255,13 +255,14 @@
             buttonTopLeft.style.height = yVenueHeight;
             //buttonTopLeft.style.backgroundImage = "url(images/hands.png)";
             buttonTopLeft.innerText = "TAP FOR INFO";
-            buttonTopLeft.style.font = '35px serif';
+            buttonTopLeft.style.font = '32px serif';
             
             buttonTopLeft.style.color = "hsla(0, 0%, 80%, 1)";
             buttonTopLeft.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
             buttonTopLeft.style.backgroundSize = 'cover';
             buttonTopLeft.style.backgroundPosition = 'center';
             buttonTopLeft.style.textAlign = "left";
+            buttonTopLeft.style.padding = "2px";
             buttonTopLeft.addEventListener("click", buttonTopLeftClick);
 
             top.appendChild(buttonTopLeft);
@@ -278,7 +279,7 @@
                 let venueText = common.locations[i].abbrev + ":" + getDelayMinutesForVenue(common.locations[i].abbrev) + "m " + common.locations[i].location;
                 
                 let buttonText = document.createElement("label");
-                buttonText.innerText =venueText;
+                buttonText.innerText = venueText;
                 buttonText.style.color = "red";
                 buttonText.style.backgroundColor = "rgba(0, 0, 0, 0.8)"; // Set the background color of the text
                 buttonVenue.appendChild(buttonText);
@@ -876,6 +877,7 @@
         function displayResults(results) {
             searchResults.innerHTML = '';
             searchResults.style.font = "50px serif";
+            searchResults.style.padding = "5px";
             
             results.forEach(result => {
                 let searchResultLabel = document.createElement("label");
@@ -934,6 +936,7 @@
                         buttonGoTo.innerText = goToButtonText;
                         buttonGoTo.id = getGoToKey(event);
                         buttonGoTo.style.font = fontGoingButton;
+                        buttonGoTo.style.color = "black";
 
                         buttonGoTo.addEventListener("click", goToClickSearch);
 
