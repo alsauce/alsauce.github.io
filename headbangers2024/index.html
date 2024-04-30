@@ -900,13 +900,13 @@
 
         function displayResults(results) {
             searchResults.innerHTML = '';
-            searchResults.style.font = "35px serif";
+            searchResults.style.font = "40px serif";
             
             results.forEach(result => {
                 let searchResultLabel = document.createElement("label");
                 searchResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
                 searchResultLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
-                searchResultLabel.style.padding = "10px";
+                //searchResultLabel.style.padding = "0px";
                 
                 searchResultLabel.addEventListener('click', function(searchResultLabelClicked) {
                     searchInput.value = searchResultLabel.innerHTML.split(",")[0];
@@ -947,7 +947,7 @@
                         let searchResultLabelText = "<b>" + event.name + "</b> Day: " + event.day + " " + " " + event.startTime + "-" + event.endTime + " " + event.endAMPM;
                         if (eventThatWasClicked != null && event.id == eventThatWasClicked.id)
                         {
-                            searchResultLabel.style.color = "limegreen";
+                            searchResultLabel.style.color = "yellow";
                             searchResultLabelText = searchResultLabelText;
                         }
                         searchResultLabel.innerHTML = searchResultLabelText;
@@ -1063,6 +1063,7 @@
         window.openSearchOverlay = openSearchOverlay;
         window.closeSearchOverlay = closeSearchOverlay;
         window.handleClearSearch = handleClearSearch;
+        window.openSearchOverlayButtonClick = openSearchOverlayButtonClick;
 
     </script>
 
