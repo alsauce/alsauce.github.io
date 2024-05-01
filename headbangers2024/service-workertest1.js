@@ -1,7 +1,6 @@
 // Define the cache name and files to cache
-const CACHE_NAME = 'v4';
+const CACHE_NAME = 'v5';
 const urlsToCache = [
-    '/',
     '/headbangers2024/',
     '/headbangers2024/style.css',
     '/headbangers2024/common.js',
@@ -14,55 +13,75 @@ const urlsToCache = [
     '/headbangers2024/images/search.png'
 ];
 
-// Install the service worker
-self.addEventListener('install', event => {
+// On install, cache the static resources
+self.addEventListener("install", (event) => {
     console.log("aco install");
     event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(urlsToCache))
+      (async () => {
+        const cache = await caches.open(CACHE_NAME);
+        cache.addAll(urlsToCache);
+      })()
     );
-    console.log("aco install done");
-    
-});
+  });
+
+// delete old caches on activate
+self.addEventListener("activate", (event) => {
+    event.waitUntil(
+      (async () => {
+        const names = await caches.keys();
+        await Promise.all(
+          names.map((name) => {
+            if (name !== CACHE_NAME) {
+              return caches.delete(name);
+            }
+          })
+        );
+        await clients.claim();
+      })()
+    );
+  });
 
 // Serve cached content when offline
 self.addEventListener('fetch', event => {
     console.log("aco fetch");
+
+    // As a single page app, direct app to always go to cached home page.
+    /*if (event.request.mode === "navigate") {
+        event.respondWith(caches.match("/"));
+        console.log("aco fetch2 wonder if that should have h");
+        return;
+    }*/
+
     // request.mode = navigate isn't supported in all browsers
     // so include a check for Accept: text/html header.
-    console.log("aco event.request.mode " + event.request.mode);
-    console.log("aco event.request.method " + event.request.method);
-    console.log("aco event.request.headers " + event.request.headers);
-    if (event.request.mode === 'navigate' || (event.request.method === 'GET' && event.request.headers.get('accept').includes('text/html'))) {
-        console.log("aco in this if " + event.request.mode);
-        event.respondWith(
-            fetch(event.request.url).catch(error => {
-                // Return the offline page
-                console.log("aco ERROR Return the offline page " + event.request.url);
-                return caches.match("/headbangers2024/index.html");
-            })
-        );
-    }
-    else {
-        // Respond with everything else if we can
-        console.log("aco Respond with everything else if we can ");
-        console.log("aco Respond with everything else if we can event.request " + event.request);
+    // For all other requests, go to the cache first, and then the network.
+  event.respondWith(
+    (async () => {
         
-        event.respondWith(caches.match(event.request)
-            .then(function (response) {
-                if (response)
-                {
-                    console.log("aco responding with response " + response);
-                    return response;
-                }
-                else{
-                    let fetchResult = fetch(event.request);
-                    console.log("aco responding with fetch " + fetchResult);
-                    return null;
-                }
-            })
-        );
-    }
+      const cache = await caches.open(CACHE_NAME);
+
+      cache.keys().then(keys => {
+        keys.forEach(request => {
+          console.log('Cached URL:', request.url);
+        });
+      });
+
+      console.log ("aco looking for " + event.request.url);
+    //   cache.keys().forEach(element => {
+    //     console.log("aco keys " + element); 
+    //  });
+
+      const cachedResponse = await cache.match(event.request.url);
+      console.log("aco fetch3 " + cachedResponse);
+      
+      if (cachedResponse) {
+        // Return the cached response if it's available.
+        return cachedResponse;
+      }
+      // If resource isn't in the cache, return a 404.
+      return new Response(null, { status: 404 });
+    })()
+  );
 });
 
 

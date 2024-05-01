@@ -1,40 +1,36 @@
 <head>
+    <script>
+        console.log("aco register serviceWorker script");
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/headbangers2024/service-workertest1.js', { scope: '/headbangers2024/' }).then(function(registration) {
+            console.log('aco ServiceWorker registration successful with scope: ', registration.scope);
+        }).catch(function(err) {
+                console.log('aco ServiceWorker registration failed: ', err);
+            });
+        }else{
+            console.log("aco register load not  in navigator");
+        }
+
+    </script>
+
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PM7ZMMTJG2"></script>
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PM7ZMMTJG2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
         gtag('config', 'G-PM7ZMMTJG2');
-    </script>
+    </script> -->
 
-    <script>
-        console.log("aco register serviceWorker script");
-        alert("register SW");
-        if ('serviceWorker' in navigator) {
-            alert("register SW in navigator");
-            navigator.serviceWorker.register('/headbangers2024/service-workertest1.js', { scope: '/headbangers2024/' }).then(function(registration) {
-            console.log('aco ServiceWorker registration successful with scope: ', registration.scope);
-            alert("register SW worked");
-        }).catch(function(err) {
-            alert("register SW error " + err);
-                console.log('aco ServiceWorker registration failed: ', err);
-            });
-        }else{
-            alert("register SW NOT in navigator");
-            console.log("aco register load not  in navigator");
-        }
-
-    </script>
 
     <title>Headbanger's boat 2024</title>
     <link rel="icon" href="images/hands.png" type="images/x-icon">
-    <link rel="stylesheet" href="style.css?v1">
+    <link rel="stylesheet" href="style.css">
     
     <script type="module">
         
-        import * as common from './common.js?v2';
+        import * as common from '/headbangers2024/common.js';
         
         let day = 1;
         let yVenueHeight = 150;
@@ -104,8 +100,6 @@
                     links: band[3]
                 });
             }
-           alert("test3");
-
         }
 
         function primeData() {
