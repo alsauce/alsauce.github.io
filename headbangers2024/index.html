@@ -25,7 +25,7 @@
         let fontVenue = 40 + 'px serif';
         let fontLeftTime = 35 + 'px serif';
         let fontCurrentTime = 40 + 'px serif';
-        let fontGoingButton = 30 + 'px serif';
+        let fontGoingButton = 40 + 'px serif';
         let fontCloseButton = 35 + 'px serif';
         let fontSchedule = 35 + 'px serif';
 
@@ -641,9 +641,9 @@
             eventAppendText.style.backgroundColor = "hsla(0, 0%, 20%, 1)";
             eventAppendText.style.opacity = ".9";
             eventAppendText.style.justifyContent = "center";
-            eventAppendText.style.font = "35px serif";
+            eventAppendText.style.font = "55px serif";
             eventAppendText.style.width = "90%";
-            eventAppendText.style.height = 50;
+            eventAppendText.style.height = "60px";
             eventAppendText.style.marginLeft = "2%";
             eventAppendText.id = event.id;
 
@@ -664,21 +664,6 @@
         function getNoteId(eventName)
         {
             return common.storedNoteKey + "," + eventName;
-        }
-
-        function createButtonGoTo(event, schedule) {
-            let buttonGoTo = document.createElement('button');
-            buttonGoTo.style.backgroundColor = colorGoToBackground;
-
-            buttonGoTo.style.width = "20%";
-            buttonGoTo.style.height = 100;
-            buttonGoTo.innerText = goToButtonText;
-            buttonGoTo.id = getGoToKey(event);
-            buttonGoTo.style.font = fontGoingButton;
-
-            buttonGoTo.addEventListener("click", goToClick);
-
-            return buttonGoTo;
         }
 
         function getGoToKey(event) {
@@ -704,8 +689,7 @@
         function createButtonGoing(going, event) {
 
             let buttonGoingOnLabel = document.createElement('button');
-            buttonGoingOnLabel.style.borderRadius = "12px";
-
+            
             let goingInd = localStorage.getItem(common.getGoingKey(event));
             if (goingInd == null) {
                 goingInd = common.goingUndecided;
@@ -718,12 +702,12 @@
                 buttonGoingOnLabel.style.backgroundColor = colorGoingButtonNonActiveBackground;
             }
 
+            buttonGoingOnLabel.style.borderRadius = "12px";
             buttonGoingOnLabel.style.width = "20%";
             buttonGoingOnLabel.style.height = 100;
             buttonGoingOnLabel.innerText = going;
             buttonGoingOnLabel.id = common.getGoingKey(event);
             buttonGoingOnLabel.style.font = fontGoingButton;
-            buttonGoingOnLabel.style.opacity = ".7";
             buttonGoingOnLabel.style.color = "black";
 
             buttonGoingOnLabel.addEventListener("click", goingClick);
@@ -925,10 +909,13 @@
                 else
                 {
                     events.forEach(event => {
+
+                        let eventCardDiv = document.createElement("div");
+                        eventCardDiv.style.backgroundColor = "hsla(0, 60%, 20%, 1)";
+
                         let searchResultLabel = document.createElement("label");
                         searchResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
-                        searchResultLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
-                        let searchResultLabelText = "<b>" + event.name + "</b> Day: " + event.day + " " + " " + event.startTime + "-" + event.endTime + " " + event.endAMPM;
+                        let searchResultLabelText = "<b>" + event.name + "</b>, Day " + event.day + ", " + event.startTime + "-" + event.endTime + " " + event.endAMPM;
                         if (eventThatWasClicked != null && event.id == eventThatWasClicked.id)
                         {
                             searchResultLabel.style.color = "yellow";
@@ -937,10 +924,11 @@
                         searchResultLabel.innerHTML = searchResultLabelText;
                         
                         let buttonGoTo = document.createElement('button');
+
                         buttonGoTo.style.backgroundColor = colorGoToBackground;
 
                         buttonGoTo.style.width = "20%";
-                        buttonGoTo.style.height = 80;
+                        buttonGoTo.style.height = 100;
                         buttonGoTo.innerText = goToButtonText;
                         buttonGoTo.id = getGoToKey(event);
                         buttonGoTo.style.font = fontGoingButton;
@@ -955,9 +943,7 @@
 
                         let divBetweenResults = document.createElement("div");
 
-                        divBetweenResults.style.paddingTop = "40px";
-                        searchResults.appendChild(divBetweenResults);
-                        searchResults.appendChild(searchResultLabel);
+                        eventCardDiv.appendChild(searchResultLabel);
 
                         let buttonGoingGoing = createButtonGoing(common.goingGoing, event);
                         let buttonGoingUndecided = createButtonGoing(common.goingUndecided, event);
@@ -965,22 +951,30 @@
                         let buttonGoingNotGoing = createButtonGoing(common.goingNotGoing, event);
 
                         let divBeforeGoingButtons = document.createElement("div");
-                        searchResults.appendChild(divBeforeGoingButtons);
-                        searchResults.appendChild(buttonGoingGoing);
-                        searchResults.appendChild(buttonGoingNotGoing);
-                        searchResults.appendChild(buttonGoingMaybe);
-                        searchResults.appendChild(buttonGoingUndecided);
+                        divBeforeGoingButtons.style.padding = "5px";
+                        eventCardDiv.appendChild(divBeforeGoingButtons);
+                        eventCardDiv.appendChild(buttonGoingGoing);
+                        eventCardDiv.appendChild(buttonGoingNotGoing);
+                        eventCardDiv.appendChild(buttonGoingMaybe);
+                        eventCardDiv.appendChild(buttonGoingUndecided);
                     
-                        searchResults.appendChild(buttonGoTo);
-                        searchResults.appendChild(conflictsLabel);
-                        searchResults.appendChild(getEventAppendTextBox(event));
+                        eventCardDiv.appendChild(buttonGoTo);
+                        let divBeforeConflictsLabel= document.createElement("div");
+                        divBeforeConflictsLabel.style.padding = "5px";
+                        eventCardDiv.appendChild(divBeforeConflictsLabel);
+                        eventCardDiv.appendChild(getEventAppendTextBox(event));
+
+                        searchResults.appendChild(eventCardDiv);
+                        let divAfterEventCard = document.createElement("div");
+                        divAfterEventCard.style.padding = "20px";
+                        searchResults.appendChild(divAfterEventCard);
                     });
                 }
 
                 ///////////
                 //add note to search dialog
                 let note = document.createElement("textarea");
-                note.placeholder = "Add notes for this band here";
+                note.placeholder = "Add notes for " + resultName + " here";
                 note.style.width = "96%";
                 note.style.marginLeft = "2%";
                 note.style.height = 500;
@@ -989,7 +983,6 @@
                 note.style.opacity = ".9";
                 note.style.justifyContent = "center";
                 note.style.font = '35px serif';
-                //TODO trying to fix scroll on note on mobile
                 note.style.overflowY = "scroll";
                 note.id = result;
 
@@ -1005,9 +998,12 @@
                 );
                 
                 let divBeforeNote = document.createElement('div');
-                divBeforeNote.style.paddingTop = "40px";
+                divBeforeNote.style.height = "20px";
                 searchResults.appendChild(divBeforeNote);
                 searchResults.appendChild(note);
+                let divAfterNote = document.createElement('div');
+                divAfterNote.style.height = "50px";
+                searchResults.appendChild(divAfterNote);
             });
         }
 
