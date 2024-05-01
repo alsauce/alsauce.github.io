@@ -52,10 +52,9 @@ self.addEventListener('fetch', event => {
                     return response;
                 }
                 else{
-                
-                    let fetch = fetch(event.request);
-                    console.log("aco responding with fetch " + fetch);
-                    return fetch;
+                    let fetchResult = fetch(event.request);
+                    console.log("aco responding with fetch " + fetchResult);
+                    return fetchResult;
                 }
             })
         );
