@@ -1,5 +1,5 @@
 // Define the cache name and files to cache
-const CACHE_NAME = 'v2';
+const CACHE_NAME = 'v3';
 const urlsToCache = [
     '/headbangers2024/style.css',
     '/headbangers2024/common.js',
@@ -17,59 +17,49 @@ self.addEventListener('install', event => {
     console.log("aco install");
     event.waitUntil(
         caches.open(CACHE_NAME)
-        .then(cache => cache.addAll(urlsToCache))
+            .then(cache => cache.addAll(urlsToCache))
     );
 });
 
 // Serve cached content when offline
 self.addEventListener('fetch', event => {
     console.log("aco fetch");
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // If cached response is found, return it
-        if (response) {
-            console.log("aco sdaf");
-          return response;
-        }
-        // If not, fetch from network and cache
-        return fetch(event.request)
-          .then(response => {
-            console.log("aco response");
-            // Check if valid response
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-            console.log("aco response2");
-           
-            const responseToCache = response.clone();
-            caches.open(CACHE_NAME)
-              .then(cache => {
-                cache.put(event.request, responseToCache);
-              });
-            return response;
-          });
-      })
-      .catch(() => {
-        console.log("aco event.request " + event.request);
-        console.log("aco catch()asf");
-        return caches.match('/index.html');
-      })
-  );
+    // request.mode = navigate isn't supported in all browsers
+    // so include a check for Accept: text/html header.
+    console.log("aco event.request.mode " + event.request.mode);
+    console.log("aco event.request.method " + event.request.method);
+    console.log("aco event.request.headers " + event.request.headers);
+    if (event.request.mode === 'navigate' || (event.request.method === 'GET' && event.request.headers.get('accept').includes('text/html'))) {
+        console.log("aco in this if " + event.request.mode);
+        event.respondWith(
+            fetch(event.request.url).catch(error => {
+                // Return the offline page
+                console.log("aco ERROR Return the offline page " + event.request.url);
+                return caches.match("/headbangers2024/index.html");
+            })
+        );
+    }
+    else {
+        // Respond with everything else if we can
+        console.log("aco Respond with everything else if we can ");
+        console.log("aco Respond with everything else if we can event.request " + event.request);
+        
+        event.respondWith(caches.match(event.request)
+            .then(function (response) {
+                if (response)
+                {
+                    console.log("aco responding with response " + response);
+                    return response;
+                }
+                else{
+                
+                    let fetch = fetch(event.request);
+                    console.log("aco responding with fetch " + fetch);
+                    return fetch;
+                }
+            })
+        );
+    }
 });
 
-// Remove outdated caches
-self.addEventListener('activate', event => {
-    console.log("aco activate");
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.filter(cacheName => {
-          return cacheName !== CACHE_NAME;
-        }).map(cacheName => {
-          return caches.delete(cacheName);
-        })
-      );
-    })
-  );
-});
+

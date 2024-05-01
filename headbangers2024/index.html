@@ -11,23 +11,17 @@
 
     <script>
         console.log("aco register serviceWorker script");
-        
+        alert("register SW");
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                console.log("aco register load");
-                navigator.serviceWorker.register('/headbangers2024/service-worker.js')
-                //navigator.serviceWorker.register('/service-worker.js')
-                .then(registration => {
-                    console.log('Service Worker registered with scope:', registration.scope);
-                })
-                .catch(error => {
-                    console.error('Service Worker registration failed:', error);
-                });
+            navigator.serviceWorker.register('/headbangers2024/service-worker.js').then(function(registration) {
+            console.log('aco ServiceWorker registration successful with scope: ', registration.scope);
+        }).catch(function(err) {
+                console.log('aco ServiceWorker registration failed: ', err);
             });
-        }
-        else{
+        }else{
             console.log("aco register load not  in navigator");
         }
+
     </script>
 
     <title>Headbanger's boat 2024</title>
@@ -106,6 +100,7 @@
                     links: band[3]
                 });
             }
+           alert("test3");
 
         }
 
