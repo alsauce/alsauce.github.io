@@ -1,5 +1,5 @@
 // Define the cache name and files to cache
-const CACHE_NAME = 'v5';
+const CACHE_NAME = 'v6';
 const urlsToCache = [
     '/headbangers2024/',
     '/headbangers2024/style.css',
@@ -60,6 +60,7 @@ self.addEventListener('fetch', event => {
         
       const cache = await caches.open(CACHE_NAME);
 
+      console.log("aco cache name " + CACHE_NAME);
       cache.keys().then(keys => {
         keys.forEach(request => {
           console.log('Cached URL:', request.url);
@@ -75,9 +76,11 @@ self.addEventListener('fetch', event => {
       console.log("aco fetch3 " + cachedResponse);
       
       if (cachedResponse) {
+        console.log("aco returning result");
         // Return the cached response if it's available.
         return cachedResponse;
       }
+      console.log("aco returning 404");
       // If resource isn't in the cache, return a 404.
       return new Response(null, { status: 404 });
     })()
