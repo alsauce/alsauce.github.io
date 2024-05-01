@@ -1,5 +1,5 @@
 // Define the cache name and files to cache
-const CACHE_NAME = 'v3';
+const CACHE_NAME = 'v4';
 const urlsToCache = [
     '/headbangers2024/style.css',
     '/headbangers2024/common.js',
