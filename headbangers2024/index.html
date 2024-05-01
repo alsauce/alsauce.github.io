@@ -10,9 +10,13 @@
     </script>
 
     <script>
+        console.log("aco register serviceWorker script");
+        
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
+                console.log("aco register load");
                 navigator.serviceWorker.register('/headbangers2024/service-worker.js')
+                //navigator.serviceWorker.register('/service-worker.js')
                 .then(registration => {
                     console.log('Service Worker registered with scope:', registration.scope);
                 })
@@ -20,6 +24,9 @@
                     console.error('Service Worker registration failed:', error);
                 });
             });
+        }
+        else{
+            console.log("aco register load not  in navigator");
         }
     </script>
 

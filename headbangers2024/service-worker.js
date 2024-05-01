@@ -1,8 +1,6 @@
 // Define the cache name and files to cache
-const CACHE_NAME = 'offline';
+const CACHE_NAME = 'v2';
 const urlsToCache = [
-    '/',
-    '/headbangers2024/',
     '/headbangers2024/style.css',
     '/headbangers2024/common.js',
     '/headbangers2024/index.html',
@@ -16,29 +14,34 @@ const urlsToCache = [
 
 // Install the service worker
 self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
-  );
+    console.log("aco install");
+    event.waitUntil(
+        caches.open(CACHE_NAME)
+        .then(cache => cache.addAll(urlsToCache))
+    );
 });
 
 // Serve cached content when offline
 self.addEventListener('fetch', event => {
+    console.log("aco fetch");
   event.respondWith(
     caches.match(event.request)
       .then(response => {
         // If cached response is found, return it
         if (response) {
-            console.log("sdaf");
+            console.log("aco sdaf");
           return response;
         }
         // If not, fetch from network and cache
         return fetch(event.request)
           .then(response => {
+            console.log("aco response");
             // Check if valid response
             if (!response || response.status !== 200 || response.type !== 'basic') {
               return response;
             }
+            console.log("aco response2");
+           
             const responseToCache = response.clone();
             caches.open(CACHE_NAME)
               .then(cache => {
@@ -48,7 +51,8 @@ self.addEventListener('fetch', event => {
           });
       })
       .catch(() => {
-        console.log("catch()");
+        console.log("aco event.request " + event.request);
+        console.log("aco catch()asf");
         return caches.match('/index.html');
       })
   );
@@ -56,6 +60,7 @@ self.addEventListener('fetch', event => {
 
 // Remove outdated caches
 self.addEventListener('activate', event => {
+    console.log("aco activate");
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
