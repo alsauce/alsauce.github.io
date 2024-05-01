@@ -8,6 +8,21 @@
 
         gtag('config', 'G-PM7ZMMTJG2');
     </script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/headbangers2024/service-worker.js')
+                .then(registration => {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                })
+                .catch(error => {
+                    console.error('Service Worker registration failed:', error);
+                });
+            });
+        }
+    </script>
+
     <title>Headbanger's boat 2024</title>
     <link rel="icon" href="images/hands.png" type="images/x-icon">
     <link rel="stylesheet" href="style.css?v1">
