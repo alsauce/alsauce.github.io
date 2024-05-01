@@ -1,6 +1,8 @@
 // Define the cache name and files to cache
 const CACHE_NAME = 'v4';
 const urlsToCache = [
+    '/',
+    '/headbangers2024/',
     '/headbangers2024/style.css',
     '/headbangers2024/common.js',
     '/headbangers2024/index.html',
@@ -19,6 +21,8 @@ self.addEventListener('install', event => {
         caches.open(CACHE_NAME)
             .then(cache => cache.addAll(urlsToCache))
     );
+    console.log("aco install done");
+    
 });
 
 // Serve cached content when offline
