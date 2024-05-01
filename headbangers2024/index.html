@@ -14,7 +14,7 @@
         alert("register SW");
         if ('serviceWorker' in navigator) {
             alert("register SW in navigator");
-            navigator.serviceWorker.register('/headbangers2024/service-worker.js').then(function(registration) {
+            navigator.serviceWorker.register('/headbangers2024/service-workertest1.js').then(function(registration) {
             console.log('aco ServiceWorker registration successful with scope: ', registration.scope);
             alert("register SW worked");
         }).catch(function(err) {

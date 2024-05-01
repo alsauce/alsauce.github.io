@@ -54,7 +54,7 @@ self.addEventListener('fetch', event => {
                 else{
                     let fetchResult = fetch(event.request);
                     console.log("aco responding with fetch " + fetchResult);
-                    return fetchResult;
+                    return null;
                 }
             })
         );
