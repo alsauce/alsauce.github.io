@@ -556,7 +556,7 @@
                 let genreText = "";
                 if (bandInfo != null && bandInfo != "undefined" && bandInfo.genre != null && bandInfo.genre != "")
                 {
-                    genreText = bandInfo.genre + "\n";
+                    genreText = bandInfo.genre + "<br>";
                 }
                 let goingInd = localStorage.getItem(common.getGoingKey(event));
                 if (goingInd == null) {
@@ -956,7 +956,6 @@
 
                         let conflictsLabel = document.createElement("label");
                         conflictsLabel.style.color = "hsla(0, 0%, 80%, 1)";
-                        conflictsLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
                         conflictsLabel.innerHTML = "<br>- Conflicts: " + event.conflicts + "";
 
                         let divBetweenResults = document.createElement("div");
@@ -978,8 +977,7 @@
                     
                         eventCardDiv.appendChild(buttonGoTo);
                         let divBeforeConflictsLabel= document.createElement("div");
-                        divBeforeConflictsLabel.style.padding = "5px";
-                        eventCardDiv.appendChild(divBeforeConflictsLabel);
+                        eventCardDiv.appendChild(conflictsLabel);
                         eventCardDiv.appendChild(getEventAppendTextBox(event));
 
                         searchResults.appendChild(eventCardDiv);
