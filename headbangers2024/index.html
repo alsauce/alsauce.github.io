@@ -851,9 +851,8 @@
         }
 
         function closeSearchOverlay() {
-            searchOverlay.style.display = 'none';
+            commonSearchOverlayClosingTasks()
             eventThatWasClicked = null;
-            document.body.style.overflow = '';
             redrawEverything();
         }
 
@@ -928,6 +927,9 @@
 
                         let eventCardDiv = document.createElement("div");
                         eventCardDiv.style.backgroundColor = "hsla(0, 60%, 20%, 1)";
+                        eventCardDiv.style.borderRadius = "20px";
+                        eventCardDiv.style.padding = "10px";
+                        
 
                         let searchResultLabel = document.createElement("label");
                         searchResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
@@ -1029,8 +1031,14 @@
             displayResults(results);
         });
 
-        function goToClickSearch(event) {
+        function commonSearchOverlayClosingTasks()
+        {
+            document.body.style.overflow = '';
             searchOverlay.style.display = 'none';
+        }
+
+        function goToClickSearch(event) {
+            commonSearchOverlayClosingTasks();
             let eventObject = common.getEventFromCommas(event.target.id);
             tappedGotoEvent = eventObject;
             let day = eventObject.day;
