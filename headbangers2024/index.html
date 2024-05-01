@@ -843,6 +843,7 @@
 
         function openSearchOverlay() {
             searchOverlay.style.display = 'block';
+            document.body.style.overflow = 'hidden';
             const query = searchInput.value.trim();
             const results = search(query);
 
@@ -852,6 +853,7 @@
         function closeSearchOverlay() {
             searchOverlay.style.display = 'none';
             eventThatWasClicked = null;
+            document.body.style.overflow = '';
             redrawEverything();
         }
 
