@@ -70,6 +70,7 @@
         let bandToBandInfo;
 
         let eventThatWasClicked;
+        let tappedGotoEvent;
 
         function primeBandToBandInfo()
         {
@@ -212,6 +213,23 @@
             let scrollTo = localStorage.getItem(common.storedScrollToKey);
             if (scrollTo != "-1") {
                 window.scroll(0, Number(scrollTo));
+
+                if (tappedGotoEvent != null)
+                {
+                    let tappedButton = document.getElementById(getScheduleViewableButtonId(tappedGotoEvent));
+
+                    var cloneButton = tappedButton.cloneNode(false);
+                    cloneButton.style.backgroundImage = null;
+                    cloneButton.style.opacity = 1;
+                    cloneButton.style.animation = "disappearAnimation 2s forwards";
+                    cloneButton.style.pointerEvents = "none";
+
+                    cloneButton.style.backgroundColor = "white";
+                    let schedule = document.getElementById("schedule");
+                    schedule.appendChild(cloneButton);
+                }
+
+                tappedGotoEvent = null;
             }
             localStorage.setItem(common.storedScrollToKey, -1);
         }
@@ -279,9 +297,11 @@
                 let venueText = common.locations[i].abbrev + ":" + getDelayMinutesForVenue(common.locations[i].abbrev) + "m " + common.locations[i].location;
                 
                 let buttonText = document.createElement("label");
+                //This makes the label black background be a full square
+                buttonText.style.display = "inline-block";
                 buttonText.innerText = venueText;
                 buttonText.style.color = "red";
-                buttonText.style.backgroundColor = "rgba(0, 0, 0, 0.8)"; // Set the background color of the text
+                buttonText.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
                 buttonVenue.appendChild(buttonText);
 
                 buttonVenue.style.font = fontVenue;
@@ -497,10 +517,6 @@
 
         function drawEventsSchedule(events, earliestStart) {
 
-            drawFaceupSchedule(events, earliestStart);
-        }
-
-        function drawFaceupSchedule(events, earliestStart) {
             let schedule = document.getElementById("schedule");
             for (let i = 0; i < events.length; i++) {
                 let event = events[i];
@@ -525,7 +541,7 @@
                 buttonViewable.style.font = fontSchedule;
                 
                 buttonViewable.addEventListener("click", eventClickBringUpSearch);
-                buttonViewable.id = getScheduleViewableLabelId(event);
+                buttonViewable.id = getScheduleViewableButtonId(event);
                 buttonViewable.style.textAlign = "left";
                 buttonViewable.style.paddingLeft = "15px";
                 //third one to make grey
@@ -558,10 +574,10 @@
 
                 let buttonLabel = document.createElement("label");
                 buttonLabel.innerHTML = text;
-                buttonLabel.id = getScheduleViewableButtonId(event);
+                buttonLabel.id = getScheduleViewableLabelId(event);
                 buttonLabel.style.color = "white";
                 buttonLabel.style.backgroundColor = "rgba(0, 0, 0, 1)";
-                //This makes the label black bagroun be a full square
+                //This makes the label black background be a full square
                 buttonLabel.style.display = "inline-block";
                 buttonViewable.appendChild(buttonLabel);
                 
@@ -1016,6 +1032,7 @@
         function goToClickSearch(event) {
             searchOverlay.style.display = 'none';
             let eventObject = common.getEventFromCommas(event.target.id);
+            tappedGotoEvent = eventObject;
             let day = eventObject.day;
             localStorage.setItem(common.storedDayKey, eventObject.day);
 

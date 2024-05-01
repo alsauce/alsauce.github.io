@@ -82,3 +82,12 @@ body {
     cursor: pointer;
   }
   
+  @keyframes disappearAnimation {
+    0% {
+      opacity: 1; /* Start with full opacity */
+    }
+    100% {
+      opacity: 0; /* End with no opacity */
+      display: none; /* Hide the box when animation ends */
+    }
+  }
