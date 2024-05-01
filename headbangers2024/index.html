@@ -525,11 +525,11 @@
                 buttonViewable.style.font = fontSchedule;
                 
                 buttonViewable.addEventListener("click", eventClickBringUpSearch);
-                buttonViewable.id = getScheduleViewableButtonId(event);
+                buttonViewable.id = getScheduleViewableLabelId(event);
                 buttonViewable.style.textAlign = "left";
                 buttonViewable.style.paddingLeft = "15px";
                 //third one to make grey
-                buttonViewable.style.backgroundColor = "hsla(0, 0%, 20%, 1)";
+                //buttonViewable.style.backgroundColor = "hsla(0, 0%, 5%, 1)";
                 buttonViewable.style.color = "white";
                 buttonViewable.style.textShadow = "2px 2px 0px black";
                 buttonViewable.style.backgroundSize = 'cover';
@@ -547,20 +547,22 @@
                     goingInd = common.goingUndecided;
                 }
 
-                let text = event.name + "\n"  + genreText + getTimeString(startDate) + "-" + getTimeString(endDate);// + "\n" + goingInd;
+                let text = "<b>" + event.name + "</b><br><i>"  + genreText + "</i>" + getTimeString(startDate) + "-" + getTimeString(endDate);
 
                 let eventAppendText = localStorage.getItem(getEventAppendTextId(event.id));
                 if (eventAppendText)
                 {
-                    text += "\n";
+                    text += "<br>";
                     text += eventAppendText;
                 }
 
                 let buttonLabel = document.createElement("label");
-                buttonLabel.innerText = text;
+                buttonLabel.innerHTML = text;
                 buttonLabel.id = getScheduleViewableButtonId(event);
                 buttonLabel.style.color = "white";
                 buttonLabel.style.backgroundColor = "rgba(0, 0, 0, 1)";
+                //This makes the label black bagroun be a full square
+                buttonLabel.style.display = "inline-block";
                 buttonViewable.appendChild(buttonLabel);
                 
                 let leftPortion = document.createElement("span");
@@ -600,6 +602,10 @@
 
         function getScheduleViewableButtonId(event) {
             return event.id + ",scheduleViewableButton";
+        }
+
+        function getScheduleViewableLabelId(event) {
+            return event.id + ",scheduleViewableLabel";
         }
 
         function getTimeString(date) {
@@ -691,9 +697,7 @@
             localStorage.setItem(common.storedScrollToKey, scrollToLocation - 200);
 
             let parentLabel = event.target.parentElement;
-            let label = common.getEventFromCommas(parentLabel.id);
             eventThatWasClicked = eventWithValues;
-            hideLabel(label);
             redrawEverything();
         }
 
@@ -740,9 +744,12 @@
 
         }
 
-
         function eventClickBringUpSearch(event) {
-            let id = event.target.id;
+            let id = event.currentTarget.id;
+            if (id == null || id == "")
+            {
+                console.log("eventClickBringUpSearch issue again");
+            }
             let eventWithValues = common.getEventFromCommas(id);
             eventThatWasClicked = eventWithValues;
             searchInput.value = eventWithValues.name;
@@ -794,7 +801,6 @@
         function resetButton(buttonName, buttonText)
         {
             let button = document.getElementById(buttonName);
-            button.delete
             deleteAll(button, 'label');
             
             button.style.backgroundImage = "url(images/hands.png)";
@@ -992,7 +998,6 @@
                 }
 
                 note.addEventListener("input", function(textareaParam) {
-                        console.log("id " + (textareaParam.target.id));
                         localStorage.setItem(getNoteId(textareaParam.target.id), encodeURI(note.value));
                     }
                 );

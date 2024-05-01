@@ -43,6 +43,7 @@ ST, Oct, 28, 6:10, PM, Oct, 28, 6:45, PM, xtest13 NoGenre \n\
 SP, Oct, 28, 6:30, PM, Oct, 28, 6:55, PM, xtest12 \n\
 AT, Oct, 28, 7:10, PM, Oct, 28, 7:45, PM, xtest24 \n\
 MA, Oct, 28, 7:00, PM, Oct, 28, 7:45, PM, xtest25 \n\
+PO, Oct, 28, 8:15, PM, Oct, 28, 9:15, PM, At the Gates \n\
 PO, Oct, 29, 12:00, AM, Oct, 29, 12:30, AM, xtest66 \
 "
 ,
@@ -52,7 +53,9 @@ PO, Oct, 29, 11:00, PM, Oct, 30, 1:00, AM, xtest13 NoGenre \
 "
 ,
 
-"PO, Oct, 30, 10:00, AM, Oct, 30, 10:45, PM, xtest11"
+"PO, Oct, 30, 10:00, AM, Oct, 30, 10:45, AM, xtest11\n\
+PO, Oct, 30, 8:15, PM, Oct, 30, 9:15, PM, At the Gates \n\
+"
 ,
 
 "PO, Oct, 31, 5:00, PM, Oct, 31, 6:45, PM, xtest11"
