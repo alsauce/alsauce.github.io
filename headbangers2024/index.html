@@ -13,12 +13,16 @@
         console.log("aco register serviceWorker script");
         alert("register SW");
         if ('serviceWorker' in navigator) {
+            alert("register SW in navigator");
             navigator.serviceWorker.register('/headbangers2024/service-worker.js').then(function(registration) {
             console.log('aco ServiceWorker registration successful with scope: ', registration.scope);
+            alert("register SW worked");
         }).catch(function(err) {
+            alert("register SW error " + err);
                 console.log('aco ServiceWorker registration failed: ', err);
             });
         }else{
+            alert("register SW NOT in navigator");
             console.log("aco register load not  in navigator");
         }
 
