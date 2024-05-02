@@ -5,6 +5,7 @@ const urlsToCache = [
     '/headbangers2024/style.css',
     '/headbangers2024/common.js',
     '/headbangers2024/index.html',
+    '/headbangers2024/manifest.webmanifest',
     '/headbangers2024/images/',
     '/headbangers2024/images/dog.png',
     '/headbangers2024/images/dude.png',
@@ -51,6 +52,28 @@ self.addEventListener("activate", (event) => {
     
   });
 
+  self.addEventListener('fetch', (event) => {
+    console.log("hbb CACHE_NAME " + CACHE_NAME);
+      event.respondWith(caches.open(CACHE_NAME).then((cache) => {
+        console.log("hbb event.request.url " + event.request.url);
+        return cache.match(event.request).then((cachedResponse) => {
+          const fetchedResponse = fetch(event.request).then((networkResponse) => {
+            console.log("hbb cache put event.request.url " + event.request.url);
+            console.log("hbb cache and return networkResponse " + networkResponse);
+            cache.put(event.request, networkResponse.clone());
+  
+            return networkResponse;
+          });
+  
+          console.log("hbb return cachedResponse" + cachedResponse);
+          console.log("hbb return fetchedResponse" + fetchedResponse);
+          return cachedResponse || fetchedResponse;
+        });
+      }));
+    
+  });
+
+  /*
 self.addEventListener('fetch', event => {
 
   //TODO the cache seems to work different when deployed or something, so I think some of this code isn't exactly how this should be done
@@ -93,5 +116,5 @@ self.addEventListener('fetch', event => {
     })()
   );
 });
-
+*/
 

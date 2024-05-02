@@ -1,5 +1,5 @@
 {
-    "background_color": "purple",
+    "background_color": "black",
     "description": "Unofficial Headbanger's Boat 2024 schedule.",
     "display": "fullscreen",
     "icons": [
@@ -10,6 +10,6 @@
       }
     ],
     "name": "Unofficial HBB24",
-    "short_name": "U_HBB24",
+    "short_name": "HBB 2024",
     "start_url": "/headbangers2024/index.html"
   }
