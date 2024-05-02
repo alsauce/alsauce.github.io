@@ -1,5 +1,5 @@
 // Define the cache name and files to cache
-const CACHE_NAME = 'headbangersboat_2024_v1';
+const CACHE_NAME = 'headbangersboat_2024_v5';
 const urlsToCache = [
     '/headbangers2024/',
     '/headbangers2024/style.css',
@@ -22,6 +22,15 @@ self.addEventListener("install", (event) => {
         cache.addAll(urlsToCache);
       })()
     );
+    
+    (async () => {
+      const cache = caches.open(CACHE_NAME);
+      cache.keys().then(keys => {
+      keys.forEach(key => {
+        console.log('activate Key ' + key + ' URL: ', key.url);
+      });
+    })
+    });
   });
 
 // delete old caches on activate
@@ -39,22 +48,44 @@ self.addEventListener("activate", (event) => {
         await clients.claim();
       })()
     );
+    
   });
 
 self.addEventListener('fetch', event => {
+
+  //TODO the cache seems to work different when deployed or something, so I think some of this code isn't exactly how this should be done
+  //if (event.request.url.)
+
+
+
   event.respondWith(
     (async () => {
       const cache = await caches.open(CACHE_NAME);
+      console.log("cache version " + CACHE_NAME);
+
+      cache.keys().then(keys => {
+        keys.forEach(key => {
+          console.log('Key ' + key + ' URL: ', key.url);
+        });
+      });
+    
+      //TODO putting http://127.0.0.1:5500/headbangers2024/manifest.webmanifest
+
+      //console.log("event.request.url " + event.request.url);
       const cachedResponse = await cache.match(event.request.url);
       
       if (cachedResponse) {
+        console.log("cachedResponse for " + event.request.url);
         // Return the cached response if it's available.
         return cachedResponse;
       }
+      console.log("non cachedResponse for " + event.request.url);
+        
 
       // If cache miss, fetch from network
       return fetch(event.request).then(function(response) {
         // Cache the fetched response for future use
+        console.log("putting " + event.request.url);
         cache.put(event.request.url, response.clone());
         return response;
 
