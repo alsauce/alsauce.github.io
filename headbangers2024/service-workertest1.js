@@ -13,6 +13,7 @@ const urlsToCache = [
     '/headbangers2024/images/search.png'
 ];
 
+
 // On install, cache the static resources
 self.addEventListener("install", (event) => {
     console.log("aco install");
@@ -76,13 +77,24 @@ self.addEventListener('fetch', event => {
       console.log("aco fetch3 " + cachedResponse);
       
       if (cachedResponse) {
-        console.log("aco returning result");
+        console.log("aco returning cached result");
         // Return the cached response if it's available.
         return cachedResponse;
       }
-      console.log("aco returning 404");
+
+      // If cache miss, fetch from network
+      return fetch(event.request).then(function(response) {
+        
+        console.log("putting cached result");
+
+        // Cache the fetched response for future use
+        cache.put(event.request.url, response.clone());
+        return response;
+
+      });
+      //console.log("aco returning 404");
       // If resource isn't in the cache, return a 404.
-      return new Response(null, { status: 404 });
+      //return new Response(null, { status: 404 });
     })()
   );
 });
