@@ -1,14 +1,10 @@
 <head>
     <script>
-        console.log("aco register serviceWorker script");
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/headbangers2024/service-workertest1.js', { scope: '/headbangers2024/' }).then(function(registration) {
-            console.log('aco ServiceWorker registration successful with scope: ', registration.scope);
+            navigator.serviceWorker.register('/headbangers2024/service-worker.js', { scope: '/headbangers2024/' }).then(function(registration) {
         }).catch(function(err) {
-                console.log('aco ServiceWorker registration failed: ', err);
+                console.log('ERROR ServiceWorker registration failed: ', err);
             });
-        }else{
-            console.log("aco register load not  in navigator");
         }
 
     </script>
