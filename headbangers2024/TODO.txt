@@ -4,6 +4,7 @@ TODO:
 dedicated scroll bar for extra text / make this work better, I think it doesn't scroll when it's in focus, it's weird.
 Going to an already past event doesn't go to the right spot.
 clicking an event, then clicking another brings up the other overlay
+animate when leaving search
 
 iphone:
 - some text might be too long, like with 2 genres and stuff
