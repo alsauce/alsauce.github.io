@@ -157,9 +157,9 @@
                                     event.conflicts = "";
                                 }
                                 else {
-                                    event.conflicts += ", ";
+                                    event.conflicts += "<br>- ";
                                 }
-                                event.conflicts += eventCompare.name + "(" + goingInd + ")";
+                                event.conflicts += eventCompare.name + ": " + goingInd + "";
                             }
                         }
                     });
@@ -941,7 +941,7 @@
 
                         let conflictsLabel = document.createElement("label");
                         conflictsLabel.style.color = "hsla(0, 0%, 80%, 1)";
-                        conflictsLabel.innerHTML = "<br>- Conflicts: " + event.conflicts + "";
+                        conflictsLabel.innerHTML = "<br>Conflicts:<br>- " + event.conflicts + "";
 
                         let divBetweenResults = document.createElement("div");
 
@@ -1152,7 +1152,7 @@
 
                 <li class="info">iPhone (Safari) - tap share/action, choose "add to home screen", add it</li>
                 <li class="info"><button type="button" id="installApp"
-                        style="height: 50px; padding-left: 3; font-size: 35px; background-size: cover; background-position: center; text-align: left; padding-bottom: 22px; display: inline-block; background-color: hsla(0, 0%, 10%, 1); color: red">Tap
+                        style="height: 70px; padding-left: 3; font-size: 50px; background-size: cover; background-position: center; text-align: left; padding-bottom: 22px; display: inline-block; background-color: hsla(0, 0%, 10%, 1); color: red">Tap
                         here to install for android
                     </button>
                 </li>
