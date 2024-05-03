@@ -1003,7 +1003,7 @@
                 if (existingNote) {
                     note.value = decodeURI(existingNote);
                 }
-                
+
                 note.addEventListener("input", function (textareaParam) {
                     note.style.height = note.scrollHeight + 'px';
                     localStorage.setItem(getNoteId(textareaParam.target.id), encodeURI(note.value));
@@ -1014,7 +1014,7 @@
 
                 resultCardDiv.appendChild(divBeforeNote);
                 resultCardDiv.appendChild(note);
-                
+
                 searchResults.appendChild(resultCardDiv);
 
                 let divAfteResult = document.createElement('div');
@@ -1023,7 +1023,7 @@
                 searchResults.appendChild(divAfteResult);
 
                 note.style.height = note.scrollHeight + 'px';
-                    
+
             });
         }
 
@@ -1061,11 +1061,6 @@
             const results = search(searchInput.value);
             displayResults(results);
         }
-
-        /////////////////////////////
-        // info display
-        //const infoInput = document.getElementById('searchInput');
-        //const searchResults = document.getElementById('searchResults');
 
         // List of strings to search
         const infoOverlay = document.getElementById('infoOverlay');
@@ -1163,10 +1158,12 @@
             <h1 class="info">Install as an app:</h1>
             <ul>
 
-                <li class="info">iPhone (Safari) - tap share/action, choose "add to home screen", add it</li>
-                <li class="info"><button type="button" id="installApp"
-                        style="height: 70px; padding-left: 3; font-size: 50px; background-size: cover; background-position: center; text-align: left; padding-bottom: 22px; display: inline-block; background-color: hsla(0, 0%, 10%, 1); color: red">Tap
-                        here to install for android
+                <li class="info">iPhone (Safari): tap share/action, choose "add to home screen", add it</li>
+                <li class="info">
+                    <label class="info" for="installApp"style="height: 70px">Android:</label>
+                    <button type="button" id="installApp"
+                        style="height: 70px; padding-left: 3; font-size: 50px; background-size: cover; background-position: center; text-align: left; padding-bottom: 22px; display: inline-block; background-color: hsla(0, 0%, 10%, 1); color: lightgrey">Tap
+                        here to install
                     </button>
                 </li>
             </ul>
@@ -1175,45 +1172,49 @@
             <ul>
                 <li class="info">Top buttons:</li>
                 <ul>
-                    <li class="info">- Displays venue:delay minutes and location</li>
-                    <li class="info">- Tap a venue to set <b>delay minutes</b> and show some venue info.</li>
+                    <li class="info">Displays venue:delay minutes and location</li>
+                    <li class="info">Tap a venue to set <b>delay minutes</b> and show some venue info.</li>
                 </ul>
                 <li class="info">Middle section:.
                     <ul>
-                        <li class="info">- Tap an event to bring up the <b>Details Overlay</b> (see below)</li>
-                        <li class="info">- Current time will be on the schedule</li>
+                        <li class="info">Tap an event to bring up the <b>Details Overlay</b> (see below)</li>
+                        <li class="info">Current time will be on the schedule</li>
                     </ul>
                 </li>
                 <li class="info">Bottom buttons:
                     <ul>
-                        <li class="info">- Tap to change which day the schedule displays</li>
-                        <li class="info">- Tap "Now" to go to the current time on the schedule.</li>
-                        <li class="info">- Tap to bring up the <b>Details Overlay</b> (see below)</li>
-                        <li class="info">- All of your changes are stored locally on your device in the specific browser
+                        <li class="info">Tap to change which day the schedule displays</li>
+                        <li class="info">Tap "Now" to go to the current time on the schedule.</li>
+                        <li class="info">Tap to bring up the <b>Details Overlay</b> (see below)</li>
+                        <li class="info">All of your changes are stored locally on your device in the specific browser
                             you've done the changes in. Clearing the browser cache will delete your changes.</li>
                     </ul>
                 </li>
 
                 <li class="info">Details Overlay:
                     <ul>
-                        <li class="info">- There's a search text box to type in. Note you can tap results in the list at
+                        <li class="info">There's a search text box to type in. Note you can tap results in the list at
                             any point. You can also search by genre.</li>
-                        <li class="info">- Tap desired "going status"</li>
-                        <li class="info">- Tap GoTo to go to that event on the schedule.</li>
-                        <li class="info">- Add event text and it will show up on the schedule.</li>
-                        <li class="info">- There's an area for artist text.</li>
-                        <li class="info">- If a specific event was tapped, it will show in yellow.</li>
-                        <li class="info">- There may be some info about the artist if I got around to adding it.</li>
+                        <li class="info">Tap desired "going status"</li>
+                        <li class="info">Tap GoTo to go to that event on the schedule.</li>
+                        <li class="info">Add event text and it will show up on the schedule.</li>
+                        <li class="info">There's an area for artist text.</li>
+                        <li class="info">If a specific event was tapped, it will show in yellow.</li>
+                        <li class="info">There may be some info about the artist if I got around to adding it.</li>
                     </ul>
                 </li>
 
-
-
+                <li class="info">Donutsauce's notes:
+                    <ul>
+                        <li class="info">Only developed for mobile, so the desktop site looks weird.</li>
+                        <li class="info">I've tried to make sure this site still loads when there's no internet.</li>
+                        <li class="info">Things may break/change.</li>
+                        <li class="info">It's a side project of mine.</li>
+                        <li class="info">Happy to hear feedback/suggestions/look in to bugs.</li>
+                        <li class="info">Hope you like it!</li>
+                    </ul>
+                </li>
             </ul>
-            <p class="info">I've tried to make sure this site still loads when there's no internet. All user input may
-                suddenly reset. Things may break/change. It's a side project of mine. Happy to hear
-                feedback/suggestions/look in to
-                bugs. Hope you like it!</p>
         </div>
     </div>
 
