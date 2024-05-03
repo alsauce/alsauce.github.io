@@ -55,66 +55,21 @@ self.addEventListener("activate", (event) => {
   self.addEventListener('fetch', (event) => {
     console.log("hbb CACHE_NAME " + CACHE_NAME);
       event.respondWith(caches.open(CACHE_NAME).then((cache) => {
-        console.log("hbb event.request.url " + event.request.url);
+        
+        if (event.request.url.endsWith("png"))
+        {
+          return cache.match(event.request);
+        }
+        
         return cache.match(event.request).then((cachedResponse) => {
           const fetchedResponse = fetch(event.request).then((networkResponse) => {
-            console.log("hbb cache put event.request.url " + event.request.url);
-            console.log("hbb cache and return networkResponse " + networkResponse);
             cache.put(event.request, networkResponse.clone());
   
             return networkResponse;
           });
-  
-          console.log("hbb return cachedResponse" + cachedResponse);
-          console.log("hbb return fetchedResponse" + fetchedResponse);
-          return cachedResponse || fetchedResponse;
+        return cachedResponse || fetchedResponse;
         });
       }));
     
   });
-
-  /*
-self.addEventListener('fetch', event => {
-
-  //TODO the cache seems to work different when deployed or something, so I think some of this code isn't exactly how this should be done
-  //if (event.request.url.)
-
-
-
-  event.respondWith(
-    (async () => {
-      const cache = await caches.open(CACHE_NAME);
-      console.log("cache version " + CACHE_NAME);
-
-      cache.keys().then(keys => {
-        keys.forEach(key => {
-          console.log('Key ' + key + ' URL: ', key.url);
-        });
-      });
-    
-      //TODO putting http://127.0.0.1:5500/headbangers2024/manifest.webmanifest
-
-      //console.log("event.request.url " + event.request.url);
-      const cachedResponse = await cache.match(event.request.url);
-      
-      if (cachedResponse) {
-        console.log("cachedResponse for " + event.request.url);
-        // Return the cached response if it's available.
-        return cachedResponse;
-      }
-      console.log("non cachedResponse for " + event.request.url);
-        
-
-      // If cache miss, fetch from network
-      return fetch(event.request).then(function(response) {
-        // Cache the fetched response for future use
-        console.log("putting " + event.request.url);
-        cache.put(event.request.url, response.clone());
-        return response;
-
-      });
-    })()
-  );
-});
-*/
 
