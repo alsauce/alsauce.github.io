@@ -891,11 +891,14 @@
                 let resultCardDiv = document.createElement("div");
                 resultCardDiv.style.color = "hsla(0, 0%, 80%, 1)";
                 resultCardDiv.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
+                resultCardDiv.style.backgroundImage = "url(images/dog.png)";
+                resultCardDiv.style.backgroundSize = 'cover';
+                resultCardDiv.style.backgroundPosition = 'center';
                 resultCardDiv.style.borderRadius = "20px";
                 resultCardDiv.style.padding = "10px";
                 let eventLabel = document.createElement("label");
                 eventLabel.style.color = "hsla(0, 0%, 80%, 1)";
-                //eventLabel.style.backgroundColor = "hsla(0, 100%, 10%, 1)";
+                eventLabel.style.backgroundColor = "rgba(0, 0, 0, 1)";
                 eventLabel.innerHTML = resultName;
                 resultCardDiv.appendChild(eventLabel);
 
@@ -903,7 +906,7 @@
                     let divBeforeNoEventsLabel = document.createElement("div");
                     let noEventsLabel = document.createElement("label");
                     noEventsLabel.style.color = "hsla(0, 0%, 80%, 1)";
-                    noEventsLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
+                    noEventsLabel.style.backgroundColor = "rgba(0, 0, 0, 1)";
                     noEventsLabel.innerHTML = "No events yet.";
                     resultCardDiv.appendChild(divBeforeNoEventsLabel);
                     resultCardDiv.appendChild(noEventsLabel);
@@ -912,7 +915,8 @@
                     events.forEach(event => {
 
                         let eventCardDiv = document.createElement("div");
-                        eventCardDiv.style.backgroundColor = "hsla(0, 60%, 20%, 1)";
+                        //eventCardDiv.style.backgroundColor = "hsla(0, 60%, 20%, 1)";
+                        eventCardDiv.style.backgroundColor = "rgba(0, 0, 0, 1)";
                         eventCardDiv.style.borderRadius = "20px";
                         eventCardDiv.style.padding = "10px";
 
@@ -980,9 +984,9 @@
                 note.style.width = "96%";
                 note.style.marginLeft = "2%";
                 note.style.height = 500;
-                note.style.color = "hsla(0, 100%, 100%, 1)";
+                note.style.color = "hsla(0, 0%, 80%, 1)";
                 note.style.backgroundColor = "hsla(0, 0%, 0%, 1)";
-                note.style.opacity = ".9";
+                note.style.opacity = "1";
                 note.style.justifyContent = "center";
                 note.style.font = '35px serif';
                 note.style.overflowY = "scroll";
