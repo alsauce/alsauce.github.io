@@ -5,6 +5,8 @@ dedicated scroll bar for extra text / make this work better, I think it doesn't 
 Going to an already past event doesn't go to the right spot.
 clicking an event, then clicking another brings up the other overlay
 animate when leaving search
+hightlight the day that is currently happening button on bottom
+- make a line that moves down as the day progresses
 
 iphone:
 - some text might be too long, like with 2 genres and stuff
@@ -40,6 +42,7 @@ filter/search for bands
 it looks like there's "placeholder text" instead of what I've been doing on overlay text boxes
  - placeholder="Search..."
 check TODOs in code
+offline service worker
 
 alpha: got removed
 when going from alpha to schedule, set the value needed in the localStorage

@@ -91,3 +91,11 @@ body {
       display: none; /* Hide the box when animation ends */
     }
   }
+
+  .info {
+
+    color: red;
+    font: 30px serif;
+
+
+  }

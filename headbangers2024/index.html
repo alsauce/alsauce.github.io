@@ -1,9 +1,10 @@
 <html lang="en">
+
 <head>
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/headbangers2024/service-worker.js', { scope: '/headbangers2024/' }).then(function(registration) {
-        }).catch(function(err) {
+            navigator.serviceWorker.register('/headbangers2024/service-worker.js', { scope: '/headbangers2024/' }).then(function (registration) {
+            }).catch(function (err) {
                 console.log('ERROR ServiceWorker registration failed: ', err);
             });
         }
@@ -25,11 +26,11 @@
     <link rel="icon" href="images/hands.png" type="images/x-icon">
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.webmanifest" />
-    
+
     <script type="module">
-        
+
         import * as common from '/headbangers2024/common.js';
-        
+
         let day = 1;
         let yVenueHeight = 150;
         let yTopHeight = yVenueHeight;
@@ -52,7 +53,7 @@
 
         let fullWidth = window.innerWidth;
         let xBlockWidth = (fullWidth - xTimeOnLeftWidth) / common.locations.length;
-       
+
         let yHiddenButtonHeight = 1000;
 
         let colorVenueBack = 'darkgrey';
@@ -77,7 +78,7 @@
         //goTo and close text are used in processing
         let goToButtonText = "GoTo";
         let closeButtonText = "Close";
-        
+
         // these need to be reset every redraw so don't initialize them here
         let eventNameToEvents;
         let dayToData;
@@ -86,8 +87,7 @@
         let eventThatWasClicked;
         let tappedGotoEvent;
 
-        function primeBandToBandInfo()
-        {
+        function primeBandToBandInfo() {
             bandToBandInfo = new Map();
             let bands = common.bandInfo.sort((eventA, eventB) => eventA[0].toLowerCase().localeCompare(eventB[0].toLowerCase()));
             for (let i = 0; i < bands.length; i++) {
@@ -139,24 +139,21 @@
                 events.sort((eventA, eventB) => eventA.name.toLowerCase().localeCompare(eventB.name.toLowerCase()));
 
                 events.forEach(event => {
-                    
+
                     addToEventNameToEventsMap(event);
                     let eventStartDate = getStartDateTime(event);
                     let eventEndDate = getEndDateTime(event);
                     events.forEach(eventCompare => {
-                        if (event.name != eventCompare.name)
-                        {
+                        if (event.name != eventCompare.name) {
                             let eventStartDateCompare = getStartDateTime(eventCompare);
                             let eventEndDateCompare = getEndDateTime(eventCompare);
 
-                            if (eventStartDate < eventEndDateCompare && eventStartDateCompare < eventEndDate)
-                            {
+                            if (eventStartDate < eventEndDateCompare && eventStartDateCompare < eventEndDate) {
                                 let goingInd = localStorage.getItem(common.getGoingKey(eventCompare));
                                 if (goingInd == null) {
                                     goingInd = common.goingUndecided;
                                 }
-                                if (event.conflicts == "None.")
-                                {
+                                if (event.conflicts == "None.") {
                                     event.conflicts = "";
                                 }
                                 event.conflicts += eventCompare.name + "(" + goingInd + ") ";
@@ -183,14 +180,13 @@
         }
 
         function addToEventNameToEventsMap(event) {
-            if (bandToBandInfo.get(event.name) == null)
-            {
+            if (bandToBandInfo.get(event.name) == null) {
                 alert("Add bandInfo entry for \n" + event.name);
             }
             let events = eventNameToEvents.get(event.name);
             if (events == null) {
                 events = [];
-               eventNameToEvents.set(event.name, events);
+                eventNameToEvents.set(event.name, events);
             }
             events.push(event);
             //would be better after all area added but generally only 2 events anyway
@@ -222,13 +218,12 @@
             drawTimeline();
             buttons();
             drawTop();
-            
+
             let scrollTo = localStorage.getItem(common.storedScrollToKey);
             if (scrollTo != "-1") {
                 window.scroll(0, Number(scrollTo));
 
-                if (tappedGotoEvent != null)
-                {
+                if (tappedGotoEvent != null) {
                     let tappedButton = document.getElementById(getScheduleViewableButtonId(tappedGotoEvent));
 
                     var cloneButton = tappedButton.cloneNode(false);
@@ -247,8 +242,7 @@
             localStorage.setItem(common.storedScrollToKey, -1);
         }
 
-        function deleteAll(element, tagName)
-        {
+        function deleteAll(element, tagName) {
             let elements = element.getElementsByTagName(tagName);
             while (elements.length > 0) {
                 for (var i = 0; i < elements.length; i++) {
@@ -258,25 +252,24 @@
             }
         }
 
-        function deleteEverything()
-        {
+        function deleteEverything() {
             let schedule = document.getElementById("schedule");
 
             deleteAll(schedule, 'button');
             deleteAll(schedule, 'label');
             deleteAll(schedule, 'div');
-            
+
             let top = document.getElementById('top');
             deleteAll(top, 'button');
-            
+
         }
 
-        
+
         function drawTop() {
             let top = document.getElementById('top');
             top.style.width = fullWidth;
             top.style.height = yTopHeight;
-            
+
             let buttonTopLeft = document.createElement('button');
             buttonTopLeft.style.position = 'absolute';
             buttonTopLeft.style.left = 0 + 'px';
@@ -287,14 +280,14 @@
             //buttonTopLeft.style.backgroundImage = "url(images/hands.png)";
             buttonTopLeft.innerText = "TAP FOR INFO";
             buttonTopLeft.style.font = '32px serif';
-            
+
             buttonTopLeft.style.color = "hsla(0, 0%, 80%, 1)";
             buttonTopLeft.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
             buttonTopLeft.style.backgroundSize = 'cover';
             buttonTopLeft.style.backgroundPosition = 'center';
             buttonTopLeft.style.textAlign = "left";
             buttonTopLeft.style.padding = "2px";
-            buttonTopLeft.addEventListener("click", buttonTopLeftClick);
+            buttonTopLeft.addEventListener("click", openInfoOverlayButtonClick);
 
             top.appendChild(buttonTopLeft);
 
@@ -308,7 +301,7 @@
                 buttonVenue.style.width = xBlockWidth;
                 buttonVenue.style.height = yVenueHeight;
                 let venueText = common.locations[i].abbrev + ":" + getDelayMinutesForVenue(common.locations[i].abbrev) + "m " + common.locations[i].location;
-                
+
                 let buttonText = document.createElement("label");
                 //This makes the label black background be a full square
                 buttonText.style.display = "inline-block";
@@ -332,38 +325,20 @@
 
             }
         }
-        
-        function buttonTopLeftClick() {
-        	alert("Search events, add notes, set venue delay times, etc:\n" +
-              "-Tap the top buttons to set delay minutes for a venue and show some venue info.\n" +
-              "-Tap an event on the schedule:\n" +
-              "---Tap desired \"going status\"\n" +
-              "---Tap GoTo to go to that event on the schedule.\n" +
-              "---Add event text and it will show up on the schedule.\n" +
-              "---There's an area for artist text.\n" +
-              "---There may be some info about the artist if I got around to adding it.\n" +
-              "-Tap the first few bottom buttons to change which day the schedule displays\n" +
-              "-Tap \"Now\" bottom button to go to the current time on the schedule.\n" +
-              "-Tap the search bottom button to search events.  Note you can tap results in the list as they appear.\n" +
-              "-All of your changes are stored locally on your device in the specific browser you've done the changes in.  Clearing the browser cache will delete your changes.\n" +
-              "-I've tried to make sure this site still loads when there's no internet.  All user input may suddenly reset.  Things may break/change.  It's a side project of mine.  Happy to hear feedback/look in to bugs.  Hope you like it!\n");
-        }
 
         function venueClick(venueClicked) {
 
             let venueAbbrev = venueClicked.target.textContent.split(":")[0];
             let venue;
             for (var i = 0; i < common.locations.length; i++) {
-                if (common.locations[i].abbrev == venueAbbrev)
-                {
+                if (common.locations[i].abbrev == venueAbbrev) {
                     venue = common.locations[i];
                     break;
                 }
             }
 
             let note = "";
-            if (venue.note != "" && venue.note != undefined)
-            {
+            if (venue.note != "" && venue.note != undefined) {
                 note += ". " + venue.note;
             }
 
@@ -408,10 +383,9 @@
         function drawCurrentTime(earliestStart) {
 
             let schedule = document.getElementById("schedule");
-            let currentTime = new Date();    
-            
-            if (currentTime > common.storedTimeTEST)
-            {
+            let currentTime = new Date();
+
+            if (currentTime > common.storedTimeTEST) {
                 common.storedTimeTEST = currentTime;
             }
             let pixel = getYPixelLocation(earliestStart, common.storedTimeTEST);
@@ -473,7 +447,7 @@
 
         function drawTimeOnLeft(earliestStart, latestEnd) {
             let schedule = document.getElementById("schedule");
-            
+
             let startMinutes = earliestStart.getMinutes();
 
             let drawingTime = earliestStart;
@@ -553,7 +527,7 @@
                 let height = getYPixelLocation(earliestStart, endDate) - yPixelTop;
                 buttonViewable.style.height = height + 'px';
                 buttonViewable.style.font = fontSchedule;
-                
+
                 buttonViewable.addEventListener("click", eventClickBringUpSearch);
                 buttonViewable.id = getScheduleViewableButtonId(event);
                 buttonViewable.style.textAlign = "left";
@@ -565,11 +539,10 @@
                 buttonViewable.style.backgroundSize = 'cover';
                 buttonViewable.style.backgroundPosition = 'center';
                 buttonViewable.style.backgroundImage = "url(images/dog.png)";
-                
+
                 let bandInfo = bandToBandInfo.get(event.name);
                 let genreText = "";
-                if (bandInfo != null && bandInfo != "undefined" && bandInfo.genre != null && bandInfo.genre != "")
-                {
+                if (bandInfo != null && bandInfo != "undefined" && bandInfo.genre != null && bandInfo.genre != "") {
                     genreText = bandInfo.genre + "<br>";
                 }
                 let goingInd = localStorage.getItem(common.getGoingKey(event));
@@ -577,11 +550,10 @@
                     goingInd = common.goingUndecided;
                 }
 
-                let text = "<b>" + event.name + "</b><br><i>"  + genreText + "</i>" + getTimeString(startDate) + "-" + getTimeString(endDate);
+                let text = "<b>" + event.name + "</b><br><i>" + genreText + "</i>" + getTimeString(startDate) + "-" + getTimeString(endDate);
 
                 let eventAppendText = localStorage.getItem(getEventAppendTextId(event.id));
-                if (eventAppendText)
-                {
+                if (eventAppendText) {
                     text += "<br>";
                     text += eventAppendText;
                 }
@@ -594,7 +566,7 @@
                 //This makes the label black background be a full square
                 buttonLabel.style.display = "inline-block";
                 buttonViewable.appendChild(buttonLabel);
-                
+
                 let leftPortion = document.createElement("span");
                 leftPortion.style.position = "absolute";
                 leftPortion.style.top = "0";
@@ -603,22 +575,19 @@
                 leftPortion.style.height = "100%";
                 leftPortion.style.backgroundSize = "10px 10px";
 
-                if (goingInd == common.goingGoing)
-                {
+                if (goingInd == common.goingGoing) {
                     leftPortion.style.backgroundColor = "limegreen";
                     buttonViewable.style.opacity = "1";
                 }
-                else if (goingInd == common.goingNotGoing)
-                {
+                else if (goingInd == common.goingNotGoing) {
                     leftPortion.style.backgroundColor = "hsla(0, 100%, 25%, 1)";
                     buttonViewable.style.opacity = ".4";
                 }
-                else if (goingInd == common.goingMaybe)
-                {
+                else if (goingInd == common.goingMaybe) {
                     leftPortion.style.backgroundImage = "repeating-linear-gradient(-45deg, limegreen, limegreen 5px, black 5px, black 10px)"; // Striped pattern
                     buttonViewable.style.opacity = ".8";
                 }
-                else{
+                else {
                     //TBD
                     leftPortion.style.backgroundColor = "hsla(240, 100%, 15%, 1)";
                     buttonViewable.style.opacity = ".7";
@@ -643,8 +612,7 @@
             if (hour > 12) {
                 hour -= 12;
             }
-            if (hour == 0)
-            {
+            if (hour == 0) {
                 hour = 12;
             }
             let minute = date.getMinutes();
@@ -656,14 +624,12 @@
             return hour + ":" + minuteString;
         }
 
-        function getEventAppendTextBox(event)
-        {
+        function getEventAppendTextBox(event) {
             let eventAppendText = document.createElement('input');
             eventAppendText.placeholder = "Add text on schedule...";
 
             let existingEventAppendText = localStorage.getItem(getEventAppendTextId(event.id));
-            if (existingEventAppendText)
-            {
+            if (existingEventAppendText) {
                 eventAppendText.value = existingEventAppendText;
             }
 
@@ -677,22 +643,20 @@
             eventAppendText.style.marginLeft = "2%";
             eventAppendText.id = event.id;
 
-            eventAppendText.addEventListener("input", function(eventAppendTextParam) {
-                    localStorage.setItem(getEventAppendTextId(eventAppendTextParam.target.id), eventAppendText.value);
-                }
+            eventAppendText.addEventListener("input", function (eventAppendTextParam) {
+                localStorage.setItem(getEventAppendTextId(eventAppendTextParam.target.id), eventAppendText.value);
+            }
             );
 
             return eventAppendText;
         }
 
-        function getEventAppendTextId(eventName)
-        {
+        function getEventAppendTextId(eventName) {
             return common.storedAppendTextKey + "," + eventName;
         }
 
 
-        function getNoteId(eventName)
-        {
+        function getNoteId(eventName) {
             return common.storedNoteKey + "," + eventName;
         }
 
@@ -719,7 +683,7 @@
         function createButtonGoing(going, event) {
 
             let buttonGoingOnLabel = document.createElement('button');
-            
+
             let goingInd = localStorage.getItem(common.getGoingKey(event));
             if (goingInd == null) {
                 goingInd = common.goingUndecided;
@@ -751,7 +715,7 @@
             let id = theclick.target.id;
             let innerText = theclick.target.innerText;
             localStorage.setItem(id, innerText);
-            
+
             //primeData again to reset the conflicts going ind field
             primeData();
             openSearchOverlay();
@@ -760,8 +724,7 @@
 
         function eventClickBringUpSearch(event) {
             let id = event.currentTarget.id;
-            if (id == null || id == "")
-            {
+            if (id == null || id == "") {
                 console.log("eventClickBringUpSearch issue again");
             }
             let eventWithValues = common.getEventFromCommas(id);
@@ -796,7 +759,7 @@
         }
 
         function buttons() {
-            
+
             resetButton("dayButton1", "29M");
             resetButton("dayButton2", "29T");
             resetButton("dayButton3", "30W");
@@ -804,7 +767,7 @@
 
             document.getElementById("dayButton" + day).style.backgroundColor = colorDayBackgroundActive;
             document.getElementById("dayButton" + day).style.backgroundImage = "url(images/dude.png)";
-            
+
             let buttonWidth = Math.floor(fullWidth / 7) + "px";
             document.getElementById("dayButton1").style.width = buttonWidth;
             document.getElementById("dayButton2").style.width = buttonWidth;
@@ -812,11 +775,10 @@
             document.getElementById("dayButton4").style.width = buttonWidth;
         }
 
-        function resetButton(buttonName, buttonText)
-        {
+        function resetButton(buttonName, buttonText) {
             let button = document.getElementById(buttonName);
             deleteAll(button, 'label');
-            
+
             button.style.backgroundImage = "url(images/hands.png)";
             button.style.backgroundSize = 'cover';
             button.style.backgroundPosition = 'center';
@@ -835,7 +797,7 @@
                     localStorage.setItem(common.storedDayKey, day);
 
                     let scrollToLocation = getYPixelLocation(data.earliestStart, common.storedTimeTEST);
-                    
+
                     localStorage.setItem(common.storedScrollToKey, scrollToLocation - 200);
                     redrawEverything();
                     return;
@@ -851,8 +813,8 @@
         // List of strings to search
         const searchOverlay = document.getElementById('searchOverlay');
 
-        function openSearchOverlayButtonClick() {            
-            openSearchOverlay()
+        function openSearchOverlayButtonClick() {
+            openSearchOverlay();
         }
 
         function openSearchOverlay() {
@@ -865,7 +827,7 @@
         }
 
         function closeSearchOverlay() {
-            commonSearchOverlayClosingTasks()
+            commonSearchOverlayClosingTasks();
             eventThatWasClicked = null;
             redrawEverything();
         }
@@ -877,17 +839,15 @@
             let eventNamesIndex = 0;
 
             bandToBandInfo.forEach((value, key) => {
-                
+
                 let eventText = key;
-                    if (value != null && value.genre != null && value.genre != "")
-                    {
-                        eventText += ", " + value.genre;
-                    }
-                    else
-                    {
-                        eventText += ", " + "No Genre Found";
-                    }
-                    eventTexts.push(eventText);
+                if (value != null && value.genre != null && value.genre != "") {
+                    eventText += ", " + value.genre;
+                }
+                else {
+                    eventText += ", " + "No Genre Found";
+                }
+                eventTexts.push(eventText);
 
             });
 
@@ -899,13 +859,13 @@
             searchResults.innerHTML = '';
             searchResults.style.font = "50px serif";
             searchResults.style.padding = "5px";
-            
+
             results.forEach(result => {
                 let searchResultLabel = document.createElement("label");
                 searchResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
                 searchResultLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
-                
-                searchResultLabel.addEventListener('click', function(searchResultLabelClicked) {
+
+                searchResultLabel.addEventListener('click', function (searchResultLabelClicked) {
                     searchInput.value = searchResultLabel.innerHTML.split(",")[0];
                     const results = search(searchInput.value);
                     displayResults(results);
@@ -916,17 +876,16 @@
             });
             let separateFilteredResults = document.createElement("div");
             separateFilteredResults.style.padding = "10px";
-                
+
             searchResults.appendChild(separateFilteredResults);
-            
+
             results.forEach(result => {
-                
+
                 let resultName = result.split(",")[0];
 
                 let events = eventNameToEvents.get(resultName);
 
-                if (events == null || events.length == 0)
-                {
+                if (events == null || events.length == 0) {
                     let divBeforeNoEventsLabel = document.createElement("div");
                     let noEventsLabel = document.createElement("label");
                     noEventsLabel.style.color = "hsla(0, 0%, 80%, 1)";
@@ -935,26 +894,24 @@
                     searchResults.appendChild(divBeforeNoEventsLabel);
                     searchResults.appendChild(noEventsLabel);
                 }
-                else
-                {
+                else {
                     events.forEach(event => {
 
                         let eventCardDiv = document.createElement("div");
                         eventCardDiv.style.backgroundColor = "hsla(0, 60%, 20%, 1)";
                         eventCardDiv.style.borderRadius = "20px";
                         eventCardDiv.style.padding = "10px";
-                        
+
 
                         let searchResultLabel = document.createElement("label");
                         searchResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
                         let searchResultLabelText = "<b>" + event.name + "</b>, Day " + event.day + ", " + event.startTime + "-" + event.endTime + " " + event.endAMPM;
-                        if (eventThatWasClicked != null && event.id == eventThatWasClicked.id)
-                        {
+                        if (eventThatWasClicked != null && event.id == eventThatWasClicked.id) {
                             searchResultLabel.style.color = "yellow";
                             searchResultLabelText = searchResultLabelText;
                         }
                         searchResultLabel.innerHTML = searchResultLabelText;
-                        
+
                         let buttonGoTo = document.createElement('button');
 
                         buttonGoTo.style.backgroundColor = colorGoToBackground;
@@ -988,9 +945,9 @@
                         eventCardDiv.appendChild(buttonGoingNotGoing);
                         eventCardDiv.appendChild(buttonGoingMaybe);
                         eventCardDiv.appendChild(buttonGoingUndecided);
-                    
+
                         eventCardDiv.appendChild(buttonGoTo);
-                        let divBeforeConflictsLabel= document.createElement("div");
+                        let divBeforeConflictsLabel = document.createElement("div");
                         eventCardDiv.appendChild(conflictsLabel);
                         eventCardDiv.appendChild(getEventAppendTextBox(event));
 
@@ -1017,16 +974,15 @@
                 note.id = result;
 
                 let existingNote = localStorage.getItem(getNoteId(result));
-                if (existingNote)
-                {
+                if (existingNote) {
                     note.value = decodeURI(existingNote);
                 }
 
-                note.addEventListener("input", function(textareaParam) {
-                        localStorage.setItem(getNoteId(textareaParam.target.id), encodeURI(note.value));
-                    }
+                note.addEventListener("input", function (textareaParam) {
+                    localStorage.setItem(getNoteId(textareaParam.target.id), encodeURI(note.value));
+                }
                 );
-                
+
                 let divBeforeNote = document.createElement('div');
                 divBeforeNote.style.height = "20px";
                 searchResults.appendChild(divBeforeNote);
@@ -1043,8 +999,7 @@
             displayResults(results);
         });
 
-        function commonSearchOverlayClosingTasks()
-        {
+        function commonSearchOverlayClosingTasks() {
             document.body.style.overflow = '';
             searchOverlay.style.display = 'none';
         }
@@ -1067,44 +1022,61 @@
             redrawEverything();
         }
 
-        function handleClearSearch()
-        {
+        function handleClearSearch() {
             searchInput.value = "";
             const results = search(searchInput.value);
             displayResults(results);
         }
 
+        /////////////////////////////
+        // info display
+        //const infoInput = document.getElementById('searchInput');
+        //const searchResults = document.getElementById('searchResults');
+
+        // List of strings to search
+        const infoOverlay = document.getElementById('infoOverlay');
+
+        function openInfoOverlayButtonClick() {
+            infoOverlay.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+        }
+
+        function closeInfoOverlay() {
+            document.body.style.overflow = '';
+            infoOverlay.style.display = 'none';
+        }
 
         // Code to handle install prompt on desktop
 
-let deferredPrompt;
-const addBtn = document.getElementById('installApp');
+        let deferredPrompt;
+        const addBtn = document.getElementById('installApp');
 
-window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent Chrome 67 and earlier from automatically showing the prompt
-  e.preventDefault();
-  // Stash the event so it can be triggered later.
-  deferredPrompt = e;
-  // Update UI to notify the user they can add to home screen
-  addBtn.style.display = 'block';
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent Chrome 67 and earlier from automatically showing the prompt
+            e.preventDefault();
+            // Stash the event so it can be triggered later.
+            deferredPrompt = e;
+            // Update UI to notify the user they can add to home screen
+            addBtn.style.display = 'block';
 
-  addBtn.addEventListener('click', () => {
-    // hide our user interface that shows our A2HS button
-    addBtn.style.display = 'none';
-    // Show the prompt
-    deferredPrompt.prompt();
-    // Wait for the user to respond to the prompt
-    deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === 'accepted') {
-        console.log('User accepted the A2HS prompt');
-      } else {
-        console.log('User dismissed the A2HS prompt');
-      }
-      deferredPrompt = null;
-    });
-  });
-});
-        
+            addBtn.addEventListener('click', () => {
+                // hide our user interface that shows our A2HS button
+                addBtn.style.display = 'none';
+                // Show the prompt
+                deferredPrompt.prompt();
+                // Wait for the user to respond to the prompt
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the A2HS prompt');
+                    } else {
+                        console.log('User dismissed the A2HS prompt');
+                    }
+                    deferredPrompt = null;
+                });
+            });
+        });
+
         window.redrawEverything = redrawEverything;
         window.handleDayButton = handleDayButton;
         window.goToNow = goToNow;
@@ -1112,6 +1084,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
         window.closeSearchOverlay = closeSearchOverlay;
         window.handleClearSearch = handleClearSearch;
         window.openSearchOverlayButtonClick = openSearchOverlayButtonClick;
+        window.closeInfoOverlay = closeInfoOverlay;
 
     </script>
 
@@ -1122,7 +1095,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
     </div>
 
     <div class="schedule" id="schedule"></div>
- 
+
     <div class="bottom" id="bottom">
         <button type="button" onclick="handleDayButton(1)" id="dayButton1" class="button"></button>
         <button type="button" onclick="handleDayButton(2)" id="dayButton2" class="button"></button>
@@ -1136,17 +1109,48 @@ window.addEventListener('beforeinstallprompt', (e) => {
         <button type="button" onclick="openSearchOverlayButtonClick()" id="search" class="button"
             style="background-image: url(images/search.png); background-size: cover; background-position: center; text-align: left; width: 90px; padding-bottom: 28px;">
         </button>
-        <button type="button"  id="installApp" class="button"
-            style="background-size: cover; background-position: center; text-align: left; width: 90px; padding-bottom: 28px;">Add
-        </button>
+        
     </div>
 
     <div id="searchOverlay" class="overlay">
         <div class="overlay-content">
             <span class="close" onclick="closeSearchOverlay()">&times;</span>
-            <input type="text" id="searchInput" placeholder="Search..." style="color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 70; padding-left: 10px">
-            <button onclick="handleClearSearch()" style="color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 70">Clear</button>
+            <input type="text" id="searchInput" placeholder="Search..."
+                style="color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 70; padding-left: 10px">
+            <button onclick="handleClearSearch()"
+                style="color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 70">Clear</button>
             <ul id="searchResults"></ul>
+        </div>
+    </div>
+
+    <div id="infoOverlay" class="overlay">
+        <div class="overlay-content">
+            <span class="close" onclick="closeInfoOverlay()">&times;</span>
+            <p class="info">This can be installed like an app.</p>
+            <li class="info">iPhone (Safari) - tap share/action, choose "add to home screen", add it</li>
+            <button type="button" id="installApp" class="button"
+                style="height: 40px; padding-left: 3; font-size: 30px; background-size: cover; background-position: center; text-align: left; padding-bottom: 22px;">Install (android)
+            </button>
+            <h1 class="info">Search events, add notes, set venue delay times, etc:</h1>
+
+            <ul>
+                <li class="info">Tap the top buttons to set delay minutes for a venue and show some venue info.</li>
+                <li class="info">Tap an event on the schedule
+                    <ul>
+                        <li class="info">Tap desired "going status"</li>
+                        <li class="info">Tap GoTo to go to that event on the schedule.</li>
+                        <li class="info">Add event text and it will show up on the schedule.</li>
+                        <li class="info">There's an area for artist text.</li>
+                        <li class="info">There may be some info about the artist if I got around to adding it.</li>
+                    </ul>
+                </li>
+                <li class="info">Tap the first few bottom buttons to change which day the schedule displays</li>
+                <li class="info">Tap "Now" bottom button to go to the current time on the schedule.</li>
+                <li class="info">Tap the search bottom button to search events.  Note you can tap results in the list as they appear.</li>
+                <li class="info">All of your changes are stored locally on your device in the specific browser you've done the changes in.  Clearing the browser cache will delete your changes.</li>
+                
+            </ul>
+            <p class="info">I've tried to make sure this site still loads when there's no internet.  All user input may suddenly reset.  Things may break/change.  It's a side project of mine.  Happy to hear feedback/look in to bugs.  Hope you like it!</p>
         </div>
     </div>
 
