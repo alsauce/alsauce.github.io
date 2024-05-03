@@ -890,18 +890,24 @@
 
                 let resultCardDiv = document.createElement("div");
                 resultCardDiv.style.color = "hsla(0, 0%, 80%, 1)";
-                resultCardDiv.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
-                resultCardDiv.style.backgroundImage = "url(images/dog.png)";
-                resultCardDiv.style.backgroundSize = 'cover';
-                resultCardDiv.style.backgroundPosition = 'center';
+                resultCardDiv.style.backgroundColor = "hsla(0, 0%, 20%, 1)";
                 resultCardDiv.style.borderRadius = "20px";
+                resultCardDiv.style.border = "2px solid lightgrey";
                 resultCardDiv.style.padding = "10px";
                 let eventLabel = document.createElement("label");
                 eventLabel.style.color = "hsla(0, 0%, 80%, 1)";
                 eventLabel.style.backgroundColor = "rgba(0, 0, 0, 1)";
-                eventLabel.innerHTML = resultName;
+                eventLabel.style.display = "block";
+                eventLabel.style.margin = "0 auto";
+                eventLabel.style.textAlign = "center";
+                eventLabel.style.borderRadius = "20px";
+                eventLabel.innerHTML = "<b>" + resultName + "</b>";
+                
                 resultCardDiv.appendChild(eventLabel);
-
+                let divSpaceAfterEventLabel = document.createElement("div");
+                divSpaceAfterEventLabel.style.padding = "10px";
+                resultCardDiv.appendChild(divSpaceAfterEventLabel);
+                 
                 if (events == null || events.length == 0) {
                     let divBeforeNoEventsLabel = document.createElement("div");
                     let noEventsLabel = document.createElement("label");
