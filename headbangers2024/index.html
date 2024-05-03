@@ -1142,13 +1142,19 @@
 
     <div id="searchOverlay" class="overlay">
         <div class="overlay-content">
-            <span class="close" onclick="closeSearchOverlay()">&times;</span>
-            <input type="text" id="searchInput" placeholder="Search..."
-                style="color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 70; padding-left: 10px">
-            <button onclick="handleClearSearch()"
-                style="color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 70">Clear</button>
-            <ul id="searchResults"></ul>
+            <div>
+                <ul id="searchResults"></ul>
+            </div>
+            <div style="position: fixed; bottom: 10px; padding-left: 10px;">
+                <input type="text" id="searchInput" placeholder="Search..."
+                    style="color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 70; padding-left: 10px; width: 69%;">
+                <button onclick="handleClearSearch()"
+                    style="color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 70; width: 14%;">Clear</button>
+                <button onclick="closeSearchOverlay()"
+                    style="color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 70; width: 14%;">Close</button>
+            </div>
         </div>
+
     </div>
 
     <div id="infoOverlay" class="overlay">
@@ -1159,7 +1165,7 @@
 
                 <li class="info">iPhone (Safari): tap share/action, choose "add to home screen", add it</li>
                 <li class="info">
-                    <label class="info" for="installApp"style="height: 70px">Android:</label>
+                    <label class="info" for="installApp" style="height: 70px">Android:</label>
                     <button type="button" id="installApp"
                         style="height: 70px; padding-left: 3; font-size: 50px; background-size: cover; background-position: center; text-align: left; padding-bottom: 22px; display: inline-block; background-color: hsla(0, 0%, 10%, 1); color: lightgrey">Tap
                         here to install
