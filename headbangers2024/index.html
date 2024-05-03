@@ -902,12 +902,12 @@
                 eventLabel.style.textAlign = "center";
                 eventLabel.style.borderRadius = "20px";
                 eventLabel.innerHTML = "<b>" + resultName + "</b>";
-                
+
                 resultCardDiv.appendChild(eventLabel);
                 let divSpaceAfterEventLabel = document.createElement("div");
                 divSpaceAfterEventLabel.style.padding = "10px";
                 resultCardDiv.appendChild(divSpaceAfterEventLabel);
-                 
+
                 if (events == null || events.length == 0) {
                     let divBeforeNoEventsLabel = document.createElement("div");
                     let noEventsLabel = document.createElement("label");
@@ -989,38 +989,41 @@
                 note.placeholder = "Add notes for " + resultName + " here";
                 note.style.width = "96%";
                 note.style.marginLeft = "2%";
-                note.style.height = 500;
+                note.style.minHeight = "50px";
                 note.style.color = "hsla(0, 0%, 80%, 1)";
                 note.style.backgroundColor = "hsla(0, 0%, 0%, 1)";
                 note.style.opacity = "1";
                 note.style.justifyContent = "center";
                 note.style.font = '35px serif';
-                note.style.overflowY = "scroll";
+                note.style.overflowY = "hidden";
+                note.style.resize = "verticle";
                 note.id = result;
 
                 let existingNote = localStorage.getItem(getNoteId(result));
                 if (existingNote) {
                     note.value = decodeURI(existingNote);
                 }
-
+                
                 note.addEventListener("input", function (textareaParam) {
+                    note.style.height = note.scrollHeight + 'px';
                     localStorage.setItem(getNoteId(textareaParam.target.id), encodeURI(note.value));
                 }
                 );
-
                 let divBeforeNote = document.createElement('div');
                 divBeforeNote.style.height = "20px";
 
                 resultCardDiv.appendChild(divBeforeNote);
                 resultCardDiv.appendChild(note);
-
-
+                
                 searchResults.appendChild(resultCardDiv);
 
                 let divAfteResult = document.createElement('div');
                 divAfteResult.style.height = "50px";
 
                 searchResults.appendChild(divAfteResult);
+
+                note.style.height = note.scrollHeight + 'px';
+                    
             });
         }
 
