@@ -156,7 +156,10 @@
                                 if (event.conflicts == "None.") {
                                     event.conflicts = "";
                                 }
-                                event.conflicts += eventCompare.name + "(" + goingInd + ") ";
+                                else {
+                                    event.conflicts += ", ";
+                                }
+                                event.conflicts += eventCompare.name + "(" + goingInd + ")";
                             }
                         }
                     });
@@ -1149,7 +1152,7 @@
 
                 <li class="info">iPhone (Safari) - tap share/action, choose "add to home screen", add it</li>
                 <li class="info"><button type="button" id="installApp"
-                        style="height: 40px; padding-left: 3; font-size: 30px; background-size: cover; background-position: center; text-align: left; padding-bottom: 22px; display: inline-block; background-color: hsla(0, 0%, 10%, 1); color: red">Tap
+                        style="height: 50px; padding-left: 3; font-size: 35px; background-size: cover; background-position: center; text-align: left; padding-bottom: 22px; display: inline-block; background-color: hsla(0, 0%, 10%, 1); color: red">Tap
                         here to install for android
                     </button>
                 </li>
@@ -1157,20 +1160,23 @@
             <h1 class="info">Search events, add notes, set venue delay times, etc:</h1>
 
             <ul>
-                <li class="info">Top buttons display venue:delay minutes and location.</li>
+                <li class="info">Top buttons:</li>
                 <ul>
-                    <li class="info">Tap the top buttons to set <b>delay minutes</b> for a venue and show some venue
-                        info.</li>
+                    <li class="info">- Displays venue:delay minutes and location</li>
+                    <li class="info">- Tap a venue to set <b>delay minutes</b> and show some venue info.</li>
                 </ul>
-                <li class="info">Middle section (schedule) will show current time. Tap an event to bring up the
-                    <b>Details Overlay</b> (see below)
+                <li class="info">Middle section:.
+                    <ul>
+                        <li class="info">- Tap an event to bring up the <b>Details Overlay</b> (see below)</li>
+                        <li class="info">- Current time will be on the schedule</li>
+                    </ul>
                 </li>
                 <li class="info">Bottom buttons:
                     <ul>
-                        <li class="info">Tap to change which day the schedule displays</li>
-                        <li class="info">Tap "Now" to go to the current time on the schedule.</li>
-                        <li class="info">Tap to bring up the <b>Details Overlay</b> (see below)</li>
-                        <li class="info">All of your changes are stored locally on your device in the specific browser
+                        <li class="info">- Tap to change which day the schedule displays</li>
+                        <li class="info">- Tap "Now" to go to the current time on the schedule.</li>
+                        <li class="info">- Tap to bring up the <b>Details Overlay</b> (see below)</li>
+                        <li class="info">- All of your changes are stored locally on your device in the specific browser
                             you've done the changes in. Clearing the browser cache will delete your changes.</li>
                     </ul>
                 </li>
@@ -1183,8 +1189,8 @@
                         <li class="info">- Tap GoTo to go to that event on the schedule.</li>
                         <li class="info">- Add event text and it will show up on the schedule.</li>
                         <li class="info">- There's an area for artist text.</li>
-                        <li class="info">- The event that was tapped will show in yellow.</li>
-                        <li class="info">There may be some info about the artist if I got around to adding it.</li>
+                        <li class="info">- If a specific event was tapped, it will show in yellow.</li>
+                        <li class="info">- There may be some info about the artist if I got around to adding it.</li>
                     </ul>
                 </li>
 
@@ -1192,7 +1198,8 @@
 
             </ul>
             <p class="info">I've tried to make sure this site still loads when there's no internet. All user input may
-                suddenly reset. Things may break/change. It's a side project of mine. Happy to hear feedback/suggestions/look in to
+                suddenly reset. Things may break/change. It's a side project of mine. Happy to hear
+                feedback/suggestions/look in to
                 bugs. Hope you like it!</p>
         </div>
     </div>
