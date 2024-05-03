@@ -1,7 +1,7 @@
 {
     "background_color": "black",
     "description": "Unofficial Headbanger's Boat 2024 schedule.",
-    "display": "fullscreen",
+    "display": "standalone",
     "icons": [
       {
         "src": "images/hands.png",
