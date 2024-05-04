@@ -12,15 +12,14 @@
     </script>
 
     <!-- Google tag (gtag.js) -->
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PM7ZMMTJG2"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PM7ZMMTJG2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
         gtag('config', 'G-PM7ZMMTJG2');
-    </script> -->
-
+    </script>
 
     <title>Headbanger's boat 2024</title>
     <link rel="icon" href="images/hands.png" type="images/x-icon">
@@ -184,7 +183,7 @@
 
         function addToEventNameToEventsMap(event) {
             if (bandToBandInfo.get(event.name) == null) {
-                alert("Add bandInfo entry for \n" + event.name);
+                alert("Someone tell Donut to add bandInfo entry for \n" + event.name);
             }
             let events = eventNameToEvents.get(event.name);
             if (events == null) {
@@ -198,7 +197,6 @@
 
         function redrawEverything() {
             console.log("hbb refreshing May 2 6:48 pm");
-
 
             deleteEverything();
 
@@ -303,13 +301,14 @@
                 buttonVenue.style.top = 0 + 'px';
                 buttonVenue.style.width = xBlockWidth;
                 buttonVenue.style.height = yVenueHeight;
-                let venueText = common.locations[i].abbrev + ":" + getDelayMinutesForVenue(common.locations[i].abbrev) + "m " + common.locations[i].location;
+                let venueText = common.locations[i].abbrev + ":" + getDelayMinutesForVenue(common.locations[i].abbrev) + "m<br>" + common.locations[i].location;
 
                 let buttonText = document.createElement("label");
                 //This makes the label black background be a full square
                 buttonText.style.display = "inline-block";
-                buttonText.innerText = venueText;
+                buttonText.innerHTML = venueText;
                 buttonText.style.color = "red";
+                buttonText.style.width = "100%";
                 buttonText.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
                 buttonVenue.appendChild(buttonText);
 
@@ -322,6 +321,7 @@
                 buttonVenue.style.backgroundPosition = 'center';
                 //buttonVenue.innerText = venueText;
                 buttonVenue.style.backgroundImage = "url(images/hands.png)";
+                buttonVenue.style.padding = "0px";
                 buttonVenue.addEventListener("click", venueClick);
 
                 top.appendChild(buttonVenue);
@@ -388,10 +388,10 @@
             let schedule = document.getElementById("schedule");
             let currentTime = new Date();
 
-            if (currentTime > common.storedTimeTEST) {
-                common.storedTimeTEST = currentTime;
+            if (currentTime > common.storedTime) {
+                common.storedTime = currentTime;
             }
-            let pixel = getYPixelLocation(earliestStart, common.storedTimeTEST);
+            let pixel = getYPixelLocation(earliestStart, common.storedTime);
 
             let labelCurrentTimeNumber = document.createElement('label');
             labelCurrentTimeNumber.style.position = 'absolute';
@@ -400,7 +400,7 @@
             labelCurrentTimeNumber.style.top = (pixel + yTimePushLeftDown) + 'px';
             labelCurrentTimeNumber.style.width = xBlockWidth;
             labelCurrentTimeNumber.style.height = yTimeHourHeight;
-            let minutes = common.storedTimeTEST.getMinutes();
+            let minutes = common.storedTime.getMinutes();
             let minutesString;
             if (minutes < 10) {
                 minutesString = "0" + minutes;
@@ -408,7 +408,7 @@
             else {
                 minutesString = minutes;
             }
-            let hours = common.storedTimeTEST.getHours();
+            let hours = common.storedTime.getHours();
             let hoursString;
             if (hours > 12) {
                 hoursString = hours - 12;
@@ -786,21 +786,24 @@
             button.style.backgroundImage = "url(images/hands.png)";
             button.style.backgroundSize = 'cover';
             button.style.backgroundPosition = 'center';
+            button.style.padding = "0px";
 
             let buttonLabel = document.createElement("label");
             buttonLabel.innerText = buttonText;
             buttonLabel.style.color = "red";
-            buttonLabel.style.backgroundColor = "rgba(0, 0, 0, 0.8)"; // Set the background color of the text
+            buttonLabel.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+            buttonLabel.style.display = "inline-block";
+            buttonLabel.style.width = "100%";
             button.appendChild(buttonLabel);
         }
 
         function goToNow() {
             for (var day = 1; day <= 4; day++) {
                 let data = dayToData.get(day);
-                if (data.earliestStart < common.storedTimeTEST && data.latestEnd > common.storedTimeTEST) {
+                if (data.earliestStart < common.storedTime && data.latestEnd > common.storedTime) {
                     localStorage.setItem(common.storedDayKey, day);
 
-                    let scrollToLocation = getYPixelLocation(data.earliestStart, common.storedTimeTEST);
+                    let scrollToLocation = getYPixelLocation(data.earliestStart, common.storedTime);
 
                     localStorage.setItem(common.storedScrollToKey, scrollToLocation - 200);
                     redrawEverything();
@@ -1153,8 +1156,8 @@
         <button type="button" onclick="handleDayButton(3)" id="dayButton3" class="button"></button>
         <button type="button" onclick="handleDayButton(4)" id="dayButton4" class="button"></button>
         <button type="button" onclick="goToNow()" id="goToNow" class="button"
-            style="background-image: url(images/pinklady.png); background-size: cover; background-position: center; text-align: left; width: 16%">
-            <label style="background-color:  rgba(0, 0, 0, 0.8); color: red">Now
+            style=" padding: 0px; background-image: url(images/pinklady.png); background-size: cover; background-position: center; text-align: venter; width: 16%">
+            <label style="background-color:  rgba(0, 0, 0, 0.8); color: red; display: inline-block; width:100%;">Now
             </label>
         </button>
         <button type="button" onclick="openSearchOverlayButtonClick()" id="search" class="button"
@@ -1194,13 +1197,14 @@
                     </button>
                 </li>
             </ul>
-            <h1 class="info">Search events, add notes, set venue delay times, etc:</h1>
+            <h1 class="info">Search events, add notes, set venue delay times, see conflicts, etc:</h1>
 
             <ul>
                 <li class="info">Top buttons:</li>
                 <ul>
                     <li class="info">Displays venue:delay minutes and location</li>
-                    <li class="info">Tap a venue to set <b>delay minutes</b> and show some venue info.</li>
+                    <li class="info">Tap a venue to set <b>delay minutes</b> and show some venue info. "Conflicts" on
+                        the overlay do not take this into account.</li>
                 </ul>
                 <li class="info">Middle section:.
                     <ul>
