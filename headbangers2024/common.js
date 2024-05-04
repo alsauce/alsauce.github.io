@@ -49,6 +49,14 @@ PO, Oct, 29, 12:00, AM, Oct, 29, 12:30, AM, xtest66 \
 ,
 "\
 PO, Oct, 29, 5:00, PM, Oct, 29, 6:45, PM, xtest11 \n\
+PO, Oct, 29, 11:30, PM, Oct, 30, 12:30, AM, xtest12 \n\
+ST, Oct, 29, 11:30, PM, Oct, 30, 12:30, AM, xtest24 \n\
+SP, Oct, 29, 11:30, PM, Oct, 30, 12:30, AM, xtest25 \n\
+AT, Oct, 29, 11:30, PM, Oct, 30, 12:30, AM, xtest13 NoGenre \n\
+MA, Oct, 29, 11:30, PM, Oct, 30, 12:30, AM, xtest66 \
+"
+,
+"\
 PO, Oct, 29, 11:00, PM, Oct, 30, 1:00, AM, xtest13 NoGenre \
 "
 ,
@@ -56,9 +64,6 @@ PO, Oct, 29, 11:00, PM, Oct, 30, 1:00, AM, xtest13 NoGenre \
 "PO, Oct, 30, 10:00, AM, Oct, 30, 10:45, AM, xtest11\n\
 PO, Oct, 30, 8:15, PM, Oct, 30, 9:15, PM, At the Gates \n\
 "
-,
-
-"PO, Oct, 31, 5:00, PM, Oct, 31, 6:45, PM, xtest11"
 ];
 
 export let bandInfo = [

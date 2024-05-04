@@ -734,6 +734,7 @@
             eventThatWasClicked = eventWithValues;
             searchInput.value = eventWithValues.name;
             openSearchOverlay();
+            searchOverlay.scrollTop = 0;
         }
 
 
@@ -863,7 +864,7 @@
             searchResults.style.font = "50px serif";
             searchResults.style.padding = "5px";
 
-            
+
             results.forEach(result => {
 
                 let resultName = result.split(",")[0];
@@ -884,6 +885,13 @@
                 eventLabel.style.textAlign = "center";
                 eventLabel.style.borderRadius = "20px";
                 eventLabel.innerHTML = "<b>" + resultName + "</b>";
+                eventLabel.id = resultName + ",eventLabel";
+                eventLabel.addEventListener('click', function (eventLabelClicked) {
+                    searchInput.value = eventLabel.id.split(",")[0];
+                    const results = search(searchInput.value);
+                    displayResults(results);
+                    searchOverlay.scrollTop = 0;
+                });
 
                 resultCardDiv.appendChild(eventLabel);
                 let divSpaceAfterEventLabel = document.createElement("div");
@@ -920,14 +928,14 @@
 
                         let buttonGoTo = document.createElement('button');
 
-                        buttonGoTo.style.backgroundColor = colorGoToBackground;
+                        buttonGoTo.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
 
                         buttonGoTo.style.width = "20%";
                         buttonGoTo.style.height = 100;
                         buttonGoTo.innerText = goToButtonText;
                         buttonGoTo.id = getGoToKey(event);
                         buttonGoTo.style.font = fontGoingButton;
-                        buttonGoTo.style.color = "black";
+                        buttonGoTo.style.color = "lightgrey";
 
                         buttonGoTo.addEventListener("click", goToClickSearch);
 
@@ -968,15 +976,15 @@
                 ///////////
                 //add note to search dialog
                 let note = document.createElement("textarea");
+
                 note.placeholder = "Add notes for " + resultName + " here";
                 note.style.width = "96%";
                 note.style.marginLeft = "2%";
-                note.style.minHeight = "50px";
                 note.style.color = "hsla(0, 0%, 80%, 1)";
                 note.style.backgroundColor = "hsla(0, 0%, 0%, 1)";
                 note.style.opacity = "1";
                 note.style.justifyContent = "center";
-                note.style.font = '35px serif';
+                note.style.font = '55px serif';
                 note.style.overflowY = "hidden";
                 note.style.resize = "verticle";
                 note.id = result;
@@ -987,6 +995,7 @@
                 }
 
                 note.addEventListener("input", function (textareaParam) {
+                    note.style.height = "auto";
                     note.style.height = note.scrollHeight + 'px';
                     localStorage.setItem(getNoteId(textareaParam.target.id), encodeURI(note.value));
                 }
@@ -1004,10 +1013,7 @@
 
                 searchResults.appendChild(divAfteResult);
 
-
-
                 note.style.height = note.scrollHeight + 'px';
-                
 
             });
 
@@ -1071,8 +1077,7 @@
         }
 
 
-        function handleSearchInputFocus()
-        {
+        function handleSearchInputFocus() {
             console.log("hbb handleSearchInputFocus");
             searchOverlay.scrollTop = searchOverlay.scrollHeight;
         }
