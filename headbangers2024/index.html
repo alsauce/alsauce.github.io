@@ -8,7 +8,6 @@
                 console.log('ERROR ServiceWorker registration failed: ', err);
             });
         }
-
     </script>
 
     <!-- Google tag (gtag.js) -->
@@ -17,11 +16,10 @@
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'G-PM7ZMMTJG2');
     </script>
 
-    <title>Headbanger's boat 2024</title>
+    <title>Headbanger's Boat 2024 Unofficial</title>
     <link rel="icon" href="images/hands.png" type="images/x-icon">
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.webmanifest" />
@@ -278,8 +276,8 @@
             buttonTopLeft.style.top = 0 + 'px';
             buttonTopLeft.style.width = xTimeOnLeftWidth;
             buttonTopLeft.style.height = yVenueHeight;
-            //buttonTopLeft.style.backgroundImage = "url(images/hands.png)";
-            buttonTopLeft.innerText = "TAP FOR INFO";
+            buttonTopLeft.style.backgroundImage = "url(images/deathbotearssmall.png)";
+            //buttonTopLeft.innerText = "TAP FOR INFO";
             buttonTopLeft.style.font = '32px serif';
 
             buttonTopLeft.style.color = "hsla(0, 0%, 80%, 1)";
@@ -289,6 +287,15 @@
             buttonTopLeft.style.textAlign = "left";
             buttonTopLeft.style.padding = "2px";
             buttonTopLeft.addEventListener("click", openInfoOverlayButtonClick);
+
+            let buttonTopLeftText = document.createElement("label");
+            //This makes the label black background be a full square
+            buttonTopLeftText.style.display = "inline-block";
+            buttonTopLeftText.innerHTML = "TAP FOR INFO";
+            buttonTopLeftText.style.color = "red";
+            buttonTopLeftText.style.width = "100%";
+            buttonTopLeftText.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+            buttonTopLeft.appendChild(buttonTopLeftText);
 
             top.appendChild(buttonTopLeft);
 
@@ -371,27 +378,8 @@
             labelCurrentTimeNumber.style.top = (pixel + yTimePushLeftDown) + 'px';
             labelCurrentTimeNumber.style.width = xBlockWidth;
             labelCurrentTimeNumber.style.height = yTimeHourHeight;
-            let minutes = common.storedTime.getMinutes();
-            let minutesString;
-            if (minutes < 10) {
-                minutesString = "0" + minutes;
-            }
-            else {
-                minutesString = minutes;
-            }
-            let hours = common.storedTime.getHours();
-            let hoursString;
-            if (hours > 12) {
-                hoursString = hours - 12;
-            }
-            else if (hours == 0) {
-                hoursString = 12;
-            }
-            else {
-                hoursString = hours;
-            }
 
-            labelCurrentTimeNumber.textContent = hoursString + ":" + minutesString;
+            labelCurrentTimeNumber.textContent = getTimeString(common.storedTime);
             labelCurrentTimeNumber.style.font = fontCurrentTime;
             labelCurrentTimeNumber.style.background = colorCurrentTimeNumberBackground;
             labelCurrentTimeNumber.style.color = colorCurrentTimeNumber;
@@ -506,8 +494,7 @@
                 buttonViewable.id = getScheduleViewableButtonId(event);
                 buttonViewable.style.textAlign = "left";
                 buttonViewable.style.paddingLeft = "15px";
-                //third one to make grey
-                //buttonViewable.style.backgroundColor = "hsla(0, 0%, 5%, 1)";
+
                 buttonViewable.style.color = "white";
                 buttonViewable.style.textShadow = "2px 2px 0px black";
                 buttonViewable.style.backgroundSize = 'cover';
@@ -582,20 +569,12 @@
         }
 
         function getTimeString(date) {
-            let hour = date.getHours();
-            if (hour > 12) {
-                hour -= 12;
-            }
-            if (hour == 0) {
-                hour = 12;
-            }
-            let minute = date.getMinutes();
-            let minuteString = "";
-            if (minute < 10) {
-                minuteString += "0";
-            }
-            minuteString += minute;
-            return hour + ":" + minuteString;
+            let minutes = date.getMinutes();
+
+            let minutesString = minutes < 10 ? "0" + minutes : minutes;
+            let hours = common.storedTime.getHours();
+            let hourString = date.getHours() % 12 || 12;
+            return hourString + ":" + minutesString;
         }
 
         function getEventAppendTextBox(event) {
@@ -628,7 +607,6 @@
         function getEventAppendTextId(eventName) {
             return common.storedAppendTextKey + "," + eventName;
         }
-
 
         function getNoteId(eventName) {
             return common.storedNoteKey + "," + eventName;
@@ -1211,7 +1189,9 @@
             </label>
         </button>
         <button type="button" onclick="openSearchOverlayButtonClick()" id="search" class="button"
-            style="background-image: url(images/search.png); background-size: cover; background-position: center; text-align: left; width: 16%; padding-bottom: 58px;">
+            style="background-image: url(images/deathbotsmall.png); background-size: cover; background-position: center; text-align: left; width: 16%;">
+            <label style="background-color:  rgba(0, 0, 0, 0.8); color: red; display: inline-block; width:100%;">Search
+            </label>
         </button>
     </div>
 
@@ -1275,9 +1255,9 @@
                 </li>
                 <li class="info">Bottom buttons:
                     <ul>
-                        <li class="info">Tap to change which day the schedule displays</li>
+                        <li class="info">Tap first ones to change which day the schedule displays</li>
                         <li class="info">Tap "Now" to go to the current time on the schedule.</li>
-                        <li class="info">Tap to bring up the <b>Details Overlay</b> (see below)</li>
+                        <li class="info">Tap search icon to bring up the <b>Details Overlay</b> (see below)</li>
                         <li class="info">All of your changes are stored locally on your device in the specific browser
                             you've done the changes in. Clearing the browser cache will delete your changes.</li>
                     </ul>
@@ -1298,8 +1278,8 @@
 
                 <li class="info">Donutsauce's notes:
                     <ul>
-                        <li class="info">Only developed for mobile, so the desktop site looks weird.</li>
-                        <li class="info">I've tried to make sure this site still loads when there's no internet.</li>
+                        <li class="info">Looks worst on desktop, better on mobile.</li>
+                        <li class="info">I've tried to make sure it loads when there's no internet.</li>
                         <li class="info">Things may break/change.</li>
                         <li class="info">It's a side project of mine.</li>
                         <li class="info">Happy to hear feedback/suggestions/look in to bugs.</li>

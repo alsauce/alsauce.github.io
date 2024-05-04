@@ -11,7 +11,8 @@ const urlsToCache = [
   '/headbangers2024/images/dude.png',
   '/headbangers2024/images/hands.png',
   '/headbangers2024/images/pinklady.png',
-  '/headbangers2024/images/search.png'
+  '/headbangers2024/images/deatbotsmall.png',
+  '/headbangers2024/images/deathbotearssmall.png'
 ];
 
 
@@ -54,17 +55,16 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
-  
+
   if (url.hostname === 'www.googletagmanager.com' || url.hostname === 'www.google-analytics.com') {
     return;
   }
   event.respondWith(caches.open(CACHE_NAME).then((cache) => {
-
-    if (event.request.url.endsWith("png")) {
-      return cache.match(event.request);
-    }
-
     return cache.match(event.request).then((cachedResponse) => {
+      if (cachedResponse && event.request.url.endsWith("png")) {
+        // Don't need to fetch again
+        return cachedResponse;
+      }
       const fetchedResponse = fetch(event.request).then((networkResponse) => {
         cache.put(event.request, networkResponse.clone());
 
