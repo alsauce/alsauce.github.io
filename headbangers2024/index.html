@@ -15,7 +15,7 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PM7ZMMTJG2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
         gtag('config', 'G-PM7ZMMTJG2');
@@ -322,40 +322,11 @@
                 //buttonVenue.innerText = venueText;
                 buttonVenue.style.backgroundImage = "url(images/hands.png)";
                 buttonVenue.style.padding = "0px";
-                buttonVenue.addEventListener("click", venueClick);
+                buttonVenue.addEventListener("click", openVenueOverlayButtonClick);
 
                 top.appendChild(buttonVenue);
 
             }
-        }
-
-        function venueClick(venueClicked) {
-
-            let venueAbbrev = venueClicked.target.textContent.split(":")[0];
-            let venue;
-            for (var i = 0; i < common.locations.length; i++) {
-                if (common.locations[i].abbrev == venueAbbrev) {
-                    venue = common.locations[i];
-                    break;
-                }
-            }
-
-            let note = "";
-            if (venue.note != "" && venue.note != undefined) {
-                note += ". " + venue.note;
-            }
-
-            let delayStr = prompt("Minutes delayed for " + venue.fullName + " day " + day + note, getDelayMinutesForVenue(venue));
-            if (delayStr == null || "" == delayStr) {
-                return;
-            }
-            let delay = parseInt(delayStr);
-            if (Number.isNaN(delay)) {
-                alert(delayStr + " is not a number");
-                return;
-            }
-            localStorage.setItem(getDelayKey(venue.abbrev), delay);
-            redrawEverything();
         }
 
         function getDelayKey(venue) {
@@ -364,7 +335,7 @@
 
         function getDelayMinutesForVenue(venue) {
             let delayMinutes = localStorage.getItem(getDelayKey(venue));
-            if (delayMinutes == null) {
+            if (delayMinutes == null || delayMinutes == "") {
                 return 0;
             }
             return delayMinutes;
@@ -1011,10 +982,10 @@
 
                 searchResults.appendChild(resultCardDiv);
 
-                let divAfteResult = document.createElement('div');
-                divAfteResult.style.height = "50px";
+                let divAfterResult = document.createElement('div');
+                divAfterResult.style.height = "50px";
 
-                searchResults.appendChild(divAfteResult);
+                searchResults.appendChild(divAfterResult);
 
                 note.style.height = note.scrollHeight + 'px';
 
@@ -1085,8 +1056,88 @@
             searchOverlay.scrollTop = searchOverlay.scrollHeight;
         }
 
+        const venueOverlay = document.getElementById('venueOverlay');
 
-        // List of strings to search
+        function openVenueOverlayButtonClick(venueClicked) {
+            venueOverlay.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+
+            let venueAbbrev = venueClicked.target.textContent.split(":")[0];
+            let venue;
+            for (var i = 0; i < common.locations.length; i++) {
+                if (common.locations[i].abbrev == venueAbbrev) {
+                    venue = common.locations[i];
+                    break;
+                }
+            }
+
+            let note = "";
+            if (venue.note != "" && venue.note != undefined) {
+                note += ". " + venue.note;
+            }
+
+            let venueInfoLabel = document.createElement("label");
+            //This makes the label black background be a full square
+            venueInfoLabel.style.display = "inline-block";
+            venueInfoLabel.innerHTML = venue.fullName + " day " + day + note;
+            venueInfoLabel.style.color = "red";
+            venueInfoLabel.style.width = "90%";
+            venueInfoLabel.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+            venueInfoLabel.style.font = '40px serif';
+
+            venueInfoLabel.style.color = "hsla(0, 0%, 80%, 1)";
+            venueInfoLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
+            let venueInfo = document.getElementById('venueInfo');
+            venueInfo.innerHTML = "";
+
+            let div = document.createElement("div");
+            div.style.height = "50px";
+            div.appendChild(venueInfoLabel);
+
+            let venueDelayInput = document.createElement('input');
+            venueDelayInput.setAttribute("type", "number");
+            let delayStr = localStorage.getItem(getDelayKey(venue.abbrev));
+            //TODO double check how delay values are handled
+            if (delayStr == null || delayStr == "" || delayStr == "0") {
+                delayStr = "0";
+            }
+            else {
+                venueDelayInput.value = delayStr;
+            }
+            console.log("hbb delayStr " + delayStr);
+
+            venueDelayInput.id = venue.abbrev;
+            venueDelayInput.placeholder = "Add minutes delayed...";
+
+            venueDelayInput.style.display = "inline-block";
+            venueDelayInput.style.color = "red";
+            venueDelayInput.style.width = "90%";
+            venueDelayInput.style.height = "100px";
+            venueDelayInput.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+            venueDelayInput.style.font = '40px serif';
+
+            venueDelayInput.style.color = "hsla(0, 0%, 80%, 1)";
+            venueDelayInput.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
+
+            venueDelayInput.addEventListener("input", function (venueDelayInputParam) {
+                console.log("hbb input " + venueDelayInput.value);
+                localStorage.setItem(getDelayKey(venueDelayInput.id), venueDelayInput.value);
+            }
+            );
+            let divDelay = document.createElement("div");
+            divDelay.style.height = "500px";
+            divDelay.appendChild(venueDelayInput);
+
+            venueInfo.appendChild(div);
+            venueInfo.appendChild(divDelay);
+        }
+
+        function closeVenueOverlay() {
+            document.body.style.overflow = '';
+            venueOverlay.style.display = 'none';
+            redrawEverything();
+        }
+
         const infoOverlay = document.getElementById('infoOverlay');
 
         function openInfoOverlayButtonClick() {
@@ -1099,8 +1150,6 @@
             document.body.style.overflow = '';
             infoOverlay.style.display = 'none';
         }
-
-        // Code to handle install prompt on desktop
 
         let deferredPrompt;
         const addBtn = document.getElementById('installApp');
@@ -1138,6 +1187,7 @@
         window.handleClearSearch = handleClearSearch;
         window.openSearchOverlayButtonClick = openSearchOverlayButtonClick;
         window.closeInfoOverlay = closeInfoOverlay;
+        window.closeVenueOverlay = closeVenueOverlay;
         window.handleSearchInputFocus = handleSearchInputFocus;
 
     </script>
@@ -1165,6 +1215,18 @@
         </button>
     </div>
 
+    <div id="venueOverlay" class="overlay">
+        <div class="overlay-content">
+            <div>
+                <ul id="venueInfo"></ul>
+            </div>
+            <div>
+                <button onclick="closeVenueOverlay()"
+                    style="color: hsla(0, 90%, 0%, 1); font: 40px serif; height: 70; width: 14%;">Close</button>
+            </div>
+        </div>
+    </div>
+
     <div id="searchOverlay" class="overlay">
         <div class="overlay-content">
             <div>
@@ -1179,7 +1241,6 @@
                     style="color: hsla(0, 90%, 0%, 1); font: 40px serif; height: 70; width: 14%;">Close</button>
             </div>
         </div>
-
     </div>
 
     <div id="infoOverlay" class="overlay">
