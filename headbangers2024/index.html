@@ -863,25 +863,7 @@
             searchResults.style.font = "50px serif";
             searchResults.style.padding = "5px";
 
-            results.forEach(result => {
-                let searchResultLabel = document.createElement("label");
-                searchResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
-                searchResultLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
-
-                searchResultLabel.addEventListener('click', function (searchResultLabelClicked) {
-                    searchInput.value = searchResultLabel.innerHTML.split(",")[0];
-                    const results = search(searchInput.value);
-                    displayResults(results);
-                });
-                searchResultLabel.innerHTML = result;
-                searchResults.appendChild(searchResultLabel);
-                searchResults.appendChild(document.createElement("div"));
-            });
-            let separateFilteredResults = document.createElement("div");
-            separateFilteredResults.style.padding = "10px";
-
-            searchResults.appendChild(separateFilteredResults);
-
+            
             results.forEach(result => {
 
                 let resultName = result.split(",")[0];
@@ -1022,9 +1004,35 @@
 
                 searchResults.appendChild(divAfteResult);
 
+
+
                 note.style.height = note.scrollHeight + 'px';
+                
 
             });
+
+            results.forEach(result => {
+                let searchResultLabel = document.createElement("label");
+                searchResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
+                searchResultLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
+
+                searchResultLabel.addEventListener('click', function (searchResultLabelClicked) {
+                    searchInput.value = searchResultLabel.innerHTML.split(",")[0];
+                    const results = search(searchInput.value);
+                    displayResults(results);
+                });
+                searchResultLabel.innerHTML = result;
+                searchResults.appendChild(searchResultLabel);
+                searchResults.appendChild(document.createElement("div"));
+            });
+            let separateFilteredResults = document.createElement("div");
+            separateFilteredResults.style.padding = "10px";
+
+            searchResults.appendChild(separateFilteredResults);
+
+            searchOverlay.scrollTop = searchOverlay.scrollHeight;
+
+
         }
 
         searchInput.addEventListener('input', () => {
@@ -1149,9 +1157,9 @@
                 <input type="text" id="searchInput" placeholder="Search..."
                     style="color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 70; padding-left: 10px; width: 69%;">
                 <button onclick="handleClearSearch()"
-                    style="color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 70; width: 14%;">Clear</button>
+                    style="color: hsla(0, 90%, 0%, 1); font: 40px serif; height: 70; width: 14%;">Clear</button>
                 <button onclick="closeSearchOverlay()"
-                    style="color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 70; width: 14%;">Close</button>
+                    style="color: hsla(0, 90%, 0%, 1); font: 40px serif; height: 70; width: 14%;">Close</button>
             </div>
         </div>
 
