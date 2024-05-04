@@ -1070,6 +1070,14 @@
             displayResults(results);
         }
 
+
+        function handleSearchInputFocus()
+        {
+            console.log("hbb handleSearchInputFocus");
+            searchOverlay.scrollTop = searchOverlay.scrollHeight;
+        }
+
+
         // List of strings to search
         const infoOverlay = document.getElementById('infoOverlay');
 
@@ -1122,6 +1130,7 @@
         window.handleClearSearch = handleClearSearch;
         window.openSearchOverlayButtonClick = openSearchOverlayButtonClick;
         window.closeInfoOverlay = closeInfoOverlay;
+        window.handleSearchInputFocus = handleSearchInputFocus;
 
     </script>
 
@@ -1154,7 +1163,7 @@
                 <ul id="searchResults"></ul>
             </div>
             <div style="position: fixed; bottom: 10px; padding-left: 10px;">
-                <input type="text" id="searchInput" placeholder="Search..."
+                <input type="text" id="searchInput" placeholder="Search..." onfocus="handleSearchInputFocus()"
                     style="color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 70; padding-left: 10px; width: 69%;">
                 <button onclick="handleClearSearch()"
                     style="color: hsla(0, 90%, 0%, 1); font: 40px serif; height: 70; width: 14%;">Clear</button>
