@@ -79,6 +79,11 @@
         // these need to be reset every redraw so don't initialize them here
         let eventNameToEvents;
         let dayToData;
+
+        //TODO make ithis better
+        let percentPastStartForCurrentDay;
+        //TODO pretty sure this info is elsewhere
+        let theDayThatTheCurrentTimeIsOn;
         let bandToBandInfo;
 
         let eventThatWasClicked;
@@ -100,6 +105,8 @@
         function primeData() {
             eventNameToEvents = new Map();
             dayToData = new Map();
+            percentPastStartForCurrentDay = null;
+            theDayThatTheCurrentTimeIsOn = null;
             primeBandToBandInfo();
             for (var dayIndex = 0; dayIndex < common.schedule.length; dayIndex++) {
                 let currentEvents = common.schedule[dayIndex];
@@ -175,6 +182,13 @@
                     latestEnd: latestEnd,
                     events: events
                 };
+                let percentThroughDay = getPercentThroughDay(earliestStart, latestEnd);
+                
+                if (percentThroughDay >= 0 && percentThroughDay <= 100) {
+                    percentPastStartForCurrentDay = percentThroughDay;
+                    theDayThatTheCurrentTimeIsOn = dayIndex + 1;
+                }
+
                 dayToData.set((dayIndex + 1), data);
             }
         }
@@ -353,12 +367,20 @@
             let schedule = document.getElementById("schedule");
 
             let height = getYPixelLocation(data.earliestStart, data.latestEnd);
-            schedule.style.height = getYPixelLocation(data.earliestStart, data.latestEnd) + "px";
+            schedule.style.height = height + "px";
 
             drawTimeOnLeft(data.earliestStart, data.latestEnd);
             drawCurrentTime(data.earliestStart);
             drawEventsSchedule(data.events, data.earliestStart);
 
+        }
+
+        function getPercentThroughDay(start, end) {
+            let totalTimeForDay = end.getTime() - start.getTime();
+            let timePastStart = common.storedTime.getTime() - start.getTime();
+
+            let percentThroughDay = (timePastStart / totalTimeForDay) * 100;
+            return percentThroughDay;
         }
 
         function drawCurrentTime(earliestStart) {
@@ -718,14 +740,35 @@
             resetButton("dayButton3", "30W");
             resetButton("dayButton4", "31R");
 
-            document.getElementById("dayButton" + day).style.backgroundColor = colorDayBackgroundActive;
-            document.getElementById("dayButton" + day).style.backgroundImage = "url(images/dude.png)";
+            let currentDayButton = document.getElementById("dayButton" + day);
+            currentDayButton.style.backgroundColor = colorDayBackgroundActive;
+            currentDayButton.style.backgroundImage = "url(images/dude.png)";
 
             let buttonWidth = Math.floor(fullWidth / 7) + "px";
             document.getElementById("dayButton1").style.width = buttonWidth;
             document.getElementById("dayButton2").style.width = buttonWidth;
             document.getElementById("dayButton3").style.width = buttonWidth;
             document.getElementById("dayButton4").style.width = buttonWidth;
+
+            if (percentPastStartForCurrentDay != null) {
+                let theDayThatTheCurrentTimeIsOnButton = document.getElementById("dayButton" + theDayThatTheCurrentTimeIsOn);
+
+                var buttonRect = theDayThatTheCurrentTimeIsOnButton.getBoundingClientRect();
+
+                let labelCurentTimeLine = document.createElement('label');
+                labelCurentTimeLine.style.position = 'absolute';
+                console.log("hbb percent button left" + theDayThatTheCurrentTimeIsOnButton.style.left);
+                labelCurentTimeLine.style.left = buttonRect.left;
+
+                labelCurentTimeLine.style.top = percentPastStartForCurrentDay + '%';
+                labelCurentTimeLine.style.width = buttonWidth;
+                labelCurentTimeLine.style.height = 5;
+                labelCurentTimeLine.style.background = colorCurrentTimeLine;
+ 
+                theDayThatTheCurrentTimeIsOnButton.appendChild(labelCurentTimeLine);
+
+            }
+
         }
 
         function resetButton(buttonName, buttonText) {
