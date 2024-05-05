@@ -1068,16 +1068,17 @@
             commonSearchOverlayClosingTasks();
             let eventObject = common.getEventFromCommas(event.target.id);
             tappedGotoEvent = eventObject;
-            let day = eventObject.day;
-            localStorage.setItem(common.storedDayKey, eventObject.day);
+            let dayForClickedObject = eventObject.day;
+            localStorage.setItem(common.storedDayKey, dayForClickedObject);
 
-            let earliestStart = dayToData.get(Number(day)).earliestStart;
+            let earliestStart = dayToData.get(Number(dayForClickedObject)).earliestStart;
             let time = getStartDateTime(eventObject);
 
             let scrollToLocation = getYPixelLocation(earliestStart, time);
             scrollGoToYCoord = scrollToLocation - 200;
 
             let parentLabel = event.target.parentElement;
+            dayToScrollTop.set(day, document.body.scrollTop);
 
             redrawEverything();
         }
