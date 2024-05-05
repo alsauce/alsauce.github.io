@@ -708,7 +708,6 @@
 
             let eventObject = common.getEventFromCommas(theclick.target.id);
             eventsToFlash.push(eventObject);
-            
             let id = theclick.target.id;
             let innerText = theclick.target.innerText;
             localStorage.setItem(id, innerText);
@@ -1276,14 +1275,15 @@
             <div>
                 <ul id="searchResults"></ul>
             </div>
-            <div style="position: fixed; bottom: 10px; padding-left: 10px;">
-                <input type="text" id="searchInput" placeholder="Search..." onfocus="handleSearchInputFocus()"
-                    style="color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 70; padding-left: 10px; width: 69%;">
-                <button onclick="handleClearSearch()"
-                    style="color: hsla(0, 90%, 0%, 1); font: 40px serif; height: 70; width: 14%;">Clear</button>
-                <button onclick="closeSearchOverlay()"
-                    style="color: hsla(0, 90%, 0%, 1); font: 40px serif; height: 70; width: 14%;">Close</button>
-            </div>
+
+        </div>
+        <div style="position: fixed; bottom: 0px; padding: 0%; background-color: black; width: 100%;">
+            <input type="text" id="searchInput" placeholder="Search..." onfocus="handleSearchInputFocus()"
+                style="color: hsla(0, 0%, 90%, 1); background-color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 100; padding-left: 10px; width: 69%; border-radius: 12px;">
+            <button onclick="handleClearSearch()"
+                style="color: hsla(0, 0%, 90%, 1); background-color: hsla(0, 90%, 0%, 1); font: 40px serif; height: 100; width: 14%; border-radius: 12px;">Clear</button>
+            <button onclick="closeSearchOverlay()"
+                style="color: hsla(0, 0%, 90%, 1); background-color: hsla(0, 90%, 0%, 1); font: 40px serif; height: 100; width: 14%; border-radius: 12px;">Close</button>
         </div>
     </div>
 
