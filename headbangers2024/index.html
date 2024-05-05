@@ -884,6 +884,7 @@
             searchResults.style.font = "50px serif";
             searchResults.style.padding = "5px";
 
+            console.log("hbb results size " + results.length);
 
             results.forEach(result => {
 
@@ -1061,6 +1062,17 @@
             });
             let separateFilteredResults = document.createElement("div");
             separateFilteredResults.style.padding = "10px";
+
+            if (results.length == 0)
+            {
+                let searchNoResultLabel = document.createElement("label");
+                searchNoResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
+                searchNoResultLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
+
+                searchNoResultLabel.innerHTML = "No Results";
+                searchResults.appendChild(searchNoResultLabel);
+                searchResults.appendChild(document.createElement("div"));
+            }
 
             searchResults.appendChild(separateFilteredResults);
 

@@ -2,7 +2,6 @@ Notes
 
 TODO:
 animations
-//TODO keeps flashing during overlay interaction
 figure out extra scroll length on schedule
 
 iphone:
@@ -50,6 +49,8 @@ overlay for venue click
 hightlight the day that is currently happening button on bottom
 flash the event with the updated going status
 flash event clicked from schedule on overview
+keeps flashing during overlay interaction
+no results should say no results in search
 
 alpha: got removed
 when going from alpha to schedule, set the value needed in the localStorage
