@@ -751,14 +751,9 @@
             currentDayButton.style.backgroundColor = colorDayBackgroundActive;
             currentDayButton.style.backgroundImage = "url(images/dude.png)";
 
-            let buttonWidth = Math.floor(fullWidth / 7) + "px";
-            document.getElementById("dayButton1").style.width = buttonWidth;
-            document.getElementById("dayButton2").style.width = buttonWidth;
-            document.getElementById("dayButton3").style.width = buttonWidth;
-            document.getElementById("dayButton4").style.width = buttonWidth;
-
             if (percentPastStartForCurrentDay != null) {
                 let theDayThatTheCurrentTimeIsOnButton = document.getElementById("dayButton" + theDayThatTheCurrentTimeIsOn);
+                theDayThatTheCurrentTimeIsOnButton.style.opacity = "1";
 
                 var buttonRect = theDayThatTheCurrentTimeIsOnButton.getBoundingClientRect();
 
@@ -767,7 +762,7 @@
                 labelCurentTimeLine.style.left = buttonRect.left;
 
                 labelCurentTimeLine.style.top = percentPastStartForCurrentDay + '%';
-                labelCurentTimeLine.style.width = buttonWidth;
+                labelCurentTimeLine.style.width = theDayThatTheCurrentTimeIsOnButton.offsetWidth;
                 labelCurentTimeLine.style.height = 5;
                 labelCurentTimeLine.style.background = colorCurrentTimeLine;
                 labelCurentTimeLine.style.opacity = ".5";
@@ -785,6 +780,7 @@
             button.style.backgroundImage = "url(images/hands.png)";
             button.style.backgroundSize = 'cover';
             button.style.backgroundPosition = 'center';
+            button.style.opacity = ".5";
             button.style.padding = "0px";
 
             let buttonLabel = document.createElement("label");
@@ -792,7 +788,8 @@
             buttonLabel.style.color = "red";
             buttonLabel.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
             buttonLabel.style.display = "inline-block";
-            buttonLabel.style.width = "100%";
+            let buttonWidth = Math.floor(fullWidth / 7) + "px";
+            buttonLabel.style.width = buttonWidth;
             button.appendChild(buttonLabel);
         }
 
