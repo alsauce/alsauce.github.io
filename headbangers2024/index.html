@@ -41,6 +41,8 @@
         let fontCloseButton = 35 + 'px serif';
         let fontSchedule = 35 + 'px serif';
 
+        let scrollGoToYCoord;
+
         let xTimeOnLeftWidth = 100;
 
         let yTimeHourHeight = 400;
@@ -88,6 +90,7 @@
 
         let eventThatWasClicked;
         let tappedGotoEvent;
+        let dayToScrollTop = new Map();
 
         function primeBandToBandInfo() {
             bandToBandInfo = new Map();
@@ -231,9 +234,9 @@
             buttons();
             drawTop();
 
-            let scrollTo = localStorage.getItem(common.storedScrollToKey);
-            if (scrollTo != "-1") {
-                window.scroll(0, Number(scrollTo));
+
+            if (scrollGoToYCoord != null) {
+                window.scroll(0, scrollGoToYCoord);
 
                 if (tappedGotoEvent != null) {
                     let tappedButton = document.getElementById(getScheduleViewableButtonId(tappedGotoEvent));
@@ -250,8 +253,12 @@
                 }
 
                 tappedGotoEvent = null;
+                scrollGoToYCoord = null;
             }
-            localStorage.setItem(common.storedScrollToKey, -1);
+            else {
+                let scrollTopForDay = dayToScrollTop.get(day);
+                window.scroll(0, scrollTopForDay);
+            }
         }
 
         function deleteAll(element, tagName) {
@@ -651,7 +658,7 @@
             let time = getStartDateTime(eventObject);
 
             let scrollToLocation = getYPixelLocation(earliestStart, time);
-            localStorage.setItem(common.storedScrollToKey, scrollToLocation - 200);
+            scrollGoToYCoord = scrollToLocation - 200
 
             let parentLabel = event.target.parentElement;
             eventThatWasClicked = eventWithValues;
@@ -696,7 +703,7 @@
             localStorage.setItem(id, innerText);
 
             scrollLocationDuringGoingClick = searchOverlay.scrollTop;
-            
+
             //primeData again to reset the conflicts going ind field
             primeData();
             openSearchOverlay();
@@ -734,6 +741,7 @@
 
         function handleDayButton(newDay) {
             if (newDay != day) {
+                dayToScrollTop.set(day, document.body.scrollTop);
                 day = newDay;
                 localStorage.setItem(common.storedDayKey, day);
                 redrawEverything();
@@ -780,7 +788,8 @@
             button.style.backgroundImage = "url(images/hands.png)";
             button.style.backgroundSize = 'cover';
             button.style.backgroundPosition = 'center';
-            button.style.opacity = ".5";
+            //TODO schedule bottom button opacity
+            button.style.opacity = "1";
             button.style.padding = "0px";
 
             let buttonLabel = document.createElement("label");
@@ -801,7 +810,7 @@
 
                     let scrollToLocation = getYPixelLocation(data.earliestStart, common.storedTime);
 
-                    localStorage.setItem(common.storedScrollToKey, scrollToLocation - 200);
+                    scrollGoToYCoord = scrollToLocation - 200
                     redrawEverything();
                     return;
                 }
@@ -1037,8 +1046,7 @@
 
             searchOverlay.scrollTop = searchOverlay.scrollHeight;
 
-            if (scrollLocationDuringGoingClick != null)
-            {
+            if (scrollLocationDuringGoingClick != null) {
                 searchOverlay.scrollTop = scrollLocationDuringGoingClick;
                 scrollLocationDuringGoingClick = null;
             }
@@ -1067,7 +1075,7 @@
             let time = getStartDateTime(eventObject);
 
             let scrollToLocation = getYPixelLocation(earliestStart, time);
-            localStorage.setItem(common.storedScrollToKey, scrollToLocation - 200);
+            scrollGoToYCoord = scrollToLocation - 200;
 
             let parentLabel = event.target.parentElement;
 
@@ -1196,11 +1204,6 @@
                 deferredPrompt.prompt();
                 // Wait for the user to respond to the prompt
                 deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('User accepted the A2HS prompt');
-                    } else {
-                        console.log('User dismissed the A2HS prompt');
-                    }
                     deferredPrompt = null;
                 });
             });
@@ -1319,7 +1322,8 @@
                         <li class="info">Add event text and it will show up on the schedule.</li>
                         <li class="info">There's an area for artist text.</li>
                         <li class="info">If a specific event was tapped, it will show in yellow.</li>
-                        <li class="info">A pink line on the day buttons shows about how far along from opening to closing act for the day.</li>
+                        <li class="info">A pink line on the day buttons shows about how far along from opening to
+                            closing act for the day.</li>
                         <li class="info">There may be some info about the artist if I got around to adding it.</li>
                     </ul>
                 </li>
