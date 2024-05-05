@@ -51,6 +51,7 @@ flash the event with the updated going status
 flash event clicked from schedule on overview
 keeps flashing during overlay interaction
 no results should say no results in search
+better area between search input and results
 
 alpha: got removed
 when going from alpha to schedule, set the value needed in the localStorage

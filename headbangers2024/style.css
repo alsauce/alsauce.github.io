@@ -65,6 +65,8 @@ body {
 }
 
 .overlay-content {
+  position: fixed;
+  bottom: 0px;
   background-color: hsla(0, 100%, 0%, 1);
   margin: 5% auto;
   padding: 5px;
