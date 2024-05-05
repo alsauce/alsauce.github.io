@@ -4,6 +4,7 @@ TODO:
 animations
 clicking clear - still focus on text search box?
 figure out extra scroll length on schedule
+flash the event with the updated going status
 
 iphone:
 - some text might be too long, like with 2 genres and stuff

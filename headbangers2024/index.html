@@ -89,8 +89,8 @@
         let bandToBandInfo;
 
         let eventThatWasClicked;
-        let tappedGotoEvent;
         let dayToScrollTop = new Map();
+        let eventsToFlash = [];
 
         function primeBandToBandInfo() {
             bandToBandInfo = new Map();
@@ -238,27 +238,36 @@
             if (scrollGoToYCoord != null) {
                 window.scroll(0, scrollGoToYCoord);
 
-                if (tappedGotoEvent != null) {
-                    let tappedButton = document.getElementById(getScheduleViewableButtonId(tappedGotoEvent));
-
-                    var cloneButton = tappedButton.cloneNode(false);
-                    cloneButton.style.backgroundImage = null;
-                    cloneButton.style.opacity = 1;
-                    cloneButton.style.animation = "disappearAnimation 2s forwards";
-                    cloneButton.style.pointerEvents = "none";
-
-                    cloneButton.style.backgroundColor = "white";
-                    let schedule = document.getElementById("schedule");
-                    schedule.appendChild(cloneButton);
-                }
-
-                tappedGotoEvent = null;
                 scrollGoToYCoord = null;
             }
             else {
                 let scrollTopForDay = dayToScrollTop.get(day);
                 window.scroll(0, scrollTopForDay);
             }
+            eventsToFlash.forEach((eventToFlash) => {
+                flashEvent(eventToFlash);
+            });
+
+            eventsToFlash = [];
+
+        }
+
+        function flashEvent(eventToFlash) {
+            console.log("hbb flashEvent id " + eventToFlash.id);
+            if (eventToFlash.day != day) {
+                return;
+            }
+            let tappedButton = document.getElementById(getScheduleViewableButtonId(eventToFlash));
+
+            var cloneButton = tappedButton.cloneNode(false);
+            cloneButton.style.backgroundImage = null;
+            cloneButton.style.opacity = 1;
+            cloneButton.style.animation = "disappearAnimation 2s forwards";
+            cloneButton.style.pointerEvents = "none";
+
+            cloneButton.style.backgroundColor = "white";
+            let schedule = document.getElementById("schedule");
+            schedule.appendChild(cloneButton);
         }
 
         function deleteAll(element, tagName) {
@@ -697,7 +706,9 @@
         let scrollLocationDuringGoingClick;
         function goingClick(theclick) {
 
-
+            let eventObject = common.getEventFromCommas(theclick.target.id);
+            eventsToFlash.push(eventObject);
+            flashEvent(eventObject);
             let id = theclick.target.id;
             let innerText = theclick.target.innerText;
             localStorage.setItem(id, innerText);
@@ -721,8 +732,6 @@
             openSearchOverlay();
             searchOverlay.scrollTop = 0;
         }
-
-
 
         function getXPixelForLocation(event) {
             let locationIndex = getLocationIndex(event.location);
@@ -1067,7 +1076,7 @@
         function goToClickSearch(event) {
             commonSearchOverlayClosingTasks();
             let eventObject = common.getEventFromCommas(event.target.id);
-            tappedGotoEvent = eventObject;
+            eventsToFlash.push(eventObject);
             let dayForClickedObject = eventObject.day;
             localStorage.setItem(common.storedDayKey, dayForClickedObject);
 

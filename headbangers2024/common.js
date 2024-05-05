@@ -56,6 +56,7 @@ PO, Oct, 29, 11:30, PM, Oct, 30, 12:30, AM, xtest12 \n\
 ST, Oct, 29, 11:30, PM, Oct, 30, 12:30, AM, xtest24 \n\
 SP, Oct, 29, 11:30, PM, Oct, 30, 12:30, AM, xtest25 \n\
 AT, Oct, 29, 11:30, PM, Oct, 30, 12:30, AM, xtest13 NoGenre \n\
+AT, Oct, 29,  9:30, PM, Oct, 29, 10:30, PM, xtest13 ONE \n\
 MA, Oct, 29, 11:30, PM, Oct, 30, 12:30, AM, xtest66 \
 "
 ,
@@ -76,6 +77,7 @@ export let bandInfo = [
     ["xtest24", "genre three"],
     ["xtest13 NoGenre"],
     ["xtest7", "genre"],
+    ["xtest13 ONE"],
     ["xtestNoGenre"],
     ["After the Burial", "prog"],
     ["At the Gates", "death"],
@@ -153,5 +155,5 @@ export function getCommaStringFromEvent(event) {
 }
 
 export function getGoingKey(event) {
-    return event.id + storedGoingKey;
+    return event.id + "," + storedGoingKey;
 }
