@@ -708,7 +708,7 @@
 
             let eventObject = common.getEventFromCommas(theclick.target.id);
             eventsToFlash.push(eventObject);
-            flashEvent(eventObject);
+            
             let id = theclick.target.id;
             let innerText = theclick.target.innerText;
             localStorage.setItem(id, innerText);
@@ -812,10 +812,12 @@
         }
 
         function goToNow() {
-            for (var day = 1; day <= 4; day++) {
-                let data = dayToData.get(day);
+            for (var dayIter = 1; dayIter <= 4; dayIter++) {
+                let data = dayToData.get(dayIter);
                 if (data.earliestStart < common.storedTime && data.latestEnd > common.storedTime) {
-                    localStorage.setItem(common.storedDayKey, day);
+                    localStorage.setItem(common.storedDayKey, dayIter);
+
+                    dayToScrollTop.set(day, document.body.scrollTop);
 
                     let scrollToLocation = getYPixelLocation(data.earliestStart, common.storedTime);
 

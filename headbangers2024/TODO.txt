@@ -2,9 +2,7 @@ Notes
 
 TODO:
 animations
-clicking clear - still focus on text search box?
 figure out extra scroll length on schedule
-flash the event with the updated going status
 
 iphone:
 - some text might be too long, like with 2 genres and stuff
@@ -49,6 +47,7 @@ overlay for venue click
 - top left button text
 - overlay text colors are blue iphone
 hightlight the day that is currently happening button on bottom
+flash the event with the updated going status
 
 alpha: got removed
 when going from alpha to schedule, set the value needed in the localStorage
