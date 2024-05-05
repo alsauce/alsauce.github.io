@@ -101,6 +101,18 @@ body {
   }
 }
 
+@keyframes disappearAnimation2 {
+  0% {
+    opacity: 0;
+    /* Start with full opacity */
+  }
+
+  100% {
+    opacity: 1;
+    /* End with no opacity */
+  }
+}
+
 .info {
   color: lightgrey;
   font: 25px serif;

@@ -983,6 +983,12 @@
                         eventCardDiv.appendChild(conflictsLabel);
                         eventCardDiv.appendChild(getEventAppendTextBox(event));
 
+                        if (eventThatWasClicked != null && event.id == eventThatWasClicked.id) {
+                            //TODO keeps flashing during overlay interaction
+                            eventCardDiv.style.opacity = 1;
+                            eventCardDiv.style.animation = "disappearAnimation2 1s forwards";
+                        }
+
                         resultCardDiv.appendChild(eventCardDiv);
                         let divAfterEventCard = document.createElement("div");
                         divAfterEventCard.style.padding = "20px";
