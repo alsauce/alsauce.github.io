@@ -89,6 +89,7 @@
         let bandToBandInfo;
 
         let eventThatWasClicked;
+        let eventThatWasClickedNeedsFlash;
         let dayToScrollTop = new Map();
         let eventsToFlash = [];
 
@@ -722,11 +723,11 @@
 
         function eventClickBringUpSearch(event) {
             let id = event.currentTarget.id;
-            if (id == null || id == "") {
-                console.log("eventClickBringUpSearch issue again");
-            }
+
+            
             let eventWithValues = common.getEventFromCommas(id);
             eventThatWasClicked = eventWithValues;
+            eventThatWasClickedNeedsFlash = eventWithValues;
             searchInput.value = eventWithValues.name;
             openSearchOverlay();
             searchOverlay.scrollTop = 0;
@@ -844,6 +845,7 @@
             document.body.style.overflow = 'hidden';
             const query = searchInput.value.trim();
             const results = search(query);
+            dayToScrollTop.set(day, document.body.scrollTop);
 
             displayResults(results);
         }
@@ -983,10 +985,12 @@
                         eventCardDiv.appendChild(conflictsLabel);
                         eventCardDiv.appendChild(getEventAppendTextBox(event));
 
-                        if (eventThatWasClicked != null && event.id == eventThatWasClicked.id) {
+                        if (eventThatWasClickedNeedsFlash != null && event.id == eventThatWasClickedNeedsFlash.id) {
                             //TODO keeps flashing during overlay interaction
+                            console.log("flash " + event.id);
                             eventCardDiv.style.opacity = 1;
                             eventCardDiv.style.animation = "disappearAnimation2 1s forwards";
+                            eventThatWasClickedNeedsFlash = null;
                         }
 
                         resultCardDiv.appendChild(eventCardDiv);
