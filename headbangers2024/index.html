@@ -183,7 +183,6 @@
                     events: events
                 };
                 let percentThroughDay = getPercentThroughDay(earliestStart, latestEnd);
-                
                 if (percentThroughDay >= 0 && percentThroughDay <= 100) {
                     percentPastStartForCurrentDay = percentThroughDay;
                     theDayThatTheCurrentTimeIsOn = dayIndex + 1;
@@ -305,8 +304,9 @@
             let buttonTopLeftText = document.createElement("label");
             //This makes the label black background be a full square
             buttonTopLeftText.style.display = "inline-block";
-            buttonTopLeftText.innerHTML = "TAP FOR INFO";
+            buttonTopLeftText.innerHTML = "INFO";
             buttonTopLeftText.style.color = "red";
+            buttonTopLeftText.style.textAlign = "center";
             buttonTopLeftText.style.width = "100%";
             buttonTopLeftText.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
             buttonTopLeft.appendChild(buttonTopLeftText);
@@ -516,6 +516,7 @@
                 buttonViewable.id = getScheduleViewableButtonId(event);
                 buttonViewable.style.textAlign = "left";
                 buttonViewable.style.paddingLeft = "15px";
+                buttonViewable.style.padding = "0px";
 
                 buttonViewable.style.color = "white";
                 buttonViewable.style.textShadow = "2px 2px 0px black";
@@ -546,6 +547,9 @@
                 buttonLabel.id = getScheduleViewableLabelId(event);
                 buttonLabel.style.color = "white";
                 buttonLabel.style.backgroundColor = "rgba(0, 0, 0, 1)";
+                buttonLabel.style.paddingLeft = "15px";
+                buttonLabel.style.width = "91%";
+                //buttonLabel.style.padding = "0px";
                 //This makes the label black background be a full square
                 buttonLabel.style.display = "inline-block";
                 buttonViewable.appendChild(buttonLabel);
@@ -757,14 +761,14 @@
 
                 let labelCurentTimeLine = document.createElement('label');
                 labelCurentTimeLine.style.position = 'absolute';
-                console.log("hbb percent button left" + theDayThatTheCurrentTimeIsOnButton.style.left);
                 labelCurentTimeLine.style.left = buttonRect.left;
 
                 labelCurentTimeLine.style.top = percentPastStartForCurrentDay + '%';
                 labelCurentTimeLine.style.width = buttonWidth;
                 labelCurentTimeLine.style.height = 5;
                 labelCurentTimeLine.style.background = colorCurrentTimeLine;
- 
+                labelCurentTimeLine.style.opacity = ".5";
+
                 theDayThatTheCurrentTimeIsOnButton.appendChild(labelCurentTimeLine);
 
             }
@@ -1073,7 +1077,6 @@
 
 
         function handleSearchInputFocus() {
-            console.log("hbb handleSearchInputFocus");
             searchOverlay.scrollTop = searchOverlay.scrollHeight;
         }
 
@@ -1125,7 +1128,6 @@
             else {
                 venueDelayInput.value = delayStr;
             }
-            console.log("hbb delayStr " + delayStr);
 
             venueDelayInput.id = venue.abbrev;
             venueDelayInput.placeholder = "Add minutes delayed...";
@@ -1141,7 +1143,6 @@
             venueDelayInput.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
 
             venueDelayInput.addEventListener("input", function (venueDelayInputParam) {
-                console.log("hbb input " + venueDelayInput.value);
                 localStorage.setItem(getDelayKey(venueDelayInput.id), venueDelayInput.value);
             }
             );
@@ -1288,7 +1289,7 @@
                 <ul>
                     <li class="info">Displays venue:delay minutes and location</li>
                     <li class="info">Tap a venue to set <b>delay minutes</b> and show some venue info. "Conflicts" on
-                        the overlay do not take this into account.</li>
+                        the <b>Details Overlay</b> do not take this into account.</li>
                 </ul>
                 <li class="info">Middle section:.
                     <ul>
@@ -1300,28 +1301,29 @@
                     <ul>
                         <li class="info">Tap first ones to change which day the schedule displays</li>
                         <li class="info">Tap "Now" to go to the current time on the schedule.</li>
-                        <li class="info">Tap search icon to bring up the <b>Details Overlay</b> (see below)</li>
-                        <li class="info">All of your changes are stored locally on your device in the specific browser
-                            you've done the changes in. Clearing the browser cache will delete your changes.</li>
+                        <li class="info">Tap "Search" to bring up the <b>Details Overlay</b> (see below)</li>
                     </ul>
                 </li>
 
                 <li class="info">Details Overlay:
                     <ul>
-                        <li class="info">There's a search text box to type in. Note you can tap results in the list at
-                            any point. You can also search by genre.</li>
+                        <li class="info">There's a search text box to type in. The results in the list are tappable. You
+                            can also search by genre.</li>
                         <li class="info">Tap desired "going status"</li>
                         <li class="info">Tap GoTo to go to that event on the schedule.</li>
                         <li class="info">Add event text and it will show up on the schedule.</li>
                         <li class="info">There's an area for artist text.</li>
                         <li class="info">If a specific event was tapped, it will show in yellow.</li>
+                        <li class="info">A pink line on the day buttons shows about how far along from opening to closing act for the day.</li>
                         <li class="info">There may be some info about the artist if I got around to adding it.</li>
                     </ul>
                 </li>
 
                 <li class="info">Donutsauce's notes:
                     <ul>
-                        <li class="info">Looks worst on desktop, better on mobile.</li>
+                        <li class="info">Looks worst on desktop, slightly better on mobile.</li>
+                        <li class="info">All of your changes are stored locally on your device in the specific browser
+                            you've done the changes in. Clearing the browser cache will delete your changes.</li>
                         <li class="info">I've tried to make sure it loads when there's no internet.</li>
                         <li class="info">Things may break/change.</li>
                         <li class="info">It's a side project of mine.</li>

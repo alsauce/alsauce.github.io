@@ -1,5 +1,5 @@
 // Define the cache name and files to cache
-const CACHE_NAME = 'headbangersboat_2024_v5';
+const CACHE_NAME = 'headbangersboat_2024_v6';
 const urlsToCache = [
   '/headbangers2024/',
   '/headbangers2024/style.css',
@@ -11,7 +11,7 @@ const urlsToCache = [
   '/headbangers2024/images/dude.png',
   '/headbangers2024/images/hands.png',
   '/headbangers2024/images/pinklady.png',
-  '/headbangers2024/images/deatbotsmall.png',
+  '/headbangers2024/images/deathbotsmall.png',
   '/headbangers2024/images/deathbotearssmall.png'
 ];
 
@@ -55,7 +55,6 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
-
   if (url.hostname === 'www.googletagmanager.com' || url.hostname === 'www.google-analytics.com') {
     return;
   }

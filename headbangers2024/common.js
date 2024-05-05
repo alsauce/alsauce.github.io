@@ -2,7 +2,7 @@
 //export let storedTime = getDateTime("2000", "Oct", "29", "12:02", "AM");
 
 //Set this to see current time on the schedule wherever for testing
-export let storedTime = getDateTime("2024", "Oct", "30", "7:04", "PM");
+export let storedTime = getDateTime("2024", "Oct", "30", "10:04", "PM");
 
 export let locations = [
     {
@@ -60,12 +60,13 @@ MA, Oct, 29, 11:30, PM, Oct, 30, 12:30, AM, xtest66 \
 "
 ,
 "\
-PO, Oct, 29, 11:00, PM, Oct, 30, 1:00, AM, xtest13 NoGenre \
+ST, Oct, 30, 7:00, PM, Oct, 30, 8:00, PM, xtest11 \n\
+PO, Oct, 30, 11:00, PM, Oct, 31, 1:00, AM, xtest13 NoGenre \
 "
 ,
 
-"PO, Oct, 30, 10:00, AM, Oct, 30, 10:45, AM, xtest11\n\
-PO, Oct, 30, 8:15, PM, Oct, 30, 9:15, PM, At the Gates \n\
+"PO, Oct, 31, 10:00, AM, Oct, 31, 10:45, AM, xtest11\n\
+PO, Oct, 31, 8:15, PM, Oct, 31, 9:15, PM, At the Gates \n\
 "
 ];
 
@@ -109,7 +110,7 @@ export let storedGoingKey = "storedGoingKey" + year + storedVersion;
 export let storedNoteKey = "storedNoteKey" + year + storedVersion;
 export let storedAppendTextKey = "storedAppendTextKey" + year + storedVersion;
 
-export let goingUndecided = "TBD";
+export let goingUndecided = "?";
 export let goingMaybe = "Maybe";
 export let goingGoing = "Going";
 export let goingNotGoing = "No";

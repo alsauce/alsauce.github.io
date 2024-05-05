@@ -3,11 +3,10 @@ Notes
 TODO:
 animate when leaving search
 hightlight the day that is currently happening button on bottom
-- make a line that moves down as the day progresses
 clicking clear - still focus on text search box?
 scroll location independent per day?
 overlay for venue click
-
+figure out extra scroll length on schedule
 
 iphone:
 - some text might be too long, like with 2 genres and stuff
@@ -48,6 +47,7 @@ dedicated scroll bar for extra text / make this work better, I think it doesn't 
 clicking an event, then clicking another brings up the other overlay
 note from last year: Going to an already past event doesn't go to the right spot.  Didn't see this happen...
 check gtag
+- make a line that moves down as the day progresses
 
 alpha: got removed
 when going from alpha to schedule, set the value needed in the localStorage
