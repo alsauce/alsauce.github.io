@@ -24,15 +24,6 @@ self.addEventListener("install", (event) => {
       cache.addAll(urlsToCache);
     })()
   );
-
-  (async () => {
-    const cache = caches.open(CACHE_NAME);
-    cache.keys().then(keys => {
-      keys.forEach(key => {
-        console.log('activate Key ' + key + ' URL: ', key.url);
-      });
-    })
-  });
 });
 
 // delete old caches on activate

@@ -687,6 +687,7 @@
             return buttonGoingOnLabel;
         }
 
+        let scrollLocationDuringGoingClick;
         function goingClick(theclick) {
 
 
@@ -694,6 +695,8 @@
             let innerText = theclick.target.innerText;
             localStorage.setItem(id, innerText);
 
+            scrollLocationDuringGoingClick = searchOverlay.scrollTop;
+            
             //primeData again to reset the conflicts going ind field
             primeData();
             openSearchOverlay();
@@ -1037,6 +1040,11 @@
 
             searchOverlay.scrollTop = searchOverlay.scrollHeight;
 
+            if (scrollLocationDuringGoingClick != null)
+            {
+                searchOverlay.scrollTop = scrollLocationDuringGoingClick;
+                scrollLocationDuringGoingClick = null;
+            }
 
         }
 
