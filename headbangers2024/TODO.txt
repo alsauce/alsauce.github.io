@@ -3,6 +3,7 @@ Notes
 TODO:
 animations
 figure out extra scroll length on schedule
+back button should close overlay
 
 iphone:
 - some text might be too long, like with 2 genres and stuff
