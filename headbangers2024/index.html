@@ -984,8 +984,6 @@
                         eventCardDiv.appendChild(getEventAppendTextBox(event));
 
                         if (eventThatWasClickedNeedsFlash != null && event.id == eventThatWasClickedNeedsFlash.id) {
-                            //TODO keeps flashing during overlay interaction
-                            console.log("flash " + event.id);
                             eventCardDiv.style.opacity = 1;
                             eventCardDiv.style.animation = "disappearAnimation2 1s forwards";
                             eventThatWasClickedNeedsFlash = null;
@@ -1077,9 +1075,9 @@
                 scrollLocationDuringGoingClick = null;
             }
 
-            var buttonRect = document.getElementById("searchOverlayContent").getBoundingClientRect();
-
-            if (buttonRect.bottom < window.innerHeight) {
+            var searchResultsSize = document.getElementById("searchResults").getBoundingClientRect();
+            
+            if ((searchResultsSize.bottom + 300) < window.innerHeight) {
                 //could probably find a better way to handle when this view heigh is small
                 searchOverlay.scrollTop = 0;
             }
@@ -1296,7 +1294,7 @@
     <div id="searchOverlay" class="overlay">
         <div class="overlay-content" id="searchOverlayContent">
             <div>
-                <ul id="searchResults">
+                <ul id="searchResults" id="searchResults">
                 </ul>
             </div>
 
