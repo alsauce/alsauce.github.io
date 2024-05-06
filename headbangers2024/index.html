@@ -254,7 +254,6 @@
         }
 
         function flashEvent(eventToFlash) {
-            console.log("hbb flashEvent id " + eventToFlash.id);
             if (eventToFlash.day != day) {
                 return;
             }
@@ -884,8 +883,6 @@
             searchResults.style.font = "50px serif";
             searchResults.style.padding = "5px";
 
-            console.log("hbb results size " + results.length);
-
             results.forEach(result => {
 
                 let resultName = result.split(",")[0];
@@ -1060,28 +1057,31 @@
                 searchResults.appendChild(searchResultLabel);
                 searchResults.appendChild(document.createElement("div"));
             });
-            let separateFilteredResults = document.createElement("div");
-            separateFilteredResults.style.padding = "10px";
 
             if (results.length == 0) {
                 let searchNoResultLabel = document.createElement("label");
                 searchNoResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
                 searchNoResultLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
                 searchNoResultLabel.style.position = "absolute";
-                searchNoResultLabel.style.top = "1000px";
+                //searchNoResultLabel.style.top = "1000px";
 
                 searchNoResultLabel.innerHTML = "No Results";
                 searchResults.appendChild(searchNoResultLabel);
                 searchResults.appendChild(document.createElement("div"));
             }
 
-            searchResults.appendChild(separateFilteredResults);
-
             searchOverlay.scrollTop = searchOverlay.scrollHeight;
 
             if (scrollLocationDuringGoingClick != null) {
                 searchOverlay.scrollTop = scrollLocationDuringGoingClick;
                 scrollLocationDuringGoingClick = null;
+            }
+
+            var buttonRect = document.getElementById("searchOverlayContent").getBoundingClientRect();
+
+            if (buttonRect.bottom < window.innerHeight) {
+                //could probably find a better way to handle when this view heigh is small
+                searchOverlay.scrollTop = 0;
             }
 
         }
@@ -1294,14 +1294,15 @@
     </div>
 
     <div id="searchOverlay" class="overlay">
-        <div class="overlay-content">
+        <div class="overlay-content" id="searchOverlayContent">
             <div>
                 <ul id="searchResults">
                 </ul>
             </div>
 
         </div>
-        <div style="position: fixed; bottom: 0px; padding: 0%; background-color: black; width: 100%;">
+        <div
+            style="position: fixed; bottom: 0px; padding: 0%; background-color: black; width: 100%; border-radius: 12px;">
             <input type="text" id="searchInput" placeholder="Search..." onfocus="handleSearchInputFocus()"
                 style="color: hsla(0, 0%, 90%, 1); background-color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 100; padding-left: 10px; width: 69%; border-radius: 12px;">
             <button onclick="handleClearSearch()"
