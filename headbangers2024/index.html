@@ -724,7 +724,7 @@
         function eventClickBringUpSearch(event) {
             let id = event.currentTarget.id;
 
-            
+
             let eventWithValues = common.getEventFromCommas(id);
             eventThatWasClicked = eventWithValues;
             eventThatWasClickedNeedsFlash = eventWithValues;
@@ -1063,11 +1063,12 @@
             let separateFilteredResults = document.createElement("div");
             separateFilteredResults.style.padding = "10px";
 
-            if (results.length == 0)
-            {
+            if (results.length == 0) {
                 let searchNoResultLabel = document.createElement("label");
                 searchNoResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
                 searchNoResultLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
+                searchNoResultLabel.style.position = "absolute";
+                searchNoResultLabel.style.top = "1000px";
 
                 searchNoResultLabel.innerHTML = "No Results";
                 searchResults.appendChild(searchNoResultLabel);
@@ -1296,8 +1297,10 @@
         <div class="overlay-content">
             <!--  breaks scrolling <div style="overflow: auto; position: fixed; bottom: 100px;">-->
             <!--<div style="overflow: auto; position: fixed; bottom: 100px;"> -->
-            <div style="overflow: auto; position: fixed; bottom: 300px; width: 96%; height: 37%;">
-                <ul id="searchResults"></ul>
+            <!-- <div style="overflow: auto; position: fixed; bottom: 100px; width: 96%; height: 90%;"> -->
+            <div>
+                <ul id="searchResults" class = "overlay-content">
+                </ul>
             </div>
 
         </div>

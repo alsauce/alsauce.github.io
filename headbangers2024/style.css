@@ -67,13 +67,44 @@ body {
 }
 
 .overlay-content {
+  background-color: hsla(0, 100%, 0%, 1);
+  margin: 5% auto;
+  padding: 5px;
+  border: 1px solid #888;
+  width: 95%;
+  bottom: 0px;
+  min-height: 1000px;
+}
+
+.overlay-content2 {
+  background-color: hsla(0, 100%, 0%, 1);
+  margin: 5% auto;
+  padding: 5px;
+  border: 1px solid #888;
+  width: 95%;
+  bottom: 0px;
+  position: fixed;
+}
+
+.overlay-contentNEW2 {
+  background-color: hsla(0, 100%, 0%, 1);
+  margin: 5% auto;
+  padding: 5px;
+  border: 1px solid #888;
+  width: 95%;
+  border-radius: 12px;
+  bottom: 0px;
+  position: fixed;
+}
+
+.overlay-contentNEW {
   /*position: fixed;
   overflow: auto;*/
   overflow: auto;
   bottom: 0px;
   background-color: hsla(0, 100%, 0%, 1);
   margin: 5% auto;
-  padding: 5px;
+  /*padding: 5px;*/
   border: 1px solid #888;
   width: 95%;
   justify-content: flex-end;
