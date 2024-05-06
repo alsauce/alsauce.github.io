@@ -4,6 +4,7 @@ TODO:
 animations
 figure out extra scroll length on schedule
 back button should close overlay
+make things in overlay start at bottom - when there's a small amount of info it's at top and it's covered up top
 
 iphone:
 - some text might be too long, like with 2 genres and stuff
