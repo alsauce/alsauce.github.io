@@ -1061,7 +1061,7 @@
                 searchNoResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
                 searchNoResultLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
                 searchNoResultLabel.style.position = "absolute";
-                //searchNoResultLabel.style.top = "1000px";
+                searchNoResultLabel.style.top = "1000px";
 
                 searchNoResultLabel.innerHTML = "No Results";
                 searchResults.appendChild(searchNoResultLabel);
@@ -1073,13 +1073,6 @@
             if (scrollLocationDuringGoingClick != null) {
                 searchOverlay.scrollTop = scrollLocationDuringGoingClick;
                 scrollLocationDuringGoingClick = null;
-            }
-
-            var searchResultsSize = document.getElementById("searchResults").getBoundingClientRect();
-            
-            if ((searchResultsSize.bottom + 300) < window.innerHeight) {
-                //could probably find a better way to handle when this view heigh is small
-                searchOverlay.scrollTop = 0;
             }
 
         }

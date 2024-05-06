@@ -72,6 +72,7 @@ body {
   border: 1px solid #888;
   width: 95%;
   border-radius: 12px;
+  min-height: 1000px;
 }
 
 .close {
