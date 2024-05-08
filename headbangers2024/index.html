@@ -176,20 +176,10 @@
                 //remove minutes and add some buffer time
                 let hourAndMinuteEarliest = earliestEvent.startTime.split(":");
                 earliestStart = common.getDateTime(common.year, earliestEvent.startMonth, earliestEvent.startDay, (hourAndMinuteEarliest[0]) + ":00", earliestEvent.startAMPM)
-                console.log("earliestStart: " + earliestStart.toLocaleTimeString('en-US', {
-                    timeZoneName: 'short',
-                    hour12: true,
-                }));
-
                 earliestStart = new Date(earliestStart.getTime() - (milliSecondsInAnHour * yEarliestBufferHours));
 
                 let hourAndMinuteLatest = latestEvent.endTime.split(":");
                 latestEnd = common.getDateTime(common.year, latestEvent.endMonth, latestEvent.endDay, (hourAndMinuteLatest[0]) + ":00", latestEvent.endAMPM)
-                console.log("latestEnd: " + latestEnd.toLocaleTimeString('en-US', {
-                    timeZoneName: 'short',
-                    hour12: true,
-                }));
-
                 latestEnd = new Date(latestEnd.getTime() + (milliSecondsInAnHour * yLatestBufferHours));
 
                 let data = {
