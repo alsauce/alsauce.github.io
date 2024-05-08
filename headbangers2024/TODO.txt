@@ -3,6 +3,7 @@ Notes
 TODO:
 animations
 back button should close overlay
+some scrolling wackyness on overlay to fix
 
 iphone:
 - some text might be too long, like with 2 genres and stuff

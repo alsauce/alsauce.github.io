@@ -1094,7 +1094,9 @@
             let searchResultsRect = searchResults.getBoundingClientRect();
             searchResults.style.top = null;
             if (lastLabel.getBoundingClientRect().bottom < searchResultsRect.height) {
-                searchResults.style.top = searchResultsRect.height - lastLabel.getBoundingClientRect().bottom - 50;
+                let lastLabelBottom = lastLabel.getBoundingClientRect().bottom;
+                let top = window.innerHeight - lastLabelBottom - 300;
+                searchResults.style.top = top;
                 searchResults.style.bottom = "55px";
             }
 
