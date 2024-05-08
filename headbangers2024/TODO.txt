@@ -2,9 +2,7 @@ Notes
 
 TODO:
 animations
-figure out extra scroll length on schedule
 back button should close overlay
-make things in overlay start at bottom - when there's a small amount of info it's at top and it's covered up top
 
 iphone:
 - some text might be too long, like with 2 genres and stuff
@@ -54,6 +52,9 @@ flash event clicked from schedule on overview
 keeps flashing during overlay interaction
 no results should say no results in search
 better area between search input and results
+make things in overlay start at bottom - when there's a small amount of info it's at top and it's covered up top.
+figure out extra scroll length on schedule - it was drawing current time on each day, which was sometimes way off
+an interval refresh scrolls to 0 for whatever day we're on
 
 alpha: got removed
 when going from alpha to schedule, set the value needed in the localStorage

@@ -176,9 +176,20 @@
                 //remove minutes and add some buffer time
                 let hourAndMinuteEarliest = earliestEvent.startTime.split(":");
                 earliestStart = common.getDateTime(common.year, earliestEvent.startMonth, earliestEvent.startDay, (hourAndMinuteEarliest[0]) + ":00", earliestEvent.startAMPM)
+                console.log("earliestStart: " + earliestStart.toLocaleTimeString('en-US', {
+                    timeZoneName: 'short',
+                    hour12: true,
+                }));
+
                 earliestStart = new Date(earliestStart.getTime() - (milliSecondsInAnHour * yEarliestBufferHours));
+
                 let hourAndMinuteLatest = latestEvent.endTime.split(":");
                 latestEnd = common.getDateTime(common.year, latestEvent.endMonth, latestEvent.endDay, (hourAndMinuteLatest[0]) + ":00", latestEvent.endAMPM)
+                console.log("latestEnd: " + latestEnd.toLocaleTimeString('en-US', {
+                    timeZoneName: 'short',
+                    hour12: true,
+                }));
+
                 latestEnd = new Date(latestEnd.getTime() + (milliSecondsInAnHour * yLatestBufferHours));
 
                 let data = {
@@ -210,7 +221,7 @@
             events.sort((eventA, eventB) => getStartDateTime(eventA) - getStartDateTime(eventB));
         }
 
-        function redrawEverything() {
+        function redrawEverything(ignoreScroll) {
             console.log("hbb refreshing May 2 6:48 pm");
 
             deleteEverything();
@@ -235,15 +246,15 @@
             buttons();
             drawTop();
 
-
             if (scrollGoToYCoord != null) {
                 window.scroll(0, scrollGoToYCoord);
-
                 scrollGoToYCoord = null;
             }
             else {
                 let scrollTopForDay = dayToScrollTop.get(day);
-                window.scroll(0, scrollTopForDay);
+                if (!ignoreScroll) {
+                    window.scroll(0, scrollTopForDay);
+                }
             }
             eventsToFlash.forEach((eventToFlash) => {
                 flashEvent(eventToFlash);
@@ -407,6 +418,12 @@
             if (currentTime > common.storedTime) {
                 common.storedTime = currentTime;
             }
+
+            if (theDayThatTheCurrentTimeIsOn == null || theDayThatTheCurrentTimeIsOn != day)
+            {
+                return;
+            }
+
             let pixel = getYPixelLocation(earliestStart, common.storedTime);
 
             let labelCurrentTimeNumber = document.createElement('label');
@@ -961,8 +978,6 @@
                         conflictsLabel.style.color = "hsla(0, 0%, 80%, 1)";
                         conflictsLabel.innerHTML = "<br>Conflicts:<br>- " + event.conflicts + "";
 
-                        let divBetweenResults = document.createElement("div");
-
                         eventCardDiv.appendChild(searchResultLabel);
 
                         let buttonGoingGoing = createButtonGoing(common.goingGoing, event);
@@ -1257,7 +1272,7 @@
 
 </head>
 
-<body onload="redrawEverything(); setInterval('redrawEverything()', 60000);">
+<body onload="redrawEverything(); setInterval('redrawEverything(true)', 60000);">
     <div class="top" id="top">
     </div>
 
