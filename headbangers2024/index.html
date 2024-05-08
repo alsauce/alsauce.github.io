@@ -1086,7 +1086,9 @@
             if (lastLabel.getBoundingClientRect().bottom < searchResultsRect.height) {
                 let lastLabelBottom = lastLabel.getBoundingClientRect().bottom;
                 let top = window.innerHeight - lastLabelBottom - 300;
-                searchResults.style.top = top;
+                alert("last label: " + lastLabelBottom + " window.innerHeight: " + window.innerHeight + " top: " + top + " setting 10");
+                //searchResults.style.top = top;
+                searchResults.style.top = 10;
                 searchResults.style.bottom = "55px";
             }
 
