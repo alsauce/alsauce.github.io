@@ -830,7 +830,7 @@
         /////////////
         // search
         const searchInput = document.getElementById('searchInput');
-        const searchResults = document.getElementById('searchResults');
+        const searchResults = document.getElementById('searchOverlayContent');
 
         // List of strings to search
         const searchOverlay = document.getElementById('searchOverlay');
@@ -1041,6 +1041,7 @@
 
             });
 
+            let lastLabel;
             results.forEach(result => {
                 let searchResultLabel = document.createElement("label");
                 searchResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
@@ -1054,18 +1055,18 @@
                 searchResultLabel.innerHTML = result;
                 searchResults.appendChild(searchResultLabel);
                 searchResults.appendChild(document.createElement("div"));
+                lastLabel = searchResultLabel;
             });
 
             if (results.length == 0) {
                 let searchNoResultLabel = document.createElement("label");
                 searchNoResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
                 searchNoResultLabel.style.backgroundColor = "hsla(0, 0%, 10%, 1)";
-                searchNoResultLabel.style.position = "absolute";
-                searchNoResultLabel.style.top = "1000px";
 
                 searchNoResultLabel.innerHTML = "No Results";
                 searchResults.appendChild(searchNoResultLabel);
                 searchResults.appendChild(document.createElement("div"));
+                lastLabel = searchNoResultLabel;
             }
 
             searchOverlay.scrollTop = searchOverlay.scrollHeight;
@@ -1073,6 +1074,13 @@
             if (scrollLocationDuringGoingClick != null) {
                 searchOverlay.scrollTop = scrollLocationDuringGoingClick;
                 scrollLocationDuringGoingClick = null;
+            }
+
+            let searchResultsRect = searchResults.getBoundingClientRect();
+            searchResults.style.top = null;
+            if (lastLabel.getBoundingClientRect().bottom < searchResultsRect.height) {
+                searchResults.style.top = searchResultsRect.height - lastLabel.getBoundingClientRect().bottom - 50;
+                searchResults.style.bottom = "55px";
             }
 
         }
@@ -1286,11 +1294,6 @@
 
     <div id="searchOverlay" class="overlay">
         <div class="overlay-content" id="searchOverlayContent">
-            <div>
-                <ul id="searchResults" id="searchResults">
-                </ul>
-            </div>
-
         </div>
         <div
             style="position: fixed; bottom: 0px; padding: 0%; background-color: black; width: 100%; border-radius: 12px;">
@@ -1302,7 +1305,6 @@
                 style="color: hsla(0, 0%, 90%, 1); background-color: hsla(0, 90%, 0%, 1); font: 40px serif; height: 100; width: 14%; border-radius: 12px;">Close</button>
         </div>
     </div>
-
     <div id="infoOverlay" class="overlay">
         <div class="overlay-content">
             <span class="close" onclick="closeInfoOverlay()">&times;</span>
@@ -1324,7 +1326,8 @@
                 <li class="info">Top buttons:</li>
                 <ul>
                     <li class="info">Displays venue:delay minutes and location</li>
-                    <li class="info">Tap a venue to set <b>delay minutes</b> and show some venue info. "Conflicts" on
+                    <li class="info">Tap a venue to set <b>delay minutes</b> and show some venue info. "Conflicts"
+                        on
                         the <b>Details Overlay</b> do not take this into account.</li>
                 </ul>
                 <li class="info">Middle section:.
@@ -1343,7 +1346,8 @@
 
                 <li class="info">Details Overlay:
                     <ul>
-                        <li class="info">There's a search text box to type in. The results in the list are tappable. You
+                        <li class="info">There's a search text box to type in. The results in the list are tappable.
+                            You
                             can also search by genre.</li>
                         <li class="info">Tap desired "going status"</li>
                         <li class="info">Tap GoTo to go to that event on the schedule.</li>
@@ -1359,7 +1363,8 @@
                 <li class="info">Donutsauce's notes:
                     <ul>
                         <li class="info">Looks worst on desktop, slightly better on mobile.</li>
-                        <li class="info">All of your changes are stored locally on your device in the specific browser
+                        <li class="info">All of your changes are stored locally on your device in the specific
+                            browser
                             you've done the changes in. Clearing the browser cache will delete your changes.</li>
                         <li class="info">I've tried to make sure it loads when there's no internet.</li>
                         <li class="info">Things may break/change.</li>
