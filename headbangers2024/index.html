@@ -1095,7 +1095,7 @@
             let labelHeight = getLabelLocation(lastLabel, searchResults);
             if (labelHeight < searchResultsRect.height) {
                 var labelRect = lastLabel.getBoundingClientRect();
-                var searchOverlayRect = searchOverlay.getBoundingClientRect();
+                var searchOverlayRect = searchResults.getBoundingClientRect();
                 let lastLabelBottom = lastLabel.getBoundingClientRect().bottom;
                 let top = window.innerHeight - labelHeight - 200;
 
