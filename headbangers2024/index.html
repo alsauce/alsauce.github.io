@@ -409,8 +409,7 @@
                 common.storedTime = currentTime;
             }
 
-            if (theDayThatTheCurrentTimeIsOn == null || theDayThatTheCurrentTimeIsOn != day)
-            {
+            if (theDayThatTheCurrentTimeIsOn == null || theDayThatTheCurrentTimeIsOn != day) {
                 return;
             }
 
@@ -641,7 +640,7 @@
             eventAppendText.style.justifyContent = "center";
             eventAppendText.style.font = "55px serif";
             eventAppendText.style.width = "90%";
-            eventAppendText.style.height = "60px";
+            eventAppendText.style.height = "80px";
             eventAppendText.style.marginLeft = "2%";
             eventAppendText.id = event.id;
 
@@ -899,6 +898,7 @@
             searchResults.innerHTML = '';
             searchResults.style.font = "50px serif";
             searchResults.style.padding = "5px";
+            searchResults.style.top = null;
 
             results.forEach(result => {
 
@@ -1092,32 +1092,37 @@
             }
 
             let searchResultsRect = searchResults.getBoundingClientRect();
-            searchResults.style.top = null;
-            if (lastLabel.getBoundingClientRect().bottom < searchResultsRect.height) {
+            let labelHeight = getLabelLocation(lastLabel, searchResults);
+            if (labelHeight < searchResultsRect.height) {
+                var labelRect = lastLabel.getBoundingClientRect();
+                var searchOverlayRect = searchOverlay.getBoundingClientRect();
                 let lastLabelBottom = lastLabel.getBoundingClientRect().bottom;
-                let top = window.innerHeight - lastLabelBottom - 300;
-                //alert("last label: " + lastLabelBottom + " window.innerHeight: " + window.innerHeight + " top: " + top + " setting 10");
+                let top = window.innerHeight - labelHeight - 200;
+
+                alert("top " + top + " labelHeight: " + labelHeight + " labelRect.bottom " + labelRect.bottom + " searchOverlayRect.top " + searchOverlayRect.top);
+                // alert("last label: " + lastLabelBottom + " window.innerHeight: " + window.innerHeight + " top: " + top + " setting 10");
                 //searchResults.style.top = top;
+
                 // safari on mac: last label: 118.203125 window.innerHeight: 1669 top: 1250.796875 setting 10
+                ////// 1669 - 119 - 300 = 1250
                 // iphone: last label: -531.8125 window.innerHeight: 1035 top: 1266.8125 setting 10
-                searchResults.style.top = 10;
+                /////  1035 - -531 - 300 = 1266
+                searchResults.style.top = top;
                 searchResults.style.bottom = "55px";
             }
 
         }
 
-        // Listen for the 'focusout' event, which is triggered when the user clicks "Done"
-        document.addEventListener('focusout', function(event) {
-            // Check if the target element is the body (indicating the keyboard was dismissed)
-            if (event.target === document.body) {
-                alert("done clicked");
-                closeSearchOverlay();
-                // Perform your desired actions here
-                console.log('Done button clicked');
-                // For example, hide an overlay
-                // document.querySelector('.overlay').style.display = 'none';
-            }
-        });
+        function getLabelLocation(lastLabel, searchOverlay) {
+            var labelRect = lastLabel.getBoundingClientRect();
+            var searchOverlayRect = searchOverlay.getBoundingClientRect();
+            alert("labelRect.bottom " + labelRect.bottom);
+            console.log("labelRect.bottom " + labelRect.bottom);
+            console.log("searchOverlayRect.top " + searchOverlayRect.top);
+            var offsetY = labelRect.bottom - searchOverlayRect.top;
+            return offsetY;
+        }
+
 
         searchInput.addEventListener('input', () => {
             const query = searchInput.value.trim();
