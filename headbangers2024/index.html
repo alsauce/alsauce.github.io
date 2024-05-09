@@ -849,6 +849,9 @@
         function openSearchOverlay() {
             searchOverlay.style.display = 'block';
             document.body.style.overflow = 'hidden';
+            let schedule = document.getElementById("schedule");
+            schedule.style.overflow = "hidden";
+
             const query = searchInput.value.trim();
             const results = search(query);
             dayToScrollTop.set(day, document.body.scrollTop);
@@ -860,6 +863,13 @@
             commonSearchOverlayClosingTasks();
             eventThatWasClicked = null;
             redrawEverything();
+        }
+
+        function commonSearchOverlayClosingTasks() {
+            document.body.style.overflow = '';
+            searchOverlay.style.display = 'none';
+            let schedule = document.getElementById("schedule");
+            schedule.style.overflow = "";
         }
 
         function search(query) {
@@ -1088,6 +1098,8 @@
                 let top = window.innerHeight - lastLabelBottom - 300;
                 alert("last label: " + lastLabelBottom + " window.innerHeight: " + window.innerHeight + " top: " + top + " setting 10");
                 //searchResults.style.top = top;
+                // safari on mac: last label: 118.203125 window.innerHeight: 1669 top: 1250.796875 setting 10
+                // iphone: last label: -531.8125 window.innerHeight: 1035 top: 1266.8125 setting 10
                 searchResults.style.top = 10;
                 searchResults.style.bottom = "55px";
             }
@@ -1099,11 +1111,6 @@
             const results = search(query);
             displayResults(results);
         });
-
-        function commonSearchOverlayClosingTasks() {
-            document.body.style.overflow = '';
-            searchOverlay.style.display = 'none';
-        }
 
         function goToClickSearch(event) {
             commonSearchOverlayClosingTasks();
