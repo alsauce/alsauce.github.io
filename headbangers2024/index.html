@@ -718,7 +718,7 @@
             let innerText = theclick.target.innerText;
             localStorage.setItem(id, innerText);
 
-            scrollLocationDuringGoingClick = searchOverlay.scrollTop;
+            scrollLocationDuringGoingClick =searchResults.scrollTop;
 
             //primeData again to reset the conflicts going ind field
             primeData();
@@ -735,7 +735,7 @@
             eventThatWasClickedNeedsFlash = eventWithValues;
             searchInput.value = eventWithValues.name;
             openSearchOverlay();
-            searchOverlay.scrollTop = 0;
+           searchResults.scrollTop = 0;
         }
 
         function getXPixelForLocation(event) {
@@ -926,7 +926,7 @@
                     searchInput.value = eventLabel.id.split(",")[0];
                     const results = search(searchInput.value);
                     displayResults(results);
-                    searchOverlay.scrollTop = 0;
+                   searchResults.scrollTop = 0;
                 });
 
                 resultCardDiv.appendChild(eventLabel);
@@ -1085,10 +1085,10 @@
                 lastLabel = searchNoResultLabel;
             }
 
-            searchOverlay.scrollTop = searchOverlay.scrollHeight;
-
+            searchResults.scrollTop = searchResults.scrollHeight;
             if (scrollLocationDuringGoingClick != null) {
-                searchOverlay.scrollTop = scrollLocationDuringGoingClick;
+
+                searchResults.scrollTop = scrollLocationDuringGoingClick;
                 scrollLocationDuringGoingClick = null;
             }
 
@@ -1147,7 +1147,7 @@
 
 
         function handleSearchInputFocus() {
-            searchOverlay.scrollTop = searchOverlay.scrollHeight;
+           searchResults.scrollTop =searchResults.scrollHeight;
         }
 
         const venueOverlay = document.getElementById('venueOverlay');
@@ -1332,7 +1332,7 @@
     <div id="infoOverlay" class="overlay">
         <div class="overlay-content">
             <span class="close" onclick="closeInfoOverlay()">&times;</span>
-            <h1 class="info">Install as an app:</h1>
+            <h1 class="info">Installing as an app seems to alleviate some quirky behavior:</h1>
             <ul>
 
                 <li class="info">iPhone (Safari): tap share/action, choose "add to home screen", add it</li>

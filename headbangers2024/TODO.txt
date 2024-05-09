@@ -3,10 +3,7 @@ Notes
 TODO:
 animations
 back button should close overlay
-some scrolling wackyness on overlay to fix
 
-iphone:
-- some text might be too long, like with 2 genres and stuff
 
 in progress:
 
@@ -56,6 +53,8 @@ better area between search input and results
 make things in overlay start at bottom - when there's a small amount of info it's at top and it's covered up top.
 figure out extra scroll length on schedule - it was drawing current time on each day, which was sometimes way off
 an interval refresh scrolls to 0 for whatever day we're on
+some scrolling wackyness on overlay to fix
+iphone some text might be too long, like with 2 genres and stuff
 
 alpha: got removed
 when going from alpha to schedule, set the value needed in the localStorage
