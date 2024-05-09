@@ -1099,24 +1099,18 @@
                 let lastLabelBottom = lastLabel.getBoundingClientRect().bottom;
                 let top = window.innerHeight - labelHeight - 200;
 
-                alert("top " + top + " labelHeight: " + labelHeight + " labelRect.bottom " + labelRect.bottom + " searchOverlayRect.top " + searchOverlayRect.top);
-                // alert("last label: " + lastLabelBottom + " window.innerHeight: " + window.innerHeight + " top: " + top + " setting 10");
-                //searchResults.style.top = top;
+                alert("top " + top + " labelHeight: " + labelHeight + " labelRect.bottom " + labelRect.bottom + " searchOverlayRect.top " + searchOverlayRect.top + " searchResultsRect.height " + searchResultsRect.height + " window.innerHeight " + window.innerHeight);
 
-                // safari on mac: last label: 118.203125 window.innerHeight: 1669 top: 1250.796875 setting 10
-                ////// 1669 - 119 - 300 = 1250
-                // iphone: last label: -531.8125 window.innerHeight: 1035 top: 1266.8125 setting 10
-                /////  1035 - -531 - 300 = 1266
                 searchResults.style.top = top;
                 searchResults.style.bottom = "55px";
+
             }
 
         }
-
+        
         function getLabelLocation(lastLabel, searchOverlay) {
             var labelRect = lastLabel.getBoundingClientRect();
             var searchOverlayRect = searchOverlay.getBoundingClientRect();
-            alert("labelRect.bottom " + labelRect.bottom);
             console.log("labelRect.bottom " + labelRect.bottom);
             console.log("searchOverlayRect.top " + searchOverlayRect.top);
             var offsetY = labelRect.bottom - searchOverlayRect.top;
