@@ -1096,7 +1096,7 @@
             if (lastLabel.getBoundingClientRect().bottom < searchResultsRect.height) {
                 let lastLabelBottom = lastLabel.getBoundingClientRect().bottom;
                 let top = window.innerHeight - lastLabelBottom - 300;
-                alert("last label: " + lastLabelBottom + " window.innerHeight: " + window.innerHeight + " top: " + top + " setting 10");
+                //alert("last label: " + lastLabelBottom + " window.innerHeight: " + window.innerHeight + " top: " + top + " setting 10");
                 //searchResults.style.top = top;
                 // safari on mac: last label: 118.203125 window.innerHeight: 1669 top: 1250.796875 setting 10
                 // iphone: last label: -531.8125 window.innerHeight: 1035 top: 1266.8125 setting 10
@@ -1105,6 +1105,19 @@
             }
 
         }
+
+        // Listen for the 'focusout' event, which is triggered when the user clicks "Done"
+        document.addEventListener('focusout', function(event) {
+            // Check if the target element is the body (indicating the keyboard was dismissed)
+            if (event.target === document.body) {
+                alert("done clicked");
+                closeSearchOverlay();
+                // Perform your desired actions here
+                console.log('Done button clicked');
+                // For example, hide an overlay
+                // document.querySelector('.overlay').style.display = 'none';
+            }
+        });
 
         searchInput.addEventListener('input', () => {
             const query = searchInput.value.trim();
