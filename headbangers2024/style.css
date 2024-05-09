@@ -54,7 +54,7 @@ body {
 
 .overlay {
   display: none;
-  position: absolute;
+  position: fixed;
   z-index: 1000;
   left: 15px;
   top: 0;
@@ -67,15 +67,12 @@ body {
 
 .overlay-content {
   background-color: hsla(0, 100%, 0%, 1);
-  margin: 5% auto;
-  padding: 5px;
   border: 1px solid #888;
   width: 95%;
   border-radius: 12px;
-  bottom: 55px;
-  height: 90%;
   overflow-y: auto;
   position: fixed;
+  z-index: 1500;
 }
 
 .close {

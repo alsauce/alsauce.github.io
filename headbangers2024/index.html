@@ -898,7 +898,8 @@
             searchResults.innerHTML = '';
             searchResults.style.font = "50px serif";
             searchResults.style.padding = "5px";
-            searchResults.style.top = null;
+            searchResults.style.top = 10;
+            searchResults.style.bottom = 100;
 
             results.forEach(result => {
 
@@ -1097,13 +1098,8 @@
                 var labelRect = lastLabel.getBoundingClientRect();
                 var searchOverlayRect = searchResults.getBoundingClientRect();
                 let lastLabelBottom = lastLabel.getBoundingClientRect().bottom;
-                let top = window.innerHeight - labelHeight - 200;
-
-                alert("top " + top + " labelHeight: " + labelHeight + " labelRect.bottom " + labelRect.bottom + " searchOverlayRect.top " + searchOverlayRect.top + " searchResultsRect.height " + searchResultsRect.height + " window.innerHeight " + window.innerHeight);
-
+                let top = window.innerHeight - labelHeight - 150;
                 searchResults.style.top = top;
-                searchResults.style.bottom = "55px";
-
             }
 
         }
@@ -1324,13 +1320,13 @@
         <div class="overlay-content" id="searchOverlayContent">
         </div>
         <div
-            style="position: fixed; bottom: 0px; padding: 0%; background-color: black; width: 100%; border-radius: 12px;">
+            style="position: fixed; bottom: 0px; padding: 0%; background-color: black; width: 100%; border-radius: 12px; z-index: 2000">
             <input type="text" id="searchInput" placeholder="Search..." onfocus="handleSearchInputFocus()"
-                style="color: hsla(0, 0%, 90%, 1); background-color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 100; padding-left: 10px; width: 69%; border-radius: 12px;">
+                style="color: hsla(0, 0%, 90%, 1); background-color: hsla(0, 90%, 0%, 1); font: 45px serif; height: 100; padding-left: 10px; width: 69%; border-radius: 12px; z-index: 1500">
             <button onclick="handleClearSearch()"
-                style="color: hsla(0, 0%, 90%, 1); background-color: hsla(0, 90%, 0%, 1); font: 40px serif; height: 100; width: 14%; border-radius: 12px;">Clear</button>
+                style="color: hsla(0, 0%, 90%, 1); background-color: hsla(0, 90%, 0%, 1); font: 40px serif; height: 100; width: 14%; border-radius: 12px; z-index: 2000">Clear</button>
             <button onclick="closeSearchOverlay()"
-                style="color: hsla(0, 0%, 90%, 1); background-color: hsla(0, 90%, 0%, 1); font: 40px serif; height: 100; width: 14%; border-radius: 12px;">Close</button>
+                style="color: hsla(0, 0%, 90%, 1); background-color: hsla(0, 90%, 0%, 1); font: 40px serif; height: 100; width: 14%; border-radius: 12px; z-index: 2000">Close</button>
         </div>
     </div>
     <div id="infoOverlay" class="overlay">
