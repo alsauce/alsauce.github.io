@@ -51,7 +51,7 @@ AT, Oct, 28,  3:00, PM, Oct, 28,  4:00, PM, Corrosion of Conformity \n\
 AT, Oct, 28,  7:15, PM, Oct, 28,  8:15, PM, Bleeding Through \n\
 AT, Oct, 28,  9:45, PM, Oct, 28, 10:45, PM, Frozen Soul \n\
 AT, Oct, 29,  1:15, AM, Oct, 29,  2:15, AM, After the Burial \n\
-SP, Oct, 29, 12:15, AM, Oct, 29,  1:15, AM, Comedy \n\
+SP, Oct, 29, 12:15, AM, Oct, 29,  1:15, AM, Comedy w/ Smith/ Abrusci \n\
 SC, Oct, 28,  7:15, PM, Oct, 28,  8:15, PM, Currents \n\
 SC, Oct, 28,  9:45, PM, Oct, 28, 10:45, PM, Unearth \
 "
@@ -91,7 +91,7 @@ AT, Oct, 30,  6:30, PM, Oct, 30,  7:30, PM, UnityTX\n\
 AT, Oct, 30,  8:45, PM, Oct, 30,  9:45, PM, Eyehategod\n\
 AT, Oct, 31, 12:45, AM, Oct, 31,  1:45, AM, Poison the Well\n\
 SP, Oct, 30,  7:15, PM, Oct, 30,  8:15, PM, OFIT Galley w/ Riki\n\
-SP, Oct, 30, 11:30, PM, Oct, 31, 12:30, AM, Comedy w/ Smith/Abrusci\n\
+SP, Oct, 30, 11:30, PM, Oct, 31, 12:30, AM, Comedy w/ Smith/ Abrusci\n\
 SC, Oct, 30,  6:15, PM, Oct, 30,  7:15, PM, Currents\n\
 SC, Oct, 30,  8:45, PM, Oct, 30,  9:45, PM, Frozen Soul\n\
 SC, Oct, 30, 11:30, PM, Oct, 31, 12:30, AM, Napalm Death\
@@ -128,13 +128,11 @@ SC, Oct, 31, 11:00, PM, Nov,  1,  1:30, AM, Karaoke at Bliss (not at SC)\
 
 export let bandInfo = [
     ["After the Burial", "prog"],
-    ["At the Gates", "death"],
     ["Bleeding Through", "core"],
-    ["Chimaira", "Groove core"],
-    ["Comedy", "Comedy"],
-    ["Corrosion of Conformity", "Sludge Southern"],
+    ["Chimaira", "groove core"],
+    ["Corrosion of Conformity", "sludge southern"],
     ["Currents", "core"],
-    ["Exodus", "Thrash"],
+    ["Exodus", "thrash"],
     ["Eyehategod", "doom"],
     ["Frozen Soul", "death"],
     ["Napalm Death", "punk death"],
@@ -144,29 +142,28 @@ export let bandInfo = [
     ["UnityTX", "nu"],
     ["Lamb of God", "core"],
     ["Dethklok", "death"],
-    ["Mark Morton", "solo band"],
-    ["Toast/Photo", ""],
-    ["Yoga", ""],
-    ["Battle Jacket Showdown", ""],
-    ["Carcass", ""],
-    ["Coffee with Willie", ""],
-    ["Drum-off w/ Art Cruz", ""],
-    ["Mark Morton w/ Riki", ""],
-    ["Mosh Pit Bootcamp", ""],
-    ["Randy Blythe w/ Riki", ""],
-    ["Trivia w/Jose", ""],
-    ["Comedy w/ Smith/Abrusci", ""],
-    ["OFIT Galley w/ Riki", ""],
-    ["Puerta Plata", ""],
-    ["Battleshots Tournament", ""],
-    ["Costume Contest", ""],
-    ["DJ Art Cruz", ""],
-    ["Karaoke at Bliss (not at SC)", ""],
-    ["Liquid Metal w/ Jose Mangin", ""],
-    ["Mosh Bootcamp", ""],
-    ["Zetro's Podcast", ""],
-    ["Bingo w/ Riki/Leah", ""],
-    ["Mark Morton Solo Band", ""]
+    ["Toast/Photo", "other"],
+    ["Yoga", "other"],
+    ["Battle Jacket Showdown", "other"],
+    ["Carcass", "grind/death"],
+    ["Coffee with Willie", "other"],
+    ["Drum-off w/ Art Cruz", "other"],
+    ["Mark Morton w/ Riki", "other"],
+    ["Mosh Pit Bootcamp", "other"],
+    ["Randy Blythe w/ Riki", "other"],
+    ["Trivia w/Jose", "other"],
+    ["Comedy w/ Smith/ Abrusci", "comedy"],
+    ["OFIT Galley w/ Riki", "other"],
+    ["Puerta Plata", "other"],
+    ["Battleshots Tournament", "other"],
+    ["Costume Contest", "other"],
+    ["DJ Art Cruz", "other"],
+    ["Karaoke at Bliss (not at SC)", "other"],
+    ["Liquid Metal w/ Jose Mangin", "other"],
+    ["Mosh Bootcamp", "other"],
+    ["Zetro's Podcast", "other"],
+    ["Bingo w/ Riki/Leah", "other"],
+    ["Mark Morton Solo Band", "rock"]
 ];
 
 export let storedVersion = "_hbb_v6";
