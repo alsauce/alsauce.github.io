@@ -31,7 +31,7 @@ export let locations = [
     {
         abbrev: "SC",
         fullName: "Sports Court",
-        location: "Deck 13 aft",
+        location: "13 aft",
         note: ""
     }
 ];
