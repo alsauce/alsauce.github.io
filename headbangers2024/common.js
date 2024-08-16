@@ -121,19 +121,17 @@ SC, Oct, 31, 11:00, PM, Nov,  1,  1:30, AM, Karaoke at Bliss (not at SC)\
 "
 ];
 
+
+//I had this as test data at some point:
+// export let bandInfo = [
+// ["xtest11", "genre1", "This band is from wherever.", ["https://www.metal-archives.com/bands/emperor/30"]],
+
 export let bandInfo = [
-    ["xtest11", "genre1", "This band is from wherever.", ["https://www.metal-archives.com/bands/emperor/30"]],
-    ["xtest12", "genre2"],
-    ["xtest24", "genre three"],
-    ["xtest13 NoGenre"],
-    ["xtest7", "genre"],
-    ["xtest13 ONE"],
-    ["xtestNoGenre"],
     ["After the Burial", "prog"],
     ["At the Gates", "death"],
     ["Bleeding Through", "core"],
     ["Chimaira", "Groove core"],
-    ["Coimedy", "Comedy"],
+    ["Comedy", "Comedy"],
     ["Corrosion of Conformity", "Sludge Southern"],
     ["Currents", "core"],
     ["Exodus", "Thrash"],
@@ -147,12 +145,28 @@ export let bandInfo = [
     ["Lamb of God", "core"],
     ["Dethklok", "death"],
     ["Mark Morton", "solo band"],
-    ["Shayne Smith", "comedy"],
-    ["Mike Abrusci", "comedy"],
-    ["Jose Mangin", "metal dude"],
-    ["Riki Ratchman", "metal dude"],
-    ["xtest25"],
-    ["xtest66"]
+    ["Toast/Photo", ""],
+    ["Yoga", ""],
+    ["Battle Jacket Showdown", ""],
+    ["Carcass", ""],
+    ["Coffee with Willie", ""],
+    ["Drum-off w/ Art Cruz", ""],
+    ["Mark Morton w/ Riki", ""],
+    ["Mosh Pit Bootcamp", ""],
+    ["Randy Blythe w/ Riki", ""],
+    ["Trivia w/Jose", ""],
+    ["Comedy w/ Smith/Abrusci", ""],
+    ["OFIT Galley w/ Riki", ""],
+    ["Puerta Plata", ""],
+    ["Battleshots Tournament", ""],
+    ["Costume Contest", ""],
+    ["DJ Art Cruz", ""],
+    ["Karaoke at Bliss (not at SC)", ""],
+    ["Liquid Metal w/ Jose Mangin", ""],
+    ["Mosh Bootcamp", ""],
+    ["Zetro's Podcast", ""],
+    ["Bingo w/ Riki/Leah", ""],
+    ["Mark Morton Solo Band", ""]
 ];
 
 export let storedVersion = "_hbb_v6";

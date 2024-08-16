@@ -3,6 +3,7 @@ Notes
 TODO:
 animations
 back button should close overlay
+I think the top needs to be lower sometimes
 
 
 in progress:
