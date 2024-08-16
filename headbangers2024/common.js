@@ -43,7 +43,7 @@ export let schedule = [
 PO, Oct, 28,  5:30, PM, Oct, 28,  6:00, PM, Toast/Photo \n\
 PO, Oct, 28,  6:00, PM, Oct, 28,  7:00, PM, Exodus \n\
 PO, Oct, 28,  8:30, PM, Oct, 28,  9:30, PM, Dethklok \n\
-PO, Oct, 28, 11:00, PM, Oct, 29, 12:00, AM, Chimaria \n\
+PO, Oct, 28, 11:00, PM, Oct, 29, 12:00, AM, Chimaira \n\
 ST, Oct, 28,  7:15, PM, Oct, 28,  8:15, PM, Napalm Death \n\
 ST, Oct, 28,  9:45, PM, Oct, 28, 10:45, PM, Soulfly \n\
 ST, Oct, 29, 12:15, AM, Oct, 29,  1:15, AM, Poison the Well \n\
@@ -98,15 +98,26 @@ SC, Oct, 30, 11:30, PM, Oct, 31, 12:30, AM, Napalm Death\
 "
 ,
 "\
-, Oct, 31, :, PM, Oct, 31, :, PM, \n\
-, Oct, 31, :, PM, Oct, 31, :, PM, \n\
-, Oct, 31, :, PM, Oct, 31, :, PM, \n\
-, Oct, 31, :, PM, Oct, 31, :, PM, \n\
-, Oct, 31, :, PM, Oct, 31, :, PM, \n\
-, Oct, 31, :, PM, Oct, 31, :, PM, \n\
-, Oct, 31, :, PM, Oct, 31, :, PM, \n\
-, Oct, 31, :, PM, Oct, 31, :, PM, \n\
-, Oct, 31, :, PM, Oct, 31, :, PM, \n\
+PO, Oct, 31, 10:00, AM, Oct, 31, 11:00, AM, Yoga\n\
+PO, Oct, 31,  1:45, PM, Oct, 31,  2:45, PM, After the Burial\n\
+PO, Oct, 31,  4:15, PM, Oct, 31,  5:15, PM, Corrosion of Conformity\n\
+PO, Oct, 31,  6:45, PM, Oct, 31,  7:45, PM, Poison the Well\n\
+PO, Oct, 31,  9:15, PM, Oct, 31, 10:15, PM, Carcass\n\
+ST, Oct, 31, 12:45, PM, Oct, 31,  1:45, PM, Zetro's Podcast\n\
+ST, Oct, 31,  5:30, PM, Oct, 31,  6:30, PM, Liquid Metal w/ Jose Mangin\n\
+ST, Oct, 31,  8:00, PM, Oct, 31,  9:00, PM, Dethklok\n\
+ST, Oct, 31, 10:30, PM, Oct, 31, 11:30, PM, Chimaira\n\
+AT, Oct, 31,  2:30, PM, Oct, 31,  3:30, PM, Eyehategod\n\
+AT, Oct, 31,  4:45, PM, Oct, 31,  5:45, PM, Currents\n\
+AT, Oct, 31,  6:45, PM, Oct, 31,  7:45, PM, Costume Contest\n\
+AT, Oct, 31,  8:45, PM, Oct, 31,  9:45, PM, Bleeding Through\n\
+AT, Oct, 31, 10:30, PM, Oct, 31, 11:30, PM, Mark Morton Solo Band\n\
+AT, Nov,  1, 12:30, AM, Nov,  1,  1:30, AM, DJ Art Cruz\n\
+SC, Oct, 31,  9:00, AM, Oct, 31, 10:00, AM, Mosh Bootcamp\n\
+SC, Oct, 31,  3:00, PM, Oct, 31,  4:00, PM, Battleshots Tournament\n\
+SC, Oct, 31,  5:30, PM, Oct, 31,  6:30, PM, UnityTX\n\
+SC, Oct, 31,  8:00, PM, Oct, 31,  9:00, PM, Frozen Soul\n\
+SC, Oct, 31, 11:00, PM, Nov,  1,  1:30, AM, Karaoke at Bliss (not at SC)\
 "
 ];
 
@@ -122,6 +133,7 @@ export let bandInfo = [
     ["At the Gates", "death"],
     ["Bleeding Through", "core"],
     ["Chimaira", "Groove core"],
+    ["Coimedy", "Comedy"],
     ["Corrosion of Conformity", "Sludge Southern"],
     ["Currents", "core"],
     ["Exodus", "Thrash"],

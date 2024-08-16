@@ -199,7 +199,7 @@
 
         function addToEventNameToEventsMap(event) {
             if (bandToBandInfo.get(event.name) == null) {
-                alert("Someone tell Donut to add bandInfo entry for \n" + event.name);
+                console.log("Missing bandInfo entry for \n" + event.name);
             }
             let events = eventNameToEvents.get(event.name);
             if (events == null) {
