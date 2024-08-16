@@ -1099,7 +1099,8 @@
                 var labelRect = lastLabel.getBoundingClientRect();
                 var searchOverlayRect = searchResults.getBoundingClientRect();
                 let lastLabelBottom = lastLabel.getBoundingClientRect().bottom;
-                let top = window.innerHeight - labelHeight - 150;
+                let top = window.innerHeight - labelHeight - 110;
+                console.log("searchResults.style.top = " + top);
                 searchResults.style.top = top;
             }
 

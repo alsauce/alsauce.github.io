@@ -3,8 +3,6 @@ Notes
 TODO:
 animations
 back button should close overlay
-I think the top needs to be lower sometimes
-
 
 in progress:
 
@@ -56,6 +54,7 @@ figure out extra scroll length on schedule - it was drawing current time on each
 an interval refresh scrolls to 0 for whatever day we're on
 some scrolling wackyness on overlay to fix
 iphone some text might be too long, like with 2 genres and stuff
+I think the top needs to be lower sometimes
 
 alpha: got removed
 when going from alpha to schedule, set the value needed in the localStorage
