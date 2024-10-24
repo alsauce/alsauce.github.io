@@ -27,6 +27,12 @@
     <script type="module">
 
         import * as common from '/headbangers2024/common.js';
+        
+        //Current time will be shown if it is newer than the storedTime.  Uncomment the old time when testing is done.
+        //also, test this before since it was busted once
+        var storedTime = common.getDateTime("2000", "Oct", "29", "12:02", "AM");
+        //Set this to see current time on the schedule wherever for testing
+        //export let storedTime = getDateTime("2024", "Oct", "30", "10:04", "PM");
 
         let day = 1;
         let yVenueHeight = 150;
@@ -394,7 +400,7 @@
 
         function getPercentThroughDay(start, end) {
             let totalTimeForDay = end.getTime() - start.getTime();
-            let timePastStart = common.storedTime.getTime() - start.getTime();
+            let timePastStart = storedTime.getTime() - start.getTime();
 
             let percentThroughDay = (timePastStart / totalTimeForDay) * 100;
             return percentThroughDay;
@@ -405,15 +411,15 @@
             let schedule = document.getElementById("schedule");
             let currentTime = new Date();
 
-            if (currentTime > common.storedTime) {
-                common.storedTime = currentTime;
+            if (currentTime > storedTime) {
+                storedTime = currentTime;
             }
 
             if (theDayThatTheCurrentTimeIsOn == null || theDayThatTheCurrentTimeIsOn != day) {
                 return;
             }
 
-            let pixel = getYPixelLocation(earliestStart, common.storedTime);
+            let pixel = getYPixelLocation(earliestStart, storedTime);
 
             let labelCurrentTimeNumber = document.createElement('label');
             labelCurrentTimeNumber.style.position = 'absolute';
@@ -423,7 +429,7 @@
             labelCurrentTimeNumber.style.width = xBlockWidth;
             labelCurrentTimeNumber.style.height = yTimeHourHeight;
 
-            labelCurrentTimeNumber.textContent = getTimeString(common.storedTime);
+            labelCurrentTimeNumber.textContent = getTimeString(storedTime);
             labelCurrentTimeNumber.style.font = fontCurrentTime;
             labelCurrentTimeNumber.style.background = colorCurrentTimeNumberBackground;
             labelCurrentTimeNumber.style.color = colorCurrentTimeNumber;
@@ -620,7 +626,7 @@
             let minutes = date.getMinutes();
 
             let minutesString = minutes < 10 ? "0" + minutes : minutes;
-            let hours = common.storedTime.getHours();
+            let hours = storedTime.getHours();
             let hourString = date.getHours() % 12 || 12;
             return hourString + ":" + minutesString;
         }
@@ -819,12 +825,12 @@
         function goToNow() {
             for (var dayIter = 1; dayIter <= 4; dayIter++) {
                 let data = dayToData.get(dayIter);
-                if (data.earliestStart < common.storedTime && data.latestEnd > common.storedTime) {
+                if (data.earliestStart < storedTime && data.latestEnd > storedTime) {
                     localStorage.setItem(common.storedDayKey, dayIter);
 
                     dayToScrollTop.set(day, document.body.scrollTop);
 
-                    let scrollToLocation = getYPixelLocation(data.earliestStart, common.storedTime);
+                    let scrollToLocation = getYPixelLocation(data.earliestStart, storedTime);
 
                     scrollGoToYCoord = scrollToLocation - 200
                     redrawEverything();

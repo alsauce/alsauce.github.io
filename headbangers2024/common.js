@@ -1,7 +1,3 @@
-//Current time will be shown if it is newer than the storedTime.  Uncomment the old time when testing is done.
-//export let storedTime = getDateTime("2000", "Oct", "29", "12:02", "AM");
-//Set this to see current time on the schedule wherever for testing
-export let storedTime = getDateTime("2024", "Oct", "30", "10:04", "PM");
 
 export let locations = [
     {
