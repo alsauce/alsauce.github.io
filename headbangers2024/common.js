@@ -40,8 +40,8 @@ export let year = 2024;
 
 export let schedule = [
 "\
-PO, Oct, 28,  5:30, PM, Oct, 28,  6:00, PM, Toast/ Photo \n\
-PO, Oct, 28,  6:00, PM, Oct, 28,  7:00, PM, Exodus \n\
+PO, Oct, 28,  6:00, PM, Oct, 28,  6:15, PM, Toast/ Photo \n\
+PO, Oct, 28,  6:15, PM, Oct, 28,  7:15, PM, Exodus \n\
 PO, Oct, 28,  8:30, PM, Oct, 28,  9:30, PM, Dethklok \n\
 PO, Oct, 28, 11:00, PM, Oct, 29, 12:00, AM, Chimaira \n\
 ST, Oct, 28,  7:15, PM, Oct, 28,  8:15, PM, Napalm Death \n\
@@ -70,6 +70,7 @@ AT, Oct, 29,  5:15, PM, Oct, 29,  6:15, PM, C.O.C. \n\
 AT, Oct, 29,  7:15, PM, Oct, 29,  8:45, PM, Battle Jacket Show- down \n\
 AT, Oct, 30, 12:00, AM, Oct, 30,  1:00, AM, Exodus \n\
 SP, Oct, 29,  9:30, AM, Oct, 29, 10:30, AM, Coffee with Willie \n\
+SP, Oct, 29, 11:30, AM, Oct, 29, 12:30, PM, Mental Health Toolkit \n\
 SP, Oct, 29,  1:30, PM, Oct, 29,  2:30, PM, Mark Morton w/ Riki \n\
 SP, Oct, 29,  4:30, PM, Oct, 29,  5:30, PM, Trivia w/Jose \n\
 SC, Oct, 29,  9:00, AM, Oct, 29, 10:00, AM, Mosh Pit Boot- camp \n\
@@ -87,10 +88,10 @@ PO, Oct, 30, 10:00, PM, Oct, 30, 11:15, PM, Lamb of God\n\
 ST, Oct, 30,  6:15, PM, Oct, 30,  7:15, PM, Exodus \n\
 ST, Oct, 30,  8:45, PM, Oct, 30,  9:45, PM, Dethklok\n\
 ST, Oct, 30, 11:30, PM, Oct, 31, 12:30, AM, Carcass\n\
-AT, Oct, 30,  6:30, PM, Oct, 30,  7:30, PM, UnityTX\n\
+AT, Oct, 30,  6:30, PM, Oct, 30,  7:30, PM, Poison the Well\n\
 AT, Oct, 30,  8:45, PM, Oct, 30,  9:45, PM, EHG\n\
-AT, Oct, 31, 12:45, AM, Oct, 31,  1:45, AM, Poison the Well\n\
-SP, Oct, 30,  7:15, PM, Oct, 30,  8:15, PM, OFIT Galley w/ Riki\n\
+AT, Oct, 31, 12:45, AM, Oct, 31,  1:45, AM, UnityTX\n\
+SP, Oct, 30,  7:15, PM, Oct, 30,  8:15, PM, Riki Rachtman Spoken Word\n\
 SP, Oct, 30, 11:30, PM, Oct, 31, 12:30, AM, Comedy w/ Smith/ Abrusci\n\
 SC, Oct, 30,  6:15, PM, Oct, 30,  7:15, PM, Currents\n\
 SC, Oct, 30,  8:45, PM, Oct, 30,  9:45, PM, Frozen Soul\n\
@@ -113,6 +114,7 @@ AT, Oct, 31,  6:45, PM, Oct, 31,  7:45, PM, Costume Contest\n\
 AT, Oct, 31,  8:45, PM, Oct, 31,  9:45, PM, Bleeding Through\n\
 AT, Oct, 31, 10:30, PM, Oct, 31, 11:30, PM, Mark Morton Solo Band\n\
 AT, Nov,  1, 12:30, AM, Nov,  1,  1:30, AM, DJ Art Cruz\n\
+SP, Oct, 31, 11:30, AM, Oct, 31, 12:30, PM, Mental Health Toolkit\n\
 SC, Oct, 31,  9:00, AM, Oct, 31, 10:00, AM, Mosh Pit Boot- camp\n\
 SC, Oct, 31,  3:00, PM, Oct, 31,  4:00, PM, Battle shots Tourn- ament\n\
 SC, Oct, 31,  5:30, PM, Oct, 31,  6:30, PM, UnityTX\n\
@@ -150,6 +152,8 @@ export let bandInfo = [
     ["Drum-off w/ Art Cruz", "other"],
     ["Mark Morton w/ Riki", "other"],
     ["Randy Blythe w/ Riki", "other"],
+    ["Riki Rachtman Spoken Word", "other"],
+    ["Mental Health Toolkit", "other"],
     ["Trivia w/Jose", "other"],
     ["Comedy w/ Smith/ Abrusci", "comedy"],
     ["OFIT Galley w/ Riki", "other"],
