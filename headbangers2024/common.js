@@ -37,15 +37,15 @@ export let year = 2024;
 export let schedule = [
 "\
 PO, Oct, 28,  6:00, PM, Oct, 28,  6:15, PM, Toast/ Photo \n\
-PO, Oct, 28,  6:15, PM, Oct, 28,  7:15, PM, Exodus \n\
-PO, Oct, 28, 11:00, PM, Oct, 29, 12:00, AM, Chimaira \n\
-ST, Oct, 28,  7:15, PM, Oct, 28,  8:15, PM, Napalm Death \n\
-ST, Oct, 28,  9:45, PM, Oct, 28, 10:45, PM, Soulfly \n\
-ST, Oct, 29, 12:15, AM, Oct, 29,  1:15, AM, Poison the Well \n\
+PO, Oct, 28,  6:45, PM, Oct, 28,  7:45, PM, Exodus \n\
+PO, Oct, 28, 9:00, PM, Oct, 28, 10:00, PM, Chimaira \n\
+ST, Oct, 28,  7:45, PM, Oct, 28,  8:45, PM, Napalm Death \n\
+ST, Oct, 28,  10:15, PM, Oct, 28, 11:15, PM, Soulfly \n\
+ST, Oct, 29, 12:45, AM, Oct, 29,  1:45, AM, Poison the Well \n\
 AT, Oct, 28,  3:00, PM, Oct, 28,  4:00, PM, C.O.C. \n\
-AT, Oct, 28,  7:15, PM, Oct, 28,  8:15, PM, Bleeding Through \n\
-AT, Oct, 28,  9:45, PM, Oct, 28, 10:45, PM, Frozen Soul \n\
-SP, Oct, 29, 12:15, AM, Oct, 29,  1:15, AM, Comedy w/ Smith/ Abrusci \n\
+AT, Oct, 28,  7:45, PM, Oct, 28,  8:45, PM, Bleeding Through \n\
+AT, Oct, 28,  10:15, PM, Oct, 28, 11:15, PM, Frozen Soul \n\
+SP, Oct, 28, 11:30, AM, Oct, 29,  12:30, AM, Comedy w/ Smith/ Abrusci \n\
 SC, Oct, 28,  7:15, PM, Oct, 28,  8:15, PM, Currents \n\
 SC, Oct, 28,  9:45, PM, Oct, 28, 10:45, PM, Unearth \
 "
