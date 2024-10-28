@@ -4,13 +4,13 @@ export let locations = [
         abbrev: "PO",
         fullName: "Pool Deck",
         location: "12 mid",
-        note: "test1"
+        note: ""
     },
     {
         abbrev: "ST",
         fullName: "Stardust",
         location: "6,7 fwd",
-        note: "test 2"
+        note: ""
     },
     {
         abbrev: "AT",
