@@ -117,6 +117,8 @@
             dayToData = new Map();
             percentPastStartForCurrentDay = null;
             theDayThatTheCurrentTimeIsOn = null;
+            storedTime = new Date();
+
             primeBandToBandInfo();
             for (var dayIndex = 0; dayIndex < common.schedule.length; dayIndex++) {
                 let currentEvents = common.schedule[dayIndex];
