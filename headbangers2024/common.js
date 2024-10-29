@@ -51,6 +51,7 @@ SC, Oct, 28,  9:45, PM, Oct, 28, 10:45, PM, Unearth \
 "
 ,
 "\
+PO, Oct, 29, 10:30, AM, Oct, 29, 11:00, AM, TEST (Summer Palace) \n\
 PO, Oct, 29,  4:30, PM, Oct, 29,  5:30, PM, Napalm Death \n\
 PO, Oct, 29,  6:45, PM, Oct, 29,  7:45, PM, Bleeding Through \n\
 PO, Oct, 29,  9:30, PM, Oct, 29, 10:45, PM, Lamb of God \n\
