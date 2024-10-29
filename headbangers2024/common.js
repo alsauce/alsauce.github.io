@@ -62,7 +62,7 @@ ST, Oct, 29,  7:45, PM, Oct, 29,  8:45, PM, Chimaira \n\
 ST, Oct, 29, 11:00, PM, Oct, 30, 12:00, AM, Carcass \n\
 AT, Oct, 29,  2:45, PM, Oct, 29,  3:45, PM, UnityTX \n\
 AT, Oct, 29,  5:15, PM, Oct, 29,  6:15, PM, C.O.C. \n\
-AT, Oct, 29,  7:15, PM, Oct, 29,  8:45, PM, Battle Jacket Show- down \n\
+AT, Oct, 29,  7:15, PM, Oct, 29,  8:15, PM, Battle Jacket Show- down \n\
 AT, Oct, 30, 12:00, AM, Oct, 30,  1:00, AM, Exodus \n\
 SP, Oct, 29,  9:30, AM, Oct, 29, 10:30, AM, Coffee with Willie \n\
 SP, Oct, 29, 11:30, AM, Oct, 29, 12:30, PM, Mental Health Toolkit \n\
