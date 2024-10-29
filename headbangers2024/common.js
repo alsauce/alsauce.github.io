@@ -70,8 +70,8 @@ SP, Oct, 29,  1:30, PM, Oct, 29,  2:30, PM, Mark Morton w/ Riki \n\
 SP, Oct, 29,  4:30, PM, Oct, 29,  5:30, PM, Trivia w/Jose \n\
 SC, Oct, 29,  9:00, AM, Oct, 29, 10:00, AM, Mosh Pit Boot- camp \n\
 SC, Oct, 29, 10:30, AM, Oct, 29, 11:30, AM, Yoga \n\
-SC, Oct, 29,  5:15, PM, Oct, 29,  6:15, PM, Unearth \n\
-SC, Oct, 29,  7:45, PM, Oct, 29,  8:45, PM, EHG \
+SP, Oct, 29, 11:30, PM, Oct, 30, 12:30, AM, Unearth \n\
+SP, Oct, 29,  7:45, PM, Oct, 29,  8:45, PM, EHG \
 "
 ,
 "\
