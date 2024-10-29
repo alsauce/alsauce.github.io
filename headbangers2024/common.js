@@ -16,7 +16,7 @@ export let locations = [
         abbrev: "AT",
         fullName: "Atrium",
         location: "7,8 mid",
-        note: ""
+        note: "8 is O\'Sheehan\'s"
     },
     {
         abbrev: "SP",
@@ -28,7 +28,7 @@ export let locations = [
         abbrev: "SC",
         fullName: "Sports Court",
         location: "13 aft",
-        note: ""
+        note: "no aft elevator access, above outdoor eating"
     }
 ];
 
@@ -71,7 +71,7 @@ SP, Oct, 29,  4:30, PM, Oct, 29,  5:30, PM, Trivia w/Jose \n\
 SC, Oct, 29,  9:00, AM, Oct, 29, 10:00, AM, Mosh Pit Boot- camp \n\
 SC, Oct, 29, 10:30, AM, Oct, 29, 11:30, AM, Yoga \n\
 SC, Oct, 29,  5:15, PM, Oct, 29,  6:15, PM, Unearth \n\
-SC, Oct, 29, 11:00, PM, Oct, 30, 12:00, AM, EHG \
+SC, Oct, 29,  7:45, PM, Oct, 29,  8:45, PM, EHG \
 "
 ,
 "\
