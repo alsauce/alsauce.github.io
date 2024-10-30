@@ -29,6 +29,12 @@ export let locations = [
         fullName: "Sports Court",
         location: "13 aft",
         note: "no aft elevator access, above outdoor eating"
+    },
+    {
+        abbrev: "MA",
+        fullName: "Magnums",
+        location: "6 mid",
+        note: ""
     }
 ];
 
@@ -76,20 +82,19 @@ SP, Oct, 29,  7:45, PM, Oct, 29,  8:45, PM, EHG \
 ,
 "\
 PO, Oct, 30,  7:00, AM, Oct, 30,  4:30, PM, Puerta Plata\n\
-PO, Oct, 30,  5:00, PM, Oct, 30,  6:00, PM, Soulfly\n\
-PO, Oct, 30,  7:15, PM, Oct, 30,  8:15, PM, Unearth\n\
-PO, Oct, 30, 10:00, PM, Oct, 30, 11:15, PM, Lamb of God\n\
-ST, Oct, 30,  6:15, PM, Oct, 30,  7:15, PM, Exodus \n\
-ST, Oct, 30,  8:45, PM, Oct, 30,  9:45, PM, Dethklok\n\
-ST, Oct, 30, 11:30, PM, Oct, 31, 12:30, AM, Carcass\n\
-AT, Oct, 30,  6:30, PM, Oct, 30,  7:30, PM, Poison the Well\n\
-AT, Oct, 30,  8:45, PM, Oct, 30,  9:45, PM, EHG\n\
-AT, Oct, 31, 12:45, AM, Oct, 31,  1:45, AM, UnityTX\n\
-SP, Oct, 30,  7:15, PM, Oct, 30,  8:15, PM, Riki Rachtman Spoken Word\n\
+PO, Oct, 30,  5:30, PM, Oct, 30,  6:45, PM, Lamb of God\n\
+ST, Oct, 30,  7:15, PM, Oct, 30,  8:15, PM, Soulfly \n\
+ST, Oct, 30, 10:00, PM, Oct, 30, 11:00, PM, Dethklok\n\
+ST, Oct, 31, 12:45, AM, Oct, 31,  1:45, AM, Carcass\n\
+AT, Oct, 30,  4:00, PM, Oct, 30,  5:00, PM, Unearth\n\
+AT, Oct, 30,  7:00, PM, Oct, 30,  8:00, PM, Poison the Well\n\
+AT, Oct, 30,  9:00, PM, Oct, 30, 10:00, PM, EHG\n\
+AT, Oct, 30, 11:30, PM, Oct, 31, 12:30, AM, UnityTX\n\
+SP, Oct, 30,  8:45, PM, Oct, 30,  9:45, PM, Riki Rachtman Spoken Word\n\
 SP, Oct, 30, 11:30, PM, Oct, 31, 12:30, AM, Comedy w/ Smith/ Abrusci\n\
-SC, Oct, 30,  6:15, PM, Oct, 30,  7:15, PM, Currents\n\
-SC, Oct, 30,  8:45, PM, Oct, 30,  9:45, PM, Frozen Soul\n\
-SC, Oct, 30, 11:30, PM, Oct, 31, 12:30, AM, Napalm Death\
+MA, Oct, 30,  8:00, PM, Oct, 30,  9:00, PM, Currents\n\
+MA, Oct, 30, 10:15, PM, Oct, 30, 11:15, PM, Frozen Soul\n\
+MA, Oct, 31, 12:30, AM, Oct, 31,  1:30, AM, Napalm Death\
 "
 ,
 "\
