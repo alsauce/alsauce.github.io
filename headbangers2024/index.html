@@ -964,7 +964,7 @@
 
                         let searchResultLabel = document.createElement("label");
                         searchResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
-                        let searchResultLabelText = "Day " + event.day + ", " + event.startTime + "-" + event.endTime + " " + event.endAMPM;
+                        let searchResultLabelText = "Day " + event.day + ", " + event.startTime + "-" + event.endTime + " " + event.endAMPM + ", " + event.location;
                         if (eventThatWasClicked != null && event.id == eventThatWasClicked.id) {
                             searchResultLabel.style.color = "yellow";
                             searchResultLabelText = searchResultLabelText;
