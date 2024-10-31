@@ -98,15 +98,15 @@ MA, Oct, 31, 12:30, AM, Oct, 31,  1:30, AM, Napalm Death\
 "
 ,
 "\
-PO, Oct, 31, 10:00, AM, Oct, 31, 11:00, AM, Yoga\n\
+PO, Oct, 31,  1:45, PM, Oct, 31,  2:45, PM, EHG\n\
 PO, Oct, 31,  4:15, PM, Oct, 31,  5:15, PM, C.O.C.\n\
 PO, Oct, 31,  6:45, PM, Oct, 31,  7:45, PM, Poison the Well\n\
 PO, Oct, 31,  9:15, PM, Oct, 31, 10:15, PM, Carcass\n\
-ST, Oct, 31, 12:45, PM, Oct, 31,  1:45, PM, Zetro's Podcast\n\
-ST, Oct, 31,  5:30, PM, Oct, 31,  6:30, PM, Liquid Metal w/ Jose Mangin\n\
+ST, Oct, 31, 12:45, PM, Oct, 31,  1:45, PM, Liquid Metal w/ Jose Mangin\n\
+ST, Oct, 31,  5:30, PM, Oct, 31,  6:30, PM, Exodus\n\
 ST, Oct, 31,  8:00, PM, Oct, 31,  9:00, PM, Dethklok\n\
 ST, Oct, 31, 10:30, PM, Oct, 31, 11:30, PM, Chimaira\n\
-AT, Oct, 31,  2:30, PM, Oct, 31,  3:30, PM, EHG\n\
+AT, Oct, 31,  2:45, PM, Oct, 31,  3:45, PM, UnityTX\n\
 AT, Oct, 31,  4:45, PM, Oct, 31,  5:45, PM, Currents\n\
 AT, Oct, 31,  6:45, PM, Oct, 31,  7:45, PM, Costume Contest\n\
 AT, Oct, 31,  8:45, PM, Oct, 31,  9:45, PM, Bleeding Through\n\
@@ -114,10 +114,11 @@ AT, Oct, 31, 10:30, PM, Oct, 31, 11:30, PM, Mark Morton Solo Band\n\
 AT, Nov,  1, 12:30, AM, Nov,  1,  1:30, AM, DJ Art Cruz\n\
 SP, Oct, 31, 11:30, AM, Oct, 31, 12:30, PM, Mental Health Toolkit\n\
 SC, Oct, 31,  9:00, AM, Oct, 31, 10:00, AM, Mosh Pit Boot- camp\n\
-SC, Oct, 31,  3:00, PM, Oct, 31,  4:00, PM, Battle shots Tourn- ament\n\
-SC, Oct, 31,  5:30, PM, Oct, 31,  6:30, PM, UnityTX\n\
-SC, Oct, 31,  8:00, PM, Oct, 31,  9:00, PM, Frozen Soul\n\
-SC, Oct, 31, 11:00, PM, Nov,  1,  1:30, AM, Karaoke at Bliss (not at SC)\
+SC, Oct, 31, 10:45, AM, Oct, 31, 11:45, AM, Yoga\n\
+MA, Oct, 31, 10:30, AM, Oct, 31,  1:00, PM, Guitar Hero\n\
+MA, Oct, 31,  3:00, PM, Oct, 31,  4:00, PM, Battle shots Tourn- ament\n\
+MA, Oct, 31,  8:00, PM, Oct, 31,  9:00, PM, Frozen Soul\n\
+MA, Oct, 31, 11:00, PM, Nov,  1,  1:30, AM, Karaoke at Bliss (not at SC)\
 "
 ];
 
