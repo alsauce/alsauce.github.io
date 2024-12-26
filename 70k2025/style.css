@@ -1,0 +1,123 @@
+html {
+  background-color: black;
+}
+
+body {
+  margin: 0;
+  background-color: black;
+}
+
+.top {
+  overflow: hidden;
+  background-color: black;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 50px;
+  z-index: 100;
+}
+
+.bottom {
+  overflow: hidden;
+  background-color: black;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 50px;
+  z-index: 100;
+}
+
+.schedule {
+  background-color: black;
+}
+
+
+.button {
+  border: none;
+  text-align: center;
+  padding-left: 0;
+  padding: 0px;
+  color: black;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 50px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  height: 150px;
+  width: "16%";
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.overlay {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 15px;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+}
+
+.overlay-content {
+  background-color: hsla(0, 100%, 0%, 1);
+  border: 1px solid #888;
+  width: 95%;
+  border-radius: 12px;
+  overflow-y: auto;
+  position: fixed;
+  z-index: 1500;
+  max-height: 95%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 80px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@keyframes disappearAnimation {
+  0% {
+    opacity: 1;
+    /* Start with full opacity */
+  }
+
+  100% {
+    opacity: 0;
+    /* End with no opacity */
+    display: none;
+    /* Hide the box when animation ends */
+  }
+}
+
+@keyframes disappearAnimation2 {
+  0% {
+    opacity: 0;
+    /* Start with full opacity */
+  }
+
+  100% {
+    opacity: 1;
+    /* End with no opacity */
+  }
+}
+
+.info {
+  color: lightgrey;
+  font: 25px serif;
+}
