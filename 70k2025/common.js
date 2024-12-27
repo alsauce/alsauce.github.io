@@ -59,10 +59,6 @@ SL, Feb,  3,  4:15, AM, Feb,  3,  5:00, AM, Test7 \
 ];
 
 
-//I had this as test data at some point:
-// export let bandInfo = [
-// ["xtest11", "genre1", "This band is from wherever.", ["https://www.metal-archives.com/bands/emperor/30"]],
-
 export let bandInfo = [
     ["Test1", "prog"],
     ["Test3", "core"],

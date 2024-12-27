@@ -1,0 +1,7 @@
+
+
+
+Enable my notes
+
+Done:
+Maybe fixed offline by adding timeout and error handling in service-worker.js (signal: AbortSignal.timeout(2000))
