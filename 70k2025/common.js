@@ -60,7 +60,7 @@ SL, Feb,  3,  4:15, AM, Feb,  3,  5:00, AM, Test7 \
 
 
 export let bandInfo = [
-    ["Test1", "prog"],
+    ["Test1", "prog", "my note"],
     ["Test3", "core"],
     ["TestX", "black"]
 ];

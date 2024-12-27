@@ -34,6 +34,8 @@
         //Set this to see current time on the schedule wherever for testing
         //export let storedTime = getDateTime("2025", "Feb", "31", "10:04", "PM");
 
+        let isMyNotesEnabled = false;
+
         let day = 1;
         let yVenueHeight = 150;
         let yTopHeight = yVenueHeight;
@@ -106,8 +108,7 @@
                 let band = bands[i];
                 bandToBandInfo.set(band[0], {
                     genre: band[1],
-                    info: band[2],
-                    links: band[3]
+                    info: band[2]
                 });
             }
         }
@@ -556,8 +557,13 @@
 
                 let bandInfo = bandToBandInfo.get(event.name);
                 let genreText = "";
+                let myNotesText = "";
                 if (bandInfo != null && bandInfo != "undefined" && bandInfo.genre != null && bandInfo.genre != "") {
                     genreText = bandInfo.genre + "<br>";
+                    if (isMyNotesEnabled && bandInfo.info != null && bandInfo.info != "")
+                    {
+                        myNotesText = bandInfo.info;
+                    }
                 }
                 let goingInd = localStorage.getItem(common.getGoingKey(event));
                 if (goingInd == null) {
@@ -565,6 +571,11 @@
                 }
 
                 let text = "<b>" + event.name + "</b><br><i>" + genreText + "</i>" + getTimeString(startDate) + "-" + getTimeString(endDate);
+
+                if (isMyNotesEnabled && myNotesText != "")
+                {
+                    text += "<br>" + myNotesText;
+                }
 
                 let eventAppendText = localStorage.getItem(getEventAppendTextId(event.id));
                 if (eventAppendText) {
@@ -860,6 +871,7 @@
             schedule.style.overflow = "hidden";
 
             const query = searchInput.value.trim();
+
             const results = search(query);
             dayToScrollTop.set(day, document.body.scrollTop);
 
@@ -880,6 +892,14 @@
         }
 
         function search(query) {
+            if (query === "enable my notes")
+            {
+                isMyNotesEnabled = true;
+            }
+            if (query === "disable my notes")
+            {
+                isMyNotesEnabled = false;
+            }
             const regex = new RegExp(query, 'i');
 
             let eventTexts = [];
@@ -893,6 +913,10 @@
                 }
                 else {
                     eventText += ", " + "No Genre Found";
+                }
+                if (isMyNotesEnabled && value.info != null)
+                {
+                    eventText += ", " + value.info;
                 }
                 eventTexts.push(eventText);
 
