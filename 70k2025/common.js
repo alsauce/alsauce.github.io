@@ -65,7 +65,7 @@ export let bandInfo = [
     ["TestX", "black"]
 ];
 
-export let storedVersion = "_70k_v1";
+export let storedVersion = "_70k25_v1";
 export let storedDelayKey = "storedDelay" + year + storedVersion;
 export let storedDayKey = "storedDay" + year + storedVersion;
 //export let storedScrollToKey = "storedStoredScrollToKey" + year + storedVersion;
