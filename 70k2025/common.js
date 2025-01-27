@@ -70,13 +70,18 @@ export let bandInfo = [
     ["Cabrakaan", "folk", ""],
     ["Candlemass", "doom", ""],
     ["Crownshift", "power", "Y"],
+    ["Decapitated", "tech", ""],
     ["Delaine", "symph rock", "Y FL"],
     ["Destinity", "black", ""],
+    ["Dread Crew of Oddwood", "folk", ""],
     ["Emperor", "Symph Black", "Y"],
     ["Ex Deo", "symph death", "YY"],
     ["Fabulae Dramatis", "prog avant", ""],
     ["Finntroll", "black folk", "nmt"],
     ["Flotsam Jetsam", "power thrash", "nmt"],
+    ["Fractal Sun", "prog", "Y F"],
+    ["HammerFall", "", ""],
+    ["Hate", "death", ""],
     ["Ihsahn", "prog", "Y"],
     ["In Extremo", "folk", ""],
     ["Incantation", "death", ""],
@@ -85,10 +90,12 @@ export let bandInfo = [
     ["Krisiun", "death", "YY"],
     ["Lutharo", "power", "FL"],
     ["Majestica", "symph power", ""],
+    ["Matalobos", "doom", ""],
     ["Metsatoll", "folk", ""],
     ["Mork", "black", "Y"],
     ["Onslaught", "thrash", "nmt"],
     ["Painful", "black death", ""],
+    ["Pessimist", "deatrh", ""],
     ["Powerglove", "power", ""],
     ["Reaping Asmodeia", "melo tech", ""],
     ["Samael", "black indust", "Y"],
@@ -112,7 +119,8 @@ export let bandInfo = [
     ["Trollfest", "folk", "m"],
     ["Trouble", "doom", "nmt"],
     ["Twilight Force", "symph power", "m"],
-    ["Unleash the Archers", "power", "Y nmt"]
+    ["Unleash the Archers", "power", "Y nmt"],
+    ["Warfield", "thrash", ""]
 ];
 
 export let storedVersion = "_70k25_v1";
