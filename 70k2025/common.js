@@ -120,7 +120,10 @@ export let bandInfo = [
     ["Trouble", "doom", "nmt"],
     ["Twilight Force", "symph power", "m"],
     ["Unleash the Archers", "power", "Y nmt"],
-    ["Warfield", "thrash", ""]
+    ["Warfield", "thrash", ""],
+    ["Stormruler", "black", ""],
+    ["Suffocation", "brutal death", ""],
+    ["Dirkschneider", "heavy", ""]
 ];
 
 export let storedVersion = "_70k25_v1";
