@@ -189,7 +189,7 @@ export let bandInfo = [
     ["Finntroll", "black folk", "nmt"],
     ["Flotsam and Jetsam", "power thrash", "nmt"],
     ["Fractal Sun", "prog", "Y F"],
-    ["HammerFall", "", ""],
+    ["HammerFall", "power", ""],
     ["Hate", "death", ""],
     ["Ihsahn", "prog", "Y"],
     ["In Extremo", "folk", ""],
