@@ -235,7 +235,13 @@ export let bandInfo = [
     ["Warfield", "thrash", ""],
     ["Stormruler", "black", ""],
     ["Suffocation", "brutal death", ""],
-    ["Dirkschneider", "heavy", ""]
+    ["Dirkschneider", "heavy", ""],
+    ["Karaoke at Sports Bar", "other", ""],
+    ["Ochos Rios Jamaica", "other", ""],
+    ["All Star Jam", "other", ""],
+    ["Belly Flop at Solarium", "other", ""],
+    ["Karaoke at Solarium", "other", ""],
+    ["Skipper's Thank You", "other", ""]
 ];
 
 export let storedVersion = "_70k25_v1";
