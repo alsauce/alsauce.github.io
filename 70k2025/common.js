@@ -106,7 +106,7 @@ PD, Feb, 1, 10:30, PM, Feb, 1, 11:45, PM, Emperor \n\
 PD, Feb, 2, 12:45, AM, Feb, 2, 1:30, AM, Decapitated \n\
 PD, Feb, 2, 2:15, AM, Feb, 2, 3:00, AM, Delain \n\
 PD, Feb, 2, 3:45, AM, Feb, 2, 4:30, AM, Krisiun \n\
-PD, Feb, 2, 5:15, PM, Feb, 2, 6:00, AM, Hate \n\
+PD, Feb, 2, 5:15, AM, Feb, 2, 6:00, AM, Hate \n\
 RT, Feb, 1, 5:45, PM, Feb, 1, 6:30, PM, Unleash the Archers \n\
 RT, Feb, 1, 7:30, PM, Feb, 1, 8:30, PM, Subway to Sally \n\
 RT, Feb, 1, 9:30, PM, Feb, 1, 10:30, PM, Symphony X \n\
