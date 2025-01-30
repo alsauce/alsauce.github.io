@@ -1,0 +1,128 @@
+RT	Jan	30	18	00	PM	Jan	30	18	45	PM	Twilight Force
+RT	Jan	30	19	30	PM	Jan	30	20	30	PM	Sonata Arctica
+RT	Jan	30	21	15	PM	Jan	30	22	15	PM	Hammerfall
+RT	Jan	30	23	15	PM	Jan	31	24	30	AM	Emperor
+RT	Jan	31	1	15	AM	Jan	31	2	15	AM	Candlemass
+RT	Jan	31	3	00	AM	Jan	31	3	45	AM	Arcturus
+RT	Jan	31	4	30	AM	Jan	31	5	15	AM	Striker
+SB	Jan	30	17	15	PM	Jan	30	18	00	PM	Onslaught
+SB	Jan	30	18	45	PM	Jan	30	19	30	PM	Krisiun
+SB	Jan	30	20	30	PM	Jan	30	21	15	PM	Decapitated
+SB	Jan	30	22	15	PM	Jan	30	23	15	PM	Kalmah
+SB	Jan	31	24	30	AM	Jan	31	1	15	AM	Kissin Dynamite
+SB	Jan	31	2	15	AM	Jan	31	3	00	AM	Septicflesh
+SB	Jan	31	3	45	AM	Jan	31	4	30	AM	Dread Crew of Oddwood
+SB	Jan	31	5	15	AM	Jan	31	6	00	AM	Total Death
+SL	Jan	30	17	15	PM	Jan	30	18	00	PM	Beyond Creation
+SL	Jan	30	18	45	PM	Jan	30	19	30	PM	Fabulae Creation
+SL	Jan	30	20	30	PM	Jan	30	21	15	PM	Thy Antichrist
+SL	Jan	30	22	15	PM	Jan	30	23	00	PM	Reaping Asmodeia
+SL	Jan	31	24	30	AM	Jan	31	1	15	AM	Benighted
+SL	Jan	31	2	15	AM	Jan	31	3	00	AM	Seven Kingdoms
+SL	Jan	31	3	45	AM	Jan	31	4	30	AM	Destiny
+PO	Jan	31	24	00	AM	Jan	31	5	00	AM	Karaoke at Sports Bar
+PO	Jan	31	10	00	AM	Jan	31	10	45	AM	Trollfest
+PO	Jan	31	11	30	AM	Jan	31	12	15	PM	Ex Deo
+PO	Jan	31	13	00	PM	Jan	31	13	45	PM	Crownshaft
+PO	Jan	31	14	30	PM	Jan	31	15	15	PM	Ihsahn
+PO	Jan	31	16	00	PM	Jan	31	17	00	PM	Finntroll
+PO	Jan	31	18	00	PM	Jan	31	19	00	PM	Dirkschneider
+PO	Jan	31	20	00	PM	Jan	31	21	05	PM	Stratovarius
+PO	Jan	31	22	15	PM	Jan	31	23	15	PM	Symphony X
+PO	Feb	1	24	30	AM	Feb	1	1	30	AM	Subway to Sally
+PO	Feb	1	2	15	AM	Feb	1	3	00	AM	Unleash the Archers
+PO	Feb	1	3	45	AM	Feb	1	4	30	AM	Samael
+PO	Feb	1	5	15	AM	Feb	1	6	00	AM	Abysmal Dawn
+RT	Jan	31	10	45	AM	Jan	31	11	30	AM	Lutharo
+RT	Jan	31	12	15	PM	Jan	31	13	00	PM	Trouble
+RT	Jan	31	13	45	PM	Jan	31	14	30	PM	Majestica
+RT	Jan	31	15	15	PM	Jan	31	16	00	PM	Delain
+RT	Jan	31	17	00	PM	Jan	31	18	00	PM	The Kovenant
+RT	Jan	31	19	00	PM	Jan	31	20	00	PM	In Extremo
+RT	Jan	31	21	00	PM	Jan	31	22	15	PM	Swallow the Sun
+RT	Jan	31	23	15	PM	Feb	1	24	30	AM	Sepultura
+RT	Feb	1	1	30	AM	Feb	1	2	15	AM	Suffocation
+RT	Feb	1	3	00	AM	Feb	1	3	45	AM	Metsatoll
+SB	Jan	31	13	00	PM	Jan	31	13	45	PM	Painful
+SB	Jan	31	14	30	PM	Jan	31	15	15	PM	Super Monster Party
+SB	Jan	31	16	15	PM	Jan	31	17	00	PM	Fractal Sun
+SB	Jan	31	17	45	PM	Jan	31	18	30	PM	Cabrakaan
+SB	Jan	31	19	15	PM	Jan	31	20	00	PM	Pessimist
+SB	Jan	31	20	45	PM	Jan	31	21	30	PM	Tankard
+SB	Jan	31	22	15	PM	Jan	31	23	00	PM	Tenebrarum
+SB	Jan	31	23	45	PM	Feb	1	24	30	AM	Mork
+SB	Feb	1	1	30	AM	Feb	1	2	15	AM	Flotsam and Jetsam
+SB	Feb	1	3	00	AM	Feb	1	3	45	AM	The Mourning
+SB	Feb	1	4	30	AM	Feb	1	5	15	AM	Matalobos
+SL	Jan	31	15	15	PM	Jan	31	16	00	PM	Warfield
+SL	Jan	31	17	00	PM	Jan	31	17	45	PM	Powerglove
+SL	Jan	31	18	30	PM	Jan	31	19	15	PM	Incantation
+SL	Jan	31	20	00	PM	Jan	31	20	45	PM	The Zenith Passage
+SL	Jan	31	21	30	PM	Jan	31	22	15	PM	Hate
+SL	Jan	31	23	00	PM	Jan	31	23	45	PM	Stormruler
+PO	Feb	1	9	00	AM	Feb	1	16	00	PM	Ochos Rios Jamaica
+PO	Feb	1	17	00	PM	Feb	1	17	45	PM	Tankard
+PO	Feb	1	18	30	PM	Feb	1	19	30	PM	The Kovenant
+PO	Feb	1	20	30	PM	Feb	1	21	30	PM	Sonata Arctica
+PO	Feb	1	22	30	PM	Feb	1	23	45	PM	Emperor
+PO	Feb	2	24	45	AM	Feb	2	1	30	AM	Decapitated
+PO	Feb	2	2	15	AM	Feb	2	3	00	AM	Delain
+PO	Feb	2	3	45	AM	Feb	2	4	30	AM	Krisiun
+PO	Feb	2	5	15	PM	Feb	2	6	00	AM	Hate
+RT	Feb	1	17	45	PM	Feb	1	18	30	PM	Unleash the Archers
+RT	Feb	1	19	30	PM	Feb	1	20	30	PM	Subway to Sally
+RT	Feb	1	21	30	PM	Feb	1	22	30	PM	Symphony X
+RT	Feb	1	23	45	PM	Feb	2	24	45	AM	Stratovarius
+RT	Feb	2	1	30	AM	Feb	2	2	15	AM	Onslaught
+RT	Feb	2	3	00	AM	Feb	2	3	34	AM	Incantation
+SB	Feb	1	17	00	PM	Feb	1	17	45	PM	Reaping Asmodeia
+SB	Feb	1	18	45	PM	Feb	1	19	30	PM	Fabulae Creation
+SB	Feb	1	20	30	PM	Feb	1	21	15	PM	Trouble
+SB	Feb	1	22	00	PM	Feb	1	22	45	PM	Powerglove
+SB	Feb	1	23	45	PM	Feb	2	24	30	AM	Ex Deo
+SB	Feb	2	1	30	AM	Feb	2	2	15	AM	Benighted
+SB	Feb	2	3	00	AM	Feb	2	3	45	AM	Twilight Force
+SB	Feb	2	4	30	AM	Feb	2	5	15	AM	Beyond Creation
+SL	Feb	1	17	45	PM	Feb	1	18	30	PM	Tenebrarum
+SL	Feb	1	19	30	PM	Feb	1	20	15	PM	Matalobos
+SL	Feb	1	21	15	PM	Feb	1	22	00	PM	Lutharo
+SL	Feb	1	22	45	PM	Feb	1	23	30	PM	Striker
+SL	Feb	2	24	45	AM	Feb	2	1	30	AM	Dread Crew of Oddwood
+SL	Feb	2	2	15	AM	Feb	2	3	0	AM	Pessimist
+SL	Feb	2	3	45	AM	Feb	2	4	30	AM	Fractal Sun
+PD	Feb	2	10	00	AM	Feb	2	10	45	AM	Flotsam and Jetsam
+PD	Feb	2	11	30	AM	Feb	2	12	15	PM	Septicflesh
+PD	Feb	2	12	15	PM	Feb	2	13	15	PM	Belly Flop at Solarium
+PD	Feb	2	13	15	PM	Feb	2	14	00	PM	Kissin Dynamite
+PD	Feb	2	14	45	PM	Feb	2	15	30	PM	Suffocation
+PD	Feb	2	16	15	PM	Feb	2	17	15	PM	Candlemass
+PD	Feb	2	18	00	PM	Feb	2	19	00	PM	Kalmah
+PD	Feb	2	19	45	PM	Feb	3	20	45	AM	In Extremo
+PD	Feb	3	21	30	AM	Feb	3	22	30	AM	Hammerfall
+PD	Feb	3	23	30	AM	Feb	3	24	45	AM	Sepultura
+PD	Feb	3	24	45	AM	Feb	3	1	00	AM	Skipper's Thank You
+PD	Feb	3	1	30	AM	Feb	3	5	00	AM	Karaoke at Solarium
+RT	Feb	2	10	45	AM	Feb	2	11	30	AM	Destiny
+RT	Feb	2	12	15	PM	Feb	2	13	00	PM	Crownshaft
+RT	Feb	2	14	30	PM	Feb	2	16	00	PM	All Star Jam
+RT	Feb	2	17	15	PM	Feb	2	18	00	PM	Ihsahn
+RT	Feb	2	18	45	PM	Feb	2	19	45	PM	Dirkschneider
+RT	Feb	2	20	30	PM	Feb	2	21	30	PM	Finntroll
+RT	Feb	2	22	30	PM	Feb	2	23	45	PM	Swallow the Sun
+SB	Feb	2	10	45	AM	Feb	2	11	30	AM	Trollfest
+SB	Feb	2	12	15	PM	Feb	2	13	00	PM	Thy Antichrist
+SB	Feb	2	13	45	PM	Feb	2	14	30	PM	Stormruler
+SB	Feb	2	15	30	PM	Feb	2	16	15	PM	The Zenith Passage
+SB	Feb	2	17	15	PM	Feb	2	18	00	PM	Seven Kingdoms
+SB	Feb	2	19	00	PM	Feb	2	19	45	PM	Arcturus
+SB	Feb	2	20	45	PM	Feb	2	21	30	PM	Warfield
+SB	Feb	2	22	30	PM	Feb	2	23	15	PM	Samael
+SB	Feb	3	1	30	AM	Feb	3	2	15	AM	Majestica
+SL	Feb	2	11	30	AM	Feb	2	12	25	PM	Cabrakaan
+SL	Feb	2	13	00	PM	Feb	2	13	45	PM	Abysmal Dawn
+SL	Feb	2	14	45	PM	Feb	2	15	30	PM	The Mourning
+SL	Feb	2	16	30	PM	Feb	2	17	15	PM	Metsatoll
+SL	Feb	2	18	00	PM	Feb	2	18	45	PM	Super Monster Party
+SL	Feb	2	19	45	PM	Feb	2	20	30	PM	Mork
+SL	Feb	2	21	45	PM	Feb	2	22	30	PM	Total Death
+SL	Feb	2	23	45	PM	Feb	3	24	30	AM	Painful
