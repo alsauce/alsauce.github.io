@@ -172,9 +172,6 @@ SL, Feb, 2, 11:45, PM, Feb, 3, 12:30, AM, Painful \
 
 
 export let bandInfo = [
-    ["Test1", "prog", "my note"],
-    ["Test3", "core"],
-    ["TestX", "black"],
     ["Abysmal Dawn", "death", ""],
     ["Arcturus", "black prog", "nmt"],
     ["Benighted", "black brutal", "Y"],
