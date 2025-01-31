@@ -204,7 +204,7 @@ export let bandInfo = [
     ["Mork", "black", "Y"],
     ["Onslaught", "thrash", "nmt"],
     ["Painful", "black death", ""],
-    ["Pessimist", "deatrh", ""],
+    ["Pessimist", "death", ""],
     ["Powerglove", "power", ""],
     ["Reaping Asmodeia", "melo tech", ""],
     ["Samael", "black indust", "Y"],
