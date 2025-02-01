@@ -117,6 +117,22 @@ body {
   }
 }
 
+@keyframes disappearAnimationWtoB {
+  0% {
+    background-color: white;
+    /* Start with full opacity */
+  }
+
+  100% {
+    background-color: black;
+    /* End with no opacity */
+  }
+}
+
+
+
+
+
 .info {
   color: lightgrey;
   font: 25px serif;
