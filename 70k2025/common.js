@@ -112,7 +112,7 @@ RT, Feb, 1, 7:30, PM, Feb, 1, 8:30, PM, Subway to Sally \n\
 RT, Feb, 1, 9:30, PM, Feb, 1, 10:30, PM, Symphony X \n\
 RT, Feb, 1, 11:45, PM, Feb, 2, 12:45, AM, Stratovarius \n\
 RT, Feb, 2, 1:30, AM, Feb, 2, 2:15, AM, Onslaught \n\
-RT, Feb, 2, 3:00, AM, Feb, 2, 3:34, AM, Incantation \n\
+RT, Feb, 2, 3:00, AM, Feb, 2, 3:45, AM, Incantation \n\
 SB, Feb, 1, 5:00, PM, Feb, 1, 5:45, PM, Reaping Asmodeia \n\
 SB, Feb, 1, 6:45, PM, Feb, 1, 7:30, PM, Fabulae Dramatis \n\
 SB, Feb, 1, 8:30, PM, Feb, 1, 9:15, PM, Trouble \n\
