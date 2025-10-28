@@ -112,7 +112,7 @@ MA, Nov,  3,  3:30, PM, Nov,  3,  5:00, PM, Battleshots \n\
 MA, Nov,  3,  6:15, PM, Nov,  3,  7:15, PM, Exploited \n\
 MA, Nov,  3,  8:15, PM, Nov,  3,  9:15, PM, Gideon \n\
 MA, Nov,  3, 11:00, PM, Nov,  4,  1:00, AM, Karaoke \n\
-SP, Nov,  3, 12:00, PM, Nov,  3,  1:00, PM, Q&A Riki Rachtman \n\
+SP, Nov,  3, 12:00, PM, Nov,  3,  1:00, PM, QA Riki Rachtman \n\
 SP, Nov,  3,  2:00, PM, Nov,  3,  3:00, PM, Screaming \
 "
 ];
@@ -148,7 +148,7 @@ export let bandInfo = [
     ["Obituary", "death", ""],
     ["Pit of Sound", "other", ""],
     ["Power Trip", "thrash", ""],
-    ["Q&A Riki Rachtman", "other", ""],
+    ["QA Riki Rachtman", "other", ""],
     ["Screaming", "other", ""],
     ["Self Care Panel", "other", ""],
     ["Swag Swap", "other", ""],

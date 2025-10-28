@@ -588,6 +588,7 @@
                 buttonLabel.style.backgroundColor = "rgba(0, 0, 0, 1)";
                 buttonLabel.style.paddingLeft = "15px";
                 buttonLabel.style.width = "91%";
+                buttonLabel.style.wordWrap = 'break-word';
                 //buttonLabel.style.padding = "0px";
                 //This makes the label black background be a full square
                 buttonLabel.style.display = "inline-block";
@@ -992,10 +993,9 @@
                         eventCardDiv.style.borderRadius = "20px";
                         eventCardDiv.style.padding = "10px";
 
-
                         let searchResultLabel = document.createElement("label");
                         searchResultLabel.style.color = "hsla(0, 0%, 80%, 1)";
-                        let searchResultLabelText = "Day " + event.day + ", " + event.startTime + "-" + event.endTime + " " + event.endAMPM + ", " + event.location;
+                        let searchResultLabelText = "Day " + event.day + "|" + event.startTime + " " + event.startAMPM + "-" + event.endTime + " " + event.endAMPM + "|" + event.location;
                         if (eventThatWasClicked != null && event.id == eventThatWasClicked.id) {
                             searchResultLabel.style.color = "yellow";
                             searchResultLabelText = searchResultLabelText;
