@@ -67,8 +67,8 @@ BL, Nov,  1,  7:30, PM, Nov,  1,  8:30, PM, Gideon \n\
 BL, Nov,  1, 11:00, PM, Nov,  2, 12:00, AM, Nekrogoblikon \n\
 BL, Nov,  2, 12:45, AM, Nov,  2,  2:00, AM, DJ Art Cruz \n\
 MA, Nov,  1, 12:00, PM, Nov,  1,  2:00, PM, Pit of Sound \n\
-MA, Nov,  1,  4:30, PM, Nov,  1,  5:30, PM, Brat \n\
-MA, Nov,  1,  8:00, PM, Nov,  1,  9:00, PM, Crowbar \n\
+MA, Nov,  1,  4:30, PM, Nov,  1,  5:30, PM, Crowbar \n\
+MA, Nov,  1,  8:00, PM, Nov,  1,  9:00, PM, Brat \n\
 MA, Nov,  1, 12:00, PM, Nov,  1,  2:00, PM, Pit of Sound \n\
 MA, Nov,  2, 12:00, AM, Nov,  2,  1:00, AM, Eighteen Visions \n\
 SP, Nov,  1,  9:00, AM, Nov,  1, 10:30, AM, Coffee with Willie \n\
@@ -83,8 +83,8 @@ PD, Nov,  2,  5:00, PM, Nov,  2,  6:15, PM, Lamb of God \n\
 PD, Nov,  2,  8:30, PM, Nov,  2,  9:30, PM, Kublai Khan TX \n\
 PD, Nov,  2, 11:00, PM, Nov,  3, 12:00, AM, Clutch \n\
 SD, Nov,  2,  7:00, PM, Nov,  2,  8:00, PM, Exploited \n\
-SD, Nov,  2,  9:45, PM, Nov,  2, 10:45, PM, Crowbar \n\
-SD, Nov,  3, 12:30, AM, Nov,  3,  1:30, AM, DevilDriver \n\
+SD, Nov,  2,  9:45, PM, Nov,  2, 10:45, PM, DevilDriver \n\
+SD, Nov,  3, 12:30, AM, Nov,  3,  1:30, AM, Crowbar \n\
 BL, Nov,  2,  7:15, PM, Nov,  2,  8:15, PM, Brat \n\
 BL, Nov,  3, 12:00, AM, Nov,  3,  1:00, AM, Category7 \n\
 MA, Nov,  2,  7:00, PM, Nov,  2,  8:00, PM, Walls of Jericho \n\
@@ -106,7 +106,7 @@ BL, Nov,  3,  1:30, PM, Nov,  3,  2:30, PM, Eighteen Visions \n\
 BL, Nov,  3,  3:30, PM, Nov,  3,  4:30, PM, Nekrogoblikon \n\
 BL, Nov,  3,  6:30, PM, Nov,  3,  7:30, PM, Battle Jacket SD \n\
 BL, Nov,  3,  8:45, PM, Nov,  3,  9:45, PM, Mark Morton \n\
-BL, Nov,  3, 11:30, PM, Nov,  4, 12:00, AM, Kublai Khan TX \n\
+BL, Nov,  3, 11:00, PM, Nov,  4, 12:00, AM, Kublai Khan TX \n\
 MA, Nov,  3, 12:00, PM, Nov,  3,  2:00, PM, Pit of Sound \n\
 MA, Nov,  3,  3:30, PM, Nov,  3,  5:00, PM, Battleshots \n\
 MA, Nov,  3,  6:15, PM, Nov,  3,  7:15, PM, Exploited \n\
