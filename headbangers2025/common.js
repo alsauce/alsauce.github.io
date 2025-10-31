@@ -15,7 +15,7 @@ export let locations = [
     {
         abbrev: "BL",
         fullName: "Bliss",
-        location: "6 mid",
+        location: "7 mid",
         note: ""
     },
     {
