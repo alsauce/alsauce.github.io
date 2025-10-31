@@ -42,7 +42,7 @@ PD, Oct, 31, 10:00, PM, Oct, 31, 11:00, PM, Kublai Khan TX \n\
 SD, Oct, 31,  6:30, PM, Oct, 31,  7:30, PM, Fear Factory \n\
 SD, Oct, 31,  8:45, PM, Oct, 31,  9:45, PM, DevilDriver \n\
 SD, Oct, 31, 11:30, PM, Nov,  1, 12:30, AM, Obituary \n\
-BL, Oct, 31,  3:30, PM, Oct, 31,  4:30, PM, Crowbar \n\
+BL, Oct, 31,  3:00, PM, Oct, 31,  4:00, PM, Crowbar \n\
 BL, Oct, 31,  8:30, PM, Oct, 31,  9:30, PM, Black Dhalia \n\
 BL, Oct, 31, 11:00, PM, Nov,  1, 12:00, AM, Exploited \n\
 MA, Oct, 31,  6:30, PM, Oct, 31,  7:30, PM, Brat \n\
