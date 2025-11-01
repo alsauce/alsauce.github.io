@@ -22,7 +22,7 @@ export let locations = [
         abbrev: "MA",
         fullName: "Magnum's",
         location: "6 mid",
-        note: ""
+        note: "no rear access"
     },
     {
         abbrev: "SP",
