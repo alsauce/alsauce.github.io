@@ -1,0 +1,15 @@
+{
+    "background_color": "black",
+    "description": "Unofficial 70000 tons 2026 schedule.",
+    "display": "standalone",
+    "icons": [
+      {
+        "src": "images/hands.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      }
+    ],
+    "name": "Unofficial 70k2026",
+    "short_name": "70k 2026",
+    "start_url": "/70k2026/index.html"
+  }
