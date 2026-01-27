@@ -31,23 +31,23 @@ export let year = 2026;
 
 export let schedule = [
 "\
-PD, Oct, 31,  5:15, PM, Oct, 31,  6:15, PM, test1 \n\
-RT, Oct, 31, 11:00, PM, Nov,  1, 12:00, AM, test1 \
+PD, Jan, 29,  5:15, PM, Jan, 29,  6:15, PM, test1 \n\
+RT, Jan, 29, 11:00, PM, Jan, 30, 12:00, AM, test1 \
 "
 ,
 "\
-PD, Nov,  1,  3:30, PM, Nov,  1,  4:30, PM, test1 \n\
-SB, Nov,  1,  5:30, PM, Nov,  1,  6:30, PM, test1 \
+PD, Jan, 30,  3:30, PM, Jan, 30,  4:30, PM, test1 \n\
+SB, Jan, 30,  5:30, PM, Jan, 30,  6:30, PM, test1 \
 "
 ,
 "\
-PD, Nov,  2,  9:00, AM, Nov,  2,  4:00, PM, test1 \n\
-SL, Nov,  2, 10:00, PM, Nov,  2, 11:00, PM, test1 \
+PD, Jan, 31,  9:00, AM, Jan, 31,  4:00, PM, test1 \n\
+SL, Jan, 31, 10:00, PM, Jan, 31, 11:00, PM, test1 \
 "
 ,
 "\
-PD, Nov,  3,  4:30, PM, Nov,  3,  5:30, PM, test1 \n\
-SL, Nov,  3,  2:00, PM, Nov,  3,  3:00, PM, test1 \
+PD, Feb,  1,  4:30, PM, Feb,  1,  5:30, PM, test1 \n\
+SL, Feb,  1,  2:00, PM, Feb,  1,  3:00, PM, test1 \
 "
 ];
 
