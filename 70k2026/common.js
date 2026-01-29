@@ -43,7 +43,7 @@ SB, Jan, 29,  7:00, PM, Jan, 29,  7:45, PM, Harakiri for the Sky \n\
 SB, Jan, 29,  8:30, PM, Jan, 29,  9:15, PM, Cemetary Skyline \n\
 SB, Jan, 29, 10:15, PM, Jan, 29, 11:00, PM, Tyr \n\
 SB, Jan, 30, 12:30, AM, Jan, 30,  1:15, AM, Kanonenfieber \n\
-SB, Jan, 30,  3:45, AM, Jan, 30,  3:00, AM, Skyclad \n\
+SB, Jan, 30,  2:15, AM, Jan, 30,  3:00, AM, Skyclad \n\
 SB, Jan, 30,  3:45, AM, Jan, 30,  4:30, AM, Suidakra \n\
 SB, Jan, 30,  5:15, AM, Jan, 30,  6:00, AM, Vitam Et Mortem \n\
 SL, Jan, 29,  5:30, PM, Jan, 29,  6:15, PM, Seven Spires \n\
