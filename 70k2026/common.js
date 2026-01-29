@@ -38,7 +38,7 @@ RT, Jan, 29, 11:15, PM, Jan, 30, 12:15, AM, Anthrax \n\
 RT, Jan, 30,  1:15, AM, Jan, 30,  2:15, AM, Amorphis \n\
 RT, Jan, 30,  3:00, AM, Jan, 30,  3:45, AM, Leaves' Eyes \n\
 RT, Jan, 30,  4:30, AM, Jan, 30,  5:15, AM, Dust Bolt \n\
-SB, Jan, 29,  5:30, PM, Jan, 29,  6:15, PM, Vio-Lence \n\
+SB, Jan, 29,  5:30, PM, Jan, 29,  6:15, PM, Vio-lence \n\
 SB, Jan, 29,  7:00, PM, Jan, 29,  7:45, PM, Harakiri for the Sky \n\
 SB, Jan, 29,  8:30, PM, Jan, 29,  9:15, PM, Cemetary Skyline \n\
 SB, Jan, 29, 10:15, PM, Jan, 29, 11:00, PM, Tyr \n\
@@ -190,7 +190,7 @@ export let bandInfo = [
 ["Bloodred Hourglass", "melo", ""],
 ["Cemetary Skyline", "rock", ""],
 ["Darkane", "melo", ""],
-["Dark Tranquillity", "", ""],
+["Dark Tranquillity", "melo", ""],
 ["Dodheimsgard", "black", ""],
 ["Dragonland", "power", ""],
 ["Dust Bolt", "thrash", ""],
@@ -229,21 +229,21 @@ export let bandInfo = [
 ["Tribulation", "goth", ""],
 ["Tyr", "folk", ""],
 ["Vader", "thrash", ""],
-["VBO", "", ""],
+["VBO", "synth", ""],
 ["Vio-lence", "thrash", ""],
 ["Wind Rose", "folk", ""],
 ["Wolf", "heavy", ""],
 ["Xandria", "symph", ""],
-["Ad Infinitum", "", ""],
-["Jag Panzer", "", ""],
-["Vitam Et Mortem", "", ""],
-["T.H.E.M", "", ""],
-["In Virtue", "", ""],
-["Minipony", "", ""],
-["Strike Master", "", ""],
-["Trash Panda", "", ""],
-["Trick or Treat", "", ""],
-["Leaves' Eyes", "", ""]
+["Ad Infinitum", "symph", ""],
+["Jag Panzer", "power", ""],
+["Vitam Et Mortem", "death", ""],
+["T.H.E.M", "symph black", ""],
+["In Virtue", "heavy", ""],
+["Minipony", "tech", ""],
+["Strike Master", "thrash", ""],
+["Trash Panda", "brutal", ""],
+["Trick or Treat", "power", ""],
+["Leaves' Eyes", "symph", ""]
 ];
 
 export let storedVersion = "_70k2026_v1";
