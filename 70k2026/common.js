@@ -57,7 +57,7 @@ PD, Jan, 30, 12:00, AM, Jan, 30,  6:00, AM, Karaoke AT PLAYERMAKERS \
 ,
 "\
 PD, Jan, 30,  9:00, AM, Jan, 30,  4:00, PM, Nassau \n\
-PD, Jan, 30,  5:30, PM, Jan, 30,  6:16, PM, Orden Ogan \n\
+PD, Jan, 30,  5:30, PM, Jan, 30,  6:15, PM, Orden Ogan \n\
 PD, Jan, 30,  7:00, PM, Jan, 30,  8:00, PM, Amorphis \n\
 PD, Jan, 30,  8:45, PM, Jan, 30,  9:45, PM, Beast in Black \n\
 PD, Jan, 30, 10:45, PM, Jan, 30, 11:45, PM, Soilwork \n\
