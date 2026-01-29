@@ -116,7 +116,7 @@ SB, Jan, 31,  2:30, PM, Jan, 31,  3:15, PM, Satan \n\
 SB, Jan, 31,  4:00, PM, Jan, 31,  4:45, PM, In Mourning \n\
 SB, Jan, 31,  5:30, PM, Jan, 31,  6:15, PM, Tribulation \n\
 SB, Jan, 31,  7:00, PM, Jan, 31,  7:45, PM, Jag Panzer \n\
-SB, Jan, 31,  8:30, PM, Jan, 31,  8:15, PM, Trick or Treat \n\
+SB, Jan, 31,  8:30, PM, Jan, 31,  9:15, PM, Trick or Treat \n\
 SB, Jan, 31, 10:00, PM, Jan, 31, 10:45, PM, Persefone \n\
 SB, Jan, 31, 11:45, PM, Feb,  1, 12:30, AM, Bloodred Hourglass \n\
 SB, Feb,  1,  1:15, AM, Feb,  1,  2:00, AM, Dodheimsgard \n\
