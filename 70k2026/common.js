@@ -59,7 +59,7 @@ PD, Jan, 30, 12:00, AM, Jan, 30,  6:00, AM, Karaoke AT PLAYERMAKERS \
 PD, Jan, 30,  9:00, AM, Jan, 30,  4:00, PM, Nassau \n\
 PD, Jan, 30,  5:30, PM, Jan, 30,  6:15, PM, Orden Ogan \n\
 PD, Jan, 30,  7:00, PM, Jan, 30,  8:00, PM, Amorphis \n\
-PD, Jan, 30,  8:45, PM, Jan, 30,  9:45, PM, Beast in Black \n\
+RT, Jan, 31,  4:15, AM, Jan, 31,  5:15, AM, Beast in Black \n\
 PD, Jan, 30, 10:45, PM, Jan, 30, 11:45, PM, Soilwork \n\
 PD, Jan, 31, 12:30, AM, Jan, 31,  1:15, AM, Kanonenfieber \n\
 PD, Jan, 31,  2:00, AM, Jan, 31,  2:45, AM, Leaves' Eyes \n\
