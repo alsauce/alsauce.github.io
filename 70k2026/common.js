@@ -76,7 +76,7 @@ SB, Jan, 30,  7:15, PM, Jan, 30,  8:00, PM, Ignea \n\
 SB, Jan, 30,  8:45, PM, Jan, 30,  9:30, PM, Ereb Altor \n\
 SB, Jan, 30, 10:15, PM, Jan, 30, 11:00, PM, Royal Hunt \n\
 SB, Jan, 30, 11:45, PM, Jan, 31, 12:30, AM, Illumishade \n\
-SB, Feb, 31,  1:15, AM, Jan, 31,  2:00, AM, Saturnus \n\
+SB, Jan, 31,  1:15, AM, Jan, 31,  2:00, AM, Saturnus \n\
 SB, Jan, 31,  2:45, AM, Jan, 31,  3:30, AM, Seven Spires \n\
 SB, Jan, 31,  4:15, AM, Jan, 31,  5:00, AM, T.H.E.M \n\
 SL, Jan, 30,  6:15, PM, Jan, 30,  7:00, PM, Persefone \n\
