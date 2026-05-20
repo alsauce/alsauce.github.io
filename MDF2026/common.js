@@ -45,10 +45,10 @@ NH, May, 21,  5:00, PM, May, 21,  5:35, PM, Black Lung \n\
 NH, May, 21,  6:30, PM, May, 21,  7:15, PM, Lair of the Minotaur \n\
 NH, May, 21,  8:05, PM, May, 21,  8:50, PM, Avernus \n\
 NH, May, 21,  9:25, PM, May, 21, 10:25, PM, Rwake \n\
-NH, May, 21, 11:45, PM, May, 21, 12:35, PM, Bongzilla \n\
+NH, May, 21, 11:45, PM, May, 21, 12:35, AM, Bongzilla \n\
 PPL, May, 21,  7:15, PM, May, 21,  8:00, PM, Bongripper \n\
 PPL, May, 21,  8:45, PM, May, 21,  9:30, PM, Novembers Doom \n\
-PPL, May, 21, 10:15, PM, May, 21, 11:15, PM, Solitude Aeturnus \n\
+PPL, May, 21, 10:30, PM, May, 21, 11:30, PM, Solitude Aeturnus \n\
 BS, May, 21,  4:30, PM, May, 21,  5:05, PM, Cerebral Hemorrhage \n\
 BS, May, 21,  5:40, PM, May, 21,  6:25, PM, Emasculator \n\
 BS, May, 21,  7:20, PM, May, 21,  8:00, PM, Condemned \n\
@@ -80,7 +80,7 @@ BS, May, 22,  2:20, PM, May, 22,  3:00, PM, Aftermath \n\
 BS, May, 22,  3:15, PM, May, 22,  3:55, PM, Lividity \n\
 BS, May, 22,  4:20, PM, May, 22,  4:50, PM, Ordh \n\
 BS, May, 22,  5:55, PM, May, 22,  6:35, PM, Rottrevore \n\
-BS, May, 22,  7:15, PM, May, 22,  7:55, PM, Necrofier \n\
+MP, May, 22,  4:40, PM, May, 22,  5:20, PM, Necrofier \n\
 BS, May, 22,  8:10, PM, May, 22,  8:50, PM, Diabolic Oath \n\
 BS, May, 22, 10:10, PM, May, 22, 10:50, PM, Melting Rot \n\
 BS, May, 22, 11:25, PM, May, 23, 12:05, AM, Grave Infestation \n\
