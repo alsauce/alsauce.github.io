@@ -1,0 +1,15 @@
+{
+    "background_color": "black",
+    "description": "Unofficial MDF 2026 schedule.",
+    "display": "standalone",
+    "icons": [
+      {
+        "src": "images/hands.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      }
+    ],
+    "name": "Unofficial MDF2026",
+    "short_name": "MDF 2026",
+    "start_url": "/MDF2026/index.html"
+  }
