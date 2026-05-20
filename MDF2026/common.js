@@ -1,183 +1,227 @@
-
 export let locations = [
     {
-        abbrev: "PD",
-        fullName: "Pool Deck",
-        location: "11/12 mid",
+        abbrev: "MP",
+        fullName: "Market Place",
+        location: "Outdoors",
         note: ""
     },
     {
-        abbrev: "RT",
-        fullName: "Royal Theater",
-        location: "3/4 fwd",
-        note: "3 is only fwd access"
-    },
-    {
-        abbrev: "SB",
-        fullName: "Studio B",
-        location: "3 mid",
-        note: "no fwd access"
-    },
-    {
-        abbrev: "SL",
-        fullName: "Star Lounge",
-        location: "5 fwd",
+        abbrev: "PPL",
+        fullName: "Power Plant Live",
+        location: "Rams Head Live",
         note: ""
+    },
+    {
+        abbrev: "NH",
+        fullName: "Nevermore Hall",
+        location: "Nevermore",
+        note: ""
+    },
+    {
+        abbrev: "BS",
+        fullName: "Baltimore Soundstage",
+        location: "Soundstage",
+        note: ""
+    },
+    {
+        abbrev: "ARB",
+        fullName: "Angels Rock Bar",
+        location: "ARB",
+        note: "Free w/ same day MDF ticket"
     }
 ];
-
 
 export let year = 2026;
 
 export let schedule = [
 "\
-RT, Jan, 29,  6:15, PM, Jan, 29,  7:00, PM, Xandria \n\
-RT, Jan, 29,  7:45, PM, Jan, 29,  8:30, PM, Soen \n\
-RT, Jan, 29,  9:15, PM, Jan, 29, 10:15, PM, Kamelot \n\
-RT, Jan, 29, 11:15, PM, Jan, 30, 12:30, AM, Anthrax \n\
-RT, Jan, 30,  1:15, AM, Jan, 30,  2:15, AM, Amorphis \n\
-RT, Jan, 30,  3:00, AM, Jan, 30,  3:45, AM, Leaves' Eyes \n\
-RT, Jan, 30,  4:30, AM, Jan, 30,  5:15, AM, Dust Bolt \n\
-SB, Jan, 29,  5:30, PM, Jan, 29,  6:15, PM, Vio-lence \n\
-SB, Jan, 29,  7:00, PM, Jan, 29,  7:45, PM, Harakiri for the Sky \n\
-SB, Jan, 29,  8:30, PM, Jan, 29,  9:15, PM, Cemetary Skyline \n\
-SB, Jan, 29, 10:15, PM, Jan, 29, 11:00, PM, Tyr \n\
-SB, Jan, 30, 12:30, AM, Jan, 30,  1:15, AM, Kanonenfieber \n\
-SB, Jan, 30,  2:15, AM, Jan, 30,  3:00, AM, Skyclad \n\
-SB, Jan, 30,  3:45, AM, Jan, 30,  4:30, AM, Suidakra \n\
-SB, Jan, 30,  5:15, AM, Jan, 30,  6:00, AM, Vitam Et Mortem \n\
-SL, Jan, 29,  5:30, PM, Jan, 29,  6:15, PM, Seven Spires \n\
-SL, Jan, 29,  7:00, PM, Jan, 29,  7:45, PM, Strike Master \n\
-SL, Jan, 29,  8:30, PM, Jan, 29,  9:15, PM, Gama Bomb \n\
-SL, Jan, 29, 10:30, PM, Jan, 29, 11:15, PM, Dragonland \n\
-SL, Jan, 30, 12:30, AM, Jan, 30,  1:15, AM, Illumishade \n\
-SL, Jan, 30,  2:15, AM, Jan, 30,  3:00, AM, Trash Panda \n\
-PD, Jan, 30, 12:00, AM, Jan, 30,  6:00, AM, Karaoke AT PLAYERMAKERS \
+NH, May, 21,  7:40, PM, May, 21,  8:20, PM, Bongzilla \n\
+NH, May, 21,  9:00, PM, May, 21,  9:40, PM, Rwake \n\
+NH, May, 21, 10:05, PM, May, 21, 10:45, PM, Avernus \n\
+NH, May, 22, 12:10, AM, May, 22, 12:50, AM, Black Lung \n\
+NH, May, 22,  1:40, AM, May, 22,  2:20, AM, Lair of the Minotaur \n\
+PPL, May, 21,  9:45, PM, May, 21, 10:25, PM, Solitude Aeturnus \n\
+PPL, May, 21, 10:40, PM, May, 21, 11:20, PM, Novembers Doom \n\
+PPL, May, 21, 11:35, PM, May, 22, 12:20, AM, Bongripper \n\
+BS, May, 21,  8:15, PM, May, 21,  8:55, PM, Torsofuck \n\
+BS, May, 21,  9:30, PM, May, 21, 10:10, PM, Putridity \n\
+BS, May, 21, 10:40, PM, May, 21, 11:20, PM, Cephalotripsy \n\
+BS, May, 21, 11:50, PM, May, 22, 12:30, AM, Emasculator \n\
+BS, May, 22, 12:50, AM, May, 22,  1:30, AM, Condemned \n\
+BS, May, 22,  1:50, AM, May, 22,  2:30, AM, Cerebral Hemorrhage \
 "
 ,
 "\
-PD, Jan, 30,  9:00, AM, Jan, 30,  4:00, PM, Nassau \n\
-PD, Jan, 30,  5:30, PM, Jan, 30,  6:15, PM, Orden Ogan \n\
-PD, Jan, 30,  7:00, PM, Jan, 30,  8:00, PM, Amorphis \n\
-RT, Jan, 31,  4:15, AM, Jan, 31,  5:15, AM, Beast in Black \n\
-PD, Jan, 30, 10:45, PM, Jan, 30, 11:45, PM, Soilwork \n\
-PD, Jan, 31, 12:30, AM, Jan, 31,  1:15, AM, Kanonenfieber \n\
-PD, Jan, 31,  2:00, AM, Jan, 31,  2:45, AM, Leaves' Eyes \n\
-PD, Jan, 31,  3:30, AM, Jan, 31,  4:15, AM, Vader \n\
-PD, Jan, 31,  5:00, AM, Jan, 31,  5:45, AM, Bloodred Hourglass \n\
-RT, Jan, 30,  6:15, PM, Jan, 30,  7:00, PM, Ad Infinitum \n\
-RT, Jan, 30,  8:00, PM, Jan, 30,  8:45, PM, Harakiri for the Sky \n\
-RT, Jan, 30,  9:45, PM, Jan, 30, 10:45, PM, Haggard \n\
-RT, Jan, 30, 11:45, PM, Jan, 31, 12:30, AM, Firewind \n\
-RT, Jan, 31,  1:15, AM, Jan, 31,  2:00, AM, Cemetary Skyline \n\
-RT, Jan, 31,  2:45, AM, Jan, 31,  3:30, AM, Skyclad \n\
-SB, Jan, 30,  5:30, PM, Jan, 30,  6:15, PM, Izegrim \n\
-SB, Jan, 30,  7:15, PM, Jan, 30,  8:00, PM, Ignea \n\
-SB, Jan, 30,  8:45, PM, Jan, 30,  9:30, PM, Ereb Altor \n\
-SB, Jan, 30, 10:15, PM, Jan, 30, 11:00, PM, Royal Hunt \n\
-SB, Jan, 30, 11:45, PM, Jan, 31, 12:30, AM, Illumishade \n\
-SB, Jan, 31,  1:15, AM, Jan, 31,  2:00, AM, Saturnus \n\
-SB, Jan, 31,  2:45, AM, Jan, 31,  3:30, AM, Seven Spires \n\
-SB, Jan, 31,  4:15, AM, Jan, 31,  5:00, AM, T.H.E.M \n\
-SL, Jan, 30,  6:15, PM, Jan, 30,  7:00, PM, Persefone \n\
-SL, Jan, 30,  8:00, PM, Jan, 30,  8:45, PM, Wolf \n\
-SL, Jan, 30,  9:30, PM, Jan, 30, 10:15, PM, Skeletal Remains \n\
-SL, Jan, 30, 11:00, PM, Jan, 30, 11:45, PM, Jag Panzer \n\
-SL, Jan, 31, 12:30, AM, Jan, 31,  1:15, AM, In Mourning \n\
-SL, Jan, 31,  2:00, AM, Jan, 31,  2:45, AM, Vitam Et Mortem \
+MP, May, 22,  5:05, PM, May, 22,  5:45, PM, Cryptic Shift \n\
+MP, May, 22,  8:35, PM, May, 22,  9:15, PM, Rotting Christ \n\
+MP, May, 22, 10:35, PM, May, 22, 11:15, PM, God Dethroned \n\
+PPL, May, 22,  3:45, PM, May, 22,  4:25, PM, The Crown \n\
+PPL, May, 22,  6:55, PM, May, 22,  7:35, PM, Old Man's Child \n\
+PPL, May, 22,  9:20, PM, May, 22, 10:00, PM, Wolfheart \n\
+PPL, May, 22, 11:25, PM, May, 23, 12:05, AM, Witch Vomit \n\
+NH, May, 22,  3:00, PM, May, 22,  3:40, PM, Oranssi Pazuzu \n\
+NH, May, 22,  5:30, PM, May, 22,  6:10, PM, Wayfarer \n\
+NH, May, 22,  7:20, PM, May, 22,  8:00, PM, Pan-Amerikan Native Front \n\
+NH, May, 22,  8:35, PM, May, 22,  9:15, PM, Lomsk \n\
+NH, May, 22,  9:30, PM, May, 22, 10:10, PM, Der Weg Einer Freiheit \n\
+BS, May, 22,  2:20, PM, May, 22,  3:00, PM, Aftermath \n\
+BS, May, 22,  3:15, PM, May, 22,  3:55, PM, Lividity \n\
+BS, May, 22,  4:10, PM, May, 22,  4:50, PM, To Violently Vomit \n\
+BS, May, 22,  5:55, PM, May, 22,  6:35, PM, Rottrevore \n\
+BS, May, 22,  7:15, PM, May, 22,  7:55, PM, Necrofier \n\
+BS, May, 22,  8:10, PM, May, 22,  8:50, PM, Diabolic Oath \n\
+BS, May, 22, 10:10, PM, May, 22, 10:50, PM, Melting Rot \n\
+BS, May, 22, 11:25, PM, May, 23, 12:05, AM, Grave Infestation \n\
+ARB, May, 22,  4:00, PM, May, 22,  4:40, PM, Tithe \n\
+ARB, May, 22,  5:35, PM, May, 22,  6:15, PM, Bone Weapon \n\
+ARB, May, 22,  6:40, PM, May, 22,  7:20, PM, Withering Soul \
 "
 ,
 "\
-PD, Jan, 31, 10:00, AM, Jan, 31, 10:45, AM, Hiraes \n\
-PD, Jan, 31, 11:30, AM, Jan, 31, 12:15, PM, VBO \n\
-PD, Jan, 31,  1:00, PM, Jan, 31,  1:45, PM, Ignea \n\
-PD, Jan, 31,  2:30, PM, Jan, 31,  3:15, PM, Ad Infinitum \n\
-PD, Jan, 31,  4:00, PM, Jan, 31,  4:45, PM, Firewind \n\
-PD, Jan, 31,  5:45, PM, Jan, 31,  6:45, PM, Haggard \n\
-PD, Jan, 31,  7:45, PM, Jan, 31,  8:45, PM, Paradise Lost \n\
-PD, Jan, 31,  9:45, PM, Jan, 31, 11:00, PM, Anthrax \n\
-PD, Feb,  1, 12:00, AM, Feb,  1,  1:00, AM, Wind Rose \n\
-PD, Feb,  1,  2:00, AM, Feb,  1,  2:45, AM, Arkona \n\
-PD, Feb,  1,  3:30, AM, Feb,  1,  4:15, AM, Saturnus \n\
-PD, Feb,  1,  5:00, AM, Feb,  1,  5:45, AM, Izegrim \n\
-RT, Jan, 31, 10:45, AM, Jan, 31, 11:30, AM, Darkane \n\
-RT, Jan, 31, 12:15, PM, Jan, 31,  1:00, PM, Heathen \n\
-RT, Jan, 31,  1:45, PM, Jan, 31,  2:30, PM, Royal Hunt \n\
-RT, Jan, 31,  3:15, PM, Jan, 31,  4:00, PM, Orden Ogan \n\
-RT, Jan, 31,  4:45, PM, Jan, 31,  5:45, PM, Soilwork \n\
-RT, Jan, 31,  6:45, PM, Jan, 31,  7:45, PM, Beast in Black \n\
-RT, Jan, 31,  8:45, PM, Jan, 31,  9:45, PM, Dark Tranquillity \n\
-RT, Jan, 31, 11:00, PM, Feb,  1, 12:00, AM, Eluveitie \n\
-RT, Feb,  1,  1:00, AM, Feb,  1,  2:00, AM, Insomnium \n\
-RT, Feb,  1,  2:45, AM, Feb,  1,  3:30, AM, Vader \n\
-SB, Jan, 31, 11:30, AM, Jan, 31, 12:15, PM, Wolf \n\
-SB, Jan, 31,  1:00, PM, Jan, 31,  1:45, PM, Minipony \n\
-SB, Jan, 31,  2:30, PM, Jan, 31,  3:15, PM, Satan \n\
-SB, Jan, 31,  4:00, PM, Jan, 31,  4:45, PM, In Mourning \n\
-SB, Jan, 31,  5:30, PM, Jan, 31,  6:15, PM, Tribulation \n\
-SB, Jan, 31,  7:00, PM, Jan, 31,  7:45, PM, Jag Panzer \n\
-SB, Jan, 31,  8:30, PM, Jan, 31,  9:15, PM, Trick or Treat \n\
-SB, Jan, 31, 10:00, PM, Jan, 31, 10:45, PM, Persefone \n\
-SB, Jan, 31, 11:45, PM, Feb,  1, 12:30, AM, Bloodred Hourglass \n\
-SB, Feb,  1,  1:15, AM, Feb,  1,  2:00, AM, Dodheimsgard \n\
-SB, Feb,  1,  2:45, AM, Feb,  1,  3:30, AM, Rhapsody of Fire \n\
-SB, Feb,  1,  4:15, AM, Feb,  1,  5:00, AM, Skeletal Remains \n\
-SL, Jan, 31,  3:15, PM, Jan, 31,  4:00, PM, Ereb Altor \n\
-SL, Jan, 31,  4:45, PM, Jan, 31,  5:30, PM, T.H.E.M \n\
-SL, Jan, 31,  6:15, PM, Jan, 31,  7:00, PM, Illdisposed \n\
-SL, Jan, 31,  7:45, PM, Jan, 31,  8:30, PM, Hour of Penance \n\
-SL, Jan, 31,  9:15, PM, Jan, 31, 10:00, PM, In Virtue \n\
-SL, Jan, 31, 11:00, PM, Jan, 31, 11:45, PM, Groza \n\
-SL, Feb,  1, 12:30, AM, Feb,  1,  1:15, AM, Hirax \
+MP, May, 23,  5:10, PM, May, 23,  5:50, PM, Warbringer \n\
+MP, May, 23,  8:25, PM, May, 23,  9:05, PM, Pig Destroyer \n\
+MP, May, 23,  9:55, PM, May, 23, 10:35, PM, Torture Rack \n\
+PPL, May, 23,  4:30, PM, May, 23,  5:10, PM, Kreator \n\
+PPL, May, 23,  6:40, PM, May, 23,  7:20, PM, Destruction \n\
+PPL, May, 23,  8:10, PM, May, 23,  8:50, PM, Mortician \n\
+PPL, May, 23, 10:50, PM, May, 23, 11:30, PM, Whiplash \n\
+PPL, May, 24, 12:45, AM, May, 24,  1:25, AM, Macabre \n\
+NH, May, 23,  2:45, PM, May, 23,  3:25, PM, 1914 \n\
+NH, May, 23,  4:20, PM, May, 23,  5:00, PM, Hellbutcher \n\
+NH, May, 23,  5:05, PM, May, 23,  5:45, PM, Havukruunu \n\
+NH, May, 23,  7:05, PM, May, 23,  7:45, PM, Acheron \n\
+NH, May, 23,  9:05, PM, May, 23,  9:45, PM, Sardonic Witchery \n\
+NH, May, 23, 10:55, PM, May, 23, 11:35, PM, Poltergeist \n\
+BS, May, 23,  5:05, PM, May, 23,  5:45, PM, Rotten Sound \n\
+BS, May, 23,  6:05, PM, May, 23,  6:45, PM, Miasmatic Necrosis \n\
+BS, May, 23,  7:45, PM, May, 23,  8:25, PM, Shitstorm \n\
+BS, May, 23,  8:30, PM, May, 23,  9:10, PM, Mellow Harsher \n\
+BS, May, 23,  9:35, PM, May, 23, 10:15, PM, Ossuary \n\
+BS, May, 23, 10:40, PM, May, 23, 11:20, PM, Terror Corpse \n\
+BS, May, 23, 11:50, PM, May, 24, 12:30, AM, Gestation \n\
+BS, May, 24,  1:00, AM, May, 24,  1:40, AM, Dead Void \n\
+BS, May, 24,  2:20, AM, May, 24,  3:00, AM, Soil of Ignorance \n\
+ARB, May, 23,  8:35, PM, May, 23,  9:15, PM, Desolus \n\
+ARB, May, 23,  9:55, PM, May, 23, 10:35, PM, Laceration \n\
+ARB, May, 23, 10:50, PM, May, 23, 11:30, PM, Glorious Depravity \n\
+ARB, May, 23, 11:50, PM, May, 24, 12:30, AM, Atavistic Decay \
 "
 ,
 "\
-PD, Feb,  1, 10:00, AM, Feb,  1, 10:45, AM, Xandria \n\
-PD, Feb,  1, 11:30, AM, Feb,  1, 12:15, PM, Tyr \n\
-PD, Feb,  1, 12:15, PM, Feb,  1,  1:15, PM, Bellyflop \n\
-PD, Feb,  1,  1:15, PM, Feb,  1,  2:00, PM, Darkane \n\
-PD, Feb,  1,  2:45, PM, Feb,  1,  3:30, PM, Hirax \n\
-PD, Feb,  1,  4:15, PM, Feb,  1,  5:00, PM, Soen \n\
-PD, Feb,  1,  5:45, PM, Feb,  1,  6:45, PM, Insomnium \n\
-PD, Feb,  1,  7:30, PM, Feb,  1,  8:30, PM, Kamelot \n\
-PD, Feb,  1,  9:30, PM, Feb,  1, 10:30, PM, Eluveitie \n\
-PD, Feb,  1, 11:30, PM, Feb,  2, 12:30, AM, Dark Tranquillity \n\
-PD, Feb,  2, 12:30, AM, Feb,  2,  1:00, AM, Skipper's TY \n\
-PD, Feb,  2,  1:00, AM, Feb,  2,  4:00, AM, Karaoke at Solarium \n\
-RT, Feb,  1, 10:45, AM, Feb,  1, 11:30, AM, Dragonland \n\
-RT, Feb,  1, 12:15, PM, Feb,  1,  1:00, PM, Satan \n\
-RT, Feb,  1,  2:30, PM, Feb,  1,  4:00, PM, All Star Jam \n\
-RT, Feb,  1,  5:00, PM, Feb,  1,  5:45, PM, Arkona \n\
-RT, Feb,  1,  6:45, PM, Feb,  1,  7:30, PM, Rhapsody of Fire \n\
-RT, Feb,  1,  8:30, PM, Feb,  1,  9:30, PM, Paradise Lost \n\
-RT, Feb,  1, 10:30, PM, Feb,  1, 11:30, PM, Wind Rose \n\
-SB, Feb,  1, 10:45, AM, Feb,  1, 11:30, AM, In Virtue \n\
-SB, Feb,  1, 12:15, PM, Feb,  1,  1:00, PM, Strike Master \n\
-SB, Feb,  1,  1:45, PM, Feb,  1,  2:30, PM, Groza \n\
-SB, Feb,  1,  3:30, PM, Feb,  1,  4:15, PM, VBO \n\
-SB, Feb,  1,  5:00, PM, Feb,  1,  5:45, PM, Trash Panda \n\
-SB, Feb,  1,  6:30, PM, Feb,  1,  7:15, PM, Gama Bomb \n\
-SB, Feb,  1,  8:00, PM, Feb,  1,  8:45, PM, Illdisposed \n\
-SB, Feb,  1,  9:30, PM, Feb,  1, 10:15, PM, Heathen \n\
-SB, Feb,  1, 11:00, PM, Feb,  1, 11:45, PM, Hour of Penance \n\
-SB, Feb,  2,  1:30, AM, Feb,  2,  2:15, AM, Hiraes \n\
-SL, Feb,  1,  1:00, PM, Feb,  1,  1:45, PM, Trick or Treat \n\
-SL, Feb,  1,  2:45, PM, Feb,  1,  3:30, PM, Minipony \n\
-SL, Feb,  1,  4:15, PM, Feb,  1,  5:00, PM, Dodheimsgard \n\
-SL, Feb,  1,  5:45, PM, Feb,  1,  6:30, PM, Vio-lence \n\
-SL, Feb,  1,  7:15, PM, Feb,  1,  8:00, PM, Dust Bolt \n\
-SL, Feb,  1,  8:45, PM, Feb,  1,  9:30, PM, Suidakra \n\
-SL, Feb,  1, 10:15, PM, Feb,  1, 11:00, PM, Tribulation \
+MP, May, 24,  3:10, PM, May, 24,  3:50, PM, Grave \n\
+MP, May, 24,  4:20, PM, May, 24,  5:00, PM, Sarcofago \n\
+MP, May, 24,  5:25, PM, May, 24,  6:05, PM, Death Angel \n\
+MP, May, 24,  7:05, PM, May, 24,  7:45, PM, Unmerciful \n\
+PPL, May, 24,  2:45, PM, May, 24,  3:25, PM, Dying Fetus \n\
+PPL, May, 24,  3:40, PM, May, 24,  4:20, PM, Cancer \n\
+PPL, May, 24,  5:15, PM, May, 24,  5:55, PM, Blood Red Throne \n\
+PPL, May, 24,  6:25, PM, May, 24,  7:05, PM, Chaotian \n\
+NH, May, 24,  1:30, PM, May, 24,  2:10, PM, Batushka \n\
+NH, May, 24,  2:40, PM, May, 24,  3:20, PM, ...And Oceans \n\
+NH, May, 24,  4:05, PM, May, 24,  4:45, PM, Woe \n\
+NH, May, 24,  5:20, PM, May, 24,  6:00, PM, Wrathprayer \n\
+NH, May, 24,  6:25, PM, May, 24,  7:05, PM, Antichrist Siege Machine \n\
+NH, May, 24,  7:45, PM, May, 24,  8:25, PM, Aberration \n\
+BS, May, 24,  1:25, PM, May, 24,  2:05, PM, !TOOH! \n\
+BS, May, 24,  2:45, PM, May, 24,  3:25, PM, Cephalic Carnage \n\
+BS, May, 24,  4:25, PM, May, 24,  5:05, PM, Aftermath \n\
+BS, May, 24,  5:10, PM, May, 24,  5:50, PM, Excrescence \n\
+BS, May, 24,  6:40, PM, May, 24,  7:20, PM, Hemorrhoid \n\
+BS, May, 24,  7:30, PM, May, 24,  8:10, PM, Sex Prisoner \n\
+BS, May, 24,  8:35, PM, May, 24,  9:15, PM, Haukago Grind Time \n\
+BS, May, 24,  9:25, PM, May, 24, 10:05, PM, Slimelord \n\
+ARB, May, 24,  7:00, PM, May, 24,  7:40, PM, Cemetery Moon \n\
+ARB, May, 24,  7:55, PM, May, 24,  8:35, PM, Gudsforladt \n\
+ARB, May, 24,  9:05, PM, May, 24,  9:45, PM, Tomarum \
 "
 ];
 
-//bellyflop
-//nassau
-//Skipper's TY
-//2 karaokes
-//All Star Jam
 export let bandInfo = [
+    ["Bongzilla", "Sludge/Doom"],
+    ["Rwake", "Sludge/Doom"],
+    ["Avernus", "Death/Doom"],
+    ["Black Lung", "Doom/Sludge"],
+    ["Lair of the Minotaur", "Sludge/Doom"],
+    ["Solitude Aeturnus", "Doom Metal"],
+    ["Novembers Doom", "Death/Doom"],
+    ["Bongripper", "Doom Metal"],
+    ["Torsofuck", "Goregrind"],
+    ["Putridity", "Brutal Death"],
+    ["Cephalotripsy", "Brutal Death"],
+    ["Emasculator", "Brutal Death"],
+    ["Condemned", "Brutal Death"],
+    ["Cerebral Hemorrhage", "Brutal Death"],
+    ["Cryptic Shift", "Prog Death"],
+    ["Rotting Christ", "Melodic Black"],
+    ["God Dethroned", "Melodic Death/Black"],
+    ["The Crown", "Melodic Death/Thrash"],
+    ["Old Man's Child", "Melodic Black"],
+    ["Wolfheart", "Melodic Death"],
+    ["Witch Vomit", "Death Metal"],
+    ["Oranssi Pazuzu", "Psychedelic Black"],
+    ["Wayfarer", "Black/Folk"],
+    ["Pan-Amerikan Native Front", "Black Metal"],
+    ["Lomsk", "Prog Metal"],
+    ["Der Weg Einer Freiheit", "Black Metal"],
+    ["Aftermath", "Technical Thrash"],
+    ["Lividity", "Brutal Death"],
+    ["To Violently Vomit", "Death Metal (Disgorge covers)"],
+    ["Rottrevore", "Death Metal"],
+    ["Necrofier", "Black Metal"],
+    ["Diabolic Oath", "Black/Death"],
+    ["Melting Rot", "Death Metal"],
+    ["Grave Infestation", "Death Metal"],
+    ["Warbringer", "Thrash Metal"],
+    ["Pig Destroyer", "Grindcore"],
+    ["Torture Rack", "Death Metal"],
+    ["Kreator", "Thrash Metal"],
+    ["Destruction", "Thrash Metal"],
+    ["Mortician", "Brutal Death"],
+    ["Whiplash", "Thrash Metal"],
+    ["Macabre", "Murder Metal/Thrash"],
+    ["1914", "Death/Black"],
+    ["Hellbutcher", "Black/Thrash"],
+    ["Havukruunu", "Black/Pagan"],
+    ["Acheron", "Death/Black"],
+    ["Sardonic Witchery", "Black Metal"],
+    ["Poltergeist", "Thrash Metal"],
+    ["Rotten Sound", "Grindcore"],
+    ["Miasmatic Necrosis", "Goregrind"],
+    ["Shitstorm", "Grindcore"],
+    ["Mellow Harsher", "Grindcore"],
+    ["Ossuary", "Death Metal"],
+    ["Terror Corpse", "Death Metal"],
+    ["Grave", "Death Metal"],
+    ["Sarcofago", "Black/Death Metal"],
+    ["Death Angel", "Thrash Metal"],
+    ["Unmerciful", "Brutal Death"],
+    ["Dying Fetus", "Brutal Death"],
+    ["Cancer", "Death Metal"],
+    ["Blood Red Throne", "Death Metal"],
+    ["Chaotian", "Death Metal"],
+    ["Batushka", "Black Metal"],
+    ["...And Oceans", "Symphonic Black"],
+    ["Woe", "Black Metal"],
+    ["Wrathprayer", "Black/Death"],
+    ["Antichrist Siege Machine", "Black/Death"],
+    ["Aberration", "Death/Doom"],
+    ["!TOOH!", "Prog Death/Grind"],
+    ["Cephalic Carnage", "Technical Grindcore"],
+    ["Excrescence", "Brutal Death"],
+    ["Hemorrhoid", "Death Metal/Goregrind"],
+    ["Sex Prisoner", "Powerviolence"],
+    ["Slimelord", "Death/Doom"]
 ];
+
+/**
+ * Safely retrieves band information.
+ * If the band is not found (e.g., when bandInfo is empty),
+ * it returns a default array [bandName, "", ""] to prevent UI crashes.
+ * @param {string} bandName 
+ */
+export function getBandInfo(bandName) {
+    return bandInfo.find(b => b[0] === bandName) || [bandName, "", ""];
+}
 
 export let storedVersion = "_MDF2026_v1";
 export let storedDelayKey = "storedDelay" + year + storedVersion;
