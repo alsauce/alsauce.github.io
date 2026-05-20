@@ -28,6 +28,12 @@ export let locations = [
         fullName: "Angels Rock Bar",
         location: "ARB",
         note: "Free w/ same day MDF ticket"
+    },
+    {
+        abbrev: "MNC",
+        fullName: "Mosaic Nightclub",
+        location: "MNC",
+        note: ""
     }
 ];
 
@@ -52,21 +58,20 @@ BS, May, 22,  1:50, AM, May, 22,  2:30, AM, Cerebral Hemorrhage \
 "
 ,
 "\
+MP, May, 22,  3:45, PM, May, 22,  4:20, PM, Witch Vomit \n\
 MP, May, 22,  5:05, PM, May, 22,  5:45, PM, Cryptic Shift \n\
 MP, May, 22,  8:35, PM, May, 22,  9:15, PM, Rotting Christ \n\
-MP, May, 22, 10:35, PM, May, 22, 11:15, PM, God Dethroned \n\
 PPL, May, 22,  3:45, PM, May, 22,  4:25, PM, The Crown \n\
-PPL, May, 22,  6:55, PM, May, 22,  7:35, PM, Old Man's Child \n\
+PPL, May, 22,  6:50, PM, May, 22,  7:35, PM, Left Cross \n\
 PPL, May, 22,  9:20, PM, May, 22, 10:00, PM, Wolfheart \n\
-PPL, May, 22, 11:25, PM, May, 23, 12:05, AM, Witch Vomit \n\
+PPL, May, 22, 11:25, PM, May, 23, 12:15, AM, Old Man's Child \n\
 NH, May, 22,  3:00, PM, May, 22,  3:40, PM, Oranssi Pazuzu \n\
-NH, May, 22,  5:30, PM, May, 22,  6:10, PM, Wayfarer \n\
-NH, May, 22,  7:20, PM, May, 22,  8:00, PM, Pan-Amerikan Native Front \n\
-NH, May, 22,  8:35, PM, May, 22,  9:15, PM, Lomsk \n\
-NH, May, 22,  9:30, PM, May, 22, 10:10, PM, Der Weg Einer Freiheit \n\
+NH, May, 22,  5:15, PM, May, 22,  6:00, PM, Lomsk \n\
+NH, May, 22,  7:20, PM, May, 22,  8:00, PM, Wayfarer \n\
+NH, May, 22,  9:30, PM, May, 22, 10:20, PM, Der Weg Einer Freiheit \n\
 BS, May, 22,  2:20, PM, May, 22,  3:00, PM, Aftermath \n\
 BS, May, 22,  3:15, PM, May, 22,  3:55, PM, Lividity \n\
-BS, May, 22,  4:10, PM, May, 22,  4:50, PM, To Violently Vomit \n\
+BS, May, 22,  4:20, PM, May, 22,  4:50, PM, Ordh \n\
 BS, May, 22,  5:55, PM, May, 22,  6:35, PM, Rottrevore \n\
 BS, May, 22,  7:15, PM, May, 22,  7:55, PM, Necrofier \n\
 BS, May, 22,  8:10, PM, May, 22,  8:50, PM, Diabolic Oath \n\
@@ -74,7 +79,11 @@ BS, May, 22, 10:10, PM, May, 22, 10:50, PM, Melting Rot \n\
 BS, May, 22, 11:25, PM, May, 23, 12:05, AM, Grave Infestation \n\
 ARB, May, 22,  4:00, PM, May, 22,  4:40, PM, Tithe \n\
 ARB, May, 22,  5:35, PM, May, 22,  6:15, PM, Bone Weapon \n\
-ARB, May, 22,  6:40, PM, May, 22,  7:20, PM, Withering Soul \
+ARB, May, 22,  6:40, PM, May, 22,  7:20, PM, Pan-Amerikan Native Front \n\
+ARB, May, 22,  9:10, PM, May, 22,  9:40, PM, Withering Soul \n\
+MNC, May, 22,  3:15, PM, May, 22,  3:55, PM, God Dethroned \n\
+MNC, May, 22, 10:10, PM, May, 22, 10:50, PM, Jarhead Fertilizer \n\
+MNC, May, 22, 11:25, PM, May, 23, 12:05, AM, Thra \
 "
 ,
 "\
@@ -210,7 +219,14 @@ export let bandInfo = [
     ["Excrescence", "Brutal Death"],
     ["Hemorrhoid", "Death Metal/Goregrind"],
     ["Sex Prisoner", "Powerviolence"],
-    ["Slimelord", "Death/Doom"]
+    ["Slimelord", "Death/Doom"],
+    ["Left Cross", "Death Metal"],
+    ["Ordh", "Brutal Death Metal"],
+    ["Jarhead Fertilizer", "Grindcore/Death"],
+    ["Thra", "Sludge/Doom"],
+    ["Tithe", "Sludge/Death"],
+    ["Bone Weapon", "Death Metal"],
+    ["Withering Soul", "Melodic Black/Death"]
 ];
 
 /**
