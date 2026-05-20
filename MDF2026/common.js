@@ -41,33 +41,40 @@ export let year = 2026;
 
 export let schedule = [
 "\
+NH, May, 21,  5:00, PM, May, 21,  5:40, PM, Black Lung \n\
+NH, May, 21,  6:20, PM, May, 21,  7:00, PM, Lair of the Minotaur \n\
 NH, May, 21,  7:40, PM, May, 21,  8:20, PM, Bongzilla \n\
 NH, May, 21,  9:00, PM, May, 21,  9:40, PM, Rwake \n\
 NH, May, 21, 10:05, PM, May, 21, 10:45, PM, Avernus \n\
-NH, May, 22, 12:10, AM, May, 22, 12:50, AM, Black Lung \n\
-NH, May, 22,  1:40, AM, May, 22,  2:20, AM, Lair of the Minotaur \n\
-PPL, May, 21,  9:45, PM, May, 21, 10:25, PM, Solitude Aeturnus \n\
-PPL, May, 21, 10:40, PM, May, 21, 11:20, PM, Novembers Doom \n\
-PPL, May, 21, 11:35, PM, May, 22, 12:20, AM, Bongripper \n\
+PPL, May, 21,  7:15, PM, May, 21,  8:00, PM, Bongripper \n\
+PPL, May, 21,  8:45, PM, May, 21,  9:30, PM, Novembers Doom \n\
+PPL, May, 21, 10:15, PM, May, 21, 11:15, PM, Solitude Aeturnus \n\
 BS, May, 21,  8:15, PM, May, 21,  8:55, PM, Torsofuck \n\
 BS, May, 21,  9:30, PM, May, 21, 10:10, PM, Putridity \n\
 BS, May, 21, 10:40, PM, May, 21, 11:20, PM, Cephalotripsy \n\
 BS, May, 21, 11:50, PM, May, 22, 12:30, AM, Emasculator \n\
-BS, May, 22, 12:50, AM, May, 22,  1:30, AM, Condemned \n\
-BS, May, 22,  1:50, AM, May, 22,  2:30, AM, Cerebral Hemorrhage \
+BS, May, 22,  1:05, AM, May, 22,  1:45, AM, Condemned \n\
+BS, May, 22,  2:10, AM, May, 22,  2:50, AM, Cerebral Hemorrhage \
 "
 ,
 "\
 MP, May, 22,  3:45, PM, May, 22,  4:20, PM, Witch Vomit \n\
 MP, May, 22,  5:05, PM, May, 22,  5:45, PM, Cryptic Shift \n\
+MP, May, 22,  6:30, PM, May, 22,  7:15, PM, Grave \n\
 MP, May, 22,  8:35, PM, May, 22,  9:15, PM, Rotting Christ \n\
+MP, May, 22, 10:35, PM, May, 22, 11:15, PM, God Dethroned \n\
 PPL, May, 22,  3:45, PM, May, 22,  4:25, PM, The Crown \n\
+PPL, May, 22,  5:15, PM, May, 22,  5:55, PM, Blood Red Throne \n\
 PPL, May, 22,  6:50, PM, May, 22,  7:35, PM, Left Cross \n\
+PPL, May, 22,  8:10, PM, May, 22,  8:50, PM, Mortician \n\
 PPL, May, 22,  9:20, PM, May, 22, 10:00, PM, Wolfheart \n\
 PPL, May, 22, 11:25, PM, May, 23, 12:15, AM, Old Man's Child \n\
 NH, May, 22,  3:00, PM, May, 22,  3:40, PM, Oranssi Pazuzu \n\
+NH, May, 22,  4:05, PM, May, 22,  4:45, PM, Woe \n\
 NH, May, 22,  5:15, PM, May, 22,  6:00, PM, Lomsk \n\
+NH, May, 22,  6:30, PM, May, 22,  7:10, PM, Antichrist Siege Machine \n\
 NH, May, 22,  7:20, PM, May, 22,  8:00, PM, Wayfarer \n\
+NH, May, 22,  8:35, PM, May, 22,  9:15, PM, Pan-Amerikan Native Front \n\
 NH, May, 22,  9:30, PM, May, 22, 10:20, PM, Der Weg Einer Freiheit \n\
 BS, May, 22,  2:20, PM, May, 22,  3:00, PM, Aftermath \n\
 BS, May, 22,  3:15, PM, May, 22,  3:55, PM, Lividity \n\
@@ -79,7 +86,7 @@ BS, May, 22, 10:10, PM, May, 22, 10:50, PM, Melting Rot \n\
 BS, May, 22, 11:25, PM, May, 23, 12:05, AM, Grave Infestation \n\
 ARB, May, 22,  4:00, PM, May, 22,  4:40, PM, Tithe \n\
 ARB, May, 22,  5:35, PM, May, 22,  6:15, PM, Bone Weapon \n\
-ARB, May, 22,  6:40, PM, May, 22,  7:20, PM, Pan-Amerikan Native Front \n\
+ARB, May, 22,  6:40, PM, May, 22,  7:20, PM, Cemetery Moon \n\
 ARB, May, 22,  9:10, PM, May, 22,  9:40, PM, Withering Soul \n\
 MNC, May, 22,  3:15, PM, May, 22,  3:55, PM, God Dethroned \n\
 MNC, May, 22, 10:10, PM, May, 22, 10:50, PM, Jarhead Fertilizer \n\
@@ -87,10 +94,14 @@ MNC, May, 22, 11:25, PM, May, 23, 12:05, AM, Thra \
 "
 ,
 "\
+MP, May, 23,  4:20, PM, May, 23,  5:00, PM, Hellbutcher \n\
 MP, May, 23,  5:10, PM, May, 23,  5:50, PM, Warbringer \n\
+MP, May, 23,  6:00, PM, May, 23,  6:45, PM, Destruction \n\
 MP, May, 23,  8:25, PM, May, 23,  9:05, PM, Pig Destroyer \n\
 MP, May, 23,  9:55, PM, May, 23, 10:35, PM, Torture Rack \n\
+PPL, May, 23,  3:45, PM, May, 23,  4:25, PM, Sarcofago \n\
 PPL, May, 23,  4:30, PM, May, 23,  5:10, PM, Kreator \n\
+PPL, May, 23,  5:30, PM, May, 23,  6:20, PM, Death Angel \n\
 PPL, May, 23,  6:40, PM, May, 23,  7:20, PM, Destruction \n\
 PPL, May, 23,  8:10, PM, May, 23,  8:50, PM, Mortician \n\
 PPL, May, 23, 10:50, PM, May, 23, 11:30, PM, Whiplash \n\
@@ -113,14 +124,18 @@ BS, May, 24,  2:20, AM, May, 24,  3:00, AM, Soil of Ignorance \n\
 ARB, May, 23,  8:35, PM, May, 23,  9:15, PM, Desolus \n\
 ARB, May, 23,  9:55, PM, May, 23, 10:35, PM, Laceration \n\
 ARB, May, 23, 10:50, PM, May, 23, 11:30, PM, Glorious Depravity \n\
-ARB, May, 23, 11:50, PM, May, 24, 12:30, AM, Atavistic Decay \
+ARB, May, 23, 11:50, PM, May, 24, 12:30, AM, Atavistic Decay \n\
+MNC, May, 23,  9:35, PM, May, 23, 10:15, PM, Noisear \n\
+MNC, May, 23, 10:40, PM, May, 23, 11:20, PM, Bandit \n\
+MNC, May, 23, 11:50, PM, May, 24, 12:30, AM, Human Cull \
 "
 ,
 "\
-MP, May, 24,  3:10, PM, May, 24,  3:50, PM, Grave \n\
-MP, May, 24,  4:20, PM, May, 24,  5:00, PM, Sarcofago \n\
+MP, May, 24,  3:35, PM, May, 24,  4:15, PM, SlimeLord \n\
+MP, May, 24,  4:25, PM, May, 24,  5:05, PM, Abyssal Dawn \n\
 MP, May, 24,  5:25, PM, May, 24,  6:05, PM, Death Angel \n\
-MP, May, 24,  7:05, PM, May, 24,  7:45, PM, Unmerciful \n\
+MP, May, 24,  6:40, PM, May, 24,  7:25, PM, Haulage \n\
+MP, May, 24,  7:50, PM, May, 24,  8:40, PM, Unmerciful \n\
 PPL, May, 24,  2:45, PM, May, 24,  3:25, PM, Dying Fetus \n\
 PPL, May, 24,  3:40, PM, May, 24,  4:20, PM, Cancer \n\
 PPL, May, 24,  5:15, PM, May, 24,  5:55, PM, Blood Red Throne \n\
@@ -129,19 +144,22 @@ NH, May, 24,  1:30, PM, May, 24,  2:10, PM, Batushka \n\
 NH, May, 24,  2:40, PM, May, 24,  3:20, PM, ...And Oceans \n\
 NH, May, 24,  4:05, PM, May, 24,  4:45, PM, Woe \n\
 NH, May, 24,  5:20, PM, May, 24,  6:00, PM, Wrathprayer \n\
-NH, May, 24,  6:25, PM, May, 24,  7:05, PM, Antichrist Siege Machine \n\
+NH, May, 24,  6:25, PM, May, 24,  7:15, PM, Antichrist Siege Machine \n\
 NH, May, 24,  7:45, PM, May, 24,  8:25, PM, Aberration \n\
 BS, May, 24,  1:25, PM, May, 24,  2:05, PM, !TOOH! \n\
 BS, May, 24,  2:45, PM, May, 24,  3:25, PM, Cephalic Carnage \n\
-BS, May, 24,  4:25, PM, May, 24,  5:05, PM, Aftermath \n\
+BS, May, 24,  4:25, PM, May, 24,  5:05, PM, Abyssal Dawn \n\
 BS, May, 24,  5:10, PM, May, 24,  5:50, PM, Excrescence \n\
 BS, May, 24,  6:40, PM, May, 24,  7:20, PM, Hemorrhoid \n\
 BS, May, 24,  7:30, PM, May, 24,  8:10, PM, Sex Prisoner \n\
-BS, May, 24,  8:35, PM, May, 24,  9:15, PM, Haukago Grind Time \n\
-BS, May, 24,  9:25, PM, May, 24, 10:05, PM, Slimelord \n\
+BS, May, 24,  8:35, PM, May, 24,  9:15, PM, Haulage \n\
+BS, May, 24,  9:25, PM, May, 24, 10:15, PM, SlimeLord \n\
 ARB, May, 24,  7:00, PM, May, 24,  7:40, PM, Cemetery Moon \n\
 ARB, May, 24,  7:55, PM, May, 24,  8:35, PM, Gudsforladt \n\
-ARB, May, 24,  9:05, PM, May, 24,  9:45, PM, Tomarum \
+ARB, May, 24,  9:05, PM, May, 24,  9:45, PM, Tomarum \n\
+MNC, May, 24,  7:30, PM, May, 24,  8:10, PM, Terminal Nation \n\
+MNC, May, 24,  8:35, PM, May, 24,  9:15, PM, Undergang \n\
+MNC, May, 24,  9:25, PM, May, 24, 10:05, PM, Spectral Voice \
 "
 ];
 
@@ -226,7 +244,25 @@ export let bandInfo = [
     ["Thra", "Sludge/Doom"],
     ["Tithe", "Sludge/Death"],
     ["Bone Weapon", "Death Metal"],
-    ["Withering Soul", "Melodic Black/Death"]
+    ["Withering Soul", "Melodic Black/Death"],
+    ["Haulage", "Grindcore"],
+    ["Gestation", "Death Metal"],
+    ["Dead Void", "Death/Doom"],
+    ["Soil of Ignorance", "Grindcore"],
+    ["Abyssal Dawn", "Death Metal"],
+    ["Cemetery Moon", "Black Metal"],
+    ["Gudsforladt", "Black Metal"],
+    ["Tomarum", "Prog Black Metal"],
+    ["Terminal Nation", "Hardcore/Death Metal"],
+    ["Undergang", "Death Metal"],
+    ["Spectral Voice", "Death/Doom"],
+    ["Noisear", "Grindcore"],
+    ["Bandit", "Grindcore"],
+    ["Human Cull", "Grindcore"],
+    ["Desolus", "Thrash Metal"],
+    ["Laceration", "Death Metal"],
+    ["Glorious Depravity", "Death Metal"],
+    ["Atavistic Decay", "Death Metal"]
 ];
 
 /**
