@@ -41,20 +41,20 @@ export let year = 2026;
 
 export let schedule = [
 "\
-NH, May, 21,  5:00, PM, May, 21,  5:40, PM, Black Lung \n\
-NH, May, 21,  6:20, PM, May, 21,  7:00, PM, Lair of the Minotaur \n\
-NH, May, 21,  7:40, PM, May, 21,  8:20, PM, Bongzilla \n\
-NH, May, 21,  9:00, PM, May, 21,  9:40, PM, Rwake \n\
-NH, May, 21, 10:05, PM, May, 21, 10:45, PM, Avernus \n\
+NH, May, 21,  5:00, PM, May, 21,  5:35, PM, Black Lung \n\
+NH, May, 21,  6:30, PM, May, 21,  7:15, PM, Lair of the Minotaur \n\
+NH, May, 21,  8:05, PM, May, 21,  8:50, PM, Avernus \n\
+NH, May, 21,  9:25, PM, May, 21, 10:25, PM, Rwake \n\
+NH, May, 21, 11:45, PM, May, 21, 12:35, PM, Bongzilla \n\
 PPL, May, 21,  7:15, PM, May, 21,  8:00, PM, Bongripper \n\
 PPL, May, 21,  8:45, PM, May, 21,  9:30, PM, Novembers Doom \n\
 PPL, May, 21, 10:15, PM, May, 21, 11:15, PM, Solitude Aeturnus \n\
-BS, May, 21,  8:15, PM, May, 21,  8:55, PM, Torsofuck \n\
-BS, May, 21,  9:30, PM, May, 21, 10:10, PM, Putridity \n\
-BS, May, 21, 10:40, PM, May, 21, 11:20, PM, Cephalotripsy \n\
-BS, May, 21, 11:50, PM, May, 22, 12:30, AM, Emasculator \n\
-BS, May, 22,  1:05, AM, May, 22,  1:45, AM, Condemned \n\
-BS, May, 22,  2:10, AM, May, 22,  2:50, AM, Cerebral Hemorrhage \
+BS, May, 21,  4:30, PM, May, 21,  5:05, PM, Cerebral Hemorrhage \n\
+BS, May, 21,  5:40, PM, May, 21,  6:25, PM, Emasculator \n\
+BS, May, 21,  7:20, PM, May, 21,  8:00, PM, Condemned \n\
+BS, May, 21,  8:50, PM, May, 21,  9:30, PM, Cephalotripsy \n\
+BS, May, 21, 11:00, PM, May, 21, 11:45, PM, Putridity \n\
+BS, May, 22, 12:10, AM, May, 22,  1:05, AM, Torsofuck \
 "
 ,
 "\
