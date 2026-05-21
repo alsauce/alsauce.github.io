@@ -59,107 +59,96 @@ BS, May, 22, 12:10, AM, May, 22,  1:05, AM, Torsofuck \
 ,
 "\
 MP, May, 22,  3:45, PM, May, 22,  4:20, PM, Witch Vomit \n\
-MP, May, 22,  5:05, PM, May, 22,  5:45, PM, Cryptic Shift \n\
-MP, May, 22,  6:30, PM, May, 22,  7:15, PM, Grave \n\
-MP, May, 22,  8:35, PM, May, 22,  9:15, PM, Rotting Christ \n\
-MP, May, 22, 10:35, PM, May, 22, 11:15, PM, God Dethroned \n\
-PPL, May, 22,  3:45, PM, May, 22,  4:25, PM, The Crown \n\
-PPL, May, 22,  5:15, PM, May, 22,  5:55, PM, Blood Red Throne \n\
-PPL, May, 22,  6:50, PM, May, 22,  7:35, PM, Left Cross \n\
-PPL, May, 22,  8:10, PM, May, 22,  8:50, PM, Mortician \n\
-PPL, May, 22,  9:20, PM, May, 22, 10:00, PM, Wolfheart \n\
-PPL, May, 22, 11:25, PM, May, 23, 12:15, AM, Old Man's Child \n\
-NH, May, 22,  3:00, PM, May, 22,  3:40, PM, Oranssi Pazuzu \n\
-NH, May, 22,  4:05, PM, May, 22,  4:45, PM, Woe \n\
-NH, May, 22,  5:15, PM, May, 22,  6:00, PM, Lomsk \n\
-NH, May, 22,  6:30, PM, May, 22,  7:10, PM, Antichrist Siege Machine \n\
-NH, May, 22,  7:20, PM, May, 22,  8:00, PM, Wayfarer \n\
-NH, May, 22,  8:35, PM, May, 22,  9:15, PM, Pan-Amerikan Native Front \n\
-NH, May, 22,  9:30, PM, May, 22, 10:20, PM, Der Weg Einer Freiheit \n\
-BS, May, 22,  2:20, PM, May, 22,  3:00, PM, Aftermath \n\
-BS, May, 22,  3:15, PM, May, 22,  3:55, PM, Lividity \n\
-BS, May, 22,  4:20, PM, May, 22,  4:50, PM, Ordh \n\
-BS, May, 22,  5:55, PM, May, 22,  6:35, PM, Rottrevore \n\
 MP, May, 22,  4:40, PM, May, 22,  5:20, PM, Necrofier \n\
-BS, May, 22,  8:10, PM, May, 22,  8:50, PM, Diabolic Oath \n\
-BS, May, 22, 10:10, PM, May, 22, 10:50, PM, Melting Rot \n\
-BS, May, 22, 11:25, PM, May, 23, 12:05, AM, Grave Infestation \n\
-ARB, May, 22,  4:00, PM, May, 22,  4:40, PM, Tithe \n\
-ARB, May, 22,  5:35, PM, May, 22,  6:15, PM, Bone Weapon \n\
-ARB, May, 22,  6:40, PM, May, 22,  7:20, PM, Cemetery Moon \n\
+MP, May, 22,  5;55, PM, May, 22,  6:45, PM, God Dethroned \n\
+MP, May, 22,  7:40, PM, May, 22,  8:40, PM, Rotting Christ \n\
+MP, May, 22,  9:40, PM, May, 22, 10:40, PM, Old Man's Child \n\
+PPL, May, 22,  6:50, PM, May, 22,  7:35, PM, Left Cross \n\
+PPL, May, 22,  8:45, PM, May, 22,  9:35, PM, Wolfheart \n\
+PPL, May, 22, 11:10, PM, May, 23, 12:00, AM, The Crown \n\
+NH, May, 23, 12:15, AM, May, 23,  1:15, AM, Oranssi Pazuzu \n\
+NH, May, 22,  5:15, PM, May, 22,  6:00, PM, Lomsk \n\
+NH, May, 22,  8:45, PM, May, 22,  9:25, PM, Wayfarer \n\
+NH, May, 22,  6:55, PM, May, 22,  7:40, PM, Pan-Amerikan Native Front \n\
+NH, May, 22, 10:45, PM, May, 22, 11:35, PM, Der Weg Einer Freiheit \n\
+BS, May, 22,  8:40, PM, May, 22,  9:20, PM, To Violently Vomit \n\
+BS, May, 23, 12:00, AM, May, 23, 12:50, AM, Lividity \n\
+BS, May, 22,  4:20, PM, May, 22,  4:50, PM, Ordh \n\
+BS, May, 22, 10:40, PM, May, 22, 11:20, PM, Rottrevore \n\
+MP, May, 22,  4:40, PM, May, 22,  5:20, PM, Necrofier \n\
+BS, May, 22,  6:50, PM, May, 22,  7:25, PM, Diabolic Oath \n\
+BS, May, 22,  5:25, PM, May, 22,  5:55, PM, Melting Rot \n\
+ARB, May, 22, 11:30, PM, May, 23, 12:00, AM, Tithe \n\
+ARB, May, 22, 10:40, PM, May, 22, 11:10, PM, Bone Weapon \n\
 ARB, May, 22,  9:10, PM, May, 22,  9:40, PM, Withering Soul \n\
-MNC, May, 22,  3:15, PM, May, 22,  3:55, PM, God Dethroned \n\
-MNC, May, 22, 10:10, PM, May, 22, 10:50, PM, Jarhead Fertilizer \n\
-MNC, May, 22, 11:25, PM, May, 23, 12:05, AM, Thra \
+MNC, May, 22,  3:15, PM, May, 22,  3:45, PM, God Dethroned sign \n\
+MNC, May, 22,  5:00, PM, May, 22, 5:30, PM, Old Man's Child sign\n\
+MNC, May, 22,  6:45, PM, May, 23,  7:15, AM, The Crown, Der sign \
 "
 ,
 "\
-MP, May, 23,  4:20, PM, May, 23,  5:00, PM, Hellbutcher \n\
-MP, May, 23,  5:10, PM, May, 23,  5:50, PM, Warbringer \n\
-MP, May, 23,  6:00, PM, May, 23,  6:45, PM, Destruction \n\
-MP, May, 23,  8:25, PM, May, 23,  9:05, PM, Pig Destroyer \n\
-MP, May, 23,  9:55, PM, May, 23, 10:35, PM, Torture Rack \n\
-PPL, May, 23,  3:45, PM, May, 23,  4:25, PM, Sarcofago \n\
-PPL, May, 23,  4:30, PM, May, 23,  5:10, PM, Kreator \n\
-PPL, May, 23,  5:30, PM, May, 23,  6:20, PM, Death Angel \n\
-PPL, May, 23,  6:40, PM, May, 23,  7:20, PM, Destruction \n\
-PPL, May, 23,  8:10, PM, May, 23,  8:50, PM, Mortician \n\
-PPL, May, 23, 10:50, PM, May, 23, 11:30, PM, Whiplash \n\
-PPL, May, 24, 12:45, AM, May, 24,  1:25, AM, Macabre \n\
-NH, May, 23,  2:45, PM, May, 23,  3:25, PM, 1914 \n\
-NH, May, 23,  4:20, PM, May, 23,  5:00, PM, Hellbutcher \n\
-NH, May, 23,  5:05, PM, May, 23,  5:45, PM, Havukruunu \n\
-NH, May, 23,  7:05, PM, May, 23,  7:45, PM, Acheron \n\
-NH, May, 23,  9:05, PM, May, 23,  9:45, PM, Sardonic Witchery \n\
-NH, May, 23, 10:55, PM, May, 23, 11:35, PM, Poltergeist \n\
-BS, May, 23,  5:05, PM, May, 23,  5:45, PM, Rotten Sound \n\
-BS, May, 23,  6:05, PM, May, 23,  6:45, PM, Miasmatic Necrosis \n\
-BS, May, 23,  7:45, PM, May, 23,  8:25, PM, Shitstorm \n\
-BS, May, 23,  8:30, PM, May, 23,  9:10, PM, Mellow Harsher \n\
-BS, May, 23,  9:35, PM, May, 23, 10:15, PM, Ossuary \n\
-BS, May, 23, 10:40, PM, May, 23, 11:20, PM, Terror Corpse \n\
-BS, May, 23, 11:50, PM, May, 24, 12:30, AM, Gestation \n\
-BS, May, 24,  1:00, AM, May, 24,  1:40, AM, Dead Void \n\
-BS, May, 24,  2:20, AM, May, 24,  3:00, AM, Soil of Ignorance \n\
-ARB, May, 23,  8:35, PM, May, 23,  9:15, PM, Desolus \n\
-ARB, May, 23,  9:55, PM, May, 23, 10:35, PM, Laceration \n\
-ARB, May, 23, 10:50, PM, May, 23, 11:30, PM, Glorious Depravity \n\
-ARB, May, 23, 11:50, PM, May, 24, 12:30, AM, Atavistic Decay \n\
-MNC, May, 23,  9:35, PM, May, 23, 10:15, PM, Noisear \n\
-MNC, May, 23, 10:40, PM, May, 23, 11:20, PM, Bandit \n\
-MNC, May, 23, 11:50, PM, May, 24, 12:30, AM, Human Cull \
+MP, May, 23,  9:45, PM, May, 23, 10:45, PM, Kreator \n\
+MP, May, 23,  3:30, PM, May, 23,  4:15, PM, Warbringer \n\
+MP, May, 23,  7:55, PM, May, 23,  8:45, PM, Destruction \n\
+MP, May, 23,  6:15, PM, May, 23,  7:00, PM, Pig Destroyer \n\
+MP, May, 23,  2:25, PM, May, 23,  3:05, PM, Torture Rack \n\
+MP, May, 23,  4:40, PM, May, 23,  6:30, PM, Whiplash \n\
+PPL, May, 23, 5:35, PM, May, 23,  6:10, PM, Laceration \n\
+PPL, May, 23, 7:05, PM, May, 23,  7:50, PM, Macabre \n\
+PPL, May, 23,  8:50, PM, May, 23,  9:45, PM, Mortician \n\
+PPL, May, 23, 10:50, PM, May, 23,  11:25, PM, Morta Skuld \n\
+PPL, May, 23, 11:45, PM, May, 24, 12:15, AM, Sinister \n\
+NH, May, 23, 12:10, AM, May, 23, 1:00, AM, 1914 \n\
+NH, May, 23, 8:50, PM, May, 23, 9:40, PM, Hellbutcher \n\
+NH, May, 23, 10:55, PM, May, 23, 11:45, PM, Havukruunu \n\
+NH, May, 23,  6:35, PM, May, 23,  7:15, PM, Sardonic Witchery \n\
+NH, May, 23, 5:35, PM, May, 23, 6:10, PM, Poltergeist \n\
+BS, May, 24, 12:45, AM, May, 24, 1;30, AM, Rotten Sound \n\
+BS, May, 23, 10:45, PM, May, 23, 1:15, PM, Miasmatic Necrosis \n\
+BS, May, 23, 11:40, PM, May, 24, 12:15, AM, Shitstorm \n\
+BS, May, 23, 8:15, PM, May, 23, 8:50, PM, Jarhead Fertilizer \n\
+BS, May, 23, 7:15, PM, May, 23, 7:55, PM, Ossuary \n\
+BS, May, 23, 5:35, PM, May, 23, 6:10, PM, Terror Corpse \n\
+BS, May, 23, 3:05, PM, May, 23, 3:35, PM, Gestation \n\
+BS, May, 23,  2:00, PM, May, 23, 2:35, PM, Dead Void \n\
+BS, May, 23, 4:15, PM, May, 23, 4:40, PM, Mellow Harsher \n\
+ARB, May, 23, 9:15, PM, May, 23,  9:45, PM, Desolus \n\
+ARB, May, 23, 11:45, PM, May, 24, 12:15, AM, Glorious Depravity \n\
+ARB, May, 23, 10:40, PM, May, 24, 11:10, AM, Atavistic Decay \n\
+MNC, May, 23, 3:00, PM, May, 23, 3:30, PM, Hellbutcher sign\n\
+MNC, May, 23, 7:00, PM, May, 23, 7:30, PM, Havukruunu sign \
 "
 ,
 "\
-MP, May, 24,  3:35, PM, May, 24,  4:15, PM, SlimeLord \n\
-MP, May, 24,  4:25, PM, May, 24,  5:05, PM, Abyssal Dawn \n\
-MP, May, 24,  5:25, PM, May, 24,  6:05, PM, Death Angel \n\
-MP, May, 24,  6:40, PM, May, 24,  7:25, PM, Haulage \n\
-MP, May, 24,  7:50, PM, May, 24,  8:40, PM, Unmerciful \n\
-PPL, May, 24,  2:45, PM, May, 24,  3:25, PM, Dying Fetus \n\
-PPL, May, 24,  3:40, PM, May, 24,  4:20, PM, Cancer \n\
-PPL, May, 24,  5:15, PM, May, 24,  5:55, PM, Blood Red Throne \n\
-PPL, May, 24,  6:25, PM, May, 24,  7:05, PM, Chaotian \n\
-NH, May, 24,  1:30, PM, May, 24,  2:10, PM, Batushka \n\
-NH, May, 24,  2:40, PM, May, 24,  3:20, PM, ...And Oceans \n\
-NH, May, 24,  4:05, PM, May, 24,  4:45, PM, Woe \n\
-NH, May, 24,  5:20, PM, May, 24,  6:00, PM, Wrathprayer \n\
-NH, May, 24,  6:25, PM, May, 24,  7:15, PM, Antichrist Siege Machine \n\
-NH, May, 24,  7:45, PM, May, 24,  8:25, PM, Aberration \n\
-BS, May, 24,  1:25, PM, May, 24,  2:05, PM, !TOOH! \n\
-BS, May, 24,  2:45, PM, May, 24,  3:25, PM, Cephalic Carnage \n\
-BS, May, 24,  4:25, PM, May, 24,  5:05, PM, Abyssal Dawn \n\
-BS, May, 24,  5:10, PM, May, 24,  5:50, PM, Excrescence \n\
-BS, May, 24,  6:40, PM, May, 24,  7:20, PM, Hemorrhoid \n\
-BS, May, 24,  7:30, PM, May, 24,  8:10, PM, Sex Prisoner \n\
-BS, May, 24,  8:35, PM, May, 24,  9:15, PM, Haulage \n\
-BS, May, 24,  9:25, PM, May, 24, 10:15, PM, SlimeLord \n\
-ARB, May, 24,  7:00, PM, May, 24,  7:40, PM, Cemetery Moon \n\
-ARB, May, 24,  7:55, PM, May, 24,  8:35, PM, Gudsforladt \n\
-ARB, May, 24,  9:05, PM, May, 24,  9:45, PM, Tomarum \n\
-MNC, May, 24,  7:30, PM, May, 24,  8:10, PM, Terminal Nation \n\
-MNC, May, 24,  8:35, PM, May, 24,  9:15, PM, Undergang \n\
-MNC, May, 24,  9:25, PM, May, 24, 10:05, PM, Spectral Voice \
+MP, May, 24,  3:30, PM, May, 24,  4:10, PM, Caveman Cult \n\
+MP, May, 24,  4:40, PM, May, 24,  5:30, PM, Cancer \n\
+MP, May, 24, 6:15, PM, May, 24, 7:05, PM, Death Angel \n\
+MP, May, 24, 7:55, PM, May, 24, 8:45, PM Grave \n\
+MP, May, 24, 9:45, PM, May, 24, 10:45, PM, Sarcofago \n\
+PPL, May, 24, 11:10, PM, May, 25, 12:00, AM, Dying Fetus \n\
+PPL, May, 24, 5:35, PM, May, 24, 6:15, Unmerciful \n\
+PPL, May, 24, 7:05, PM, May, 24, 7:50, PM, Blood Red Throne \n\
+PPL, May, 24, 8:50, PM, May, 24, 9:40, PM, Vio-lence \n\
+NH, May, 25, 12:20, AM, May, 25, 1:20, AM, Batushka \n\
+NH, May, 24, 10:50, PM, May, 24, 11:40, PM, ...And Oceans \n\
+NH, May, 24,  7:05, PM, May, 24, 7:50, PM, Woe \n\
+NH, May, 24,  5:35, PM, May, 24,  6:15, PM, Wrathprayer \n\
+NH, May, 24, 8:50, PM, May, 24, 9:35, PM, Antichrist Siege Machine \n\
+NH, May, 24, 4:05, PM, May, 24, 4:40, PM, Aberration \n\
+BS, May, 24, 3:05, PM, May, 24, 3:30, PM, Aisle19 \n\
+BS, May, 25, 12:45, AM, May, 25, 1:30, AM, Cephalic Carnage \n\
+BS, May, 24, 7:15, PM, May, 24, 7:50, PM, Aftermath \n\
+BS, May, 24, 5:40, PM, May, 24, 6:15, PM, Excrescence \n\
+BS, May, 24, 4:15, PM, May, 24, 4:50, PM, Hemorrhoid \n\
+BS, May, 24, 10:35, PM, May, 24, 11:10, PM, Sex Prisoner \n\
+BS, May, 24,  8:40, PM, May, 24,  9:25, PM, Houkago Grind Time \n\
+BS, May, 24, 11:35, PM, May, 25, 12:20, AM, Kontusion \n\
+ARB, May, 24, 11:45, PM, May, 25, 12:20, AM, Cemetery Moon \n\
+ARB, May, 24, 10:50, PM, May, 24, 11:20, PM, Gudsforladt \n\
+ARB, May, 24,  9:20, PM, May, 24,  9:50, PM, Tomarum \n\
+MNC, May, 24, 3:00, PM, May, 24, 3:30, PM, Blood Red Throne sign \n\
+MNC, May, 24, 4:00, PM, May, 24, 4:30, PM, ...and Oceans sign\n\
+MNC, May, 24, 5:30, PM, May, 24, 5:00, PM, Gerald sign \
 "
 ];
 
