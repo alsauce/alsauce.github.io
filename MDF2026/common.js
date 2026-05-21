@@ -60,7 +60,7 @@ BS, May, 22, 12:10, AM, May, 22,  1:05, AM, Torsofuck \
 "\
 MP, May, 22,  3:45, PM, May, 22,  4:20, PM, Witch Vomit \n\
 MP, May, 22,  4:40, PM, May, 22,  5:20, PM, Necrofier \n\
-MP, May, 22,  5;55, PM, May, 22,  6:45, PM, God Dethroned \n\
+MP, May, 22,  5:55, PM, May, 22,  6:45, PM, God Dethroned \n\
 MP, May, 22,  7:40, PM, May, 22,  8:40, PM, Rotting Christ \n\
 MP, May, 22,  9:40, PM, May, 22, 10:40, PM, Old Man's Child \n\
 PPL, May, 22,  6:50, PM, May, 22,  7:35, PM, Left Cross \n\
@@ -83,7 +83,7 @@ ARB, May, 22, 10:40, PM, May, 22, 11:10, PM, Bone Weapon \n\
 ARB, May, 22,  9:10, PM, May, 22,  9:40, PM, Withering Soul \n\
 MNC, May, 22,  3:15, PM, May, 22,  3:45, PM, God Dethroned sign \n\
 MNC, May, 22,  5:00, PM, May, 22, 5:30, PM, Old Man's Child sign\n\
-MNC, May, 22,  6:45, PM, May, 23,  7:15, AM, The Crown, Der sign \
+MNC, May, 22,  6:45, PM, May 22,  7:15, AM, The Crown + Der sign \
 "
 ,
 "\
@@ -92,18 +92,18 @@ MP, May, 23,  3:30, PM, May, 23,  4:15, PM, Warbringer \n\
 MP, May, 23,  7:55, PM, May, 23,  8:45, PM, Destruction \n\
 MP, May, 23,  6:15, PM, May, 23,  7:00, PM, Pig Destroyer \n\
 MP, May, 23,  2:25, PM, May, 23,  3:05, PM, Torture Rack \n\
-MP, May, 23,  4:40, PM, May, 23,  6:30, PM, Whiplash \n\
+MP, May, 23,  4:40, PM, May, 23,  5:30, PM, Whiplash \n\
 PPL, May, 23, 5:35, PM, May, 23,  6:10, PM, Laceration \n\
 PPL, May, 23, 7:05, PM, May, 23,  7:50, PM, Macabre \n\
 PPL, May, 23,  8:50, PM, May, 23,  9:45, PM, Mortician \n\
 PPL, May, 23, 10:50, PM, May, 23,  11:25, PM, Morta Skuld \n\
 PPL, May, 23, 11:45, PM, May, 24, 12:15, AM, Sinister \n\
-NH, May, 23, 12:10, AM, May, 23, 1:00, AM, 1914 \n\
+NH, May, 24, 12:10, AM, May, 24, 1:00, AM, 1914 \n\
 NH, May, 23, 8:50, PM, May, 23, 9:40, PM, Hellbutcher \n\
 NH, May, 23, 10:55, PM, May, 23, 11:45, PM, Havukruunu \n\
 NH, May, 23,  6:35, PM, May, 23,  7:15, PM, Sardonic Witchery \n\
 NH, May, 23, 5:35, PM, May, 23, 6:10, PM, Poltergeist \n\
-BS, May, 24, 12:45, AM, May, 24, 1;30, AM, Rotten Sound \n\
+BS, May, 24, 12:45, AM, May, 24, 1:30, AM, Rotten Sound \n\
 BS, May, 23, 10:45, PM, May, 23, 1:15, PM, Miasmatic Necrosis \n\
 BS, May, 23, 11:40, PM, May, 24, 12:15, AM, Shitstorm \n\
 BS, May, 23, 8:15, PM, May, 23, 8:50, PM, Jarhead Fertilizer \n\
@@ -123,10 +123,10 @@ MNC, May, 23, 7:00, PM, May, 23, 7:30, PM, Havukruunu sign \
 MP, May, 24,  3:30, PM, May, 24,  4:10, PM, Caveman Cult \n\
 MP, May, 24,  4:40, PM, May, 24,  5:30, PM, Cancer \n\
 MP, May, 24, 6:15, PM, May, 24, 7:05, PM, Death Angel \n\
-MP, May, 24, 7:55, PM, May, 24, 8:45, PM Grave \n\
+MP, May, 24, 7:55, PM, May, 24, 8:45, PM, Grave \n\
 MP, May, 24, 9:45, PM, May, 24, 10:45, PM, Sarcofago \n\
 PPL, May, 24, 11:10, PM, May, 25, 12:00, AM, Dying Fetus \n\
-PPL, May, 24, 5:35, PM, May, 24, 6:15, Unmerciful \n\
+PPL, May, 24, 5:35, PM, May, 24, 6:15, PM, Unmerciful \n\
 PPL, May, 24, 7:05, PM, May, 24, 7:50, PM, Blood Red Throne \n\
 PPL, May, 24, 8:50, PM, May, 24, 9:40, PM, Vio-lence \n\
 NH, May, 25, 12:20, AM, May, 25, 1:20, AM, Batushka \n\
