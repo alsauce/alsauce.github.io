@@ -114,7 +114,7 @@ BS, May, 23,  2:00, PM, May, 23, 2:35, PM, Dead Void \n\
 BS, May, 23, 4:15, PM, May, 23, 4:40, PM, Mellow Harsher \n\
 ARB, May, 23, 9:15, PM, May, 23,  9:45, PM, Desolus \n\
 ARB, May, 23, 11:45, PM, May, 24, 12:15, AM, Glorious Depravity \n\
-ARB, May, 23, 10:40, PM, May, 24, 11:10, AM, Atavistic Decay \n\
+ARB, May, 23, 10:40, PM, May, 23, 11:10, PM, Atavistic Decay \n\
 MNC, May, 23, 3:00, PM, May, 23, 3:30, PM, Hellbutcher sign\n\
 MNC, May, 23, 7:00, PM, May, 23, 7:30, PM, Havukruunu sign \
 "
