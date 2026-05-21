@@ -154,6 +154,7 @@ MNC, May, 24, 5:30, PM, May, 24, 5:00, PM, Gerald sign \
 
 export let bandInfo = [
     ["Bongzilla", "Sludge/Doom"],
+    ["Caveman Cult", ""],
     ["Rwake", "Sludge/Doom"],
     ["Avernus", "Death/Doom"],
     ["Black Lung", "Doom/Sludge"],
@@ -221,7 +222,6 @@ export let bandInfo = [
     ["Wrathprayer", "Black/Death"],
     ["Antichrist Siege Machine", "Black/Death"],
     ["Aberration", "Death/Doom"],
-    ["!TOOH!", "Prog Death/Grind"],
     ["Cephalic Carnage", "Technical Grindcore"],
     ["Excrescence", "Brutal Death"],
     ["Hemorrhoid", "Death Metal/Goregrind"],
