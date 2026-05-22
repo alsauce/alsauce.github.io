@@ -9,25 +9,25 @@ export let locations = [
         abbrev: "PPL",
         fullName: "Power Plant Live",
         location: "Rams Head Live",
-        note: ""
+        note: "outside nevermore"
     },
     {
         abbrev: "NH",
         fullName: "Nevermore Hall",
         location: "Nevermore",
-        note: ""
+        note: "has upstairs"
     },
     {
         abbrev: "BS",
         fullName: "Baltimore Soundstage",
         location: "Soundstage",
-        note: ""
+        note: "no upstairs, stairs back"
     },
     {
         abbrev: "ARB",
         fullName: "Angels Rock Bar",
         location: "ARB",
-        note: "Free w/ same day MDF ticket"
+        note: ""
     },
     {
         abbrev: "MNC",
